@@ -1,0 +1,54 @@
+import { setRequestLocale } from "next-intl/server";
+import { Hero } from "@/components/sections/Hero";
+import { Section } from "@/components/ui/Section";
+import SpotlightCard from "@/components/SpotlightCard";
+import { Calculator } from "@/components/calculator/Calculator";
+import { DlaczegoMy } from "@/components/sections/DlaczegoMy";
+import { FAQSection } from "@/components/sections/FAQSection";
+import { CTA } from "@/components/sections/CTA";
+
+type Props = { params: Promise<{ locale: string }> };
+
+export default async function KalkulatorPage({ params }: Props) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+
+  return (
+    <>
+      <Hero contentKey="kalkulator.hero" />
+
+      <Section id="kalkulator-form" topGradient>
+        <div className="grid gap-10 lg:grid-cols-[65%_1fr] lg:gap-12 lg:items-start">
+          <SpotlightCard
+            className="custom-spotlight-card min-w-0 rounded-2xl overflow-hidden"
+            spotlightColor="rgba(0, 229, 160, 0.2)"
+          >
+            <div className="glass-card min-w-0 rounded-2xl overflow-hidden">
+              <div className="flex items-center gap-2 border-b border-white/15 bg-white/15 px-3 py-2.5">
+                <span className="h-2 w-2 rounded-full bg-white/40" />
+                <span className="h-2 w-2 rounded-full bg-white/40" />
+                <span className="h-2 w-2 rounded-full bg-white/40" />
+              </div>
+              <Calculator />
+            </div>
+          </SpotlightCard>
+          <aside className="lg:sticky lg:top-[calc(var(--navbar-height)+1.5rem)] space-y-6 text-foreground/90">
+            <p className="text-base leading-relaxed md:text-lg">
+              To narzędzie pozwala określić zakres projektu i oszacować budżet.
+              Po wypełnieniu otrzymasz orientacyjne widełki cenowe oraz możliwość kontaktu.
+            </p>
+            <ul className="space-y-3 text-foreground/70">
+              <li className="flex items-center gap-3"> <span className="text-primary" aria-hidden>✓</span> Bez zobowiązań </li>
+              <li className="flex items-center gap-3"> <span className="text-primary" aria-hidden>✓</span> Jasne widełki cenowe </li>
+              <li className="flex items-center gap-3"> <span className="text-primary" aria-hidden>✓</span> Odpowiedź w 24h </li>
+            </ul>
+          </aside>
+        </div>
+      </Section>
+
+      <DlaczegoMy contentKey="kalkulator.coDalej" itemKeys={["send", "contact", "quote"]} />
+      <FAQSection />
+      <CTA />
+    </>
+  );
+}
