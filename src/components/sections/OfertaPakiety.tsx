@@ -1,7 +1,7 @@
 "use client";
 
-import { useTranslations } from "next-intl";
-import { Link } from "@/i18n/navigation";
+import Link from "next/link";
+import { useTranslations } from "@/lib/messages";
 import { motion } from "framer-motion";
 import { Zap, ShoppingCart, Code2 } from "lucide-react";
 import { Section } from "@/components/ui/Section";

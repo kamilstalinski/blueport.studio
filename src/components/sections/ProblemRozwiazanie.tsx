@@ -1,6 +1,6 @@
 "use client";
 
-import { useTranslations } from "next-intl";
+import { useTranslations } from "@/lib/messages";
 import { motion } from "framer-motion";
 import { Search, Palette, Smartphone, TrendingDown, Zap, MousePointer, Users } from "lucide-react";
 import SpotlightCard from "@/components/SpotlightCard";

@@ -1,6 +1,6 @@
 "use client";
 
-import { useTranslations } from "next-intl";
+import { useTranslations } from "@/lib/messages";
 import { motion } from "framer-motion";
 import { Wallet, Clock, Headphones, Zap, MessageCircle, Search, TrendingUp, Send, Phone, FileText, ChevronRight } from "lucide-react";
 import { Section } from "@/components/ui/Section";

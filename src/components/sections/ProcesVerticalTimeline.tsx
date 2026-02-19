@@ -1,8 +1,8 @@
 "use client";
 
-import { useTranslations } from "next-intl";
+import Link from "next/link";
 import { motion } from "framer-motion";
-import { Link } from "@/i18n/navigation";
+import { useTranslations } from "@/lib/messages";
 import { Calculator, MessageCircle, Code2, CheckSquare, Rocket } from "lucide-react";
 import SpotlightCard from "@/components/SpotlightCard";
 import { Button } from "@/components/ui/Button";

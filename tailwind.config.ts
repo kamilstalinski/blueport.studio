@@ -148,6 +148,13 @@ const config: Config = {
   		},
   		animation: {
   			'float-subtle': 'float-subtle 4s ease-in-out 2'
+  		},
+  		transitionDuration: {
+  			'250': '250ms'
+  		},
+  		transitionTimingFunction: {
+  			'out-back': 'cubic-bezier(.5,.85,.25,1.1)',
+  			'out-back-strong': 'cubic-bezier(.5,.85,.25,1.8)'
   		}
   	}
   },

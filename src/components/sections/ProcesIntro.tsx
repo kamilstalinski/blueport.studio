@@ -1,6 +1,6 @@
 "use client";
 
-import { useTranslations } from "next-intl";
+import { useTranslations } from "@/lib/messages";
 import { Section } from "@/components/ui/Section";
 
 export function ProcesIntro() {

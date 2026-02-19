@@ -1,5 +1,4 @@
-import { setRequestLocale } from "next-intl/server";
-import { getTranslations } from "next-intl/server";
+import { getTranslations } from "@/lib/messages";
 import { Hero } from "@/components/sections/Hero";
 import { Section } from "@/components/ui/Section";
 import { Button } from "@/components/ui/Button";
@@ -7,13 +6,9 @@ import SpotlightCard from "@/components/SpotlightCard";
 import { KalkulatorSection } from "@/components/sections/KalkulatorSection";
 import { CTA } from "@/components/sections/CTA";
 
-type Props = { params: Promise<{ locale: string }> };
-
-export default async function KontaktPage({ params }: Props) {
-  const { locale } = await params;
-  setRequestLocale(locale);
-  const tForm = await getTranslations("kontakt.form");
-  const tAlt = await getTranslations("kontakt.alternatywa");
+export default async function KontaktPage() {
+  const tForm = getTranslations("kontakt.form");
+  const tAlt = getTranslations("kontakt.alternatywa");
 
   return (
     <>

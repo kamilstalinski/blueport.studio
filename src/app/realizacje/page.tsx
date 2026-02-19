@@ -1,5 +1,4 @@
-import { setRequestLocale } from "next-intl/server";
-import { Link } from "@/i18n/navigation";
+import Link from "next/link";
 import { Hero } from "@/components/sections/Hero";
 import { Section } from "@/components/ui/Section";
 import SpotlightCard from "@/components/SpotlightCard";
@@ -13,12 +12,7 @@ const caseStudies = [
   { slug: "landing-kampania", name: "Landing kampanii", description: "Landing z jednym CTA, integracja z ads i CRM. Wdrożenie w 2 tygodnie." },
 ];
 
-type Props = { params: Promise<{ locale: string }> };
-
-export default async function RealizacjePage({ params }: Props) {
-  const { locale } = await params;
-  setRequestLocale(locale);
-
+export default function RealizacjePage() {
   return (
     <>
       <Hero contentKey="realizacje.hero" />

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useTranslations } from "next-intl";
+import { useTranslations } from "@/lib/messages";
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
 import { Section } from "@/components/ui/Section";
 import SpotlightCard from "@/components/SpotlightCard";

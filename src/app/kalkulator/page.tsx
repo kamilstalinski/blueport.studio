@@ -1,4 +1,3 @@
-import { setRequestLocale } from "next-intl/server";
 import { Hero } from "@/components/sections/Hero";
 import { Section } from "@/components/ui/Section";
 import SpotlightCard from "@/components/SpotlightCard";
@@ -7,12 +6,7 @@ import { DlaczegoMy } from "@/components/sections/DlaczegoMy";
 import { FAQSection } from "@/components/sections/FAQSection";
 import { CTA } from "@/components/sections/CTA";
 
-type Props = { params: Promise<{ locale: string }> };
-
-export default async function KalkulatorPage({ params }: Props) {
-  const { locale } = await params;
-  setRequestLocale(locale);
-
+export default function KalkulatorPage() {
   return (
     <>
       <Hero contentKey="kalkulator.hero" />

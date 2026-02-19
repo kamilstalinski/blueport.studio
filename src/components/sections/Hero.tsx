@@ -1,7 +1,7 @@
 "use client";
 
-import { useTranslations } from "next-intl";
-import { Link } from "@/i18n/navigation";
+import Link from "next/link";
+import { useTranslations } from "@/lib/messages";
 import { motion } from "framer-motion";
 import dynamic from "next/dynamic";
 import { Container } from "@/components/ui/Container";

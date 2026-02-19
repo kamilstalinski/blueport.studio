@@ -1,14 +1,15 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useTranslations } from "next-intl";
-import { Link, usePathname } from "@/i18n/navigation";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useTranslations } from "@/lib/messages";
 import { Calculator } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export function Navbar() {
   const t = useTranslations("common.nav");
-  const pathname = usePathname();
+  const pathname = usePathname() ?? "";
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [isMobileView, setIsMobileView] = useState(false);
@@ -109,9 +110,9 @@ export function Navbar() {
           >
           <span className='sr-only'>{t("menu")}</span>
           <svg className='w-5 h-5 fill-current pointer-events-none' viewBox='0 0 16 16' xmlns='http://www.w3.org/2000/svg' aria-hidden>
-            <rect className='origin-center -translate-y-[5px] translate-x-[7px] transition-all duration-300 ease-[cubic-bezier(.5,.85,.25,1.1)] group-[[aria-pressed=true]]:translate-x-0 group-[[aria-pressed=true]]:translate-y-0 group-[[aria-pressed=true]]:rotate-[315deg]' y='7' width='9' height='2' rx='1' />
-            <rect className='origin-center transition-all duration-300 ease-[cubic-bezier(.5,.85,.25,1.8)] group-[[aria-pressed=true]]:rotate-45' y='7' width='16' height='2' rx='1' />
-            <rect className='origin-center translate-y-[5px] transition-all duration-300 ease-[cubic-bezier(.5,.85,.25,1.1)] group-[[aria-pressed=true]]:translate-y-0 group-[[aria-pressed=true]]:rotate-[135deg]' y='7' width='9' height='2' rx='1' />
+            <rect className='origin-center -translate-y-[5px] translate-x-[7px] transition-all duration-300 ease-out-back group-[[aria-pressed=true]]:translate-x-0 group-[[aria-pressed=true]]:translate-y-0 group-[[aria-pressed=true]]:rotate-[315deg]' y='7' width='9' height='2' rx='1' />
+            <rect className='origin-center transition-all duration-300 ease-out-back-strong group-[[aria-pressed=true]]:rotate-45' y='7' width='16' height='2' rx='1' />
+            <rect className='origin-center translate-y-[5px] transition-all duration-300 ease-out-back group-[[aria-pressed=true]]:translate-y-0 group-[[aria-pressed=true]]:rotate-[135deg]' y='7' width='9' height='2' rx='1' />
           </svg>
         </button>
         </div>

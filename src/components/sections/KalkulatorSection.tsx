@@ -1,7 +1,7 @@
 "use client";
 
-import { useTranslations } from "next-intl";
-import { Link } from "@/i18n/navigation";
+import Link from "next/link";
+import { useTranslations } from "@/lib/messages";
 import { useRef, useEffect, useCallback } from "react";
 
 const TOTAL = 60;
