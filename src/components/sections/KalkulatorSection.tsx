@@ -1,14 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { useTranslations } from "@/lib/messages";
 import { useRef, useEffect, useCallback } from "react";
 
 const TOTAL = 60;
 const CIRCUMFERENCE = 2 * Math.PI * 54; // 339.292
 
 export function KalkulatorSection() {
-  const t = useTranslations("Home.kalkulatorSekcja");
   const sectionRef = useRef<HTMLElement>(null);
   const ringRef = useRef<SVGCircleElement>(null);
   const numberRef = useRef<HTMLSpanElement>(null);
@@ -23,14 +21,8 @@ export function KalkulatorSection() {
       const progress = s / TOTAL;
       const offset = CIRCUMFERENCE * (1 - progress);
       ringRef.current.style.strokeDashoffset = String(offset);
-      if (s <= 10) {
-        ringRef.current.style.stroke = "#00b8d9";
-        ringRef.current.style.filter = "drop-shadow(0 0 8px rgba(0,184,217,0.7))";
-      } else {
-        ringRef.current.style.stroke = "#00e5a0";
-        ringRef.current.style.filter = "drop-shadow(0 0 6px rgba(0,229,160,0.6))";
-      }
     }
+    sectionRef.current?.classList.toggle("ring-urgent", s <= 10);
   }, []);
 
   const startTimer = useCallback(() => {
@@ -105,7 +97,7 @@ export function KalkulatorSection() {
     };
   }, [startTimer, updateDisplay]);
 
-  const title = t("title");
+  const title = "Sprawdź koszt swojej strony w 60 sekund.";
   const beforeHighlight = title.replace("60 sekund.", "").trim();
   const highlight = "60 sekund";
 
@@ -116,12 +108,10 @@ export function KalkulatorSection() {
       className="cta-section"
       aria-labelledby="cta-heading"
     >
-      {/* Tło: siatka */}
-      <div className="cta-bg-grid" aria-hidden />
       {/* Tło: glow blob */}
       <div className="cta-bg-blob" aria-hidden />
 
-      <div className="cta-content">
+      <div className="cta-content container-narrow">
         <div className="timer-wrap">
           <div className="timer-ring-container">
             <svg
@@ -137,7 +127,6 @@ export function KalkulatorSection() {
                 cy="60"
                 r="54"
                 fill="none"
-                stroke="rgba(255,255,255,0.06)"
                 strokeWidth="3"
               />
               <circle
@@ -147,7 +136,6 @@ export function KalkulatorSection() {
                 cy="60"
                 r="54"
                 fill="none"
-                stroke="#00e5a0"
                 strokeWidth="3"
                 strokeLinecap="round"
                 strokeDasharray={CIRCUMFERENCE}
@@ -168,7 +156,7 @@ export function KalkulatorSection() {
           {beforeHighlight}{" "}
           <span className="highlight">{highlight}</span>.
         </h2>
-        <p className="cta-subheadline">{t("subtitle")}</p>
+        <p className="cta-subheadline">Wybierz zakres projektu i zobacz szacunkową wycenę. Bez zobowiązań.</p>
 
         <div className="cta-btn-wrap">
           <Link
@@ -177,7 +165,7 @@ export function KalkulatorSection() {
             className="cta-btn-primary"
           >
             <span className="btn-icon" aria-hidden>→</span>
-            {t("cta")}
+            Przejdź do kalkulatora
           </Link>
         </div>
 

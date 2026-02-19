@@ -9,6 +9,8 @@ type SectionProps = {
   firstOnPage?: boolean;
   /** Gradient od góry (jak w hero) – pierwsza sekcja po hero na podstronach */
   topGradient?: boolean;
+  /** Gdy true – sekcja bez wrappera Container; użyj container-narrow/container wewnątrz (section-padding-block) */
+  noWrapper?: boolean;
   children?: ReactNode;
   className?: string;
 };
@@ -19,29 +21,34 @@ export function Section({
   tight = false,
   firstOnPage = false,
   topGradient = false,
+  noWrapper = false,
   children,
   className
 }: SectionProps) {
-  const basePadding = tight
-    ? "py-12 md:py-16"
-    : "py-16 md:py-24 lg:py-28";
   const firstClass = firstOnPage ? " pt-navbar-first" : "";
   const relativeClass = topGradient ? " relative" : "";
+  const tightClass = tight ? " section-tight" : "";
+  const paddingClass = noWrapper ? "section-padding-block" : "section-padding";
+  const content = noWrapper ? (
+    children
+  ) : (
+    <Container noPadding className={topGradient ? "relative z-10" : undefined}>
+      {children}
+    </Container>
+  );
   return (
     <Tag
       id={id}
-      className={`${basePadding}${firstClass}${relativeClass} ${className ?? ""}`.trim()}
+      className={`${paddingClass}${firstClass}${relativeClass}${tightClass} ${className ?? ""}`.trim()}
     >
       {topGradient && (
         <div
           className="pointer-events-none absolute inset-x-0 top-0 z-0 h-72"
-          style={{ background: "linear-gradient(to bottom, #030B22, transparent)" }}
+          style={{ background: "linear-gradient(to bottom, var(--color-hero-fade), transparent)" }}
           aria-hidden
         />
       )}
-      <Container className={topGradient ? "relative z-10" : undefined}>
-        {children}
-      </Container>
+      {content}
     </Tag>
   );
 }

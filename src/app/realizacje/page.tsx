@@ -16,23 +16,42 @@ export default function RealizacjePage() {
   return (
     <>
       <Hero contentKey="realizacje.hero" />
+      <div className="container">
+        <div className="stats-bar">
+          <div className="stat-item">
+            <span className="stat-num">47+</span>
+            <span className="stat-label">projektów</span>
+          </div>
+          <div className="stat-divider" aria-hidden />
+          <div className="stat-item">
+            <span className="stat-num">100%</span>
+            <span className="stat-label">zadowolonych klientów</span>
+          </div>
+          <div className="stat-divider" aria-hidden />
+          <div className="stat-item">
+            <span className="stat-num">1-2 tyg.</span>
+            <span className="stat-label">średni czas realizacji</span>
+          </div>
+        </div>
+      </div>
       <Section id="realizacje-grid" topGradient>
         <ul className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {caseStudies.map((study) => (
             <li key={study.slug}>
               <SpotlightCard
-                className="custom-spotlight-card rounded-2xl overflow-hidden h-full transition-all duration-300 hover:scale-[1.02]"
-                spotlightColor="rgba(0, 229, 160, 0.2)"
+                className="custom-spotlight-card rounded-2xl h-full transition-all duration-300 hover:scale-[1.02]"
               >
                 <Link href={`/realizacje/${study.slug}`} className="group block h-full">
-                  <div className="glass-card rounded-2xl overflow-hidden p-0">
-                    <div className="aspect-video w-full bg-white/15" aria-hidden />
+                  <div className="glass-card card-subpage rounded-2xl p-0">
+                    <div className="portfolio-img" aria-hidden>
+                      <span className="img-placeholder">Podgląd wkrótce</span>
+                    </div>
                     <div className="p-6">
-                      <h2 className="text-lg font-semibold tracking-tight text-foreground group-hover:text-primary">
+                      <h2 className="text-lg font-semibold tracking-tight text-foreground group-hover:text-white/90">
                         {study.name}
                       </h2>
                       <p className="mt-2 text-sm text-foreground/70 leading-relaxed">{study.description}</p>
-                      <span className="mt-4 inline-block rounded-xl border border-orange-500 px-4 py-2 text-sm font-semibold text-orange-400 transition-colors group-hover:bg-orange-500 group-hover:text-white">
+                      <span className="realizacje-card-btn mt-4 inline-block">
                         Zobacz więcej
                       </span>
                     </div>
@@ -43,7 +62,7 @@ export default function RealizacjePage() {
           ))}
         </ul>
       </Section>
-      <DlaczegoMy contentKey="realizacjeEfekty" itemKeys={["fast", "leads", "seo", "conversion"]} />
+      <DlaczegoMy contentKey="realizacjeEfekty" itemKeys={["fast", "leads", "seo", "conversion"]} cardVariant="subpage" />
       <KalkulatorSection />
       <CTA />
     </>

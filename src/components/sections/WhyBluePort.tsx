@@ -1,28 +1,16 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { FolderCheck, Clock, FileCheck, MapPin } from "lucide-react";
+import { IconBox } from "@/components/ui/IconBox";
 import { Section } from "@/components/ui/Section";
 import SpotlightCard from "@/components/SpotlightCard";
 import { fadeInUp, viewportOnce, useReducedMotionPref } from "@/lib/animations";
 
 const CARDS = [
-  {
-    icon: FolderCheck,
-    text: "50+ zrealizowanych projektów",
-  },
-  {
-    icon: Clock,
-    text: "Realizacja w 1–2 tygodnie",
-  },
-  {
-    icon: FileCheck,
-    text: "Jasna wycena przed startem",
-  },
-  {
-    icon: MapPin,
-    text: "Lokalnie Szczecin / Cała Polska",
-  },
+  { emoji: "📋" as const, text: "50+ zrealizowanych projektów" },
+  { emoji: "⏱️" as const, text: "Realizacja w 1–2 tygodnie" },
+  { emoji: "📄" as const, text: "Jasna wycena przed startem" },
+  { emoji: "📍" as const, text: "Lokalnie Szczecin / Cała Polska" },
 ] as const;
 
 export function WhyBluePort() {
@@ -49,23 +37,20 @@ export function WhyBluePort() {
       >
         Nie jesteśmy agencją z 10 handlowcami. Jesteśmy partnerem technologicznym dla małych firm.
       </motion.p>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-        {CARDS.map(({ icon: Icon, text }) => (
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4" style={{ gap: "var(--grid-gap)" }}>
+        {CARDS.map(({ emoji, text }) => (
           <SpotlightCard
             key={text}
-            className="custom-spotlight-card rounded-2xl overflow-hidden h-full"
-            spotlightColor="rgba(0, 229, 160, 0.2)"
+            className="custom-spotlight-card rounded-2xl h-full"
           >
             <motion.div
               initial={initial}
               whileInView="visible"
               viewport={viewportOnce}
               variants={fadeInUp}
-              className="glass-card rounded-2xl p-8 transition-all duration-300 h-full"
+              className="card rounded-2xl p-8 h-full"
             >
-              <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
-                <Icon className="h-8 w-8" strokeWidth={2} aria-hidden />
-              </span>
+              <IconBox emoji={emoji} />
               <p className="mt-4 font-medium text-white">
                 {text}
               </p>

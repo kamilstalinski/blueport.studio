@@ -2,25 +2,27 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { useTranslations } from "@/lib/messages";
-import { Calculator, MessageCircle, Code2, CheckSquare, Rocket } from "lucide-react";
+import { IconBox } from "@/components/ui/IconBox";
 import SpotlightCard from "@/components/SpotlightCard";
 import { Button } from "@/components/ui/Button";
 import { useReducedMotionPref } from "@/lib/animations";
 
-const SPOTLIGHT_COLOR_FAQ = "rgba(0, 229, 160, 0.2)" as const;
-const GLASS_CARD_CLASS =
-  "glass-card relative rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-1.5 min-w-0 flex-1 p-6 sm:p-8";
+const CARD_BASE =
+  "card process-card relative rounded-2xl min-w-0 flex-1 proces-timeline-card-padding";
 
 const STEP_KEYS = ["1", "2", "3", "4", "5"] as const;
 
-const STEP_ICONS = [
-  Calculator,   // 1 – Wypełniasz kalkulator
-  MessageCircle, // 2 – Kontakt i doprecyzowanie
-  Code2,        // 3 – Projekt i realizacja
-  CheckSquare,  // 4 – Testy i poprawki
-  Rocket,       // 5 – Wdrożenie i wsparcie
-] as const;
+const STEP_ICONS_5 = ["📋", "💬", "🛠", "✅", "🚀"] as const;
+
+const TIMELINE_STEPS = [
+  { title: "Wypełniasz kalkulator", desc: "W 60 sekund określasz zakres projektu i otrzymujesz wstępną wycenę. Bez zobowiązań i bez rozmów sprzedażowych.", bullets: ["wybierasz typ strony", "określasz funkcje", "otrzymujesz szacunkowy koszt"] },
+  { title: "Kontakt i doprecyzowanie", desc: "Kontaktujemy się, aby ustalić szczegóły i potwierdzić finalną cenę oraz termin.", bullets: ["omawiamy potrzeby", "doprecyzowujemy funkcjonalności", "ustalamy harmonogram"] },
+  { title: "Projekt i realizacja", desc: "Tworzymy projekt wizualny i wdrażamy go w wybranej technologii.", bullets: ["projekt UI", "implementacja", "optymalizacja szybkości"] },
+  { title: "Testy i poprawki", desc: "Sprawdzamy stronę na różnych urządzeniach i nanosimy poprawki przed publikacją.", bullets: ["testy mobilne", "optymalizacja SEO", "akceptacja finalnej wersji"] },
+  { title: "Wdrożenie i wsparcie", desc: "Publikujemy stronę i przekazujemy Ci pełną kontrolę nad projektem.", bullets: ["konfiguracja serwera", "podpięcie domeny", "szkolenie z obsługi"] },
+];
+
+const CTA_BLOCK = { text: "Całość zwykle trwa 1–2 tygodnie.", question: "Chcesz poznać dokładną wycenę?", button: "Przejdź do kalkulatora" };
 
 const itemVariants = {
   hidden: { opacity: 0, y: 20 },
@@ -33,60 +35,56 @@ const itemVariants = {
 
 const viewport = { once: true, amount: 0.3 };
 
-export function ProcesVerticalTimeline() {
-  const t = useTranslations("proces.timeline");
-  const tCta = useTranslations("proces.ctaBlock");
+type ProcesVerticalTimelineProps = {
+  /** Styl kart na podstronie (tło #111827, obramowanie 0.08) */
+  cardVariant?: "default" | "subpage";
+};
+
+export function ProcesVerticalTimeline({ cardVariant = "default" }: ProcesVerticalTimelineProps = {}) {
   const reduceMotion = useReducedMotionPref();
+  const CARD_CLASS = `${CARD_BASE}${cardVariant === "subpage" ? " card-subpage" : ""}`;
 
   return (
     <section
       id="proces-timeline"
-      className="relative mx-auto w-full max-w-[1200px] px-6 pt-12 pb-[160px] md:px-8"
+      className="relative mx-auto w-full max-w-[1200px] section-padding"
+      style={{ paddingBottom: "var(--space-16)" }}
     >
       {/* Wrapper so the line ends before CTA */}
       <div className="relative">
-        {/* Vertical line — mobile: through circle center (pl-4 + circle radius); desktop: center */}
+        {/* Vertical line — mobile: through circle center (pl-4 + 24px radius); desktop: center; gap 48px */}
         <div
-          className="absolute top-0 left-[43px] w-0.5 opacity-70 md:left-1/2 md:-translate-x-px"
+          className="absolute top-0 left-10 w-0.5 opacity-70 md:left-1/2 md:-translate-x-px"
           style={{
             height: "100%",
-            background: "linear-gradient(to bottom, #00e5a0, #00b8d9)",
+            background: `linear-gradient(to bottom, var(--color-timeline-line-start), var(--color-timeline-line-end))`,
           }}
           aria-hidden
         />
 
-        <div className="relative space-y-0">
+        <div className="relative flex flex-col gap-12">
           {STEP_KEYS.map((key, index) => {
             const isLeft = index % 2 === 0;
-            const rawBullets = t.raw(`${key}.bullets`) as string[] | Record<string, string> | undefined;
-            const bullets: string[] = Array.isArray(rawBullets)
-              ? rawBullets
-              : rawBullets && typeof rawBullets === "object"
-                ? Object.values(rawBullets)
-                : [];
-            const Icon = STEP_ICONS[index];
+            const step = TIMELINE_STEPS[index];
+            const bullets = step.bullets;
+            const emoji = STEP_ICONS_5[index];
 
             const circleClass =
-              "relative z-10 flex h-14 w-14 shrink-0 items-center justify-center rounded-full border-2 border-[#00e5a0] bg-white/[0.03] text-lg font-semibold text-[#00e5a0] backdrop-blur-[12px] transition-all duration-300 hover:shadow-[0_0_20px_rgba(0,229,160,0.3)]";
+              "proces-timeline-circle relative z-10 flex h-12 w-12 shrink-0 items-center justify-center rounded-full text-base font-bold backdrop-blur-[12px] transition-all duration-300 hover:shadow-[0_0_20px_var(--color-accent-glow)]";
 
             const cardContent = (
               <>
                 <div className="flex items-center gap-3">
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[rgba(0,229,160,0.12)] text-[#00e5a0]">
-                    <Icon className="h-5 w-5" strokeWidth={2} />
-                  </div>
-                  <h3 className="heading-3 text-white">{t(`${key}.title`)}</h3>
+                  <IconBox emoji={emoji} className="proces-timeline-icon" />
+                  <h3 className="heading-3 text-white">{step.title}</h3>
                 </div>
                 <p className="mt-3 body-standard leading-relaxed text-white/70">
-                  {t(`${key}.desc`)}
+                  {step.desc}
                 </p>
                 {bullets.length > 0 && (
-                  <ul className="mt-4 space-y-2 list-none">
+                  <ul className="proces-timeline-bullets mt-4">
                     {bullets.map((bullet, i) => (
-                      <li key={i} className="flex items-center gap-2 body-small text-white/60">
-                        <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#00e5a0]" aria-hidden />
-                        {bullet}
-                      </li>
+                      <li key={i}>{bullet}</li>
                     ))}
                   </ul>
                 )}
@@ -101,7 +99,7 @@ export function ProcesVerticalTimeline() {
                 whileInView="visible"
                 viewport={viewport}
                 variants={itemVariants}
-                className="relative flex min-h-[180px] flex-col gap-4 py-4 md:min-h-0 md:flex-row md:items-center md:gap-6 md:py-10"
+                className="relative flex min-h-[180px] flex-col gap-4 md:min-h-0 md:flex-row md:items-center md:gap-6"
               >
                 {/* Mobile: line on left, circle then card */}
                 <div className="flex items-start gap-4 pl-4 md:hidden">
@@ -109,10 +107,9 @@ export function ProcesVerticalTimeline() {
                     {key}
                   </div>
                   <SpotlightCard
-                    className="custom-spotlight-card min-w-0 flex-1 rounded-2xl overflow-hidden"
-                    spotlightColor={SPOTLIGHT_COLOR_FAQ}
+                    className="custom-spotlight-card min-w-0 flex-1 rounded-2xl"
                   >
-                    <div className={GLASS_CARD_CLASS}>{cardContent}</div>
+                    <div className={CARD_CLASS}>{cardContent}</div>
                   </SpotlightCard>
                 </div>
 
@@ -121,10 +118,9 @@ export function ProcesVerticalTimeline() {
                   <div className="flex flex-1 justify-end pr-6">
                     {isLeft && (
                       <SpotlightCard
-                        className="custom-spotlight-card w-[420px] max-w-full rounded-2xl overflow-hidden lg:w-[480px]"
-                        spotlightColor={SPOTLIGHT_COLOR_FAQ}
+                        className="custom-spotlight-card w-[420px] max-w-full rounded-2xl lg:w-[480px]"
                       >
-                        <div className={`${GLASS_CARD_CLASS} w-full`}>{cardContent}</div>
+                        <div className={`${CARD_CLASS} w-full`}>{cardContent}</div>
                       </SpotlightCard>
                     )}
                   </div>
@@ -134,10 +130,9 @@ export function ProcesVerticalTimeline() {
                   <div className="flex flex-1 justify-start pl-6">
                     {!isLeft && (
                       <SpotlightCard
-                        className="custom-spotlight-card w-[420px] max-w-full rounded-2xl overflow-hidden lg:w-[480px]"
-                        spotlightColor={SPOTLIGHT_COLOR_FAQ}
+                        className="custom-spotlight-card w-[420px] max-w-full rounded-2xl lg:w-[480px]"
                       >
-                        <div className={`${GLASS_CARD_CLASS} w-full`}>{cardContent}</div>
+                        <div className={`${CARD_CLASS} w-full`}>{cardContent}</div>
                       </SpotlightCard>
                     )}
                   </div>
@@ -156,11 +151,11 @@ export function ProcesVerticalTimeline() {
         viewport={viewport}
         transition={{ duration: 0.35 }}
       >
-        <p className="body-lead text-foreground/80">{tCta("text")}</p>
-        <p className="mt-2 heading-3 text-foreground">{tCta("question")}</p>
+        <p className="body-lead text-foreground/80">{CTA_BLOCK.text}</p>
+        <p className="mt-2 heading-3 text-foreground">{CTA_BLOCK.question}</p>
         <Link href="/kalkulator" className="mt-6 inline-block">
-          <Button variant="primary" className="min-h-12 px-8">
-            {tCta("button")}
+          <Button variant="primary" className="proces-cta-button">
+            {CTA_BLOCK.button}
           </Button>
         </Link>
       </motion.div>

@@ -15,13 +15,13 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 
     const variantClasses: Record<ButtonVariant, string> = {
       primary:
-        "bg-primary text-black font-semibold shadow-[0_0_20px_rgba(0,229,160,0.25)] hover:bg-primary-hover hover:shadow-[0_0_24px_rgba(0,229,160,0.35)] active:scale-[0.99] focus-visible:ring-primary",
+        "bg-primary text-black font-semibold shadow-[0_0_20px_var(--color-primary-glow)] hover:bg-primary-hover hover:shadow-[0_0_24px_var(--color-primary-glow-hover)] active:scale-[0.99] focus-visible:ring-primary",
       ghost:
-        "text-primary hover:bg-[rgba(0,229,160,0.08)] hover:underline focus-visible:ring-primary",
+        "text-primary hover:bg-primary-subtle hover:underline focus-visible:ring-primary",
       outline:
-        "border border-[#00c287] text-primary bg-transparent hover:bg-[rgba(0,229,160,0.08)] focus-visible:ring-primary",
+        "border border-[var(--color-accent-active)] text-primary bg-transparent hover:bg-primary-subtle focus-visible:ring-primary",
       accent:
-        "bg-primary text-black font-semibold shadow-[0_0_20px_rgba(0,229,160,0.25)] hover:bg-primary-hover hover:shadow-[0_0_24px_rgba(0,229,160,0.35)] active:scale-[0.99] focus-visible:ring-primary",
+        "bg-primary text-black font-semibold shadow-[0_0_20px_var(--color-primary-glow)] hover:bg-primary-hover hover:shadow-[0_0_24px_var(--color-primary-glow-hover)] active:scale-[0.99] focus-visible:ring-primary",
       secondary:
         "border border-white/20 bg-transparent text-foreground backdrop-blur-sm hover:bg-white/15 hover:shadow-[0_0_20px_rgba(255,255,255,0.08)] focus-visible:ring-white/30",
     };

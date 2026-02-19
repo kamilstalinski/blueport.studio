@@ -47,7 +47,7 @@ export function ThemeToggle({ variant = "default" }: { variant?: ThemeToggleVari
       className={cn(
         "inline-flex h-10 w-10 items-center justify-center rounded-button transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2",
         isDark
-          ? "border border-white/25 bg-white/10 text-white hover:bg-white/20 focus:ring-white/50 focus:ring-offset-[#010A2B]"
+          ? "border border-white/25 bg-white/10 text-white hover:bg-white/20 focus:ring-white/50 focus:ring-offset-2"
           : "border border-border bg-surface text-text-primary hover:bg-surface-alt focus:ring-primary focus:ring-offset-bg"
       )}
     >

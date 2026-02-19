@@ -1,24 +1,23 @@
 "use client";
 
-import { useTranslations } from "@/lib/messages";
 import { motion } from "framer-motion";
-import { Search, Palette, Smartphone, TrendingDown, Zap, MousePointer, Users } from "lucide-react";
+import { IconBox } from "@/components/ui/IconBox";
 import SpotlightCard from "@/components/SpotlightCard";
 import { Button } from "@/components/ui/Button";
 import { viewportOnce, useReducedMotionPref } from "@/lib/animations";
 
-const PROBLEMS: { key: "seo" | "look" | "mobile" | "sales"; icon: typeof Search }[] = [
-  { key: "seo", icon: Search },
-  { key: "look", icon: Palette },
-  { key: "mobile", icon: Smartphone },
-  { key: "sales", icon: TrendingDown },
+const PROBLEMS: { key: string; emoji: string; label: string }[] = [
+  { key: "seo", emoji: "🔍", label: "brak widoczności w Google" },
+  { key: "look", emoji: "🎨", label: "przestarzały wygląd" },
+  { key: "mobile", emoji: "📱", label: "brak wersji mobilnej" },
+  { key: "sales", emoji: "🛒", label: "brak sprzedaży online" },
 ];
 
-const SOLUTIONS: { key: "fast" | "intuitive" | "seo" | "system"; icon: typeof Zap }[] = [
-  { key: "fast", icon: Zap },
-  { key: "intuitive", icon: MousePointer },
-  { key: "seo", icon: Search },
-  { key: "system", icon: Users },
+const SOLUTIONS: { key: string; emoji: string; label: string }[] = [
+  { key: "fast", emoji: "⚡", label: "szybkie ładowanie" },
+  { key: "intuitive", emoji: "👆", label: "intuicyjna struktura" },
+  { key: "seo", emoji: "🔍", label: "optymalizacja SEO" },
+  { key: "system", emoji: "👥", label: "system pozyskiwania klientów" },
 ];
 
 const headingVariants = {
@@ -32,18 +31,17 @@ const cardVariants = {
 };
 
 export function ProblemRozwiazanie() {
-  const t = useTranslations("Home.problemRozwiazanie");
   const reduceMotion = useReducedMotionPref();
   const initial = reduceMotion ? "visible" : "hidden";
 
   return (
-    <section id="problem-rozwiazanie" className="relative py-20 md:py-32 lg:py-36">
+    <section id="problem-rozwiazanie" className="relative section-padding-block">
       <div
         className="pointer-events-none absolute inset-x-0 top-0 z-0 h-72"
-        style={{ background: 'linear-gradient(to bottom, #030B22, transparent)' }}
+        style={{ background: 'linear-gradient(to bottom, var(--color-hero-fade), transparent)' }}
         aria-hidden
       />
-      <div className="max-w-6xl mx-auto px-6 relative z-[1]">
+      <div className="container-narrow section-intro relative z-[1]">
         <motion.h2
           className="text-4xl md:text-5xl font-semibold text-foreground text-center mb-4"
           initial={initial}
@@ -51,35 +49,31 @@ export function ProblemRozwiazanie() {
           viewport={viewportOnce}
           variants={headingVariants}
         >
-          {t("title")}
+          Twoja strona nie sprzedaje?
         </motion.h2>
-        <div className="grid md:grid-cols-2 gap-6 md:gap-8 items-stretch">
+      </div>
+      <div className="container relative z-[1]">
+        <div className="grid md:grid-cols-2 items-stretch" style={{ gap: "var(--grid-gap)" }}>
           {/* Lewa kolumna – Najczęstsze problemy */}
           <SpotlightCard
-            className="custom-spotlight-card rounded-2xl overflow-hidden h-full"
-            spotlightColor="rgba(0, 229, 160, 0.2)"
+            className="custom-spotlight-card rounded-2xl h-full"
           >
             <motion.div
-              className="glass-card h-full bg-white/15 backdrop-blur-xl rounded-[15px] p-10 transition-all duration-300 hover:border-white/20"
+              className="card h-full rounded-[15px] card-padding"
               initial={initial}
               whileInView="visible"
               viewport={viewportOnce}
               variants={cardVariants}
             >
-              <h3 className="heading-3 text-primary mb-6">
-                {t("problemsTitle")}
+              <h3 className="heading-3 text-white mb-6">
+                Najczęstsze problemy
               </h3>
-              <div className="grid grid-cols-[auto_1fr] gap-x-5 gap-y-5 items-center">
-                {PROBLEMS.map(({ key, icon: Icon }) => (
+              <div className="grid grid-cols-[auto_1fr] items-center" style={{ gap: "var(--element-gap)" }}>
+                {PROBLEMS.map(({ key, emoji, label }) => (
                   <div key={key} className="contents">
-                    <div
-                      className="w-12 h-12 flex items-center justify-center shrink-0 rounded-xl bg-white/10 text-primary/80"
-                      aria-hidden
-                    >
-                      <Icon className="w-8 h-8" strokeWidth={2} />
-                    </div>
+                    <IconBox emoji={emoji} />
                     <p className="text-foreground/80 min-w-0">
-                      {t(`problems.${key}`)}
+                      {label}
                     </p>
                   </div>
                 ))}
@@ -89,30 +83,25 @@ export function ProblemRozwiazanie() {
 
           {/* Prawa kolumna – Jak to rozwiązujemy */}
           <SpotlightCard
-            className="custom-spotlight-card rounded-2xl overflow-hidden h-full"
-            spotlightColor="rgba(0, 229, 160, 0.2)"
+            className="custom-spotlight-card rounded-2xl h-full"
           >
             <motion.div
-              className="glass-card h-full rounded-[15px] p-10 transition-all duration-300 h-full"
+              className="card h-full rounded-[15px] card-padding"
               initial={initial}
               whileInView="visible"
               viewport={viewportOnce}
               variants={cardVariants}
             >
-              <h3 className="heading-3 text-accent-orange mb-6">
-                {t("solutionsTitle")}
+              <h3 className="heading-3 text-white mb-6">
+                Jak to rozwiązujemy
               </h3>
-              <div className="grid grid-cols-[auto_1fr] gap-x-5 gap-y-5 items-center">
-                {SOLUTIONS.map(({ key, icon: Icon }) => (
+              <div className="grid grid-cols-[auto_1fr] items-center" style={{ gap: "var(--element-gap)" }}>
+                {SOLUTIONS.map(({ key, emoji, label }) => (
                   <div key={key} className="contents">
-                    <div
-                      className="w-12 h-12 flex items-center justify-center shrink-0 rounded-xl bg-accent-orange/10 text-accent-orange"
-                      aria-hidden
-                    >
-                      <Icon className="w-8 h-8" strokeWidth={2} />
-                    </div>
-                    <p className="text-foreground/80 min-w-0">
-                      {t(`solutions.${key}`)}
+                    <IconBox emoji={emoji} />
+                    <p className="text-foreground/80 min-w-0 flex items-center gap-2">
+                      <span className="text-primary shrink-0" aria-hidden>✓</span>
+                      {label}
                     </p>
                   </div>
                 ))}
@@ -129,7 +118,7 @@ export function ProblemRozwiazanie() {
           variants={cardVariants}
         >
           <a href="#kalkulator">
-            <Button variant="primary">{t("cta")}</Button>
+            <Button variant="primary">Sprawdź koszt rozwiązania</Button>
           </a>
         </motion.div>
       </div>

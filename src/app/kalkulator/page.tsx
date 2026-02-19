@@ -15,10 +15,9 @@ export default function KalkulatorPage() {
         <div className="grid gap-10 lg:grid-cols-[65%_1fr] lg:gap-12 lg:items-start">
           <SpotlightCard
             className="custom-spotlight-card min-w-0 rounded-2xl overflow-hidden"
-            spotlightColor="rgba(0, 229, 160, 0.2)"
           >
-            <div className="glass-card min-w-0 rounded-2xl overflow-hidden">
-              <div className="flex items-center gap-2 border-b border-white/15 bg-white/15 px-3 py-2.5">
+            <div className="glass-card card-subpage calculator-card-inner min-w-0 rounded-2xl overflow-hidden">
+              <div className="flex items-center gap-2 border-b border-white/15 bg-white/15 px-3 py-2.5 rounded-t-2xl">
                 <span className="h-2 w-2 rounded-full bg-white/40" />
                 <span className="h-2 w-2 rounded-full bg-white/40" />
                 <span className="h-2 w-2 rounded-full bg-white/40" />
@@ -32,15 +31,15 @@ export default function KalkulatorPage() {
               Po wypełnieniu otrzymasz orientacyjne widełki cenowe oraz możliwość kontaktu.
             </p>
             <ul className="space-y-3 text-foreground/70">
-              <li className="flex items-center gap-3"> <span className="text-primary" aria-hidden>✓</span> Bez zobowiązań </li>
-              <li className="flex items-center gap-3"> <span className="text-primary" aria-hidden>✓</span> Jasne widełki cenowe </li>
-              <li className="flex items-center gap-3"> <span className="text-primary" aria-hidden>✓</span> Odpowiedź w 24h </li>
+              <li className="flex items-center gap-3"> <span className="text-white/60" aria-hidden>✓</span> Bez zobowiązań </li>
+              <li className="flex items-center gap-3"> <span className="text-white/60" aria-hidden>✓</span> Jasne widełki cenowe </li>
+              <li className="flex items-center gap-3"> <span className="text-white/60" aria-hidden>✓</span> Odpowiedź w 24h </li>
             </ul>
           </aside>
         </div>
       </Section>
 
-      <DlaczegoMy contentKey="kalkulator.coDalej" itemKeys={["send", "contact", "quote"]} />
+      <DlaczegoMy contentKey="kalkulator.coDalej" itemKeys={["send", "contact", "quote"]} cardVariant="subpage" />
       <FAQSection />
       <CTA />
     </>

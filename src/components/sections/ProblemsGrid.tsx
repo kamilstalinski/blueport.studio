@@ -1,14 +1,8 @@
 "use client";
 
-import { useTranslations } from "@/lib/messages";
 import { motion } from "framer-motion";
 import { Section } from "@/components/ui/Section";
-import {
-  ExclamationTriangleIcon,
-  ClockIcon,
-  MagnifyingGlassIcon,
-  ShoppingCartIcon,
-} from "@heroicons/react/24/outline";
+import { IconBox } from "@/components/ui/IconBox";
 import SpotlightCard from "@/components/SpotlightCard";
 import {
   staggerContainer,
@@ -18,20 +12,19 @@ import {
 } from "@/lib/animations";
 
 const CARDS = [
-  { key: "noSite" as const, icon: ExclamationTriangleIcon },
-  { key: "outdated" as const, icon: ClockIcon },
-  { key: "noSeo" as const, icon: MagnifyingGlassIcon },
-  { key: "noShop" as const, icon: ShoppingCartIcon },
+  { key: "noSite" as const, emoji: "🌐" as const, title: "Brak strony", desc: "Twoja firma nie ma wizytówki online. Klienci szukają w internecie i Ciebie nie znajdują." },
+  { key: "outdated" as const, emoji: "⏱️" as const, title: "Przestarzała strona", desc: "Strona wygląda na nieaktualną, wolno się ładuje i nie działa dobrze na telefonie." },
+  { key: "noSeo" as const, emoji: "🔍" as const, title: "Brak widoczności w Google", desc: "Strona istnieje, ale nikt jej nie odwiedza. Brak podstawowego SEO i struktury." },
+  { key: "noShop" as const, emoji: "🛒" as const, title: "Brak sprzedaży online", desc: "Chcesz sprzedawać w internecie, ale nie masz sklepu ani prostego sposobu na zamówienia." },
 ] as const;
 
 export function ProblemsGrid() {
-  const t = useTranslations("Home.problemCards");
   const reduceMotion = useReducedMotionPref();
   const initial = reduceMotion ? "visible" : "hidden";
 
   return (
     <Section id="problemy">
-      <div className="grid gap-8 lg:grid-cols-12 lg:items-start">
+      <div className="grid lg:grid-cols-12 lg:items-start" style={{ gap: "var(--grid-gap)" }}>
         <motion.div
           className="lg:col-span-5"
           initial={initial}
@@ -40,31 +33,29 @@ export function ProblemsGrid() {
           variants={fadeInUp}
         >
           <h2 className="text-4xl font-semibold tracking-tight text-white md:text-5xl mb-10">
-            {t("title")}
+            Częste problemy małych firm
           </h2>
           <p className="max-w-prose text-white/70 leading-relaxed">
-            {t("subtitle")}
+            Rozpoznajesz któryś? Pomagamy je rozwiązać.
           </p>
         </motion.div>
         <motion.ul
-          className="grid gap-8 sm:grid-cols-2 lg:col-span-7 lg:items-stretch"
+          className="grid sm:grid-cols-2 lg:col-span-7 lg:items-stretch" style={{ gap: "var(--grid-gap)" }}
           initial={initial}
           whileInView="visible"
           viewport={viewportOnce}
           variants={staggerContainer}
         >
-            {CARDS.map(({ key, icon: Icon }) => (
+            {CARDS.map(({ key, emoji, title, desc }) => (
               <motion.li key={key} variants={fadeInUp} className="flex min-h-0">
-                <SpotlightCard className="custom-spotlight-card flex h-full w-full min-w-0" spotlightColor="rgba(0, 229, 160, 0.2)">
-                  <article className="glass-card flex h-full min-h-0 flex-col rounded-xl p-6">
-                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary/10">
-                      <Icon className="h-8 w-8 text-primary" strokeWidth={2} aria-hidden />
-                    </span>
+                <SpotlightCard className="custom-spotlight-card flex h-full w-full min-w-0">
+                  <article className="card flex h-full min-h-0 flex-col rounded-xl card-padding">
+                    <IconBox emoji={emoji} />
                     <h3 className="mt-5 shrink-0 heading-3 text-white">
-                      {t(`${key}.title`)}
+                      {title}
                     </h3>
                     <p className="mt-1 min-h-0 flex-1 body-small text-white/70 leading-relaxed">
-                      {t(`${key}.desc`)}
+                      {desc}
                     </p>
                   </article>
                 </SpotlightCard>

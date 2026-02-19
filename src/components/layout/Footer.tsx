@@ -1,32 +1,30 @@
 "use client";
 
 import Link from "next/link";
-import { useTranslations } from "@/lib/messages";
 
 export function Footer() {
-  const t = useTranslations("common");
-
   const aboutLinks = [
-    { href: "/o-nas", label: t("nav.about") },
-    { href: "/kontakt", label: t("nav.contact") },
+    { href: "/o-nas", label: "O nas" },
+    { href: "/kontakt", label: "Kontakt" },
     { href: "/faq", label: "FAQ" },
-    { href: "/polityka-prywatnosci", label: t("footer.privacy") }
+    { href: "/polityka-prywatnosci", label: "Polityka prywatności" }
   ];
 
   const moreLinks = [
-    { href: "/uslugi", label: t("nav.services") },
-    { href: "/realizacje", label: t("nav.caseStudies") },
-    { href: "/proces", label: t("nav.process") },
-    { href: "/regulamin", label: t("footer.terms") }
+    { href: "/uslugi", label: "Usługi" },
+    { href: "/realizacje", label: "Realizacje" },
+    { href: "/proces", label: "Proces" },
+    { href: "/regulamin", label: "Regulamin" }
   ];
 
   return (
     <footer
       id="site-footer"
-      className="relative bg-gradient-to-b from-[#040326] via-[#0B0F2A] to-[#040326] pt-20 pb-10"
+      className="relative bg-gradient-to-b from-[var(--color-footer-from)] via-[var(--color-footer-via)] to-[var(--color-footer-to)]"
+      style={{ paddingTop: "var(--space-10)", paddingBottom: "var(--space-5)" }}
     >
-      <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-primary/40 to-transparent" aria-hidden />
-      <div className="relative max-w-7xl mx-auto px-6 py-16 md:py-20 lg:py-24">
+      <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent" aria-hidden />
+      <div className="container-wide relative py-16 md:py-20 lg:py-24">
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-3">
           <div className="flex flex-col gap-6">
             <Link href="/" className="flex items-center gap-2">
@@ -38,13 +36,13 @@ export function Footer() {
               </span>
             </Link>
             <p className="max-w-xs text-sm leading-relaxed text-white/90">
-              {t("footer.tagline")}
+              BluePort Studio — nowoczesne strony i sklepy online dla małych firm. Lokalnie. Konkretnie. Z jasną wyceną.
             </p>
           </div>
 
           <div>
             <h3 className="text-xs font-semibold uppercase tracking-wider text-white">
-              {t("footer.about")}
+              O nas
             </h3>
             <ul className="mt-6 flex flex-col gap-3">
               {aboutLinks.map(({ href, label }) => (
@@ -62,7 +60,7 @@ export function Footer() {
 
           <div>
             <h3 className="text-xs font-semibold uppercase tracking-wider text-white">
-              {t("footer.more")}
+              Więcej
             </h3>
             <ul className="mt-6 flex flex-col gap-3">
               {moreLinks.map(({ href, label }) => (
@@ -81,7 +79,7 @@ export function Footer() {
 
         <div className="mt-16 flex flex-col gap-4 border-t border-white/10 pt-8 md:flex-row md:items-center md:justify-between">
           <p className="text-xs text-white/70">
-            © {new Date().getFullYear()} BluePort Studio. {t("footer.copyright")}
+            © {new Date().getFullYear()} BluePort Studio. Wszelkie prawa zastrzeżone.
           </p>
           <a
             href="mailto:kontakt@blueport.studio"
