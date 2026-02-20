@@ -14,6 +14,8 @@ export type Urgency = "standard" | "express";
 
 export type StepIndex = 1 | 2 | 3 | 4 | 5 | 6;
 
+export type ProjectPriority = "speed" | "price" | "quality" | "feature" | null;
+
 export interface CalculatorState {
   projectType: ProjectType;
   scopeUnit: ScopeUnit;
@@ -22,7 +24,7 @@ export interface CalculatorState {
   languageCount: number;
   integrations: string[];
   urgency: Urgency;
-  budgetRange: string;
+  projectPriority: ProjectPriority;
   name: string;
   email: string;
   phone: string;
@@ -33,12 +35,9 @@ export interface PriceEstimate {
   maxPrice: number;
 }
 
-export type BudgetFit = "below" | "within" | "above" | null;
-
 export interface EstimateResult {
   min: number;
   max: number;
-  budgetFit: BudgetFit;
 }
 
 export interface PriceBreakdownItem {
@@ -62,7 +61,7 @@ export type CalculatorAction =
   | { type: "SET_LANGUAGE_COUNT"; payload: number }
   | { type: "SET_INTEGRATIONS"; payload: string[] }
   | { type: "SET_URGENCY"; payload: Urgency }
-  | { type: "SET_BUDGET_RANGE"; payload: string }
+  | { type: "SET_PROJECT_PRIORITY"; payload: ProjectPriority }
   | { type: "SET_CONTACT"; payload: { name?: string; email?: string; phone?: string } }
   | { type: "SET_STEP"; payload: StepIndex }
   | { type: "RESET" };

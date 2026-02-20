@@ -38,14 +38,14 @@ export function validateStep3(_state: CalculatorState): StepValidationResult {
 }
 
 /**
- * Step 4: budget & urgency – urgency is always set; budgetRange can be optional.
+ * Step 4: integracje + pilność (urgency) – no blocking validation.
  */
 export function validateStep4(_state: CalculatorState): StepValidationResult {
   return { valid: true };
 }
 
 /**
- * Step 5: contact – name, email required; email must be valid. Cannot submit without contact.
+ * Step 5: dane kontaktowe + priorytet – name, email required; email must be valid. Priority optional.
  */
 export function validateStep5(state: CalculatorState): StepValidationResult {
   const name = state.name?.trim() ?? "";

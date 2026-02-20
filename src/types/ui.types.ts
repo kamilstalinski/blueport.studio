@@ -6,6 +6,7 @@ import type {
   StepIndex,
   Urgency,
   ProjectType,
+  ProjectPriority,
 } from "./api.types";
 
 export type ButtonVariant = "primary" | "ghost" | "outline" | "accent" | "secondary";
@@ -168,6 +169,8 @@ export interface CalculatorProps {
     name: string;
     email: string;
     phone: string;
+    projectPriority: ProjectPriority;
+    qualificationTags: string[];
   }) => void;
   children?: never;
 }
@@ -179,9 +182,7 @@ export interface CalculatorProgressBarProps {
 
 export interface StepBudgetProps {
   urgency: Urgency;
-  budgetRange: string;
   onUrgencyChange: (value: Urgency) => void;
-  onBudgetRangeChange: (value: string) => void;
 }
 
 export interface StepFeaturesProps {
@@ -208,9 +209,11 @@ export interface StepProjectTypeProps {
 }
 
 export interface StepContactProps {
+  projectPriority: ProjectPriority;
   name: string;
   email: string;
   phone: string;
+  onProjectPriorityChange: (value: ProjectPriority) => void;
   onNameChange: (value: string) => void;
   onEmailChange: (value: string) => void;
   onPhoneChange: (value: string) => void;

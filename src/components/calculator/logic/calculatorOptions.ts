@@ -264,12 +264,10 @@ export const INTEGRATION_OPTIONS: IntegrationOption[] = [
   { id: "other", label: "Inna integracja", description: "", minCost: 450, maxCost: 950 },
 ];
 
-export const BUDGET_RANGES = [
-  { value: "do-3k", label: "do 3 000 zł" },
-  { value: "3k-5k", label: "3 000 – 5 000 zł" },
-  { value: "5k-8k", label: "5 000 – 8 000 zł" },
-  { value: "8k-14k", label: "8 000 – 14 000 zł" },
-  { value: "14k-25k", label: "14 000 – 25 000 zł" },
-  { value: "25k-plus", label: "powyżej 25 000 zł" },
-  { value: "unknown", label: "Nie wiem jeszcze" },
-] as const;
+/** Step 5 — Contact: priority selector (optional). */
+export const PRIORITY_OPTIONS = [
+  { value: "speed" as const, label: "Szybka realizacja", description: "Zależy mi na czasie, chcę działać sprawnie" },
+  { value: "price" as const, label: "Optymalna cena", description: "Szukam dobrego stosunku jakości do ceny" },
+  { value: "quality" as const, label: "Najwyższa jakość", description: "Zależy mi na efekcie, budżet elastyczny" },
+  { value: "feature" as const, label: "Konkretna funkcjonalność", description: "Mam specyficzne wymagania techniczne" },
+];

@@ -17,7 +17,7 @@ import {
   getProductsCostRange,
   getExtraProductsCount,
 } from "./constants";
-import { getFeatureCost, getFeatureLabel, INTEGRATION_OPTIONS, PROJECT_TYPE_OPTIONS } from "./calculatorOptions";
+import { getFeatureCost, getFeatureLabel, INTEGRATION_OPTIONS, PROJECT_TYPE_OPTIONS, PRIORITY_OPTIONS } from "./calculatorOptions";
 
 const PAGE_PROJECT_TYPES = ["wordpress-standard", "wordpress-pro", "nextjs"] as const;
 const PRODUCT_PROJECT_TYPES = ["woocommerce-start", "woocommerce-pro"] as const;
@@ -69,6 +69,10 @@ export function formatProjectDescription(state: CalculatorState): string {
   }
   if (state.urgency === "express") {
     parts.push("tryb ekspres");
+  }
+  if (state.projectPriority) {
+    const priorityLabel = PRIORITY_OPTIONS.find((o) => o.value === state.projectPriority)?.label;
+    if (priorityLabel) parts.push(`Priorytet: ${priorityLabel}`);
   }
 
   return parts.length > 0 ? parts.join(" · ") : "Brak opisu";
@@ -194,6 +198,10 @@ export function getQualificationTags(state: CalculatorState, estimateMin: number
   if (state.urgency === "express") tags.push("urgent");
   if (state.integrations.length >= 3) tags.push("integration-heavy");
   if (estimateMin > 12000) tags.push("high-value");
+  if (state.projectPriority === "quality") tags.push("budget-flexible");
+  if (state.projectPriority === "price") tags.push("price-sensitive");
+  if (state.projectPriority === "speed") tags.push("time-sensitive");
+  if (state.projectPriority === "feature") tags.push("technical-buyer");
   return tags;
 }
 

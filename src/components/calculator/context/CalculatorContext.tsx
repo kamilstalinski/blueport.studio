@@ -26,7 +26,7 @@ const initialState: CalculatorState = {
   languageCount: 1,
   integrations: [],
   urgency: "standard",
-  budgetRange: "",
+  projectPriority: null,
   name: "",
   email: "",
   phone: "",
@@ -56,8 +56,8 @@ function reducer(state: CalculatorState, action: CalculatorAction): CalculatorSt
       return { ...state, integrations: action.payload };
     case "SET_URGENCY":
       return { ...state, urgency: action.payload };
-    case "SET_BUDGET_RANGE":
-      return { ...state, budgetRange: action.payload };
+    case "SET_PROJECT_PRIORITY":
+      return { ...state, projectPriority: action.payload };
     case "SET_CONTACT":
       return {
         ...state,
@@ -103,7 +103,7 @@ export function CalculatorProvider({ children }: { children: ReactNode }) {
     if (payload.languageCount !== undefined) dispatch({ type: "SET_LANGUAGE_COUNT", payload: payload.languageCount });
     if (payload.integrations !== undefined) dispatch({ type: "SET_INTEGRATIONS", payload: payload.integrations });
     if (payload.urgency !== undefined) dispatch({ type: "SET_URGENCY", payload: payload.urgency });
-    if (payload.budgetRange !== undefined) dispatch({ type: "SET_BUDGET_RANGE", payload: payload.budgetRange });
+    if (payload.projectPriority !== undefined) dispatch({ type: "SET_PROJECT_PRIORITY", payload: payload.projectPriority });
     if (payload.name !== undefined || payload.email !== undefined || payload.phone !== undefined) {
       dispatch({
         type: "SET_CONTACT",

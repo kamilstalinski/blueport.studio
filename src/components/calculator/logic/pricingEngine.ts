@@ -33,25 +33,11 @@ function roundToHundred(n: number): number {
   return Math.round(n / 100) * 100;
 }
 
-/** Midpoint (PLN) for budget range; "unknown" or "" → null. */
-function budgetRangeMidpoint(budgetRange: string): number | null {
-  if (!budgetRange || budgetRange === "unknown") return null;
-  const map: Record<string, number> = {
-    "do-3k": 3000,
-    "3k-5k": 4000,
-    "5k-8k": 6500,
-    "8k-14k": 11000,
-    "14k-25k": 19500,
-    "25k-plus": 28000,
-  };
-  return map[budgetRange] ?? null;
-}
-
 export function computePrice(state: CalculatorState): EstimateResult {
-  const { projectType, scopeUnit, scopeCount, features, languageCount, integrations, urgency, budgetRange } = state;
+  const { projectType, scopeUnit, scopeCount, features, languageCount, integrations, urgency } = state;
 
   if (!projectType) {
-    return { min: 0, max: 0, budgetFit: null };
+    return { min: 0, max: 0 };
   }
 
   const base = BASE_PRICES[projectType];
@@ -102,14 +88,5 @@ export function computePrice(state: CalculatorState): EstimateResult {
   maxPrice = roundToHundred(maxPrice);
 
   const [min, max] = clamp(minPrice, maxPrice);
-
-  let budgetFit: EstimateResult["budgetFit"] = null;
-  const midpoint = budgetRangeMidpoint(budgetRange);
-  if (midpoint != null) {
-    if (max < midpoint * 0.8) budgetFit = "below";
-    else if (min > midpoint * 1.2) budgetFit = "above";
-    else budgetFit = "within";
-  }
-
-  return { min, max, budgetFit };
+  return { min, max };
 }

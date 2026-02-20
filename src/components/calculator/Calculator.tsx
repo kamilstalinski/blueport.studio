@@ -73,6 +73,8 @@ function CalculatorInner({ onSubmit }: CalculatorProps) {
       name: state.name,
       email: state.email,
       phone: state.phone,
+      projectPriority: state.projectPriority,
+      qualificationTags: summary.qualificationTags,
     });
     reset();
   }, [
@@ -81,6 +83,7 @@ function CalculatorInner({ onSubmit }: CalculatorProps) {
     state.name,
     state.email,
     state.phone,
+    state.projectPriority,
     onSubmit,
     reset,
   ]);
@@ -120,17 +123,17 @@ function CalculatorInner({ onSubmit }: CalculatorProps) {
         return (
           <StepBudget
             urgency={state.urgency}
-            budgetRange={state.budgetRange}
             onUrgencyChange={(v) => updateState({ urgency: v })}
-            onBudgetRangeChange={(v) => updateState({ budgetRange: v })}
           />
         );
       case 5:
         return (
           <StepContact
+            projectPriority={state.projectPriority}
             name={state.name}
             email={state.email}
             phone={state.phone}
+            onProjectPriorityChange={(v) => updateState({ projectPriority: v })}
             onNameChange={(v) => updateState({ name: v })}
             onEmailChange={(v) => updateState({ email: v })}
             onPhoneChange={(v) => updateState({ phone: v })}
