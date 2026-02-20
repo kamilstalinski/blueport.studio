@@ -36,8 +36,9 @@ export function GlobalGradientBackground() {
 
   return (
     <div
-      className="fixed inset-0 -z-10 overflow-hidden bg-[var(--color-gradient-mesh-2,#03031C)]"
+      className="fixed left-0 right-0 top-0 -z-10 overflow-hidden bg-[var(--color-gradient-mesh-2,#03031C)]"
       style={{
+        height: "calc(100dvh + 30vh)",
         minHeight: "100dvh",
         willChange: "transform",
         transform: "translateZ(0)",
@@ -45,7 +46,7 @@ export function GlobalGradientBackground() {
       }}
       aria-hidden
     >
-      {/* Rozszerzenie powyżej viewportu — brak ucięcia przy chowającym się navbarze Chrome */}
+      {/* Rozszerzenie powyżej i poniżej viewportu — brak ucięcia przy dynamicznym UI Chrome (vh/dvh) */}
       <div
         style={{
           position: "absolute",
