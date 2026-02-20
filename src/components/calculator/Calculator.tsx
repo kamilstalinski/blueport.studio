@@ -69,12 +69,23 @@ function CalculatorInner({ onSubmit }: CalculatorProps) {
     if (!canSubmit) return;
     const summary = getSummary();
     onSubmit?.({
-      summary,
       name: state.name,
       email: state.email,
       phone: state.phone,
+      projectType: state.projectType,
+      scopeUnit: state.scopeUnit,
+      scopeCount: state.scopeCount,
+      features: state.features,
+      languageCount: state.languageCount,
+      integrations: state.integrations,
+      urgency: state.urgency,
       projectPriority: state.projectPriority,
+      estimateMin: summary.estimate.minPrice,
+      estimateMax: summary.estimate.maxPrice,
+      estimatedTimeline: summary.estimatedTimeline,
       qualificationTags: summary.qualificationTags,
+      projectDescription: summary.projectDescription,
+      breakdown: summary.breakdown,
     });
     reset();
   }, [
@@ -83,6 +94,13 @@ function CalculatorInner({ onSubmit }: CalculatorProps) {
     state.name,
     state.email,
     state.phone,
+    state.projectType,
+    state.scopeUnit,
+    state.scopeCount,
+    state.features,
+    state.languageCount,
+    state.integrations,
+    state.urgency,
     state.projectPriority,
     onSubmit,
     reset,

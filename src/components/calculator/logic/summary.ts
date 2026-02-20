@@ -8,6 +8,7 @@ import type {
   SummaryResult,
   PriceBreakdownItem,
   ProjectType,
+  EstimateResult,
 } from "@/types";
 import { computePrice } from "./pricingEngine";
 import {
@@ -27,55 +28,64 @@ function projectTypeLabel(type: NonNullable<ProjectType>): string {
   return opt?.title ?? String(type);
 }
 
-/** Timeline matrix [projectType][urgency] */
-const TIMELINE_MATRIX: Record<NonNullable<ProjectType>, Record<"standard" | "express", string>> = {
-  "wordpress-standard": { standard: "2–3 tygodnie", express: "1–2 tygodnie" },
-  "wordpress-pro": { standard: "3–5 tygodni", express: "2–3 tygodnie" },
-  "woocommerce-start": { standard: "3–4 tygodnie", express: "2–3 tygodnie" },
-  "woocommerce-pro": { standard: "5–8 tygodni", express: "3–5 tygodni" },
-  nextjs: { standard: "6–10 tygodni", express: "4–6 tygodni" },
-};
+/**
+ * Estimated timeline from state (fixed per type + urgency).
+ */
+export function estimateTimeline(state: CalculatorState): string {
+  const type = state.projectType;
+  const express = state.urgency === "express";
+
+  if (!type) return "–";
+
+  if (express) {
+    if (type === "wordpress-standard" || type === "wordpress-pro") return "ok. 1 tydzień";
+    if (type === "woocommerce-start" || type === "woocommerce-pro") return "ok. 1–2 tygodnie";
+    return "ok. 2 tygodnie";
+  }
+
+  if (type === "wordpress-standard" || type === "wordpress-pro") return "1–2 tygodnie";
+  if (type === "woocommerce-start" || type === "woocommerce-pro") return "ok. 2 tygodnie";
+  return "2–4 tygodnie";
+}
 
 /**
  * Returns a short, formatted project description from state.
+ * Format: "[Nazwa pakietu], [scopeCount] [podstron/produktów], [features], [n] [język/języki], [n] [integracje], tryb [standard/ekspres]. Priorytet klienta: [label]."
  */
 export function formatProjectDescription(state: CalculatorState): string {
   const parts: string[] = [];
 
-  if (state.projectType) {
-    parts.push(projectTypeLabel(state.projectType));
-  }
-  if (
-    state.projectType &&
-    PAGE_PROJECT_TYPES.includes(state.projectType as (typeof PAGE_PROJECT_TYPES)[number]) &&
-    state.scopeUnit === "pages" &&
-    state.scopeCount > 0
-  ) {
-    parts.push(`ok. ${state.scopeCount} podstron`);
-  }
-  if (
-    state.projectType &&
-    PRODUCT_PROJECT_TYPES.includes(state.projectType as (typeof PRODUCT_PROJECT_TYPES)[number]) &&
-    state.scopeUnit === "products" &&
-    state.scopeCount > 0
-  ) {
-    parts.push(`ok. ${state.scopeCount} produktów`);
-  }
-  if (state.features.length > 0) {
-    parts.push(`funkcje: ${state.features.join(", ")}`);
-  }
-  if (state.integrations.length > 0) {
-    parts.push(`integracje: ${state.integrations.length}`);
-  }
-  if (state.urgency === "express") {
-    parts.push("tryb ekspres");
-  }
-  if (state.projectPriority) {
-    const priorityLabel = PRIORITY_OPTIONS.find((o) => o.value === state.projectPriority)?.label;
-    if (priorityLabel) parts.push(`Priorytet: ${priorityLabel}`);
+  if (!state.projectType) return "Brak opisu";
+
+  parts.push(projectTypeLabel(state.projectType));
+
+  if (state.scopeUnit === "pages" && state.scopeCount > 0) {
+    parts.push(`${state.scopeCount} ${state.scopeCount === 1 ? "podstrona" : "podstron"}`);
+  } else if (state.scopeUnit === "products" && state.scopeCount > 0) {
+    parts.push(`${state.scopeCount} ${state.scopeCount === 1 ? "produkt" : "produktów"}`);
   }
 
-  return parts.length > 0 ? parts.join(" · ") : "Brak opisu";
+  if (state.features.length > 0) {
+    const featureLabels = state.features.map((id) => getFeatureLabel(id));
+    parts.push(featureLabels.join(", "));
+  } else {
+    parts.push("bez dodatków");
+  }
+
+  const langCount = state.languageCount;
+  parts.push(langCount === 1 ? "1 język" : `${langCount} ${langCount < 5 ? "języki" : "języków"}`);
+
+  const intCount = state.integrations.length;
+  parts.push(intCount === 0 ? "0 integracji" : intCount === 1 ? "1 integracja" : `${intCount} integracje`);
+
+  parts.push(state.urgency === "express" ? "tryb ekspres" : "tryb standard");
+
+  let result = parts.join(", ") + ".";
+  if (state.projectPriority) {
+    const priorityLabel = PRIORITY_OPTIONS.find((o) => o.value === state.projectPriority)?.label;
+    if (priorityLabel) result += ` Priorytet klienta: ${priorityLabel}.`;
+  }
+  return result;
 }
 
 /**
@@ -86,14 +96,9 @@ export function getPriceEstimate(state: CalculatorState): { minPrice: number; ma
   return { minPrice: result.min, maxPrice: result.max };
 }
 
-/**
- * Returns estimated timeline string from state.
- */
+/** Alias for estimateTimeline (used by buildSummary). */
 export function getEstimatedTimeline(state: CalculatorState): string {
-  const { projectType, urgency } = state;
-  if (!projectType) return "–";
-  const row = TIMELINE_MATRIX[projectType];
-  return row?.[urgency] ?? "–";
+  return estimateTimeline(state);
 }
 
 /**
@@ -188,20 +193,27 @@ export function getPriceBreakdown(state: CalculatorState): PriceBreakdownItem[] 
 /**
  * Qualification tags for lead/CRM from state and estimate.
  */
-export function getQualificationTags(state: CalculatorState, estimateMin: number): string[] {
+export function getQualificationTags(state: CalculatorState, estimate: EstimateResult): string[] {
+  const { projectType, scopeUnit, scopeCount, features, languageCount, integrations, urgency, projectPriority } = state;
   const tags: string[] = [];
-  if (state.projectType === "nextjs") tags.push("lead-premium");
-  if (state.projectType === "woocommerce-pro") tags.push("lead-premium");
-  if (state.scopeUnit === "products" && state.scopeCount > 50) tags.push("large-catalog");
-  if (state.languageCount >= 3) tags.push("multilingual-heavy");
-  if (state.features.includes("automation")) tags.push("automation-interest");
-  if (state.urgency === "express") tags.push("urgent");
-  if (state.integrations.length >= 3) tags.push("integration-heavy");
-  if (estimateMin > 12000) tags.push("high-value");
-  if (state.projectPriority === "quality") tags.push("budget-flexible");
-  if (state.projectPriority === "price") tags.push("price-sensitive");
-  if (state.projectPriority === "speed") tags.push("time-sensitive");
-  if (state.projectPriority === "feature") tags.push("technical-buyer");
+
+  if (projectType === "nextjs") tags.push("lead-premium");
+  if (projectType === "woocommerce-pro") tags.push("lead-premium");
+  if (scopeUnit === "products" && scopeCount > 50) tags.push("large-catalog");
+  if (scopeUnit === "pages" && scopeCount > 15) tags.push("large-scope");
+  if (features.includes("automation")) tags.push("automation-interest");
+  if (features.includes("booking")) tags.push("booking-interest");
+  if (features.includes("wholesaler-feed")) tags.push("wholesaler");
+  if (languageCount >= 3) tags.push("multilingual-heavy");
+  if (integrations.length >= 3) tags.push("integration-heavy");
+  if (integrations.includes("erp") || integrations.includes("pos")) tags.push("enterprise-integration");
+  if (urgency === "express") tags.push("urgent");
+  if (projectPriority === "quality") tags.push("budget-flexible");
+  if (projectPriority === "price") tags.push("price-sensitive");
+  if (projectPriority === "speed") tags.push("time-sensitive");
+  if (projectPriority === "feature") tags.push("technical-buyer");
+  if (estimate.min > 10000) tags.push("high-value");
+  if (estimate.min > 18000) tags.push("high-value-xl");
   return tags;
 }
 
@@ -214,7 +226,7 @@ export function buildSummary(state: CalculatorState): SummaryResult {
   const breakdown = getPriceBreakdown(state);
   const projectDescription = formatProjectDescription(state);
   const estimatedTimeline = getEstimatedTimeline(state);
-  const qualificationTags = getQualificationTags(state, priceResult.min);
+  const qualificationTags = getQualificationTags(state, priceResult);
 
   return {
     projectDescription,

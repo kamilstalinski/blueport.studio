@@ -46,10 +46,13 @@ export interface PriceBreakdownItem {
   max: number;
 }
 
+/** Alias for summary breakdown items. */
+export type BreakdownItem = PriceBreakdownItem;
+
 export interface SummaryResult {
   projectDescription: string;
   estimate: PriceEstimate;
-  breakdown: PriceBreakdownItem[];
+  breakdown: BreakdownItem[];
   estimatedTimeline: string;
   qualificationTags: string[];
 }
@@ -62,9 +65,32 @@ export type CalculatorAction =
   | { type: "SET_INTEGRATIONS"; payload: string[] }
   | { type: "SET_URGENCY"; payload: Urgency }
   | { type: "SET_PROJECT_PRIORITY"; payload: ProjectPriority }
-  | { type: "SET_CONTACT"; payload: { name?: string; email?: string; phone?: string } }
+  | { type: "SET_NAME"; payload: string }
+  | { type: "SET_EMAIL"; payload: string }
+  | { type: "SET_PHONE"; payload: string }
   | { type: "SET_STEP"; payload: StepIndex }
   | { type: "RESET" };
+
+/** Payload passed to onSubmit. */
+export interface CalculatorSubmitPayload {
+  name: string;
+  email: string;
+  phone: string;
+  projectType: ProjectType;
+  scopeUnit: ScopeUnit;
+  scopeCount: number;
+  features: string[];
+  languageCount: number;
+  integrations: string[];
+  urgency: Urgency;
+  projectPriority: ProjectPriority;
+  estimateMin: number;
+  estimateMax: number;
+  estimatedTimeline: string;
+  qualificationTags: string[];
+  projectDescription: string;
+  breakdown: BreakdownItem[];
+}
 
 export interface StepValidationResult {
   valid: boolean;

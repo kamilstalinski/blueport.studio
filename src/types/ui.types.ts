@@ -7,6 +7,7 @@ import type {
   Urgency,
   ProjectType,
   ProjectPriority,
+  CalculatorSubmitPayload,
 } from "./api.types";
 
 export type ButtonVariant = "primary" | "ghost" | "outline" | "accent" | "secondary";
@@ -164,14 +165,7 @@ export interface CTAProps {
 }
 
 export interface CalculatorProps {
-  onSubmit?: (payload: {
-    summary: SummaryResult;
-    name: string;
-    email: string;
-    phone: string;
-    projectPriority: ProjectPriority;
-    qualificationTags: string[];
-  }) => void;
+  onSubmit?: (payload: CalculatorSubmitPayload) => void;
   children?: never;
 }
 

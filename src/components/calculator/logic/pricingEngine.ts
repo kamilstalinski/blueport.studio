@@ -5,8 +5,6 @@ import {
   getExtraPagesCount,
   getProductsCostRange,
   getExtraProductsCount,
-  EXPRESS_PREMIUM_MIN,
-  EXPRESS_PREMIUM_MAX,
   ABSOLUTE_MIN_PRICE,
   ABSOLUTE_MAX_PRICE,
 } from "./constants";
@@ -23,14 +21,12 @@ const LANGUAGE_COST: Record<number, { min: number; max: number }> = {
   4: { min: 2000, max: 3200 },
 };
 
-function clamp(min: number, max: number): [number, number] {
-  const clampedMin = Math.max(ABSOLUTE_MIN_PRICE, min);
-  const clampedMax = Math.min(ABSOLUTE_MAX_PRICE, max);
-  return [clampedMin, clampedMax];
-}
-
 function roundToHundred(n: number): number {
   return Math.round(n / 100) * 100;
+}
+
+function clampValue(n: number): number {
+  return Math.max(ABSOLUTE_MIN_PRICE, Math.min(n, ABSOLUTE_MAX_PRICE));
 }
 
 export function computePrice(state: CalculatorState): EstimateResult {
@@ -80,13 +76,14 @@ export function computePrice(state: CalculatorState): EstimateResult {
   }
 
   if (urgency === "express") {
-    minPrice *= EXPRESS_PREMIUM_MIN;
-    maxPrice *= EXPRESS_PREMIUM_MAX;
+    minPrice = Math.ceil(minPrice * 1.2);
+    maxPrice = Math.ceil(maxPrice * 1.3);
   }
 
   minPrice = roundToHundred(minPrice);
   maxPrice = roundToHundred(maxPrice);
 
-  const [min, max] = clamp(minPrice, maxPrice);
+  const min = clampValue(minPrice);
+  const max = clampValue(maxPrice);
   return { min, max };
 }

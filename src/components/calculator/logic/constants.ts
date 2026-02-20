@@ -7,13 +7,13 @@ import type { ProjectType } from "@/types";
 
 export type NonNullableProjectType = NonNullable<ProjectType>;
 
-/** Base prices (min/max) per project type. Market -15%. */
+/** Base prices (min/max) per project type. */
 export const BASE_PRICES: Record<NonNullableProjectType, { min: number; max: number }> = {
-  "wordpress-standard": { min: 2200, max: 3000 },
-  "wordpress-pro": { min: 4200, max: 6500 },
-  "woocommerce-start": { min: 3800, max: 5400 },
-  "woocommerce-pro": { min: 6500, max: 10500 },
-  nextjs: { min: 6200, max: 12000 },
+  "wordpress-standard": { min: 2500, max: 2500 },
+  "wordpress-pro": { min: 2500, max: 2500 },
+  "woocommerce-start": { min: 3500, max: 3500 },
+  "woocommerce-pro": { min: 3500, max: 3500 },
+  nextjs: { min: 4500, max: 4500 },
 };
 
 /** Base pages included in package (extra above this is charged). */
@@ -99,9 +99,5 @@ export function getExtraProductsCount(
   return Math.max(0, scopeCount - included);
 }
 
-/** Express urgency: min × 1.20, max × 1.30 */
-export const EXPRESS_PREMIUM_MIN = 1.2;
-export const EXPRESS_PREMIUM_MAX = 1.3;
-
-export const ABSOLUTE_MIN_PRICE = 2200;
+export const ABSOLUTE_MIN_PRICE = 2500;
 export const ABSOLUTE_MAX_PRICE = 28000;

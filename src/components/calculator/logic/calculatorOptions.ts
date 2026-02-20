@@ -10,6 +10,7 @@ export interface ProjectTypeOption {
   title: string;
   subtitle: string;
   includes: string[];
+  techNote?: string;
 }
 
 export const PROJECT_TYPE_OPTIONS: ProjectTypeOption[] = [
@@ -30,11 +31,10 @@ export const PROJECT_TYPE_OPTIONS: ProjectTypeOption[] = [
     title: "Strona firmowa PRO",
     subtitle: "Indywidualny projekt UI + WordPress",
     includes: [
-      "Indywidualny projekt graficzny UI",
+      "Indywidualny projekt graficzny UI (wliczony w cenę)",
       "Do 10 podstron",
       "Zaawansowane sekcje i animacje",
       "SEO techniczne",
-      "Blog / aktualności",
       "Wydajność i Core Web Vitals",
     ],
   },
@@ -59,21 +59,21 @@ export const PROJECT_TYPE_OPTIONS: ProjectTypeOption[] = [
       "Zaawansowane filtry i warianty",
       "Odzyskiwanie porzuconych koszyków",
       "Integracja z hurtownią / XML",
-      "Program lojalnościowy (opcja)",
       "Projekt UI sklepu",
     ],
   },
   {
     id: "nextjs",
-    title: "Projekt dedykowany Next.js",
-    subtitle: "Aplikacja webowa na zamówienie",
+    title: "Projekt dedykowany",
+    subtitle: "Strona pisana na zamówienie, bez szablonów",
     includes: [
-      "Projekt UX/UI od podstaw",
-      "Kod Next.js (bez gotowych szablonów)",
-      "Wysoka wydajność — SSR/SSG",
-      "Opcjonalny CMS headless",
+      "Indywidualny projekt UX/UI",
+      "Kod pisany od podstaw",
+      "Wysoka wydajność i bezpieczeństwo",
+      "Opcjonalny panel do zarządzania treścią",
       "Nieograniczone możliwości funkcjonalne",
     ],
+    techNote: "Realizowane w Next.js / React",
   },
 ];
 
@@ -104,13 +104,6 @@ const ALL_FEATURES: Feature[] = [
     maxCost: 900,
   },
   {
-    id: "multilingual",
-    label: "Wielojęzyczność (WPML / i18n)",
-    description: "Baza pod tłumaczenia — koszt tłumaczeń osobno",
-    minCost: 800,
-    maxCost: 1400,
-  },
-  {
     id: "blog",
     label: "Moduł bloga / aktualności",
     description: "System publikacji wpisów, kategorie, tagi",
@@ -120,7 +113,7 @@ const ALL_FEATURES: Feature[] = [
   {
     id: "booking",
     label: "System rezerwacji online",
-    description: "Kalendarz, sloty, potwierdzenia e-mail (np. Calendly embed lub własne)",
+    description: "Kalendarz, sloty, potwierdzenia e-mail",
     minCost: 1200,
     maxCost: 2000,
   },
@@ -155,14 +148,14 @@ const ALL_FEATURES: Feature[] = [
   {
     id: "abandoned-cart",
     label: "Odzyskiwanie porzuconych koszyków",
-    description: "Automatyczne maile do klientów, którzy nie dokończyli zakupu",
+    description: "Automatyczne maile do klientów którzy nie dokończyli zakupu",
     minCost: 500,
     maxCost: 900,
   },
   {
     id: "loyalty-program",
     label: "Program lojalnościowy",
-    description: "Punkty, rangi klientów, kupony — integracja z WooCommerce",
+    description: "Punkty, rangi klientów, kupony",
     minCost: 1100,
     maxCost: 1900,
   },
@@ -176,7 +169,7 @@ const ALL_FEATURES: Feature[] = [
   {
     id: "headless-cms",
     label: "CMS headless (Sanity / Contentful)",
-    description: "Edytor treści zewnętrzny, oddzielony od kodu Next.js",
+    description: "Edytor treści zewnętrzny, oddzielony od kodu",
     minCost: 1400,
     maxCost: 2400,
   },
@@ -207,7 +200,7 @@ export const FEATURES_BY_TYPE: Record<NonNullable<ProjectType>, Feature[]> = {
   "wordpress-pro": (["seo-advanced", "blog", "booking", "automation", "performance"] as const).map(
     (id) => featureById.get(id)!
   ),
-  "woocommerce-start": (["seo-advanced", "blog", "product-filters", "abandoned-cart", "performance"] as const).map(
+  "woocommerce-start": (["seo-advanced", "blog", "product-filters", "product-variants", "abandoned-cart", "performance"] as const).map(
     (id) => featureById.get(id)!
   ),
   "woocommerce-pro": (

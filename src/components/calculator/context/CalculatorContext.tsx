@@ -58,13 +58,12 @@ function reducer(state: CalculatorState, action: CalculatorAction): CalculatorSt
       return { ...state, urgency: action.payload };
     case "SET_PROJECT_PRIORITY":
       return { ...state, projectPriority: action.payload };
-    case "SET_CONTACT":
-      return {
-        ...state,
-        ...(action.payload.name !== undefined && { name: action.payload.name }),
-        ...(action.payload.email !== undefined && { email: action.payload.email }),
-        ...(action.payload.phone !== undefined && { phone: action.payload.phone }),
-      };
+    case "SET_NAME":
+      return { ...state, name: action.payload };
+    case "SET_EMAIL":
+      return { ...state, email: action.payload };
+    case "SET_PHONE":
+      return { ...state, phone: action.payload };
     case "RESET":
       return initialState;
     default:
@@ -104,16 +103,9 @@ export function CalculatorProvider({ children }: { children: ReactNode }) {
     if (payload.integrations !== undefined) dispatch({ type: "SET_INTEGRATIONS", payload: payload.integrations });
     if (payload.urgency !== undefined) dispatch({ type: "SET_URGENCY", payload: payload.urgency });
     if (payload.projectPriority !== undefined) dispatch({ type: "SET_PROJECT_PRIORITY", payload: payload.projectPriority });
-    if (payload.name !== undefined || payload.email !== undefined || payload.phone !== undefined) {
-      dispatch({
-        type: "SET_CONTACT",
-        payload: {
-          name: payload.name,
-          email: payload.email,
-          phone: payload.phone,
-        },
-      });
-    }
+    if (payload.name !== undefined) dispatch({ type: "SET_NAME", payload: payload.name });
+    if (payload.email !== undefined) dispatch({ type: "SET_EMAIL", payload: payload.email });
+    if (payload.phone !== undefined) dispatch({ type: "SET_PHONE", payload: payload.phone });
   }, []);
 
   const getPrice = useCallback(() => getPriceEstimate(state), [state]);
