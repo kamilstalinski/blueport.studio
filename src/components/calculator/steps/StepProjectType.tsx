@@ -27,7 +27,7 @@ export function StepProjectType({ value, onChange }: StepProjectTypeProps) {
               onClick={() => onChange(opt.id)}
               className={cn(
                 CALC_CARD_BASE,
-                "font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-bg)] active:scale-[0.99]",
+                "font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-bg)]",
                 isSelected ? CALC_CARD_SELECTED : CALC_CARD_UNSELECTED
               )}
               aria-pressed={isSelected}

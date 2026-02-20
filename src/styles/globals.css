@@ -673,12 +673,12 @@ body .process-step:hover {
 .card-subpage:hover {
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35), inset 0 1px 0 var(--glass-border-top-hover);
 }
-/* Karta kalkulatora: glass-card + card-subpage — jeden promień 16px (zgodny z rounded-2xl) */
+/* Karta kalkulatora: glass-card + card-subpage — jeden promień 16px, bez hover */
 .glass-card.card-subpage.calculator-card-inner {
   border-radius: 16px;
 }
 .glass-card.card-subpage.calculator-card-inner:hover {
-  border-radius: 16px;
+  box-shadow: var(--glass-shadow);
 }
 
 /* Strona realizacje — placeholder obrazka w kartach */

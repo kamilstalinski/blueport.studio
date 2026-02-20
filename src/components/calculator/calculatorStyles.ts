@@ -9,7 +9,7 @@ export const CALC_CARD_BASE =
   "rounded-2xl border-2 px-5 py-4 text-left transition-all duration-300";
 
 export const CALC_CARD_UNSELECTED =
-  "border-white/20 bg-white/15 text-foreground hover:border-white/30 hover:bg-white/20";
+  "border-white/20 bg-white/15 text-foreground";
 
 export const CALC_CARD_SELECTED =
   "border-primary/50 bg-primary/10 text-foreground shadow-[0_0_24px_var(--color-primary-glow)]";

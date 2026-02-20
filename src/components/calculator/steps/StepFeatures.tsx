@@ -84,7 +84,7 @@ export function StepFeatures({
                 onClick={() => onFeaturesChange(toggleInList(features, id))}
                 className={cn(
                   CALC_CARD_BASE,
-                  "flex items-start gap-4 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 active:scale-[0.99]",
+                  "flex items-start gap-4 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2",
                   isChecked ? CALC_CARD_SELECTED : CALC_CARD_UNSELECTED
                 )}
                 aria-pressed={isChecked}
@@ -128,7 +128,7 @@ export function StepFeatures({
                 onClick={() => onLanguageCountChange(value)}
                 className={cn(
                   CALC_CARD_BASE,
-                  "font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 active:scale-[0.99]",
+                  "font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2",
                   isSelected ? CALC_CARD_SELECTED : CALC_CARD_UNSELECTED
                 )}
                 aria-pressed={isSelected}

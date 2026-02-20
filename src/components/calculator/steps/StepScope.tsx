@@ -41,7 +41,7 @@ export function StepScope({
                 onClick={() => onProductCountChange(value)}
                 className={cn(
                   CALC_CARD_BASE,
-                  "font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 active:scale-[0.99]",
+                  "font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2",
                   isSelected ? CALC_CARD_SELECTED : CALC_CARD_UNSELECTED
                 )}
                 aria-pressed={isSelected}
@@ -89,7 +89,7 @@ export function StepScope({
               onClick={() => onPagesCountChange(num)}
               className={cn(
                 CALC_CARD_BASE,
-                "font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 active:scale-[0.99]",
+                "font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2",
                 isSelected ? CALC_CARD_SELECTED : CALC_CARD_UNSELECTED
               )}
               aria-pressed={isSelected}

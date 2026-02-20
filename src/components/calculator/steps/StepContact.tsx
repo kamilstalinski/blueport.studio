@@ -38,7 +38,7 @@ export function StepContact({
                 onClick={() => onProjectPriorityChange(opt.value)}
                 className={cn(
                   CALC_CARD_BASE,
-                  "flex flex-col items-start gap-1 text-left font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 active:scale-[0.99]",
+                  "flex flex-col items-start gap-1 text-left font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2",
                   isSelected ? CALC_CARD_SELECTED : CALC_CARD_UNSELECTED
                 )}
                 aria-pressed={isSelected}
