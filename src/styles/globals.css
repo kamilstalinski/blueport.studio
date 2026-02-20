@@ -849,29 +849,31 @@ body .benefit-card:hover {
   box-shadow: 0 6px 28px rgba(0, 0, 0, 0.32), inset 0 1px 0 var(--glass-border-top-hover);
 }
 
-/* Karta "Najpopularniejsze" — glass z mocniejszym odcieniem akcentu, jaśniejszy border, glow */
+/* Karta "Najpopularniejsze" — wyróżniający border i glow dookoła */
 body .card-featured,
 body .package-card--featured,
 body .card[data-featured="true"] {
   background: linear-gradient(180deg, var(--color-primary-subtle) 0%, rgba(255, 255, 255, 0.06) 35%, var(--glass-bg) 100%);
   backdrop-filter: blur(var(--glass-blur, 28px));
   -webkit-backdrop-filter: blur(var(--glass-blur, 28px));
-  border: 1.5px solid var(--color-accent-border);
-  border-top: 1.5px solid var(--glass-border-top-hover);
+  border: 2px solid var(--color-primary);
+  border-top: 2px solid var(--glass-border-top-hover);
   box-shadow:
     0 8px 40px rgba(0, 0, 0, 0.3),
-    0 0 56px var(--color-accent-glow),
+    0 0 48px var(--color-accent-glow),
+    0 0 80px var(--color-primary-glow),
     var(--glass-shadow);
   transition: var(--transition-card);
 }
 body .card-featured:hover,
 body .oferta-package-featured:hover .card-featured {
   background: linear-gradient(180deg, var(--glass-bg-hover) 0%, rgba(255, 255, 255, 0.08) 40%, var(--glass-bg-hover) 100%);
-  border-color: var(--color-accent-border);
+  border-color: var(--color-primary);
   border-top-color: var(--glass-border-top-hover);
   box-shadow:
     0 12px 48px rgba(0, 0, 0, 0.35),
-    0 0 64px var(--color-primary-glow),
+    0 0 56px var(--color-accent-glow),
+    0 0 96px var(--color-primary-glow-hover),
     inset 0 1px 0 var(--glass-border-top-hover);
 }
 
@@ -1297,15 +1299,22 @@ body .custom-spotlight-card:hover [class*="glass-card"] {
   flex: 1;
 }
 
-/* Środkowa karta (Najpopularniejsze) — wyróżnienie na wrapperze: glow + jaśniejszy ring, lekki scale */
+/* Środkowa karta (Najpopularniejsze) — glow dookoła kafelka + lekki scale */
 .oferta-package-featured {
   transform: scale(1.03);
-  box-shadow: none;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.06),
+    0 0 60px var(--color-primary-glow),
+    0 0 100px var(--color-accent-glow);
   z-index: 10;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
 body .custom-spotlight-card.oferta-package-featured:hover {
   transform: scale(1.05);
-  box-shadow: none;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.08),
+    0 0 72px var(--color-primary-glow),
+    0 0 120px var(--color-primary-glow-hover);
 }
 
 /* Sekcja Dla kogo – karty, hover podniesienie, blue glow only */
