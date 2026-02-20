@@ -15,7 +15,7 @@ export default function KalkulatorPage() {
       <Section id="kalkulator-form" topGradient>
         <div className="grid gap-10 lg:grid-cols-[65%_1fr] lg:gap-12 lg:items-start">
           <SpotlightCard
-            className="custom-spotlight-card min-w-0 rounded-2xl"
+            className="custom-spotlight-card calculator-spotlight min-w-0 rounded-2xl"
           >
             <GlassCard className="glass-card card-subpage calculator-card-inner min-w-0 rounded-2xl overflow-hidden">
               <div className="flex items-center gap-2 border-b border-white/15 bg-white/15 px-3 py-2.5 rounded-t-2xl">
