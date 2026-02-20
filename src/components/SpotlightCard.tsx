@@ -76,7 +76,7 @@ export function SpotlightCard({
       className={`relative border border-transparent bg-transparent p-0 rounded-[inherit] ${className}`}
     >
       <div
-        className="pointer-events-none absolute inset-0 z-0 overflow-hidden rounded-[inherit] opacity-0 transition-opacity duration-500 ease-in-out"
+        className="pointer-events-none absolute inset-0 z-0 rounded-[inherit] opacity-0 transition-opacity duration-500 ease-in-out"
         style={{
           opacity,
           background: `radial-gradient(circle at ${centerX}px ${centerY}px, ${spotlightColor}, transparent 80%)`,

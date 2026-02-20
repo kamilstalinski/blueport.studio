@@ -1299,7 +1299,15 @@ body .custom-spotlight-card:hover [class*="glass-card"] {
   flex: 1;
 }
 
-/* Siatka pakietów — miejsce na glow środkowej karty, bez przycinania rogów */
+/* Layout root — overflow visible, żeby glow/cienie w sekcjach (np. karta „Najpopularniejsze”) nie były przycinane */
+.layout-root {
+  overflow: visible;
+}
+
+/* Sekcja pakietów i rodzice — overflow visible */
+#oferta-pakiety.section-packages {
+  overflow: visible;
+}
 .section-packages .container {
   overflow: visible;
 }
@@ -1315,20 +1323,20 @@ body .custom-spotlight-card:hover [class*="glass-card"] {
   margin: -0.375rem 0;
 }
 
-/* Środkowa karta (Najpopularniejsze) — glow dookoła kafelka, bez scale (unika wystających rogów) */
+/* Środkowa karta (Najpopularniejsze) — glow w granicach karty, żeby parent (body/Lenis) nie przycinał rogów */
 .oferta-package-featured {
   box-shadow:
     0 0 0 1px rgba(255, 255, 255, 0.06),
-    0 0 60px var(--color-primary-glow),
-    0 0 100px var(--color-accent-glow);
+    0 0 32px var(--color-primary-glow),
+    0 0 56px var(--color-accent-glow);
   z-index: 10;
   transition: box-shadow 0.3s ease;
 }
 body .custom-spotlight-card.oferta-package-featured:hover {
   box-shadow:
     0 0 0 1px rgba(255, 255, 255, 0.08),
-    0 0 72px var(--color-primary-glow),
-    0 0 120px var(--color-primary-glow-hover);
+    0 0 40px var(--color-primary-glow),
+    0 0 72px var(--color-primary-glow-hover);
 }
 
 /* Sekcja Dla kogo – karty, hover podniesienie, blue glow only */

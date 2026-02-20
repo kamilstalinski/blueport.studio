@@ -44,7 +44,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
         <GlobalGradientBackground />
         <div className="page-grid-overlay" aria-hidden />
         <SmoothScroll>
-          <div className="relative flex min-h-screen flex-col">
+          <div className="layout-root relative flex min-h-screen flex-col">
             <main className="flex-1 min-h-full">
               <PageTransition>{children}</PageTransition>
             </main>
