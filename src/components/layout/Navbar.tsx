@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 
 import { useAccentTheme } from "@/hooks/useAccentTheme";
 import { duration, ease } from "@/constants/animations";
@@ -19,18 +19,6 @@ export function Navbar() {
   const pathname = usePathname() ?? "";
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { scrollY } = useScroll();
-  const navBg = useTransform(
-    scrollY,
-    [0, 60],
-    ["rgba(0,0,0,0)", "rgba(0,0,0,0.8)"],
-  );
-  const navBlur = useTransform(scrollY, [0, 60], ["blur(0px)", "blur(20px)"]);
-  const navBorderOpacity = useTransform(
-    scrollY,
-    [0, 60],
-    ["rgba(255,255,255,0)", "rgba(255,255,255,0.07)"],
-  );
   const [isMobileView, setIsMobileView] = useState(false);
   const accent = useAccentTheme();
   const [isPaletteDropdownOpen, setIsPaletteDropdownOpen] = useState(false);
@@ -228,12 +216,7 @@ export function Navbar() {
       >
         <motion.div
           className={glassClass}
-          style={{
-            ...glassStyle,
-            backgroundColor: navBg,
-            backdropFilter: navBlur,
-            borderBottomColor: navBorderOpacity,
-          }}
+          style={glassStyle}
         >
           <div className="container-wide relative flex w-full items-center justify-between gap-4">
             {navContent}
