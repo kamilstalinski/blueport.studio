@@ -39,9 +39,7 @@ export function KalkulatorSection() {
           intervalRef.current = null;
         }
         updateDisplay(0);
-        btnRef.current?.classList.add("pulse-ready");
         setTimeout(() => {
-          btnRef.current?.classList.remove("pulse-ready");
           updateDisplay(TOTAL);
           hasStartedRef.current = false;
           if (sectionRef.current) {

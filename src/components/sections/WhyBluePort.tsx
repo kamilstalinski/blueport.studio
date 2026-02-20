@@ -1,10 +1,8 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { IconBox } from "@/components/ui/IconBox";
 import { Section } from "@/components/ui/Section";
 import { SpotlightCard } from "@/components/SpotlightCard";
-import { fadeInUp, viewportOnce, useReducedMotionPref } from "@/lib/animations";
 import { useGlassBlurStyle } from "@/lib/useGlassBlurStyle";
 
 const CARDS = [
@@ -15,30 +13,16 @@ const CARDS = [
 ] as const;
 
 export function WhyBluePort() {
-  const reduceMotion = useReducedMotionPref();
-  const initial = reduceMotion ? "visible" : "hidden";
   const glassBlurStyle = useGlassBlurStyle();
 
   return (
     <Section id="dlaczego-blueport">
-      <motion.h2
-        className="text-4xl md:text-5xl font-semibold tracking-tight text-white mb-4"
-        initial={initial}
-        whileInView="visible"
-        viewport={viewportOnce}
-        variants={fadeInUp}
-      >
+      <h2 className="text-4xl md:text-5xl font-semibold tracking-tight text-white mb-4">
         Dlaczego BluePort?
-      </motion.h2>
-      <motion.p
-        className="body-lead text-white/70 leading-relaxed max-w-2xl mb-12"
-        initial={initial}
-        whileInView="visible"
-        viewport={viewportOnce}
-        variants={fadeInUp}
-      >
+      </h2>
+      <p className="body-lead text-white/70 leading-relaxed max-w-2xl mb-12">
         Nie jesteśmy agencją z 10 handlowcami. Jesteśmy partnerem technologicznym dla małych firm.
-      </motion.p>
+      </p>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4" style={{ gap: "var(--grid-gap)" }}>
         {CARDS.map(({ emoji, text }) => (
           <SpotlightCard
@@ -46,18 +30,12 @@ export function WhyBluePort() {
             className="custom-spotlight-card rounded-2xl h-full"
           >
             <div className="card rounded-2xl p-8 h-full" style={glassBlurStyle}>
-              <motion.div
-                className="h-full"
-                initial={initial}
-                whileInView="visible"
-                viewport={viewportOnce}
-                variants={fadeInUp}
-              >
+              <div className="h-full">
                 <IconBox emoji={emoji} />
                 <p className="mt-4 font-medium text-white">
                   {text}
                 </p>
-              </motion.div>
+              </div>
             </div>
           </SpotlightCard>
         ))}

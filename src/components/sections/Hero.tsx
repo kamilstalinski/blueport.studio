@@ -1,19 +1,15 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
 import dynamic from "next/dynamic";
 
 import { Container } from "@/components/ui/Container";
 
 import { useAccentTheme } from "@/hooks/useAccentTheme";
 
-import { useReducedMotionPref } from "@/lib/animations";
 import { useGlassBlurStyle } from "@/lib/useGlassBlurStyle";
 
 import type { AccentTheme, HeroContentKey } from "@/types";
-
-import { EASE_OUT_EXPO, TRANSITION_SPRING_CSS } from "@/constants";
 
 const ColorBends = dynamic(
   () => import("@/components/ColorBends").then((m) => m.default),
@@ -56,7 +52,6 @@ function CtaLink({ href, children }: { href: string; children: React.ReactNode }
 
 export function Hero({ contentKey = "Home.hero" }: { contentKey?: HeroContentKey }) {
   const content = HERO_TEXTS[contentKey];
-  const reduceMotion = useReducedMotionPref();
   const isHome = contentKey === "Home.hero";
   const glassBlurLg = useGlassBlurStyle("lg");
   const accent = useAccentTheme();
@@ -108,34 +103,24 @@ export function Hero({ contentKey = "Home.hero" }: { contentKey?: HeroContentKey
         <Container variant="wide" className="relative z-10 grid grid-cols-1 items-center justify-items-center text-center min-h-[55vh] md:min-h-[60vh] pt-[calc(var(--navbar-height)+2rem)] pb-16 pointer-events-none">
           <div className="flex flex-col items-center max-w-2xl space-y-6 pointer-events-auto">
             {showStats && content.stats && (
-              <motion.div
-                initial={reduceMotion ? false : { opacity: 0, y: 24 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, ease: EASE_OUT_EXPO, delay: 0.05 }}
+              <div
                 className="hero-badge font-body inline-flex items-center gap-2 w-fit rounded-full py-1.5 px-3.5 text-[0.72rem] text-white/70 border border-white/20"
                 style={{ background: "var(--color-hero-badge-bg)" }}
               >
                 <span
                   className="badge-dot w-[7px] h-[7px] rounded-full bg-white/50 shrink-0"
-                  style={{ animation: reduceMotion ? "none" : "badgePulse 2s ease-in-out infinite" }}
                   aria-hidden
                 />
                 {content.stats}
-              </motion.div>
+              </div>
             )}
-            <motion.h1
-              initial={reduceMotion ? false : { opacity: 0, y: 24 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, ease: EASE_OUT_EXPO, delay: 0.1 }}
+            <h1
               className="font-heading text-white font-extrabold leading-[1.08] tracking-tight text-[clamp(2rem,8vw,2.8rem)] md:text-[clamp(2.6rem,5.5vw,3.5rem)]"
               style={{ letterSpacing: "-0.03em" }}
             >
               {content.title}
-            </motion.h1>
-            <motion.p
-              initial={reduceMotion ? false : { opacity: 0, y: 24 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, ease: EASE_OUT_EXPO, delay: 0.2 }}
+            </h1>
+            <p
               className="font-body body-lead max-w-xl mx-auto leading-[1.7]"
               style={{
                 fontSize: "clamp(0.95rem, 1.8vw, 1.1rem)",
@@ -143,13 +128,8 @@ export function Hero({ contentKey = "Home.hero" }: { contentKey?: HeroContentKey
               }}
             >
               {content.subtitle}
-            </motion.p>
-            <motion.div
-              initial={reduceMotion ? false : { opacity: 0, y: 24 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, ease: EASE_OUT_EXPO, delay: 0.35 }}
-              className="flex flex-wrap items-center justify-center gap-3 mt-8"
-            >
+            </p>
+            <div className="flex flex-wrap items-center justify-center gap-3 mt-8">
               <CtaLink href={primaryHref}>
                 <button
                   type="button"
@@ -160,7 +140,6 @@ export function Hero({ contentKey = "Home.hero" }: { contentKey?: HeroContentKey
                     fontWeight: 700,
                     fontSize: "0.95rem",
                     padding: "14px 28px",
-                    transition: TRANSITION_SPRING_CSS,
                   }}
                 >
                   {content.ctaPrimary}
@@ -187,7 +166,7 @@ export function Hero({ contentKey = "Home.hero" }: { contentKey?: HeroContentKey
                   </button>
                 </CtaLink>
               )}
-            </motion.div>
+            </div>
           </div>
         </Container>
       </section>
@@ -248,26 +227,19 @@ export function Hero({ contentKey = "Home.hero" }: { contentKey?: HeroContentKey
         {/* Left column — tekst; z-10 żeby karty były pod spodem */}
         <div className="relative z-10 flex flex-col justify-center max-w-[560px] w-full">
         {/* Badge */}
-        <motion.div
-          initial={reduceMotion ? false : { opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease: EASE_OUT_EXPO, delay: 0.05 }}
+        <div
           className="hero-badge font-body inline-flex items-center gap-2 w-fit mb-6 rounded-full py-1.5 px-3.5 text-[0.72rem] text-white/70 border border-white/20"
           style={{ background: "var(--color-hero-badge-bg)" }}
         >
           <span
             className="badge-dot w-[7px] h-[7px] rounded-full bg-white/50 shrink-0"
-            style={{ animation: reduceMotion ? "none" : "badgePulse 2s ease-in-out infinite" }}
             aria-hidden
           />
           {content.stats}
-        </motion.div>
+        </div>
 
         {/* H1 */}
-        <motion.h1
-          initial={reduceMotion ? false : { opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease: EASE_OUT_EXPO, delay: 0.1 }}
+        <h1
           className="font-heading text-white font-extrabold leading-[1.08] tracking-tight max-w-[560px] text-[clamp(2rem,8vw,2.8rem)] md:text-[clamp(2.6rem,5.5vw,4rem)]"
           style={{ letterSpacing: "-0.03em" }}
         >
@@ -292,13 +264,10 @@ export function Hero({ contentKey = "Home.hero" }: { contentKey?: HeroContentKey
               {titleHighlight}
             </span>
           )}
-        </motion.h1>
+        </h1>
 
         {/* Subheadline */}
-        <motion.p
-          initial={reduceMotion ? false : { opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease: EASE_OUT_EXPO, delay: 0.35 }}
+        <p
           className="font-body body-lead mt-5 mb-9 max-w-[420px] leading-[1.7] text-muted-foreground"
           style={{
             fontSize: "clamp(0.95rem, 1.8vw, 1.1rem)",
@@ -306,15 +275,10 @@ export function Hero({ contentKey = "Home.hero" }: { contentKey?: HeroContentKey
           }}
         >
           {content.subtitle}
-        </motion.p>
+        </p>
 
         {/* CTAs */}
-        <motion.div
-          initial={reduceMotion ? false : { opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease: EASE_OUT_EXPO, delay: 0.5 }}
-          className="flex flex-wrap items-center gap-3 w-full md:w-auto pointer-events-auto mt-8"
-        >
+        <div className="flex flex-wrap items-center gap-3 w-full md:w-auto pointer-events-auto mt-8">
           <CtaLink href={primaryHref}>
             <button
               type="button"
@@ -325,7 +289,6 @@ export function Hero({ contentKey = "Home.hero" }: { contentKey?: HeroContentKey
                 fontWeight: 700,
                 fontSize: "0.95rem",
                 padding: "14px 28px",
-                transition: TRANSITION_SPRING_CSS,
               }}
             >
               {content.ctaPrimary}
@@ -352,15 +315,10 @@ export function Hero({ contentKey = "Home.hero" }: { contentKey?: HeroContentKey
               </button>
             </CtaLink>
           </span>
-        </motion.div>
+        </div>
 
         {/* Social proof */}
-        <motion.div
-          initial={reduceMotion ? false : { opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease: EASE_OUT_EXPO, delay: 0.65 }}
-          className="social-proof font-body flex flex-col md:flex-row items-center gap-3 md:gap-5 mt-6 md:mt-8 flex-nowrap justify-center md:justify-start overflow-visible"
-        >
+        <div className="social-proof font-body flex flex-col md:flex-row items-center gap-3 md:gap-5 mt-6 md:mt-8 flex-nowrap justify-center md:justify-start overflow-visible">
           <div className="sp-item shrink-0 flex flex-col items-center md:items-start text-center md:text-left">
             <strong className="block text-[0.8rem] md:text-[0.95rem] font-bold text-white font-heading">47+</strong>
             <span className="body-small text-[0.6rem] md:text-[0.65rem] text-white/40 uppercase tracking-widest">zrealizowanych projektów</span>
@@ -375,22 +333,16 @@ export function Hero({ contentKey = "Home.hero" }: { contentKey?: HeroContentKey
             <strong className="block text-[0.8rem] md:text-[0.95rem] font-bold text-white font-heading">5.0 ★</strong>
             <span className="body-small text-[0.6rem] md:text-[0.65rem] text-white/40 uppercase tracking-widest">średnia ocena klientów</span>
           </div>
-        </motion.div>
+        </div>
         </div>
 
         {/* Karty — absolute, right-8 = padding od prawej; z-0 żeby były pod lewą kolumną */}
         <div className="absolute right-8 top-1/2 hidden md:block pointer-events-none w-[520px] h-[560px] -translate-y-1/2 z-0">
         <div className="relative h-full w-full">
           {/* Card 1 — Gotowe w 8 dni */}
-          <motion.div
-            initial={reduceMotion ? false : { opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: EASE_OUT_EXPO, delay: 0.6 }}
+          <div
             className="hero-card absolute left-0 top-[60px] w-[320px] rounded-2xl p-0 overflow-hidden"
-            style={{
-              animation: reduceMotion ? "none" : "floatA 5s ease-in-out infinite",
-              ...glassBlurLg,
-            }}
+            style={glassBlurLg}
             aria-hidden
           >
             <div className="flex items-center gap-1.5 px-2.5 py-2 border-b border-white/10">
@@ -411,18 +363,12 @@ export function Hero({ contentKey = "Home.hero" }: { contentKey?: HeroContentKey
                 <div className="h-full rounded-full bg-white/40" style={{ width: "78%" }} />
               </div>
             </div>
-          </motion.div>
+          </div>
 
           {/* Card 2 — Klient B2B */}
-          <motion.div
-            initial={reduceMotion ? false : { opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, ease: EASE_OUT_EXPO, delay: 0.8 }}
+          <div
             className="hero-card absolute right-0 top-5 w-[230px] rounded-2xl p-4"
-            style={{
-              animation: reduceMotion ? "none" : "floatB 6s ease-in-out 1s infinite",
-              ...glassBlurLg,
-            }}
+            style={glassBlurLg}
             aria-hidden
           >
             <p className="font-body text-[0.65rem] text-white/50">Strona firmowa</p>
@@ -436,18 +382,12 @@ export function Hero({ contentKey = "Home.hero" }: { contentKey?: HeroContentKey
               <span className="font-body text-[0.65rem] text-white/60">Klient zadowolony</span>
               <span className="text-white/50 text-[0.65rem]">★★★★★</span>
             </div>
-          </motion.div>
+          </div>
 
           {/* Card 3 — Ruch organiczny +340% */}
-          <motion.div
-            initial={reduceMotion ? false : { opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: EASE_OUT_EXPO, delay: 1 }}
+          <div
             className="hero-card absolute right-0 bottom-10 w-[280px] rounded-2xl p-4"
-            style={{
-              animation: reduceMotion ? "none" : "floatC 7s ease-in-out 2s infinite",
-              ...glassBlurLg,
-            }}
+            style={glassBlurLg}
             aria-hidden
           >
             <div className="flex items-center gap-1.5 px-2 py-1.5 border-b border-white/10 mb-3">
@@ -478,8 +418,6 @@ export function Hero({ contentKey = "Home.hero" }: { contentKey?: HeroContentKey
                   style={{
                     height: h,
                     opacity: o,
-                    animation: reduceMotion ? "none" : "hero-bars 0.6s ease-out forwards",
-                    animationDelay: `${0.2 + i * 0.08}s`,
                     transformOrigin: "bottom",
                   }}
                 />
@@ -493,7 +431,7 @@ export function Hero({ contentKey = "Home.hero" }: { contentKey?: HeroContentKey
               <span>Maj</span>
             </div>
             <p className="font-body mt-2 text-[0.55rem] text-white/40 italic">Źródło: Google Search Console</p>
-          </motion.div>
+          </div>
         </div>
         </div>
       </Container>

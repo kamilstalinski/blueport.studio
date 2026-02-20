@@ -1,11 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
 import { IconBox } from "@/components/ui/IconBox";
 import { SpotlightCard } from "@/components/SpotlightCard";
 import { Button } from "@/components/ui/Button";
-import { fadeInUp, defaultTransition, viewportOnce, useReducedMotionPref } from "@/lib/animations";
 import { useGlassBlurStyle } from "@/lib/useGlassBlurStyle";
 import type { ProcesVerticalTimelineProps } from "@/types";
 
@@ -26,17 +24,7 @@ const TIMELINE_STEPS = [
 
 const CTA_BLOCK = { text: "Całość zwykle trwa 1–2 tygodnie.", question: "Chcesz poznać dokładną wycenę?", button: "Przejdź do kalkulatora" };
 
-const itemVariants = {
-  hidden: { opacity: 0, y: 16 },
-  visible: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: { ...defaultTransition, delay: i * 0.1 },
-  }),
-};
-
 export function ProcesVerticalTimeline({ cardVariant = "default" }: ProcesVerticalTimelineProps = {}) {
-  const reduceMotion = useReducedMotionPref();
   const glassBlur = useGlassBlurStyle("default");
   const CARD_CLASS = `${CARD_BASE}${cardVariant === "subpage" ? " card-subpage" : ""}`;
 
@@ -46,9 +34,7 @@ export function ProcesVerticalTimeline({ cardVariant = "default" }: ProcesVertic
       className="relative mx-auto w-full max-w-[1200px] section-padding"
       style={{ paddingBottom: "var(--space-16)" }}
     >
-      {/* Wrapper so the line ends before CTA */}
       <div className="relative">
-        {/* Vertical line — mobile: through circle center (pl-4 + 24px radius); desktop: center; gap 48px */}
         <div
           className="absolute top-0 left-10 w-0.5 opacity-70 md:left-1/2 md:-translate-x-px"
           style={{
@@ -66,7 +52,7 @@ export function ProcesVerticalTimeline({ cardVariant = "default" }: ProcesVertic
             const emoji = STEP_ICONS_5[index];
 
             const circleClass =
-              "proces-timeline-circle relative z-10 flex h-12 w-12 shrink-0 items-center justify-center rounded-full text-base font-bold backdrop-blur-[12px] transition-all duration-300 hover:shadow-[0_0_20px_var(--color-accent-glow)]";
+              "proces-timeline-circle relative z-10 flex h-12 w-12 shrink-0 items-center justify-center rounded-full text-base font-bold backdrop-blur-[12px] hover:shadow-[0_0_20px_var(--color-accent-glow)]";
 
             const cardContent = (
               <>
@@ -88,16 +74,10 @@ export function ProcesVerticalTimeline({ cardVariant = "default" }: ProcesVertic
             );
 
             return (
-              <motion.div
+              <div
                 key={key}
-                custom={index}
-                initial={reduceMotion ? "visible" : "hidden"}
-                whileInView="visible"
-                viewport={viewportOnce}
-                variants={itemVariants}
                 className="relative flex min-h-[180px] flex-col gap-4 md:min-h-0 md:flex-row md:items-center md:gap-6"
               >
-                {/* Mobile: line on left, circle then card */}
                 <div className="flex items-start gap-4 pl-4 md:hidden">
                   <div className={circleClass} aria-hidden>
                     {key}
@@ -109,7 +89,6 @@ export function ProcesVerticalTimeline({ cardVariant = "default" }: ProcesVertic
                   </SpotlightCard>
                 </div>
 
-                {/* Desktop: alternating left/right cards, circle on line */}
                 <div className="hidden md:flex md:w-full md:items-center">
                   <div className="flex flex-1 justify-end pr-6">
                     {isLeft && (
@@ -133,20 +112,13 @@ export function ProcesVerticalTimeline({ cardVariant = "default" }: ProcesVertic
                     )}
                   </div>
                 </div>
-            </motion.div>
-          );
-        })}
+              </div>
+            );
+          })}
         </div>
       </div>
 
-      {/* CTA block */}
-      <motion.div
-        className="mt-20 text-center"
-        initial="hidden"
-        whileInView="visible"
-        viewport={viewportOnce}
-        variants={fadeInUp}
-      >
+      <div className="mt-20 text-center">
         <p className="body-lead text-foreground/80">{CTA_BLOCK.text}</p>
         <p className="mt-2 heading-3 text-foreground">{CTA_BLOCK.question}</p>
         <Link href="/kalkulator" className="mt-6 inline-block">
@@ -154,7 +126,7 @@ export function ProcesVerticalTimeline({ cardVariant = "default" }: ProcesVertic
             {CTA_BLOCK.button}
           </Button>
         </Link>
-      </motion.div>
+      </div>
     </section>
   );
 }

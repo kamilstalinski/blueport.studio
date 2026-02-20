@@ -1,15 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
 import { Button } from "@/components/ui/Button";
 import { IconBox } from "@/components/ui/IconBox";
 import { cn } from "@/lib/utils";
-import {
-  fadeInUp,
-  viewportOnce,
-  useReducedMotionPref,
-} from "@/lib/animations";
 import { useGlassBlurStyle } from "@/lib/useGlassBlurStyle";
 import type { ProcesHomeProps } from "@/types";
 
@@ -40,9 +34,7 @@ const TEXTS = {
 } as const;
 
 export function ProcesHome({ contentKey = "Home.proces", stepCount = 5, cardVariant = "default" }: ProcesHomeProps) {
-  const reduceMotion = useReducedMotionPref();
   const glassBlurSm = useGlassBlurStyle("sm");
-  const initial = reduceMotion ? "visible" : "hidden";
   const content = TEXTS[contentKey];
 
   const totalSteps = stepCount;
@@ -56,52 +48,24 @@ export function ProcesHome({ contentKey = "Home.proces", stepCount = 5, cardVari
   return (
     <section id="proces" className="section-process relative section-padding-block">
       <div className="container-narrow section-intro text-center">
-        <motion.p
-          className="section-eyebrow"
-          initial={initial}
-          animate="visible"
-          whileInView="visible"
-          viewport={viewportOnce}
-          variants={fadeInUp}
-        >
+        <p className="section-eyebrow">
           {content.badge}
-        </motion.p>
-        <motion.h2
-          className="heading-2 text-foreground mt-0"
-          initial={initial}
-          animate="visible"
-          whileInView="visible"
-          viewport={viewportOnce}
-          variants={fadeInUp}
-        >
+        </p>
+        <h2 className="heading-2 text-foreground mt-0">
           {content.title}
           {content.subtitle ? (
             <span className="text-white/50"> {content.subtitle}</span>
           ) : null}
-        </motion.h2>
+        </h2>
         {content.timeline && (
-          <motion.p
-            className="section-sub"
-            initial={initial}
-            animate="visible"
-            whileInView="visible"
-            viewport={viewportOnce}
-            variants={fadeInUp}
-          >
+          <p className="section-sub">
             {content.timeline}
-          </motion.p>
+          </p>
         )}
       </div>
 
       <div className="container relative z-10">
-        <motion.div
-          className={cn("process-grid", use2x2Grid && "process-grid-2x2")}
-          initial={initial}
-          animate="visible"
-          whileInView="visible"
-          viewport={viewportOnce}
-          variants={fadeInUp}
-        >
+        <div className={cn("process-grid", use2x2Grid && "process-grid-2x2")}>
           {use2x2Grid ? (
             stepLabels.map((label, index) => (
               <div key={label} className={cn("process-step", "card-subpage", "process-step-2x2")} style={glassBlurSm}>
@@ -146,16 +110,9 @@ export function ProcesHome({ contentKey = "Home.proces", stepCount = 5, cardVari
               )}
             </>
           )}
-        </motion.div>
+        </div>
 
-        <motion.div
-          className="process-cta"
-          initial={initial}
-          animate="visible"
-          whileInView="visible"
-          viewport={viewportOnce}
-          variants={fadeInUp}
-        >
+        <div className="process-cta">
           {content.outro && (
             <p className="body-lead font-medium text-foreground/70 leading-relaxed mb-4">
               {content.outro}
@@ -166,7 +123,7 @@ export function ProcesHome({ contentKey = "Home.proces", stepCount = 5, cardVari
               {content.cta} →
             </Button>
           </Link>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

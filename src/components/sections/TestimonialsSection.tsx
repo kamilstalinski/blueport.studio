@@ -1,12 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { Section } from "@/components/ui/Section";
-import {
-  fadeInUp,
-  viewportOnce,
-  useReducedMotionPref,
-} from "@/lib/animations";
 import { useGlassBlurStyle } from "@/lib/useGlassBlurStyle";
 
 const TESTIMONIALS = [
@@ -16,44 +10,26 @@ const TESTIMONIALS = [
 ];
 
 export function TestimonialsSection() {
-  const reduceMotion = useReducedMotionPref();
   const glassBlurSm = useGlassBlurStyle("sm");
-  const initial = reduceMotion ? "visible" : "hidden";
 
   return (
     <Section id="opinie" className="section-testimonials">
       <div className="section-testimonials-head">
-        <motion.p
-          className="section-testimonials-eyebrow"
-          initial={initial}
-          whileInView="visible"
-          viewport={viewportOnce}
-          variants={fadeInUp}
-        >
+        <p className="section-testimonials-eyebrow">
           Opinie
-        </motion.p>
-        <motion.h2
-          className="heading-2 text-white mt-0"
-          initial={initial}
-          whileInView="visible"
-          viewport={viewportOnce}
-          variants={fadeInUp}
-        >
+        </p>
+        <h2 className="heading-2 text-white mt-0">
           Co mówią{" "}
           <span className="text-primary">nasi klienci.</span>
-        </motion.h2>
+        </h2>
       </div>
 
       <div className="testimonials-grid">
         {TESTIMONIALS.map((item, index) => (
-          <motion.div
+          <div
             key={index}
             className="testimonial-card"
             style={glassBlurSm}
-            initial={initial}
-            whileInView="visible"
-            viewport={viewportOnce}
-            variants={fadeInUp}
           >
             <div className="testimonial-stars" aria-hidden>
               ★★★★★
@@ -68,7 +44,7 @@ export function TestimonialsSection() {
                 <div className="author-company">{item.authorCompany}</div>
               </div>
             </div>
-          </motion.div>
+          </div>
         ))}
       </div>
     </Section>

@@ -1,10 +1,8 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { IconBox } from "@/components/ui/IconBox";
 import { SpotlightCard } from "@/components/SpotlightCard";
 import { Button } from "@/components/ui/Button";
-import { fadeInUp, fadeInUpStrong, viewportOnce, useReducedMotionPref } from "@/lib/animations";
 import { useGlassBlurStyle } from "@/lib/useGlassBlurStyle";
 
 const PROBLEMS: { key: string; emoji: string; label: string }[] = [
@@ -22,8 +20,6 @@ const SOLUTIONS: { key: string; emoji: string; label: string }[] = [
 ];
 
 export function ProblemRozwiazanie() {
-  const reduceMotion = useReducedMotionPref();
-  const initial = reduceMotion ? "visible" : "hidden";
   const glassBlurStyle = useGlassBlurStyle();
 
   return (
@@ -34,31 +30,15 @@ export function ProblemRozwiazanie() {
         aria-hidden
       />
       <div className="container-narrow section-intro relative z-[1]">
-        <motion.h2
-          className="text-4xl md:text-5xl font-semibold text-foreground text-center mb-4"
-          initial={initial}
-          whileInView="visible"
-          viewport={viewportOnce}
-          variants={fadeInUp}
-        >
+        <h2 className="text-4xl md:text-5xl font-semibold text-foreground text-center mb-4">
           Twoja strona nie sprzedaje?
-        </motion.h2>
+        </h2>
       </div>
       <div className="container relative z-[1]">
         <div className="grid md:grid-cols-2 items-stretch" style={{ gap: "var(--grid-gap)" }}>
-          {/* Lewa kolumna – Najczęstsze problemy */}
-          <SpotlightCard
-            className="custom-spotlight-card rounded-2xl h-full"
-          >
-            {/* Inline blur wymusza efekt — CSS bywa nadpisywany w buildzie */}
+          <SpotlightCard className="custom-spotlight-card rounded-2xl h-full">
             <div className="card h-full rounded-[15px] card-padding" style={glassBlurStyle}>
-              <motion.div
-                className="h-full"
-                initial={initial}
-                whileInView="visible"
-                viewport={viewportOnce}
-                variants={fadeInUpStrong}
-              >
+              <div className="h-full">
                 <h3 className="heading-3 text-white mb-6">
                   Najczęstsze problemy
                 </h3>
@@ -72,22 +52,13 @@ export function ProblemRozwiazanie() {
                     </div>
                   ))}
                 </div>
-              </motion.div>
+              </div>
             </div>
           </SpotlightCard>
 
-          {/* Prawa kolumna – Jak to rozwiązujemy */}
-          <SpotlightCard
-            className="custom-spotlight-card rounded-2xl h-full"
-          >
+          <SpotlightCard className="custom-spotlight-card rounded-2xl h-full">
             <div className="card h-full rounded-[15px] card-padding" style={glassBlurStyle}>
-              <motion.div
-                className="h-full"
-                initial={initial}
-                whileInView="visible"
-                viewport={viewportOnce}
-                variants={fadeInUpStrong}
-              >
+              <div className="h-full">
                 <h3 className="heading-3 text-white mb-6">
                   Jak to rozwiązujemy
                 </h3>
@@ -102,22 +73,16 @@ export function ProblemRozwiazanie() {
                     </div>
                   ))}
                 </div>
-              </motion.div>
+              </div>
             </div>
           </SpotlightCard>
         </div>
 
-        <motion.div
-          className="mt-12 text-center"
-          initial={initial}
-          whileInView="visible"
-          viewport={viewportOnce}
-          variants={fadeInUpStrong}
-        >
+        <div className="mt-12 text-center">
           <a href="#kalkulator">
             <Button variant="primary">Sprawdź koszt rozwiązania</Button>
           </a>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

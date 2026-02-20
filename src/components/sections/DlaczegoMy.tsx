@@ -1,19 +1,9 @@
 "use client";
 
-import { motion } from "framer-motion";
-
 import { IconBox } from "@/components/ui/IconBox";
 import { Section } from "@/components/ui/Section";
 import { SpotlightCard } from "@/components/SpotlightCard";
 
-import {
-  fadeInUpStrong,
-  fadeInUp,
-  fadeInLeft,
-  staggerContainer,
-  viewportOnce,
-  useReducedMotionPref,
-} from "@/lib/animations";
 import { useGlassBlurStyle } from "@/lib/useGlassBlurStyle";
 import { cn } from "@/lib/utils";
 
@@ -68,8 +58,6 @@ const TEXTS: Record<string, { title: string; subtitle: string; items: Record<str
 };
 
 export function DlaczegoMy({ contentKey = "Home.dlaczegoMy", itemKeys, cardVariant = "default" }: DlaczegoMyProps) {
-  const reduceMotion = useReducedMotionPref();
-  const initial = reduceMotion ? "visible" : "hidden";
   const glassBlurStyle = useGlassBlurStyle();
   const keys = (itemKeys ?? DEFAULT_KEYS) as string[];
   const content = TEXTS[contentKey];
@@ -77,45 +65,22 @@ export function DlaczegoMy({ contentKey = "Home.dlaczegoMy", itemKeys, cardVaria
   return (
     <Section id={getSectionId(contentKey)} className="section-benefits overflow-hidden" noWrapper>
       <div className="container-narrow section-intro">
-        <motion.h2
-          className="heading-2 text-white text-center"
-          initial={initial}
-          whileInView="visible"
-          viewport={viewportOnce}
-          variants={fadeInUpStrong}
-        >
+        <h2 className="heading-2 text-white text-center">
           {content.title}
-        </motion.h2>
-        <motion.p
-          className="section-desc text-center mt-4 mx-auto"
-          initial={initial}
-          whileInView="visible"
-          viewport={viewportOnce}
-          variants={fadeInUp}
-        >
+        </h2>
+        <p className="section-desc text-center mt-4 mx-auto">
           {content.subtitle}
-        </motion.p>
+        </p>
       </div>
 
       <div className="container">
         {contentKey === "realizacjeEfekty" ? (
-          <motion.div
-            className="efekty-grid mt-14"
-            role="list"
-            initial={initial}
-            whileInView="visible"
-            viewport={viewportOnce}
-            variants={staggerContainer}
-          >
+          <div className="efekty-grid mt-14" role="list">
             {keys.map((key) => {
               const emoji = EMOJI_MAP[key] ?? "💳";
               return (
-                <motion.div
+                <div
                   key={key}
-                  variants={fadeInLeft}
-                  initial={initial}
-                  whileInView="visible"
-                  viewport={viewportOnce}
                   className="efekty-card"
                   style={glassBlurStyle}
                 >
@@ -126,19 +91,15 @@ export function DlaczegoMy({ contentKey = "Home.dlaczegoMy", itemKeys, cardVaria
                   <p className="text-white/60 body-small mt-1">
                     {content.itemsDesc[key] ?? ""}
                   </p>
-                </motion.div>
+                </div>
               );
             })}
-          </motion.div>
+          </div>
         ) : (
-          <motion.div
+          <div
             className="flex flex-col sm:grid sm:grid-cols-[1fr_auto_1fr_auto_1fr] items-stretch sm:mx-auto mt-14"
             style={{ gap: "var(--grid-gap)" }}
             role="list"
-            initial={initial}
-            whileInView="visible"
-            viewport={viewportOnce}
-            variants={staggerContainer}
           >
             {keys.flatMap((key, index) => {
               const emoji = EMOJI_MAP[key] ?? "💳";
@@ -154,13 +115,7 @@ export function DlaczegoMy({ contentKey = "Home.dlaczegoMy", itemKeys, cardVaria
                     )}
                     style={glassBlurStyle}
                   >
-                    <motion.div
-                      className="flex flex-col items-center text-center h-full min-h-full flex-1 min-w-0"
-                      variants={fadeInLeft}
-                      initial={initial}
-                      whileInView="visible"
-                      viewport={viewportOnce}
-                    >
+                    <div className="flex flex-col items-center text-center h-full min-h-full flex-1 min-w-0">
                       <IconBox emoji={emoji} />
                       <div className="min-w-0 flex-1 flex flex-col">
                         <h3 className="heading-3 text-white">
@@ -170,7 +125,7 @@ export function DlaczegoMy({ contentKey = "Home.dlaczegoMy", itemKeys, cardVaria
                           {content.itemsDesc[key] ?? ""}
                         </p>
                       </div>
-                    </motion.div>
+                    </div>
                   </div>
                 </SpotlightCard>
               );
@@ -186,7 +141,7 @@ export function DlaczegoMy({ contentKey = "Home.dlaczegoMy", itemKeys, cardVaria
                 card,
               ];
             })}
-          </motion.div>
+          </div>
         )}
       </div>
     </Section>

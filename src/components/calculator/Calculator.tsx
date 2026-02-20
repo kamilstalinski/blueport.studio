@@ -1,7 +1,6 @@
 "use client";
 
 import { useCallback, useMemo } from "react";
-import { AnimatePresence, motion } from "framer-motion";
 
 import { Button } from "@/components/ui/Button";
 
@@ -14,16 +13,9 @@ import { StepProjectType } from "./steps/StepProjectType";
 import { StepScope } from "./steps/StepScope";
 import { StepSummary } from "./steps/StepSummary";
 
-import { defaultTransition } from "@/lib/animations";
 import type { CalculatorProps, StepIndex } from "@/types";
 
 export type { CalculatorProps } from "@/types";
-
-const stepVariants = {
-  enter: { opacity: 0, x: 12 },
-  center: { opacity: 1, x: 0 },
-  exit: { opacity: 0, x: -12 },
-};
 
 function CalculatorInner({ onSubmit }: CalculatorProps) {
   const {
@@ -148,19 +140,9 @@ function CalculatorInner({ onSubmit }: CalculatorProps) {
             className="min-h-[320px] mt-6"
             style={{ minHeight: "20rem" }}
           >
-            <AnimatePresence mode="wait" initial={false}>
-              <motion.div
-                key={step}
-                variants={stepVariants}
-                initial="enter"
-                animate="center"
-                exit="exit"
-                transition={defaultTransition}
-                className="w-full"
-              >
-                {currentStepContent}
-              </motion.div>
-            </AnimatePresence>
+            <div key={step} className="w-full">
+              {currentStepContent}
+            </div>
           </div>
 
           <nav
