@@ -30,7 +30,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       <motion.button
         ref={ref}
         whileHover={{
-          scale: variant === "primary" || variant === "accent" ? 1.025 : 1.01,
+          y: variant === "primary" || variant === "accent" ? -3 : -2,
           transition: springs.smooth,
         }}
         whileTap={{ scale: 0.975, transition: springs.stiff }}

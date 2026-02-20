@@ -9,6 +9,7 @@ import { ScrollToTop } from "@/components/ui/ScrollToTop";
 import { SmoothScroll } from "@/components/providers/SmoothScroll";
 import { GlobalGradientBackground } from "@/components/effects/GlobalGradientBackground";
 import type { RootLayoutProps } from "@/types";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 export const inter = Inter({
   subsets: ["latin"],
@@ -26,8 +27,7 @@ export const spaceGrotesk = Space_Grotesk({
 
 export const metadata: Metadata = {
   title: "BluePort Studio – High-performance digital infrastructure",
-  description:
-    "We engineer scalable, high-performance websites. Stable. Precise. Modular."
+  description: "We engineer scalable, high-performance websites. Stable. Precise. Modular.",
 };
 
 export default function RootLayout({ children }: RootLayoutProps) {
@@ -41,6 +41,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
         <ThemeInitScript />
       </head>
       <body className="font-body min-h-screen bg-transparent text-text-primary antialiased transition-[background-color,color] duration-250 ease-out">
+        <SpeedInsights />
         <GlobalGradientBackground />
         <div className="page-grid-overlay" aria-hidden />
         <SmoothScroll>

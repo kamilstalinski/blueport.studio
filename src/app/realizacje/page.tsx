@@ -40,7 +40,7 @@ export default function RealizacjePage() {
           {caseStudies.map((study) => (
             <li key={study.slug}>
               <SpotlightCard
-                className="custom-spotlight-card rounded-2xl h-full transition-all duration-300 hover:scale-[1.02]"
+                className="custom-spotlight-card rounded-2xl h-full transition-all duration-300"
               >
                 <Link href={`/realizacje/${study.slug}`} className="group block h-full">
                   <GlassCard className="glass-card card-subpage rounded-2xl p-0">

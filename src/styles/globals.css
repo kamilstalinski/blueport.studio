@@ -699,7 +699,7 @@ body .process-step:hover {
   transition: transform 0.4s;
 }
 .portfolio-img:hover img {
-  transform: scale(1.04);
+  transform: translateY(-6px);
 }
 .img-placeholder {
   font-size: 0.65rem;
@@ -787,7 +787,7 @@ body .efekty-card:hover {
   background: var(--glass-bg-hover);
   border-color: var(--glass-border-hover);
   border-top-color: var(--glass-border-top-hover);
-  transform: scale(1.02);
+  transform: translateY(-4px);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35), inset 0 1px 0 var(--glass-border-top-hover);
 }
 .efekty-icon {
@@ -845,7 +845,7 @@ body .benefit-card:hover {
   background: var(--glass-bg-hover);
   border-color: var(--glass-border-hover);
   border-top-color: var(--glass-border-top-hover);
-  transform: scale(1.01);
+  transform: translateY(-2px);
   box-shadow: 0 6px 28px rgba(0, 0, 0, 0.32), inset 0 1px 0 var(--glass-border-top-hover);
 }
 
@@ -966,7 +966,7 @@ body .testimonial-card:hover {
   background: var(--glass-bg-hover);
   border-color: var(--glass-border-hover);
   border-top-color: var(--glass-border-top-hover);
-  transform: scale(1.02);
+  transform: translateY(-4px);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35), inset 0 1px 0 var(--glass-border-top-hover);
 }
 
@@ -1051,7 +1051,7 @@ body .process-step:hover,
 body .process-card:hover {
   background: var(--glass-bg-hover);
   border-color: var(--glass-border-hover);
-  transform: scale(1.02);
+  transform: translateY(-4px);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35), inset 0 1px 0 var(--glass-border-top-hover);
 }
 
@@ -1189,7 +1189,7 @@ body .process-grid-2x2 .process-step-2x2 {
 body .process-grid-2x2 .process-step-2x2:hover {
   background: var(--glass-bg-hover);
   border-color: var(--glass-border-hover);
-  transform: scale(1.02);
+  transform: translateY(-4px);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35), inset 0 1px 0 var(--glass-border-top-hover);
 }
 .process-grid-2x2 .process-step-2x2::after {
@@ -1267,7 +1267,7 @@ body .process-grid-2x2 .process-step-2x2:hover {
   }
 }
 
-/* SpotlightCard wrapper — hover na rodzicu (scale + glow), żeby border wewnętrznej karty nie znikał */
+/* SpotlightCard wrapper — hover na rodzicu (uniesienie + glow), żeby border wewnętrznej karty nie znikał */
 body .custom-spotlight-card {
   background: transparent;
   border: none;
@@ -1276,11 +1276,11 @@ body .custom-spotlight-card {
   transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
 }
 body .custom-spotlight-card:hover {
-  transform: scale(1.02);
+  transform: translateY(-4px);
   box-shadow: none;
   border: none;
 }
-/* Karta wewnątrz — tylko border/shadow, bez scale (żeby border nie znikał przy obcinaniu) */
+/* Karta wewnątrz — tylko border/shadow, bez transform (żeby border nie znikał przy obcinaniu) */
 body .custom-spotlight-card:hover .card,
 body .custom-spotlight-card:hover .benefit-card,
 body .custom-spotlight-card:hover .process-card,
@@ -1344,7 +1344,7 @@ body .custom-spotlight-card.oferta-package-featured:hover {
   transition: transform 0.25s ease, box-shadow 0.3s ease;
 }
 .dla-kogo-card:hover {
-  transform: scale(1.02);
+  transform: translateY(-4px);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35), inset 0 1px 0 var(--glass-border-top-hover);
 }
 
@@ -1367,7 +1367,7 @@ body .dla-kogo-grid .dla-kogo-card-yes:hover,
 body .dla-kogo-grid .dla-kogo-card-no:hover {
   background: var(--glass-bg-hover);
   border-color: var(--glass-border-hover);
-  transform: scale(1.02);
+  transform: translateY(-4px);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35), inset 0 1px 0 var(--glass-border-top-hover);
 }
 body .dla-kogo-grid .dla-kogo-card-yes:hover {
@@ -1945,7 +1945,7 @@ body .contact-form-card:hover {
   background: var(--glass-bg-hover);
   border-color: var(--glass-border-hover);
   border-top-color: var(--glass-border-top-hover);
-  transform: scale(1.01);
+  transform: translateY(-2px);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35), inset 0 1px 0 var(--glass-border-top-hover);
 }
 

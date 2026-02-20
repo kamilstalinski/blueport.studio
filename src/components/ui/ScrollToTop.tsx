@@ -32,7 +32,7 @@ export function ScrollToTop() {
       }}
       aria-label="Przewiń do góry"
       className={cn(
-        "nav-glass-btn fixed bottom-6 right-6 z-[130] flex h-12 w-12 items-center justify-center rounded-button text-foreground transition-all duration-300 hover:scale-110 active:scale-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+        "nav-glass-btn fixed bottom-6 right-6 z-[130] flex h-12 w-12 items-center justify-center rounded-button text-foreground transition-all duration-300 hover:-translate-y-1 active:translate-y-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
         isVisible
           ? "translate-y-0 opacity-100"
           : "pointer-events-none translate-y-4 opacity-0"

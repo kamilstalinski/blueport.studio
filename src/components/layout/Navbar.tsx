@@ -105,7 +105,7 @@ export function Navbar() {
               }}
               aria-label={opt.label}
               className={cn(
-                "h-8 w-8 shrink-0 rounded-full border-2 transition hover:scale-110 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:ring-offset-transparent",
+                "h-8 w-8 shrink-0 rounded-full border-2 transition hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:ring-offset-transparent",
                 accent === opt.value ? "border-white/80 ring-2 ring-primary/50" : "border-white/30 hover:border-white/50",
               )}
               style={{ backgroundColor: opt.color }}
