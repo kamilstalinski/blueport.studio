@@ -71,10 +71,10 @@ export function OfertaPakiety({ topGradient = true, cardVariant = "default" }: O
             const isMiddle = index === 1;
 
             return (
-              <motion.div key={key} variants={v.scaleIn}>
+              <motion.div key={key} variants={v.scaleIn} className={isMiddle ? "overflow-visible" : undefined}>
                 <motion.div
-                  whileHover={{ y: -3, transition: springs.smooth }}
-                  whileTap={{ scale: 0.992, transition: springs.stiff }}
+                  whileHover={isMiddle ? undefined : { y: -3, transition: springs.smooth }}
+                  whileTap={isMiddle ? undefined : { scale: 0.992, transition: springs.stiff }}
                 >
                   <SpotlightCard
                     className={`custom-spotlight-card rounded-2xl h-full oferta-package-card ${isMiddle ? "oferta-package-featured" : ""}`}
