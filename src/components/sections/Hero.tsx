@@ -13,7 +13,7 @@ import { useGlassBlurStyle } from "@/lib/useGlassBlurStyle";
 
 import type { AccentTheme, HeroContentKey } from "@/types";
 
-import { EASE_OUT_EXPO } from "@/constants";
+import { EASE_OUT_EXPO, TRANSITION_SPRING_CSS } from "@/constants";
 
 const ColorBends = dynamic(
   () => import("@/components/ColorBends").then((m) => m.default),
@@ -160,7 +160,7 @@ export function Hero({ contentKey = "Home.hero" }: { contentKey?: HeroContentKey
                     fontWeight: 700,
                     fontSize: "0.95rem",
                     padding: "14px 28px",
-                    transition: "all 0.2s cubic-bezier(0.16, 1, 0.3, 1)",
+                    transition: TRANSITION_SPRING_CSS,
                   }}
                 >
                   {content.ctaPrimary}
@@ -325,7 +325,7 @@ export function Hero({ contentKey = "Home.hero" }: { contentKey?: HeroContentKey
                 fontWeight: 700,
                 fontSize: "0.95rem",
                 padding: "14px 28px",
-                transition: "all 0.2s cubic-bezier(0.16, 1, 0.3, 1)",
+                transition: TRANSITION_SPRING_CSS,
               }}
             >
               {content.ctaPrimary}

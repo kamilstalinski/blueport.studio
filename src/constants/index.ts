@@ -8,3 +8,6 @@ export const EASE_OUT_EXPO = [0.16, 1, 0.3, 1] as const;
 
 /** Smooth ease — DlaczegoMy, ProblemRozwiazanie. */
 export const EASE_SMOOTH = [0.25, 0.46, 0.45, 0.94] as const;
+
+/** CSS transition string (expo curve) — buttons, interactive elements. */
+export const TRANSITION_SPRING_CSS = "all 0.2s cubic-bezier(0.16, 1, 0.3, 1)";
