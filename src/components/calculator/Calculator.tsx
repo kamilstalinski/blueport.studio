@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 import { Button } from "@/components/ui/Button";
@@ -53,6 +53,11 @@ function CalculatorInner({ onSubmit }: CalculatorProps) {
   const [direction, setDirection] = useState(1);
   const validation = useMemo(() => validateStep(step), [validateStep, step]);
   const price = useMemo(() => getPrice(), [getPrice, state]);
+
+  useEffect(() => {
+    const anchor = document.getElementById("kalkulator-form");
+    anchor?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, [step]);
 
   const handleNext = useCallback(() => {
     if (!canGoNext(step)) return;
@@ -171,7 +176,7 @@ function CalculatorInner({ onSubmit }: CalculatorProps) {
     step < 6;
 
   return (
-    <>
+    <div>
       {/* Pasek i numery na pełną szerokość karty (bez paddingu) */}
       <CalculatorProgressBar currentStep={step} />
 
@@ -182,9 +187,17 @@ function CalculatorInner({ onSubmit }: CalculatorProps) {
           className="relative"
         >
           <div
-            className="min-h-[320px] mt-6"
+            className="relative min-h-[320px] mt-6"
             style={{ minHeight: "20rem" }}
           >
+            {showLivePrice && (
+              <p
+                className="absolute top-0 right-0 text-2xl font-semibold tracking-tight text-foreground m-0"
+                aria-live="polite"
+              >
+                Cena: {price.minPrice.toLocaleString("pl-PL")} – {price.maxPrice.toLocaleString("pl-PL")} zł
+              </p>
+            )}
             <AnimatePresence custom={direction} mode="wait">
               <motion.div
                 key={step}
@@ -215,11 +228,6 @@ function CalculatorInner({ onSubmit }: CalculatorProps) {
           </Button>
         </div>
         <div className="flex items-center gap-4">
-          {showLivePrice && (
-            <span className="text-right text-sm text-muted-foreground" aria-live="polite">
-              Szacunek: {price.minPrice.toLocaleString("pl-PL")} – {price.maxPrice.toLocaleString("pl-PL")} zł
-            </span>
-          )}
           {step < 6 && (
             <Button
               type="button"
@@ -246,7 +254,7 @@ function CalculatorInner({ onSubmit }: CalculatorProps) {
       </nav>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

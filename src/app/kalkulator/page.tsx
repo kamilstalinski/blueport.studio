@@ -12,7 +12,7 @@ export default function KalkulatorPage() {
     <>
       <Hero contentKey="kalkulator.hero" />
 
-      <Section id="kalkulator-form" topGradient>
+      <Section id="kalkulator-form" topGradient className="scroll-mt-12">
         <div className="grid gap-10 lg:grid-cols-[65%_1fr] lg:gap-12 lg:items-start">
           <SpotlightCard
             className="custom-spotlight-card calculator-spotlight min-w-0 rounded-2xl"
