@@ -73,10 +73,10 @@ export function SpotlightCard({
       onBlur={handleBlur}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      className={`relative border border-transparent bg-transparent p-0 rounded-[inherit] ${className}`}
+      className={`relative border border-transparent bg-transparent p-0 rounded-2xl ${className}`}
     >
       <div
-        className="pointer-events-none absolute inset-0 z-0 rounded-[inherit] opacity-0 transition-opacity duration-500 ease-in-out"
+        className="pointer-events-none absolute inset-0 z-0 rounded-2xl opacity-0 transition-opacity duration-500 ease-in-out"
         style={{
           opacity,
           background: `radial-gradient(circle at ${centerX}px ${centerY}px, ${spotlightColor}, transparent 80%)`,
