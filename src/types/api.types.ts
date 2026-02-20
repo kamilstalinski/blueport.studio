@@ -5,17 +5,21 @@ export type ProjectType =
   | "wordpress-pro"
   | "woocommerce-start"
   | "woocommerce-pro"
-  | "nextjs";
+  | "nextjs"
+  | null;
+
+export type ScopeUnit = "pages" | "products";
 
 export type Urgency = "standard" | "express";
 
 export type StepIndex = 1 | 2 | 3 | 4 | 5 | 6;
 
 export interface CalculatorState {
-  projectType: ProjectType | null;
-  pagesCount: number;
-  productCount: number;
+  projectType: ProjectType;
+  scopeUnit: ScopeUnit;
+  scopeCount: number;
   features: string[];
+  languageCount: number;
   integrations: string[];
   urgency: Urgency;
   budgetRange: string;
@@ -29,6 +33,14 @@ export interface PriceEstimate {
   maxPrice: number;
 }
 
+export type BudgetFit = "below" | "within" | "above" | null;
+
+export interface EstimateResult {
+  min: number;
+  max: number;
+  budgetFit: BudgetFit;
+}
+
 export interface PriceBreakdownItem {
   label: string;
   min: number;
@@ -40,13 +52,14 @@ export interface SummaryResult {
   estimate: PriceEstimate;
   breakdown: PriceBreakdownItem[];
   estimatedTimeline: string;
+  qualificationTags: string[];
 }
 
 export type CalculatorAction =
-  | { type: "SET_PROJECT_TYPE"; payload: ProjectType }
-  | { type: "SET_PAGES_COUNT"; payload: number }
-  | { type: "SET_PRODUCT_COUNT"; payload: number }
+  | { type: "SET_PROJECT_TYPE"; payload: NonNullable<ProjectType> }
+  | { type: "SET_SCOPE_COUNT"; payload: number }
   | { type: "SET_FEATURES"; payload: string[] }
+  | { type: "SET_LANGUAGE_COUNT"; payload: number }
   | { type: "SET_INTEGRATIONS"; payload: string[] }
   | { type: "SET_URGENCY"; payload: Urgency }
   | { type: "SET_BUDGET_RANGE"; payload: string }

@@ -187,8 +187,10 @@ export interface StepBudgetProps {
 export interface StepFeaturesProps {
   projectType: ProjectType | null;
   features: string[];
+  languageCount: number;
   integrations: string[];
   onFeaturesChange: (value: string[]) => void;
+  onLanguageCountChange: (value: number) => void;
   onIntegrationsChange: (value: string[]) => void;
 }
 
@@ -197,7 +199,7 @@ export interface StepScopeProps {
   productCount: number;
   onPagesCountChange: (value: number) => void;
   onProductCountChange: (value: number) => void;
-  projectType: ProjectType | null;
+  projectType: ProjectType;
 }
 
 export interface StepProjectTypeProps {

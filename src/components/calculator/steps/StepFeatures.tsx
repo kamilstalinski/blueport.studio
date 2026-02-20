@@ -2,105 +2,65 @@
 
 import { cn } from "@/lib/utils";
 import { IconBox } from "@/components/ui/IconBox";
-import { FEATURES_BY_PROJECT_TYPE } from "../logic/constants";
+import { FEATURES_BY_TYPE, LANGUAGE_OPTIONS, INTEGRATION_OPTIONS as INTEGRATION_OPTIONS_DATA } from "../logic/calculatorOptions";
 import type { ProjectType, StepFeaturesProps } from "@/types";
 import { CALC_CARD_BASE, CALC_CARD_UNSELECTED, CALC_CARD_SELECTED } from "../calculatorStyles";
 
 export type { StepFeaturesProps } from "@/types";
 
-const FEATURE_META: Record<
-  string,
-  { label: string; description: string; emoji: string }
-> = {
-  "custom-ui": {
-    label: "Projekt graficzny UI na zamówienie",
-    description: "Unikalny wygląd i dopasowanie do marki",
-    emoji: "🎨",
-  },
-  "seo-advanced": {
-    label: "SEO zaawansowane",
-    description: "Meta, schema, sitemap, GSC",
-    emoji: "🔍",
-  },
-  multilingual: {
-    label: "Wielojęzyczność",
-    description: "WPML lub i18n",
-    emoji: "🌐",
-  },
-  blog: {
-    label: "Moduł bloga",
-    description: "Aktualności i artykuły",
-    emoji: "📄",
-  },
-  "online-payments": {
-    label: "Płatności online",
-    description: "Przelewy24, Stripe",
-    emoji: "💳",
-  },
-  booking: {
-    label: "System rezerwacji online",
-    description: "Rezerwacje / terminy",
-    emoji: "📅",
-  },
-  automation: {
-    label: "Automatyzacja",
-    description: "Formularze, maile, CRM webhooks",
-    emoji: "⚙️",
-  },
-  performance: {
-    label: "Optymalizacja wydajności",
-    description: "Core Web Vitals",
-    emoji: "📊",
-  },
-  "headless-cms": {
-    label: "CMS headless",
-    description: "Sanity / Contentful",
-    emoji: "📦",
-  },
-  "product-filters": {
-    label: "Zaawansowane filtry produktów",
-    description: "Filtrowanie katalogu",
-    emoji: "🔎",
-  },
-  "abandoned-cart": {
-    label: "Odzyskiwanie porzuconych koszyków",
-    description: "E-maile, przypomnienia",
-    emoji: "🛒",
-  },
-  "loyalty-program": {
-    label: "Program lojalnościowy",
-    description: "Punkty, nagrody",
-    emoji: "⭐",
-  },
+const FEATURE_EMOJI: Record<string, string> = {
+  "custom-ui-upgrade": "🎨",
+  "seo-advanced": "🔍",
+  multilingual: "🌐",
+  blog: "📄",
+  booking: "📅",
+  automation: "⚙️",
+  performance: "📊",
+  "product-filters": "🔎",
+  "product-variants": "📐",
+  "abandoned-cart": "🛒",
+  "loyalty-program": "⭐",
+  "wholesaler-feed": "📦",
+  "headless-cms": "📦",
+  "online-payments": "💳",
 };
 
-const INTEGRATION_OPTIONS: { id: string; label: string; emoji: string }[] = [
-  { id: "crm", label: "CRM (HubSpot, Pipedrive, Salesforce)", emoji: "📦" },
-  { id: "mail", label: "Newsletter / Mail (Mailchimp, Brevo)", emoji: "✉️" },
-  { id: "analytics", label: "Analityka (GA4, GTM, Hotjar)", emoji: "📊" },
-  { id: "social", label: "Social (Meta Pixel, LinkedIn)", emoji: "🔗" },
-  { id: "maps", label: "Mapa Google / lokalizacja", emoji: "📍" },
-  { id: "chat", label: "Chat / Messenger (LiveChat, Tidio)", emoji: "💬" },
-  { id: "other", label: "Inna integracja", emoji: "🔌" },
-];
+const INTEGRATION_EMOJI: Record<string, string> = {
+  crm: "📦",
+  mail: "✉️",
+  analytics: "📊",
+  social: "🔗",
+  maps: "📍",
+  chat: "💬",
+  pos: "🖵",
+  erp: "📋",
+  other: "🔌",
+};
 
 function toggleInList(list: string[], id: string): string[] {
   return list.includes(id) ? list.filter((x) => x !== id) : [...list, id];
 }
 
-function getVisibleFeatureIds(projectType: ProjectType | null): string[] {
+function getVisibleFeatureIds(projectType: ProjectType | null, languageCount: number): string[] {
   if (!projectType) return [];
-  return FEATURES_BY_PROJECT_TYPE[projectType] ?? [];
+  const features = FEATURES_BY_TYPE[projectType] ?? [];
+  return features
+    .map((f) => f.id)
+    .filter((id) => id !== "multilingual" || languageCount <= 1);
 }
 
 export function StepFeatures({
   projectType,
   features,
+  languageCount,
   integrations,
   onFeaturesChange,
+  onLanguageCountChange,
   onIntegrationsChange,
 }: StepFeaturesProps) {
-  const featureIds = getVisibleFeatureIds(projectType);
+  const featureIds = getVisibleFeatureIds(projectType, languageCount);
+  const isWoo = projectType === "woocommerce-start" || projectType === "woocommerce-pro";
+  const integrationOptions = INTEGRATION_OPTIONS_DATA.filter((i) => !i.woocommerceOnly || isWoo);
 
   return (
     <div data-step="features" className="space-y-8">
@@ -114,8 +74,8 @@ export function StepFeatures({
       {featureIds.length > 0 && (
         <div className="grid gap-3 sm:grid-cols-2" role="group" aria-label="Funkcje">
           {featureIds.map((id) => {
-            const meta = FEATURE_META[id];
-            const emoji = meta?.emoji ?? "📦";
+            const feature = FEATURES_BY_TYPE[projectType!]?.find((f) => f.id === id);
+            const emoji = FEATURE_EMOJI[id] ?? "📦";
             const isChecked = features.includes(id);
             return (
               <button
@@ -132,11 +92,11 @@ export function StepFeatures({
                 <IconBox emoji={emoji} className="shrink-0" />
                 <span className="flex-1">
                   <span className="block font-medium">
-                    {meta?.label ?? id}
+                    {feature?.label ?? id}
                   </span>
-                  {meta?.description && (
+                  {feature?.description && (
                     <span className="mt-0.5 block text-sm text-muted-foreground">
-                      {meta.description}
+                      {feature.description}
                     </span>
                   )}
                 </span>
@@ -157,9 +117,34 @@ export function StepFeatures({
       )}
 
       <div>
+        <h3 className="mb-3 text-lg font-medium text-foreground">Liczba języków</h3>
+        <div className="flex flex-wrap gap-3" role="group" aria-label="Liczba języków">
+          {LANGUAGE_OPTIONS.map(({ value, label }) => {
+            const isSelected = languageCount === value;
+            return (
+              <button
+                key={value}
+                type="button"
+                onClick={() => onLanguageCountChange(value)}
+                className={cn(
+                  CALC_CARD_BASE,
+                  "font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 active:scale-[0.99]",
+                  isSelected ? CALC_CARD_SELECTED : CALC_CARD_UNSELECTED
+                )}
+                aria-pressed={isSelected}
+              >
+                {label}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      <div>
         <h3 className="mb-3 text-lg font-medium text-foreground">Integracje (opcjonalnie)</h3>
         <div className="flex flex-wrap gap-3">
-          {INTEGRATION_OPTIONS.map(({ id, label, emoji }) => {
+          {integrationOptions.map(({ id, label }) => {
+            const emoji = INTEGRATION_EMOJI[id] ?? "🔌";
             const isChecked = integrations.includes(id);
             return (
               <button

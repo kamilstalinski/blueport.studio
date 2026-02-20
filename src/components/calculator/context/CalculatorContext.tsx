@@ -15,14 +15,15 @@ import type {
   StepIndex,
 } from "@/types";
 import { computePrice } from "../logic/pricingEngine";
-import { buildSummary } from "../logic/summary";
+import { buildSummary, getPriceEstimate } from "../logic/summary";
 import { validateStep as validateStepFn, canSubmit as canSubmitFn } from "../logic/validation";
 
 const initialState: CalculatorState = {
   projectType: null,
-  pagesCount: 0,
-  productCount: 0,
+  scopeUnit: "pages",
+  scopeCount: 0,
   features: [],
+  languageCount: 1,
   integrations: [],
   urgency: "standard",
   budgetRange: "",
@@ -33,14 +34,24 @@ const initialState: CalculatorState = {
 
 function reducer(state: CalculatorState, action: CalculatorAction): CalculatorState {
   switch (action.type) {
-    case "SET_PROJECT_TYPE":
-      return { ...state, projectType: action.payload };
-    case "SET_PAGES_COUNT":
-      return { ...state, pagesCount: action.payload };
-    case "SET_PRODUCT_COUNT":
-      return { ...state, productCount: action.payload };
+    case "SET_PROJECT_TYPE": {
+      const projectType = action.payload;
+      const scopeUnit =
+        projectType === "woocommerce-start" || projectType === "woocommerce-pro" ? "products" : "pages";
+      return {
+        ...state,
+        projectType,
+        scopeUnit,
+        scopeCount: 0,
+        features: [],
+      };
+    }
+    case "SET_SCOPE_COUNT":
+      return { ...state, scopeCount: action.payload };
     case "SET_FEATURES":
       return { ...state, features: action.payload };
+    case "SET_LANGUAGE_COUNT":
+      return { ...state, languageCount: action.payload };
     case "SET_INTEGRATIONS":
       return { ...state, integrations: action.payload };
     case "SET_URGENCY":
@@ -85,10 +96,11 @@ export function CalculatorProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const updateState = useCallback((payload: Partial<CalculatorState>) => {
-    if (payload.projectType !== undefined && payload.projectType !== null) dispatch({ type: "SET_PROJECT_TYPE", payload: payload.projectType });
-    if (payload.pagesCount !== undefined) dispatch({ type: "SET_PAGES_COUNT", payload: payload.pagesCount });
-    if (payload.productCount !== undefined) dispatch({ type: "SET_PRODUCT_COUNT", payload: payload.productCount });
+    if (payload.projectType !== undefined && payload.projectType !== null)
+      dispatch({ type: "SET_PROJECT_TYPE", payload: payload.projectType });
+    if (payload.scopeCount !== undefined) dispatch({ type: "SET_SCOPE_COUNT", payload: payload.scopeCount });
     if (payload.features !== undefined) dispatch({ type: "SET_FEATURES", payload: payload.features });
+    if (payload.languageCount !== undefined) dispatch({ type: "SET_LANGUAGE_COUNT", payload: payload.languageCount });
     if (payload.integrations !== undefined) dispatch({ type: "SET_INTEGRATIONS", payload: payload.integrations });
     if (payload.urgency !== undefined) dispatch({ type: "SET_URGENCY", payload: payload.urgency });
     if (payload.budgetRange !== undefined) dispatch({ type: "SET_BUDGET_RANGE", payload: payload.budgetRange });
@@ -104,7 +116,7 @@ export function CalculatorProvider({ children }: { children: ReactNode }) {
     }
   }, []);
 
-  const getPrice = useCallback(() => computePrice(state), [state]);
+  const getPrice = useCallback(() => getPriceEstimate(state), [state]);
   const getSummary = useCallback(() => buildSummary(state), [state]);
 
   const validateStep = useCallback(

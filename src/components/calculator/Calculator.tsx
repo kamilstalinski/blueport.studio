@@ -97,10 +97,10 @@ function CalculatorInner({ onSubmit }: CalculatorProps) {
       case 2:
         return (
           <StepScope
-            pagesCount={state.pagesCount}
-            productCount={state.productCount}
-            onPagesCountChange={(v) => updateState({ pagesCount: v })}
-            onProductCountChange={(v) => updateState({ productCount: v })}
+            pagesCount={state.scopeUnit === "pages" ? state.scopeCount : 0}
+            productCount={state.scopeUnit === "products" ? state.scopeCount : 0}
+            onPagesCountChange={(v) => updateState({ scopeCount: v })}
+            onProductCountChange={(v) => updateState({ scopeCount: v })}
             projectType={state.projectType}
           />
         );
@@ -109,8 +109,10 @@ function CalculatorInner({ onSubmit }: CalculatorProps) {
           <StepFeatures
             projectType={state.projectType}
             features={state.features}
+            languageCount={state.languageCount}
             integrations={state.integrations}
             onFeaturesChange={(v) => updateState({ features: v })}
+            onLanguageCountChange={(v) => updateState({ languageCount: v })}
             onIntegrationsChange={(v) => updateState({ integrations: v })}
           />
         );

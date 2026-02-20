@@ -24,12 +24,9 @@ export function validateStep1(state: CalculatorState): StepValidationResult {
 }
 
 /**
- * Step 2: scope (pages count) – must be >= 0; for wordpress/next we expect at least 1.
+ * Step 2: scope – no blocking validation.
  */
-export function validateStep2(state: CalculatorState): StepValidationResult {
-  if (state.projectType && state.pagesCount < 0) {
-    return { valid: false, error: "Liczba podstron musi być nieujemna." };
-  }
+export function validateStep2(_state: CalculatorState): StepValidationResult {
   return { valid: true };
 }
 

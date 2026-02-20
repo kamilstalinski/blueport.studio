@@ -1,0 +1,275 @@
+/**
+ * Step data and options for the calculator (labels, presets, feature definitions).
+ * Used by UI components and by pricing/summary logic.
+ */
+
+import type { ProjectType } from "@/types";
+
+export interface ProjectTypeOption {
+  id: NonNullable<ProjectType>;
+  title: string;
+  subtitle: string;
+  includes: string[];
+}
+
+export const PROJECT_TYPE_OPTIONS: ProjectTypeOption[] = [
+  {
+    id: "wordpress-standard",
+    title: "Strona firmowa Standard",
+    subtitle: "Szybka realizacja na WordPress",
+    includes: [
+      "Do 5 podstron",
+      "Motyw WordPress + customizacja",
+      "SEO podstawowe",
+      "Formularz kontaktowy",
+      "Responsywność (mobile)",
+    ],
+  },
+  {
+    id: "wordpress-pro",
+    title: "Strona firmowa PRO",
+    subtitle: "Indywidualny projekt UI + WordPress",
+    includes: [
+      "Indywidualny projekt graficzny UI",
+      "Do 10 podstron",
+      "Zaawansowane sekcje i animacje",
+      "SEO techniczne",
+      "Blog / aktualności",
+      "Wydajność i Core Web Vitals",
+    ],
+  },
+  {
+    id: "woocommerce-start",
+    title: "Sklep WooCommerce Start",
+    subtitle: "Gotowy sklep do 20 produktów",
+    includes: [
+      "Do 20 produktów",
+      "Przelewy24 / PayU",
+      "Integracja kurierów (InPost, DPD)",
+      "Panel zarządzania zamówieniami",
+      "Responsywność",
+    ],
+  },
+  {
+    id: "woocommerce-pro",
+    title: "Sklep WooCommerce PRO",
+    subtitle: "Rozbudowany sklep z optymalizacją sprzedaży",
+    includes: [
+      "Nielimitowane produkty",
+      "Zaawansowane filtry i warianty",
+      "Odzyskiwanie porzuconych koszyków",
+      "Integracja z hurtownią / XML",
+      "Program lojalnościowy (opcja)",
+      "Projekt UI sklepu",
+    ],
+  },
+  {
+    id: "nextjs",
+    title: "Projekt dedykowany Next.js",
+    subtitle: "Aplikacja webowa na zamówienie",
+    includes: [
+      "Projekt UX/UI od podstaw",
+      "Kod Next.js (bez gotowych szablonów)",
+      "Wysoka wydajność — SSR/SSG",
+      "Opcjonalny CMS headless",
+      "Nieograniczone możliwości funkcjonalne",
+    ],
+  },
+];
+
+export const SCOPE_PRESETS_PAGES = [1, 3, 5, 10, 15, 20] as const;
+export const SCOPE_PRESETS_PRODUCTS = [10, 20, 50, 100, 200, 500] as const;
+
+export interface Feature {
+  id: string;
+  label: string;
+  description: string;
+  minCost: number;
+  maxCost: number;
+}
+
+const ALL_FEATURES: Feature[] = [
+  {
+    id: "custom-ui-upgrade",
+    label: "Projekt graficzny UI (upgrade)",
+    description: "Własny projekt graficzny zamiast gotowego motywu",
+    minCost: 900,
+    maxCost: 1600,
+  },
+  {
+    id: "seo-advanced",
+    label: "SEO zaawansowane",
+    description: "Schema.org, sitemap XML, Google Search Console, meta opisy",
+    minCost: 550,
+    maxCost: 900,
+  },
+  {
+    id: "multilingual",
+    label: "Wielojęzyczność (WPML / i18n)",
+    description: "Baza pod tłumaczenia — koszt tłumaczeń osobno",
+    minCost: 800,
+    maxCost: 1400,
+  },
+  {
+    id: "blog",
+    label: "Moduł bloga / aktualności",
+    description: "System publikacji wpisów, kategorie, tagi",
+    minCost: 350,
+    maxCost: 600,
+  },
+  {
+    id: "booking",
+    label: "System rezerwacji online",
+    description: "Kalendarz, sloty, potwierdzenia e-mail (np. Calendly embed lub własne)",
+    minCost: 1200,
+    maxCost: 2000,
+  },
+  {
+    id: "automation",
+    label: "Automatyzacja i CRM",
+    description: "Formularze → CRM, maile automatyczne, webhooks",
+    minCost: 1100,
+    maxCost: 1900,
+  },
+  {
+    id: "performance",
+    label: "Optymalizacja wydajności",
+    description: "Core Web Vitals, lazy loading, caching, CDN setup",
+    minCost: 350,
+    maxCost: 650,
+  },
+  {
+    id: "product-filters",
+    label: "Zaawansowane filtry produktów",
+    description: "Filtrowanie po cechach, cenie, dostępności (AJAX)",
+    minCost: 700,
+    maxCost: 1300,
+  },
+  {
+    id: "product-variants",
+    label: "Warianty produktów",
+    description: "Rozmiary, kolory, konfiguratory — zaawansowane kombinacje",
+    minCost: 600,
+    maxCost: 1100,
+  },
+  {
+    id: "abandoned-cart",
+    label: "Odzyskiwanie porzuconych koszyków",
+    description: "Automatyczne maile do klientów, którzy nie dokończyli zakupu",
+    minCost: 500,
+    maxCost: 900,
+  },
+  {
+    id: "loyalty-program",
+    label: "Program lojalnościowy",
+    description: "Punkty, rangi klientów, kupony — integracja z WooCommerce",
+    minCost: 1100,
+    maxCost: 1900,
+  },
+  {
+    id: "wholesaler-feed",
+    label: "Integracja z hurtownią (XML/API)",
+    description: "Automatyczny import produktów z zewnętrznego źródła",
+    minCost: 1400,
+    maxCost: 2500,
+  },
+  {
+    id: "headless-cms",
+    label: "CMS headless (Sanity / Contentful)",
+    description: "Edytor treści zewnętrzny, oddzielony od kodu Next.js",
+    minCost: 1400,
+    maxCost: 2400,
+  },
+  {
+    id: "online-payments",
+    label: "Płatności online",
+    description: "Przelewy24, PayU lub Stripe — konfiguracja i testy",
+    minCost: 600,
+    maxCost: 1100,
+  },
+];
+
+const featureById = new Map(ALL_FEATURES.map((f) => [f.id, f]));
+
+export function getFeatureCost(id: string): { min: number; max: number } | undefined {
+  const f = featureById.get(id);
+  return f ? { min: f.minCost, max: f.maxCost } : undefined;
+}
+
+export function getFeatureLabel(id: string): string {
+  return featureById.get(id)?.label ?? id;
+}
+
+export const FEATURES_BY_TYPE: Record<NonNullable<ProjectType>, Feature[]> = {
+  "wordpress-standard": (["custom-ui-upgrade", "seo-advanced", "blog", "booking", "performance"] as const).map(
+    (id) => featureById.get(id)!
+  ),
+  "wordpress-pro": (["seo-advanced", "blog", "booking", "automation", "performance"] as const).map(
+    (id) => featureById.get(id)!
+  ),
+  "woocommerce-start": (["seo-advanced", "blog", "product-filters", "abandoned-cart", "performance"] as const).map(
+    (id) => featureById.get(id)!
+  ),
+  "woocommerce-pro": (
+    [
+      "seo-advanced",
+      "blog",
+      "product-filters",
+      "product-variants",
+      "abandoned-cart",
+      "loyalty-program",
+      "wholesaler-feed",
+      "automation",
+      "performance",
+    ] as const
+  ).map((id) => featureById.get(id)!),
+  nextjs: (
+    [
+      "seo-advanced",
+      "blog",
+      "booking",
+      "automation",
+      "performance",
+      "headless-cms",
+      "online-payments",
+    ] as const
+  ).map((id) => featureById.get(id)!),
+};
+
+export const LANGUAGE_OPTIONS = [
+  { value: 1, label: "1 język (polski)" },
+  { value: 2, label: "2 języki (np. PL + EN)" },
+  { value: 3, label: "3 języki" },
+  { value: 4, label: "4+ języki" },
+] as const;
+
+export interface IntegrationOption {
+  id: string;
+  label: string;
+  description: string;
+  minCost: number;
+  maxCost: number;
+  woocommerceOnly?: boolean;
+}
+
+export const INTEGRATION_OPTIONS: IntegrationOption[] = [
+  { id: "crm", label: "CRM (HubSpot, Pipedrive)", description: "", minCost: 450, maxCost: 850 },
+  { id: "mail", label: "E-mail marketing (Mailchimp, Brevo)", description: "", minCost: 280, maxCost: 550 },
+  { id: "analytics", label: "Analityka (GA4, GTM, Hotjar)", description: "", minCost: 220, maxCost: 420 },
+  { id: "social", label: "Social / Meta Pixel", description: "", minCost: 250, maxCost: 450 },
+  { id: "maps", label: "Mapa Google", description: "", minCost: 250, maxCost: 450 },
+  { id: "chat", label: "Chat (LiveChat, Tidio)", description: "", minCost: 350, maxCost: 650 },
+  { id: "pos", label: "Kasa / system POS", description: "", minCost: 800, maxCost: 1500, woocommerceOnly: true },
+  { id: "erp", label: "ERP / Subiekt / system magazynowy", description: "", minCost: 1200, maxCost: 2500, woocommerceOnly: true },
+  { id: "other", label: "Inna integracja", description: "", minCost: 450, maxCost: 950 },
+];
+
+export const BUDGET_RANGES = [
+  { value: "do-3k", label: "do 3 000 zł" },
+  { value: "3k-5k", label: "3 000 – 5 000 zł" },
+  { value: "5k-8k", label: "5 000 – 8 000 zł" },
+  { value: "8k-14k", label: "8 000 – 14 000 zł" },
+  { value: "14k-25k", label: "14 000 – 25 000 zł" },
+  { value: "25k-plus", label: "powyżej 25 000 zł" },
+  { value: "unknown", label: "Nie wiem jeszcze" },
+] as const;

@@ -2,19 +2,10 @@
 
 import { cn } from "@/lib/utils";
 import type { ProjectType, StepScopeProps } from "@/types";
+import { SCOPE_PRESETS_PAGES, SCOPE_PRESETS_PRODUCTS } from "../logic/calculatorOptions";
 import { CALC_CARD_BASE, CALC_CARD_UNSELECTED, CALC_CARD_SELECTED } from "../calculatorStyles";
 
 export type { StepScopeProps } from "@/types";
-
-const PRESET_PAGES = [5, 10, 15, 20, 30];
-
-const PRESET_PRODUCTS = [
-  { value: 10, label: "10" },
-  { value: 20, label: "20" },
-  { value: 50, label: "50" },
-  { value: 100, label: "100" },
-  { value: 200, label: "200+" },
-];
 
 const PRODUCT_PROJECT_TYPES: ProjectType[] = ["woocommerce-start", "woocommerce-pro"];
 
@@ -41,7 +32,7 @@ export function StepScope({
           Liczba produktów w sklepie. Możesz wybrać preset lub wpisać własną wartość.
         </p>
         <div className="grid gap-3 sm:grid-cols-3 md:grid-cols-5" role="group" aria-label="Liczba produktów w sklepie">
-          {PRESET_PRODUCTS.map(({ value, label }) => {
+          {SCOPE_PRESETS_PRODUCTS.map((value) => {
             const isSelected = productCount === value;
             return (
               <button
@@ -55,7 +46,7 @@ export function StepScope({
                 )}
                 aria-pressed={isSelected}
               >
-                {label}
+                {value}
               </button>
             );
           })}
@@ -65,11 +56,11 @@ export function StepScope({
           <input
             type="number"
             min={0}
-            max={999}
+            max={2000}
             value={productCount || ""}
             onChange={(e) => {
               const parsedValue = parseInt(e.target.value, 10);
-              onProductCountChange(Number.isNaN(parsedValue) ? 0 : Math.max(0, Math.min(999, parsedValue)));
+              onProductCountChange(Number.isNaN(parsedValue) ? 0 : Math.max(0, Math.min(2000, parsedValue)));
             }}
             placeholder="0"
             className="h-12 w-full max-w-[140px] rounded-xl border border-border bg-white/15 px-4 text-foreground placeholder:text-muted-foreground/80 focus:outline-none focus:ring-2 focus:ring-primary"
@@ -89,7 +80,7 @@ export function StepScope({
         Oszacuj liczbę podstron. Możesz wybrać preset lub wpisać własną wartość.
       </p>
       <div className="grid gap-3 sm:grid-cols-3 md:grid-cols-5" role="group" aria-label="Liczba podstron">
-        {PRESET_PAGES.map((num) => {
+        {SCOPE_PRESETS_PAGES.map((num) => {
           const isSelected = pagesCount === num;
           return (
             <button
@@ -113,11 +104,11 @@ export function StepScope({
         <input
           type="number"
           min={0}
-          max={100}
+          max={50}
           value={pagesCount || ""}
           onChange={(e) => {
             const parsedValue = parseInt(e.target.value, 10);
-            onPagesCountChange(Number.isNaN(parsedValue) ? 0 : Math.max(0, Math.min(100, parsedValue)));
+            onPagesCountChange(Number.isNaN(parsedValue) ? 0 : Math.max(0, Math.min(50, parsedValue)));
           }}
           placeholder="0"
           className="h-12 w-full max-w-[140px] rounded-xl border border-border bg-white/15 px-4 text-foreground placeholder:text-muted-foreground/80 focus:outline-none focus:ring-2 focus:ring-primary"
