@@ -35,8 +35,28 @@ export function GlobalGradientBackground() {
   }, []);
 
   return (
-    <div className="fixed inset-0 -z-10 overflow-hidden" aria-hidden>
-      <div style={{ width: "100%", height: "100%", position: "relative" }}>
+    <div
+      className="fixed inset-0 -z-10 overflow-hidden bg-[var(--color-gradient-mesh-2,#03031C)]"
+      style={{
+        minHeight: "100dvh",
+        willChange: "transform",
+        transform: "translateZ(0)",
+        backfaceVisibility: "hidden",
+      }}
+      aria-hidden
+    >
+      {/* Rozszerzenie powyżej viewportu — brak ucięcia przy chowającym się navbarze Chrome */}
+      <div
+        style={{
+          position: "absolute",
+          top: "-20vh",
+          left: 0,
+          right: 0,
+          width: "100%",
+          height: "calc(100% + 40vh)",
+          minHeight: "100dvh",
+        }}
+      >
         <Grainient
           color1={colors.color1}
           color2={colors.color2}
@@ -61,6 +81,7 @@ export function GlobalGradientBackground() {
           centerY={0}
           zoom={0.5}
           className="absolute inset-0 h-full w-full"
+          resizeDebounceMs={120}
         />
       </div>
     </div>

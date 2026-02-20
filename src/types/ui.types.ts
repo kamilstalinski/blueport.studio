@@ -69,6 +69,8 @@ export interface GrainientProps {
   color2?: string;
   color3?: string;
   className?: string;
+  /** Debounce resize (ms) — ogranicza migotanie przy scrollu (np. chowający się navbar Chrome). */
+  resizeDebounceMs?: number;
 }
 
 export interface SpotlightCardProps extends React.PropsWithChildren {

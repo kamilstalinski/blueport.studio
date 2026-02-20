@@ -200,6 +200,7 @@ export function Navbar() {
         "fixed top-0 left-0 right-0 z-50 box-border pb-2 transition-[padding] duration-300 ease-out isolate",
         useScrolledStyle ? "pt-3 md:pt-4" : "pt-0",
         !useScrolledStyle && "px-0",
+        useScrolledStyle && "px-3 md:px-4",
       )}
     >
       <div

@@ -127,6 +127,7 @@ export function Grainient({
   color2 = "#5227FF",
   color3 = "#B19EEF",
   className = "",
+  resizeDebounceMs = 0,
 }: GrainientProps) {
   const containerRef = useRef<HTMLDivElement | null>(null);
 
@@ -192,7 +193,20 @@ export function Grainient({
       resolution[1] = glContext.drawingBufferHeight;
     };
 
-    const resizeObserver = new ResizeObserver(setSize);
+    let debounceId: ReturnType<typeof setTimeout> | null = null;
+    const onResize = () => {
+      if (resizeDebounceMs <= 0) {
+        setSize();
+        return;
+      }
+      if (debounceId) clearTimeout(debounceId);
+      debounceId = setTimeout(() => {
+        debounceId = null;
+        setSize();
+      }, resizeDebounceMs);
+    };
+
+    const resizeObserver = new ResizeObserver(onResize);
     resizeObserver.observe(container);
     setSize();
 
@@ -207,6 +221,7 @@ export function Grainient({
 
     return () => {
       cancelAnimationFrame(raf);
+      if (debounceId) clearTimeout(debounceId);
       resizeObserver.disconnect();
       try {
         container.removeChild(canvas);
@@ -237,6 +252,7 @@ export function Grainient({
     color1,
     color2,
     color3,
+    resizeDebounceMs,
   ]);
 
   return (
