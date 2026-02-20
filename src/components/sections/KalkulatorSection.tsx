@@ -60,9 +60,7 @@ export function KalkulatorSection() {
   useEffect(() => {
     startTimerRef.current = startTimer;
     updateDisplay(TOTAL);
-  }, [startTimer, updateDisplay]);
 
-  useEffect(() => {
     const section = sectionRef.current;
     if (!section) return;
 

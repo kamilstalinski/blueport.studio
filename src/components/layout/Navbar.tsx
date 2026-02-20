@@ -121,8 +121,12 @@ export function Navbar() {
       : "border-b border-l-0 border-r-0 border-t-0 py-[1.17rem] md:py-[1.56rem]") +
     (isMenuOpen ? " nav-glass-menu-open" : "") +
     " transition-[border-radius,border-color,background-color,box-shadow,padding] duration-300 ease-out";
+  const getNavBorderRadius = (): string => {
+    if (!useScrolledStyle) return "0";
+    return isMenuOpen ? "1rem 1rem 0 0" : "1rem";
+  };
   const glassStyle: React.CSSProperties = {
-    borderRadius: useScrolledStyle ? (isMenuOpen ? "1rem 1rem 0 0" : "1rem") : "0",
+    borderRadius: getNavBorderRadius(),
     ...glassBlurNav,
   };
 
