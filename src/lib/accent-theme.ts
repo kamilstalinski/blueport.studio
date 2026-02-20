@@ -32,11 +32,18 @@ export function getInitialAccent(): AccentTheme {
 }
 
 export function applyAccent(accent: AccentTheme): void {
+  document.documentElement.style.setProperty(
+    "transition",
+    "background-color 0.5s ease, color 0.3s ease",
+  );
   document.documentElement.setAttribute("data-accent", accent);
   localStorage.setItem(STORAGE_KEY, accent);
   if (typeof window !== "undefined") {
     window.dispatchEvent(new CustomEvent("blueport-accent-change", { detail: accent }));
   }
+  setTimeout(() => {
+    document.documentElement.style.removeProperty("transition");
+  }, 600);
 }
 
 export function cycleAccent(current: AccentTheme): AccentTheme {

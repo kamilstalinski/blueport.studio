@@ -4,6 +4,7 @@ import { useCallback, useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 import { Button } from "@/components/ui/Button";
+import { ease, duration } from "@/constants/animations";
 
 import { CalculatorProvider, useCalculator } from "./context/CalculatorContext";
 import { CalculatorProgressBar } from "./CalculatorProgressBar";
@@ -17,19 +18,19 @@ import { StepSummary } from "./steps/StepSummary";
 import type { CalculatorProps, StepIndex } from "@/types";
 
 const stepVariants = {
-  enter: (direction: number) => ({
-    x: direction > 0 ? 40 : -40,
+  enter: (dir: number) => ({
+    x: dir > 0 ? 48 : -48,
     opacity: 0,
   }),
   center: {
     x: 0,
     opacity: 1,
-    transition: { duration: 0.35, ease: [0.16, 1, 0.3, 1] as const },
+    transition: { duration: duration.slow, ease: ease.spring },
   },
-  exit: (direction: number) => ({
-    x: direction > 0 ? -40 : 40,
+  exit: (dir: number) => ({
+    x: dir > 0 ? -48 : 48,
     opacity: 0,
-    transition: { duration: 0.2, ease: [0.4, 0, 0.2, 1] as const },
+    transition: { duration: duration.base, ease: ease.sharp },
   }),
 };
 

@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Section } from "@/components/ui/Section";
+import { ScrollReveal } from "@/components/ui/ScrollReveal";
+import { ease } from "@/constants/animations";
 import { cn } from "@/lib/utils";
 import { useGlassBlurStyle } from "@/lib/useGlassBlurStyle";
 import type { FAQSectionProps } from "@/types";
@@ -26,9 +28,11 @@ export function FAQSection({ faqKeys }: FAQSectionProps) {
   return (
     <Section id="faq" noWrapper>
       <div className="container-narrow">
-        <h2 className="heading-2 text-center text-white mb-10">
-          Najczęstsze pytania
-        </h2>
+        <ScrollReveal variant="fadeUp" className="mb-10">
+          <h2 className="heading-2 text-center text-white mb-0">
+            Najczęstsze pytania
+          </h2>
+        </ScrollReveal>
         <ul className="mx-auto list-none p-0 m-0">
         {keys.map((key) => {
           const item = FAQ_ITEMS[key];
@@ -65,7 +69,7 @@ export function FAQSection({ faqKeys }: FAQSectionProps) {
                 </span>
                 <motion.span
                   animate={{ rotate: isOpen ? 180 : 0 }}
-                  transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+                  transition={{ duration: 0.25, ease: ease.spring }}
                   className={cn(
                     "inline-block text-lg leading-none shrink-0 text-white/80",
                   )}
@@ -87,15 +91,15 @@ export function FAQSection({ faqKeys }: FAQSectionProps) {
                       height: "auto",
                       opacity: 1,
                       transition: {
-                        height: { duration: 0.35, ease: [0.16, 1, 0.3, 1] },
-                        opacity: { duration: 0.25, delay: 0.05 },
+                        height: { duration: 0.35, ease: ease.spring },
+                        opacity: { duration: 0.25, delay: 0.08 },
                       },
                     }}
                     exit={{
                       height: 0,
                       opacity: 0,
                       transition: {
-                        height: { duration: 0.25, ease: [0.4, 0, 0.2, 1] },
+                        height: { duration: 0.25, ease: ease.sharp },
                         opacity: { duration: 0.15 },
                       },
                     }}

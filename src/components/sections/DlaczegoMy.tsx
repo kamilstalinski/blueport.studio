@@ -95,8 +95,8 @@ export function DlaczegoMy({ contentKey = "Home.dlaczegoMy", itemKeys, cardVaria
                 <motion.div
                   key={key}
                   variants={v.scaleIn}
-                  whileHover={{ y: -4, transition: springs.smooth }}
-                  whileTap={{ scale: 0.98, transition: springs.stiff }}
+                  whileHover={{ y: -3, transition: springs.smooth }}
+                  whileTap={{ scale: 0.992, transition: springs.stiff }}
                   className="efekty-card"
                   style={glassBlurStyle}
                 >
@@ -127,8 +127,8 @@ export function DlaczegoMy({ contentKey = "Home.dlaczegoMy", itemKeys, cardVaria
                 <motion.div
                   key={key}
                   variants={v.scaleIn}
-                  whileHover={{ y: -4, transition: springs.smooth }}
-                  whileTap={{ scale: 0.98, transition: springs.stiff }}
+                  whileHover={{ y: -3, transition: springs.smooth }}
+                  whileTap={{ scale: 0.992, transition: springs.stiff }}
                 >
                 <SpotlightCard
                   key={key}

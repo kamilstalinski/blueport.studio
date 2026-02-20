@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Grainient } from "@/components/Grainient";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
 
 function getCssVar(name: string): string {
   if (typeof document === "undefined") return "";
@@ -18,11 +19,16 @@ const FALLBACK = {
 
 export function GlobalGradientBackground() {
   const [colors, setColors] = useState<{ color1: string; color2: string; color3: string }>(
-    FALLBACK
+    FALLBACK,
   );
+  const isMobile = useMediaQuery("(max-width: 768px)");
 
   const { scrollY } = useScroll();
-  const meshY = useTransform(scrollY, [0, 1000], [0, -120]);
+  const meshY = useTransform(
+    scrollY,
+    [0, 1000],
+    [0, isMobile ? 0 : -180],
+  );
 
   const readColors = () => {
     setColors({

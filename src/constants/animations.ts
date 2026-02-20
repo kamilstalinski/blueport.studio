@@ -20,88 +20,108 @@ export const duration = {
 } as const;
 
 // ─── Warianty wielokrotnego użytku ─────────────────────────────
+// FILOZOFIA: mały ruch, wolne pojawienie, dużo opacity — zero "wyskakiwania"
 export const variants = {
-  // Fade in z lekkim ruchem w górę — główny wariant wejścia
+  // Główny wariant wejścia — ledwo widoczny ruch, dominuje opacity
   fadeUp: {
-    hidden: { opacity: 0, y: 24 },
+    hidden: { opacity: 0, y: 10 },
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: duration.slow, ease: ease.spring },
+      transition: { duration: 0.7, ease: ease.smooth },
     },
     exit: {
       opacity: 0,
-      y: -12,
-      transition: { duration: duration.fast, ease: ease.sharp },
+      y: -6,
+      transition: { duration: duration.base, ease: ease.gentle },
     },
   },
 
-  // Fade in — dla elementów bez ruchu (tekst, label)
+  // Czyste fade — zero ruchu, tylko opacity
   fadeIn: {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: { duration: duration.slow, ease: ease.gentle },
+      transition: { duration: 0.8, ease: ease.gentle },
     },
     exit: {
       opacity: 0,
-      transition: { duration: duration.fast },
+      transition: { duration: duration.base, ease: ease.gentle },
     },
   },
 
-  // Scale in — dla kart, modali, tooltipów
+  // Karty — minimalne scale, dominuje opacity
   scaleIn: {
-    hidden: { opacity: 0, scale: 0.94 },
+    hidden: { opacity: 0, scale: 0.98, y: 8 },
     visible: {
       opacity: 1,
       scale: 1,
-      transition: { duration: duration.slow, ease: ease.spring },
+      y: 0,
+      transition: { duration: 0.65, ease: ease.smooth },
     },
     exit: {
       opacity: 0,
-      scale: 0.97,
-      transition: { duration: duration.fast, ease: ease.sharp },
+      scale: 0.99,
+      transition: { duration: duration.base, ease: ease.gentle },
     },
   },
 
-  // Slide in z lewej — dla sidebaru, drawer
+  // Slide z lewej — tylko dla drawer/sidebar
   slideRight: {
-    hidden: { opacity: 0, x: -32 },
+    hidden: { opacity: 0, x: -16 },
     visible: {
       opacity: 1,
       x: 0,
-      transition: { duration: duration.slow, ease: ease.spring },
+      transition: { duration: 0.6, ease: ease.smooth },
     },
     exit: {
       opacity: 0,
-      x: -24,
-      transition: { duration: duration.fast, ease: ease.sharp },
+      x: -12,
+      transition: { duration: duration.base, ease: ease.gentle },
     },
   },
 
-  // Stagger container — dla list kart
+  // Stagger — wolniejszy stagger = elegantszy
   stagger: {
     hidden: {},
     visible: {
-      transition: { staggerChildren: 0.07, delayChildren: 0.1 },
+      transition: {
+        staggerChildren: 0.09,
+        delayChildren: 0.15,
+      },
     },
   },
 
-  // Stagger container wolniejszy — dla hero elementów
+  // Hero stagger — każdy element wchodzi spokojnie
   staggerHero: {
     hidden: {},
     visible: {
-      transition: { staggerChildren: 0.12, delayChildren: 0.2 },
+      transition: {
+        staggerChildren: 0.14,
+        delayChildren: 0.1,
+      },
     },
   },
 } as const;
 
-// ─── Spring configs dla useSpring / useAnimate ─────────────────
+// ─── Spring configs — wytłumione, bez odbicia ──────────────────
 export const springs = {
-  // Bouncy — dla mikro-interakcji (hover scale)
-  bouncy: { type: "spring" as const, stiffness: 400, damping: 25 },
-  // Smooth — dla position transitions
-  smooth: { type: "spring" as const, stiffness: 200, damping: 30 },
-  // Stiff — dla natychmiastowego feedbacku
-  stiff: { type: "spring" as const, stiffness: 600, damping: 35 },
+  smooth: {
+    type: "spring" as const,
+    stiffness: 180,
+    damping: 28,
+    mass: 1,
+  },
+  stiff: {
+    type: "spring" as const,
+    stiffness: 500,
+    damping: 40,
+    mass: 0.8,
+  },
+  bouncy: {
+    type: "spring" as const,
+    stiffness: 300,
+    damping: 30,
+    mass: 0.9,
+  },
 };

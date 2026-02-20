@@ -1,5 +1,7 @@
 "use client";
 
+import { motion } from "framer-motion";
+import { duration, ease } from "@/constants/animations";
 import { cn } from "@/lib/utils";
 import type { CalculatorProgressBarProps, StepIndex } from "@/types";
 
@@ -24,9 +26,10 @@ export function CalculatorProgressBar({
     >
       {/* Pasek postępu na całą szerokość */}
       <div className="mb-6 h-1 w-full overflow-hidden rounded-none bg-white/15">
-        <div
-          className="h-full rounded-none bg-primary transition-all duration-300 ease-out"
-          style={{ width: `${progressPercent}%` }}
+        <motion.div
+          className="h-full rounded-none bg-primary"
+          animate={{ width: `${progressPercent}%` }}
+          transition={{ duration: duration.slow, ease: ease.spring }}
         />
       </div>
 

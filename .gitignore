@@ -42,3 +42,4 @@ node_modules
 
 # cursor
 CURSOR_RULES.md
+/.cursor/

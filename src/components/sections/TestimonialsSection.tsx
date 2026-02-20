@@ -1,6 +1,11 @@
 "use client";
 
+import { motion } from "framer-motion";
 import { Section } from "@/components/ui/Section";
+import { ScrollReveal } from "@/components/ui/ScrollReveal";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import { useMotionSafe } from "@/hooks/useMotionSafe";
+import { springs } from "@/constants/animations";
 import { useGlassBlurStyle } from "@/lib/useGlassBlurStyle";
 
 const TESTIMONIALS = [
@@ -11,10 +16,12 @@ const TESTIMONIALS = [
 
 export function TestimonialsSection() {
   const glassBlurSm = useGlassBlurStyle("sm");
+  const { ref, animate } = useScrollAnimation();
+  const { variants: v } = useMotionSafe();
 
   return (
     <Section id="opinie" className="section-testimonials">
-      <div className="section-testimonials-head">
+      <ScrollReveal variant="fadeUp" className="section-testimonials-head">
         <p className="section-testimonials-eyebrow">
           Opinie
         </p>
@@ -22,12 +29,21 @@ export function TestimonialsSection() {
           Co mówią{" "}
           <span className="text-primary">nasi klienci.</span>
         </h2>
-      </div>
+      </ScrollReveal>
 
-      <div className="testimonials-grid">
+      <motion.div
+        ref={ref}
+        variants={v.stagger}
+        initial="hidden"
+        animate={animate}
+        className="testimonials-grid"
+      >
         {TESTIMONIALS.map((item, index) => (
-          <div
+          <motion.div
             key={index}
+            variants={v.scaleIn}
+            whileHover={{ y: -3, transition: springs.smooth }}
+            whileTap={{ scale: 0.992, transition: springs.stiff }}
             className="testimonial-card"
             style={glassBlurSm}
           >
@@ -44,9 +60,9 @@ export function TestimonialsSection() {
                 <div className="author-company">{item.authorCompany}</div>
               </div>
             </div>
-          </div>
+          </motion.div>
         ))}
-      </div>
+      </motion.div>
     </Section>
   );
 }

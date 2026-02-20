@@ -73,8 +73,8 @@ export function OfertaPakiety({ topGradient = true, cardVariant = "default" }: O
             return (
               <motion.div key={key} variants={v.scaleIn}>
                 <motion.div
-                  whileHover={{ y: -4, transition: springs.smooth }}
-                  whileTap={{ scale: 0.98, transition: springs.stiff }}
+                  whileHover={{ y: -3, transition: springs.smooth }}
+                  whileTap={{ scale: 0.992, transition: springs.stiff }}
                 >
                   <SpotlightCard
                     className={`custom-spotlight-card rounded-2xl h-full oferta-package-card ${isMiddle ? "oferta-package-featured" : ""}`}

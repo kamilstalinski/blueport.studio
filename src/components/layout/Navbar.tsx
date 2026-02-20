@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { motion, useScroll, useTransform } from "framer-motion";
 
 import { useAccentTheme } from "@/hooks/useAccentTheme";
+import { duration, ease } from "@/constants/animations";
 import { cn } from "@/lib/utils";
 import { applyAccent } from "@/lib/accent-theme";
 import { useGlassBlurStyle } from "@/lib/useGlassBlurStyle";
@@ -21,14 +22,14 @@ export function Navbar() {
   const { scrollY } = useScroll();
   const navBg = useTransform(
     scrollY,
-    [0, 80],
-    ["rgba(0,0,0,0)", "rgba(0,0,0,0.85)"]
+    [0, 60],
+    ["rgba(0,0,0,0)", "rgba(0,0,0,0.8)"],
   );
-  const navBlur = useTransform(scrollY, [0, 80], ["blur(0px)", "blur(20px)"]);
+  const navBlur = useTransform(scrollY, [0, 60], ["blur(0px)", "blur(20px)"]);
   const navBorderOpacity = useTransform(
     scrollY,
-    [0, 80],
-    ["rgba(255,255,255,0)", "rgba(255,255,255,0.08)"]
+    [0, 60],
+    ["rgba(255,255,255,0)", "rgba(255,255,255,0.07)"],
   );
   const [isMobileView, setIsMobileView] = useState(false);
   const accent = useAccentTheme();
@@ -215,9 +216,9 @@ export function Navbar() {
         !useScrolledStyle && "px-0",
         useScrolledStyle && "px-3 md:px-4",
       )}
-      initial={{ y: -64, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: duration.hero, ease: ease.gentle, delay: 0.1 }}
     >
       <div
         className={cn(

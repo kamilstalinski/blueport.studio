@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useRef, useEffect, useCallback } from "react";
 import { motion, useInView, useMotionValue, useTransform, animate } from "framer-motion";
+import { ease } from "@/constants/animations";
 
 const TOTAL = 60;
 const CIRCUMFERENCE = 2 * Math.PI * 54; // 339.292
@@ -18,7 +19,11 @@ export function KalkulatorSection() {
 
   const count = useMotionValue(0);
   const rounded = useTransform(count, (v) => Math.round(v));
-  const isInView = useInView(sectionRef, { once: true, amount: 0.4 });
+  const isInView = useInView(sectionRef, {
+    once: true,
+    amount: 0.4,
+    margin: "0px 0px -60px 0px",
+  });
 
   const updateDisplay = useCallback((s: number) => {
     count.set(s);
@@ -64,8 +69,8 @@ export function KalkulatorSection() {
     if (!isInView || introDoneRef.current) return;
     introDoneRef.current = true;
     const controls = animate(count, 60, {
-      duration: 1.5,
-      ease: [0.16, 1, 0.3, 1],
+      duration: 1.8,
+      ease: ease.spring,
       delay: 0.3,
     });
     controls.then(() => {
@@ -128,9 +133,9 @@ export function KalkulatorSection() {
       <div className="cta-content container-narrow">
         <motion.div
           className="timer-wrap"
-          initial={{ opacity: 0, scale: 0.8 }}
+          initial={{ opacity: 0, scale: 0.75 }}
           animate={isInView ? { opacity: 1, scale: 1 } : {}}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.6, ease: ease.spring }}
         >
           <div className="timer-ring-container">
             <svg

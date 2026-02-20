@@ -277,9 +277,9 @@ export function Hero({ contentKey = "Home.hero" }: { contentKey?: HeroContentKey
           )}
         </motion.h1>
 
-        {/* Subheadline */}
+        {/* Subheadline — czyste fade */}
         <motion.p
-          variants={v.fadeUp}
+          variants={v.fadeIn}
           className="font-body body-lead mt-5 mb-9 max-w-[420px] leading-[1.7] text-muted-foreground"
           style={{
             fontSize: "clamp(0.95rem, 1.8vw, 1.1rem)",
@@ -359,7 +359,7 @@ export function Hero({ contentKey = "Home.hero" }: { contentKey?: HeroContentKey
         >
           {/* Card 1 — Gotowe w 8 dni */}
           <motion.div
-            variants={v.scaleIn}
+            variants={v.fadeIn}
             className="hero-card absolute left-0 top-[60px] w-[320px] rounded-2xl p-0 overflow-hidden"
             style={glassBlurLg}
             aria-hidden
@@ -386,7 +386,7 @@ export function Hero({ contentKey = "Home.hero" }: { contentKey?: HeroContentKey
 
           {/* Card 2 — Klient B2B */}
           <motion.div
-            variants={v.scaleIn}
+            variants={v.fadeIn}
             className="hero-card absolute right-0 top-5 w-[230px] rounded-2xl p-4"
             style={glassBlurLg}
             aria-hidden
@@ -406,7 +406,7 @@ export function Hero({ contentKey = "Home.hero" }: { contentKey?: HeroContentKey
 
           {/* Card 3 — Ruch organiczny +340% */}
           <motion.div
-            variants={v.scaleIn}
+            variants={v.fadeIn}
             className="hero-card absolute right-0 bottom-10 w-[280px] rounded-2xl p-4"
             style={glassBlurLg}
             aria-hidden

@@ -29,8 +29,11 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     return (
       <motion.button
         ref={ref}
-        whileHover={{ scale: 1.03, transition: springs.bouncy }}
-        whileTap={{ scale: 0.97, transition: springs.stiff }}
+        whileHover={{
+          scale: variant === "primary" || variant === "accent" ? 1.025 : 1.01,
+          transition: springs.smooth,
+        }}
+        whileTap={{ scale: 0.975, transition: springs.stiff }}
         className={cn(base, variantClasses[variant], className)}
         {...(props as Record<string, unknown>)}
       />

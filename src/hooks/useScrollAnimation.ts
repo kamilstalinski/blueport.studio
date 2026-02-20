@@ -16,13 +16,13 @@ export function useScrollAnimation(options: UseScrollAnimationOptions = {}) {
     margin = defaultMargin,
   } = options;
 
-  const ref = useRef<HTMLDivElement>(null);
+  const ref = useRef(null);
   const opts = {
     once,
-    margin: margin ?? defaultMargin,
+    margin,
     amount: threshold,
-  };
-  const isInView = useInView(ref, opts as Parameters<typeof useInView>[1]);
+  } as Parameters<typeof useInView>[1];
+  const isInView = useInView(ref, opts);
 
   return { ref, isInView, animate: isInView ? "visible" : "hidden" };
 }

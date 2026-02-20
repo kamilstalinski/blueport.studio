@@ -8,7 +8,7 @@ alwaysApply: true
 
 1. **Przed zakończeniem odpowiedzi** uruchom w terminalu:
    `git add -A && git commit -m "krótki opis zmian"`
-2. Opis po angielsku lub polsku, np. "cleanup: nieużywane importy", "fix: Hero", "feat: sekcja X".
+2. Opis po angielsku, "fix: Hero", "feat: section X".
 3. Jeden zestaw zmian = jeden commit. Nie commituj w połowie zadania.
 
 **Wyjątek:** tylko gdy użytkownik wyraźnie napisze "bez commita" / "nie commituj".
