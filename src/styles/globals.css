@@ -1299,18 +1299,24 @@ body .custom-spotlight-card:hover [class*="glass-card"] {
   flex: 1;
 }
 
-/* Środkowa karta (Najpopularniejsze) — glow dookoła kafelka + lekki scale */
+/* Siatka pakietów — bez przycinania przy scale/glow środkowej karty */
+.section-packages .grid {
+  overflow: visible;
+}
+.section-packages .grid > * {
+  overflow: visible;
+}
+
+/* Środkowa karta (Najpopularniejsze) — glow dookoła kafelka, bez scale (unika wystających rogów) */
 .oferta-package-featured {
-  transform: scale(1.03);
   box-shadow:
     0 0 0 1px rgba(255, 255, 255, 0.06),
     0 0 60px var(--color-primary-glow),
     0 0 100px var(--color-accent-glow);
   z-index: 10;
-  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  transition: box-shadow 0.3s ease;
 }
 body .custom-spotlight-card.oferta-package-featured:hover {
-  transform: scale(1.05);
   box-shadow:
     0 0 0 1px rgba(255, 255, 255, 0.08),
     0 0 72px var(--color-primary-glow),
