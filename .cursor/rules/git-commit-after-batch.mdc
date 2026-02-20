@@ -1,0 +1,18 @@
+---
+alwaysApply: true
+---
+
+# Git — commit na zakończenie batcha (WYMAGANE)
+
+**Zawsze**, gdy kończysz realizację zadania użytkownika (jeden batch zmian):
+
+1. **Przed zakończeniem odpowiedzi** uruchom w terminalu:
+   `git add -A && git commit -m "krótki opis zmian"`
+2. Opis po angielsku lub polsku, np. "cleanup: nieużywane importy", "fix: Hero", "feat: sekcja X".
+3. Jeden zestaw zmian = jeden commit. Nie commituj w połowie zadania.
+
+**Wyjątek:** tylko gdy użytkownik wyraźnie napisze "bez commita" / "nie commituj".
+
+---
+
+Przed wysłaniem ostatniej wiadomości w batchu: sprawdź, czy wykonałeś powyższy commit. Jeśli nie — zrób to teraz.

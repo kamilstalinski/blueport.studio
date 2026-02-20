@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { ChevronDownIcon } from "@heroicons/react/24/outline";
 import { Container } from "@/components/ui/Container";
 import { cn } from "@/lib/utils";
+import { useGlassBlurStyle } from "@/lib/useGlassBlurStyle";
 
 const FAQ_ITEMS = [
   {
@@ -30,19 +30,20 @@ const FAQ_ITEMS = [
 
 export function LandingFAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const glassBlurSm = useGlassBlurStyle("sm");
 
   return (
-    <section className="border-t border-border bg-background py-section md:py-section-md">
+    <section className="border-t border-border bg-transparent py-section md:py-section-md">
       <Container>
         <h2 className="text-center text-3xl font-semibold text-foreground sm:text-4xl">
           Najczęstsze pytania
         </h2>
         <div className="mx-auto mt-12 max-w-2xl">
-          <ul className="divide-y divide-border rounded-2xl border border-border">
+          <ul className="list-none p-0 m-0">
             {FAQ_ITEMS.map(({ question, answer }, index) => {
               const isOpen = openIndex === index;
               return (
-                <li key={question}>
+                <li key={question} className={cn("faq-item", isOpen && "open")} style={glassBlurSm}>
                   <button
                     type="button"
                     onClick={() => setOpenIndex(isOpen ? null : index)}
@@ -52,14 +53,15 @@ export function LandingFAQ() {
                     id={`faq-question-${index}`}
                   >
                     {question}
-                    <ChevronDownIcon
+                    <span
                       className={cn(
-                        "h-5 w-5 shrink-0 text-primary transition-transform duration-200",
+                        "inline-block text-lg leading-none shrink-0 text-primary transition-transform duration-200",
                         isOpen && "rotate-180",
                       )}
-                      strokeWidth={2}
                       aria-hidden
-                    />
+                    >
+                      ▼
+                    </span>
                   </button>
                   <div
                     id={`faq-answer-${index}`}
@@ -70,7 +72,7 @@ export function LandingFAQ() {
                       isOpen ? "max-h-48 opacity-100" : "max-h-0 opacity-0",
                     )}
                   >
-                    <p className="border-t border-border px-6 pb-4 pt-0 text-sm text-muted-foreground">
+                    <p className="border-t border-white/10 px-6 pb-4 pt-0 text-sm text-muted-foreground">
                       {answer}
                     </p>
                   </div>

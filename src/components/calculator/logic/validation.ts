@@ -3,17 +3,14 @@
  * Email, required fields, step-specific rules.
  */
 
-import type { CalculatorState, StepIndex } from "../types";
+import type { CalculatorState, StepIndex, StepValidationResult } from "@/types";
+
+export type { StepValidationResult } from "@/types";
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export function isValidEmail(email: string): boolean {
   return EMAIL_REGEX.test(email.trim());
-}
-
-export interface StepValidationResult {
-  valid: boolean;
-  error?: string;
 }
 
 /**
@@ -82,8 +79,8 @@ const VALIDATORS: Record<StepIndex, (s: CalculatorState) => StepValidationResult
  * Validate current step before moving forward.
  */
 export function validateStep(step: StepIndex, state: CalculatorState): StepValidationResult {
-  const fn = VALIDATORS[step];
-  return fn ? fn(state) : { valid: true };
+  const validator = VALIDATORS[step];
+  return validator ? validator(state) : { valid: true };
 }
 
 /**

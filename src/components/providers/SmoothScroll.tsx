@@ -2,10 +2,7 @@
 
 import { ReactLenis } from "lenis/react";
 import "lenis/dist/lenis.css";
-
-type SmoothScrollProps = {
-  children: React.ReactNode;
-};
+import type { SmoothScrollProps } from "@/types";
 
 export function SmoothScroll({ children }: SmoothScrollProps) {
   return (

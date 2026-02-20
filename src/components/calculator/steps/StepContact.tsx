@@ -2,16 +2,7 @@
 
 import { Input } from "@/components/ui/Input";
 import { cn } from "@/lib/utils";
-
-interface StepContactProps {
-  name: string;
-  email: string;
-  phone: string;
-  onNameChange: (value: string) => void;
-  onEmailChange: (value: string) => void;
-  onPhoneChange: (value: string) => void;
-  error?: string;
-}
+import type { StepContactProps } from "@/types";
 
 export function StepContact({
   name,

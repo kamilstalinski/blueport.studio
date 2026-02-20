@@ -1,11 +1,7 @@
 "use client";
 
 import { CALC_GLASS_CARD } from "../calculatorStyles";
-import type { SummaryResult } from "../types";
-
-interface StepSummaryProps {
-  summary: SummaryResult;
-}
+import type { StepSummaryProps } from "@/types";
 
 export function StepSummary({ summary }: StepSummaryProps) {
   return (

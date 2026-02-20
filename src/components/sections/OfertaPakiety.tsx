@@ -5,13 +5,15 @@ import { motion } from "framer-motion";
 import { IconBox } from "@/components/ui/IconBox";
 import { Section } from "@/components/ui/Section";
 import { Button } from "@/components/ui/Button";
-import SpotlightCard from "@/components/SpotlightCard";
+import { SpotlightCard } from "@/components/SpotlightCard";
 import { cn } from "@/lib/utils";
 import {
   fadeInUp,
   viewportOnce,
   useReducedMotionPref,
 } from "@/lib/animations";
+import { useGlassBlurStyle } from "@/lib/useGlassBlurStyle";
+import type { OfertaPakietyProps } from "@/types";
 
 const CARDS = [
   { key: "sklepy" as const, emoji: "🛒" as const, title: "Sklepy internetowe (WooCommerce)", desc: "Sprzedawaj online bez skomplikowanych systemów.", price: "4 000 – 5 500 zł", cta: "Sprawdź wycenę" },
@@ -43,16 +45,10 @@ const PACKAGE_INCLUDES: Record<(typeof CARDS)[number]["key"], string[]> = {
   ],
 };
 
-type OfertaPakietyProps = {
-  /** Gradient od góry (domyślnie true). Na stronie głównej ustaw false, żeby go nie było. */
-  topGradient?: boolean;
-  /** Styl kart na podstronach (tło #111827, obramowanie 0.08) */
-  cardVariant?: "default" | "subpage";
-};
-
 export function OfertaPakiety({ topGradient = true, cardVariant = "default" }: OfertaPakietyProps) {
   const reduceMotion = useReducedMotionPref();
   const initial = reduceMotion ? "visible" : "hidden";
+  const glassBlurStyle = useGlassBlurStyle();
 
   return (
     <Section id="oferta-pakiety" className="section-packages" topGradient={topGradient} tight noWrapper>
@@ -77,63 +73,68 @@ export function OfertaPakiety({ topGradient = true, cardVariant = "default" }: O
           return (
             <SpotlightCard
               key={key}
-              className={`custom-spotlight-card rounded-2xl h-full oferta-package-card ${isMiddle ? "oferta-package-featured scale-[1.03] z-10" : ""}`}
+              className={`custom-spotlight-card rounded-2xl h-full oferta-package-card ${isMiddle ? "oferta-package-featured" : ""}`}
             >
-              <motion.article
-                initial={initial}
-                whileInView="visible"
-                viewport={viewportOnce}
-                variants={fadeInUp}
+              <article
                 className={cn(
                   "card rounded-2xl flex flex-col h-full relative card-padding",
                   isMiddle && "card-featured",
                   cardVariant === "subpage" && "card-subpage",
                 )}
+                style={glassBlurStyle}
               >
-                {isMiddle && (
-                  <span
-                    className="absolute top-4 right-4 body-small font-semibold px-3 py-1 rounded-full bg-primary text-black border-0"
-                    aria-hidden
-                  >
-                    Najpopularniejsze
-                  </span>
-                )}
-                <IconBox emoji={emoji} />
-                <h3 className="heading-3 mt-6 text-white">{title}</h3>
-                <p className="mt-3 body-standard text-white/60 leading-relaxed">{desc}</p>
-                <div className="mt-6 flex-1">
-                  <p className="heading-3 font-bold text-white mt-1">{price}</p>
-                  {cardVariant === "subpage" && PACKAGE_INCLUDES[key] && (
-                    <div
-                      className="mt-4 pt-4 border-t flex flex-col gap-1"
-                      style={{
-                        fontSize: "0.75rem",
-                        color: "var(--color-text-secondary)",
-                        paddingTop: 4,
-                        borderTopColor: "var(--color-border)",
-                      }}
+                <motion.div
+                  className="flex flex-col h-full"
+                  initial={initial}
+                  whileInView="visible"
+                  viewport={viewportOnce}
+                  variants={fadeInUp}
+                >
+                  {isMiddle && (
+                    <span
+                      className="absolute top-4 right-4 body-small font-semibold px-3 py-1 rounded-full bg-primary text-primary-foreground border-0"
+                      aria-hidden
                     >
-                      <span className="font-semibold text-white/70" style={{ fontSize: "0.75rem" }}>
-                        Co zawiera:
-                      </span>
-                      {PACKAGE_INCLUDES[key].map((item, i) => (
-                        <div key={i} className="flex gap-2 items-start" style={{ padding: "4px 0" }}>
-                          <span className="shrink-0 text-primary" aria-hidden>✓</span>
-                          <span>{item}</span>
-                        </div>
-                      ))}
-                    </div>
+                      Najpopularniejsze
+                    </span>
                   )}
-                </div>
-                <Link href="/kalkulator" className="mt-8 inline-block">
-                  <Button
-                    variant={isMiddle ? "primary" : "ghost"}
+                  <IconBox emoji={emoji} />
+                  <h3 className="heading-3 mt-6 text-white">{title}</h3>
+                  <p className="mt-3 body-standard text-white/60 leading-relaxed">{desc}</p>
+                  <div className="mt-6 flex-1">
+                    <p className="heading-3 font-bold text-white mt-1">{price}</p>
+                    {cardVariant === "subpage" && PACKAGE_INCLUDES[key] && (
+                      <div
+                        className="mt-4 pt-4 border-t flex flex-col gap-1"
+                        style={{
+                          fontSize: "0.75rem",
+                          color: "var(--color-text-secondary)",
+                          paddingTop: 4,
+                          borderTopColor: "var(--color-border)",
+                        }}
+                      >
+                        <span className="font-semibold text-white/70" style={{ fontSize: "0.75rem" }}>
+                          Co zawiera:
+                        </span>
+                        {PACKAGE_INCLUDES[key].map((item, i) => (
+                          <div key={i} className="flex gap-2 items-start" style={{ padding: "4px 0" }}>
+                            <span className="shrink-0 text-primary" aria-hidden>✓</span>
+                            <span>{item}</span>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                  <Link href="/kalkulator" className="mt-8 inline-block">
+                    <Button
+                      variant={isMiddle ? "primary" : "ghost"}
                     className={!isMiddle ? "!text-white/80 hover:!bg-white/10 hover:!text-white focus-visible:!ring-white/30" : undefined}
                   >
                     {cta}
                   </Button>
                 </Link>
-              </motion.article>
+                </motion.div>
+              </article>
             </SpotlightCard>
           );
         })}

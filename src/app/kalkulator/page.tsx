@@ -1,6 +1,7 @@
 import { Hero } from "@/components/sections/Hero";
 import { Section } from "@/components/ui/Section";
-import SpotlightCard from "@/components/SpotlightCard";
+import { SpotlightCard } from "@/components/SpotlightCard";
+import { GlassCard } from "@/components/ui/GlassCard";
 import { Calculator } from "@/components/calculator/Calculator";
 import { DlaczegoMy } from "@/components/sections/DlaczegoMy";
 import { FAQSection } from "@/components/sections/FAQSection";
@@ -14,16 +15,16 @@ export default function KalkulatorPage() {
       <Section id="kalkulator-form" topGradient>
         <div className="grid gap-10 lg:grid-cols-[65%_1fr] lg:gap-12 lg:items-start">
           <SpotlightCard
-            className="custom-spotlight-card min-w-0 rounded-2xl overflow-hidden"
+            className="custom-spotlight-card min-w-0 rounded-2xl"
           >
-            <div className="glass-card card-subpage calculator-card-inner min-w-0 rounded-2xl overflow-hidden">
+            <GlassCard className="glass-card card-subpage calculator-card-inner min-w-0 rounded-2xl overflow-hidden">
               <div className="flex items-center gap-2 border-b border-white/15 bg-white/15 px-3 py-2.5 rounded-t-2xl">
                 <span className="h-2 w-2 rounded-full bg-white/40" />
                 <span className="h-2 w-2 rounded-full bg-white/40" />
                 <span className="h-2 w-2 rounded-full bg-white/40" />
               </div>
               <Calculator />
-            </div>
+            </GlassCard>
           </SpotlightCard>
           <aside className="lg:sticky lg:top-[calc(var(--navbar-height)+1.5rem)] space-y-6 text-foreground/90">
             <p className="text-base leading-relaxed md:text-lg">

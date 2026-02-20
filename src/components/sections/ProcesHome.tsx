@@ -1,143 +1,173 @@
 "use client";
 
 import Link from "next/link";
-import { useTranslations } from "@/lib/messages";
 import { motion } from "framer-motion";
-import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
+import { IconBox } from "@/components/ui/IconBox";
+import { cn } from "@/lib/utils";
 import {
   fadeInUp,
   viewportOnce,
   useReducedMotionPref,
 } from "@/lib/animations";
+import { useGlassBlurStyle } from "@/lib/useGlassBlurStyle";
+import type { ProcesHomeProps } from "@/types";
 
-const STEP_LABELS_5 = ["1", "2", "3", "4", "5"] as const;
+const STEP_ICONS_5 = ["📋", "💬", "🛠", "✅", "🚀"] as const;
+const STEP_ICONS_4 = ["📋", "💬", "🛠", "🚀"] as const;
 
-type ProcesHomeProps = {
-  contentKey?: "Home.proces" | "oNas.proces";
-  stepCount?: 4 | 5;
-};
+const TEXTS = {
+  "Home.proces": {
+    badge: "Proces",
+    title: "Proces",
+    subtitle: "Krok po kroku z nami",
+    timeline: "Całość zwykle trwa 1–2 tygodnie.",
+    stepTitles: { "1": "Wypełniasz formularz", "2": "Ustalamy szczegóły", "3": "Tworzymy stronę", "4": "Wysyłamy do akceptacji", "5": "Publikujemy i szkolimy" } as Record<string, string>,
+    steps: { "1": "Krótko opisujesz, czego potrzebujesz.", "2": "Doprecyzowujemy zakres i cenę.", "3": "Projektujemy i budujemy wszystko od A do Z.", "4": "Masz wgląd i możliwość poprawek.", "5": "Strona trafia online. Pokazujemy, jak nią zarządzać." } as Record<string, string>,
+    outro: "Prosto i konkretnie.",
+    cta: "Szczegóły procesu",
+  },
+  "oNas.proces": {
+    badge: "Proces",
+    title: "Jak wygląda współpraca?",
+    subtitle: "",
+    timeline: "Całość zwykle trwa 1–2 tygodnie.",
+    stepTitles: { "1": "Kalkulator", "2": "Doprecyzowanie", "3": "Realizacja", "4": "Wdrożenie" } as Record<string, string>,
+    steps: { "1": "Wypełniasz kalkulator i określasz zakres.", "2": "Kontaktujemy się i ustalamy szczegóły.", "3": "Projekt i development strony.", "4": "Publikacja i wsparcie." } as Record<string, string>,
+    outro: "",
+    cta: "Zobacz pełny proces",
+  },
+} as const;
 
-export function ProcesHome({ contentKey = "Home.proces", stepCount = 5 }: ProcesHomeProps) {
-  const t = useTranslations(contentKey);
+export function ProcesHome({ contentKey = "Home.proces", stepCount = 5, cardVariant = "default" }: ProcesHomeProps) {
   const reduceMotion = useReducedMotionPref();
+  const glassBlurSm = useGlassBlurStyle("sm");
   const initial = reduceMotion ? "visible" : "hidden";
-  const stepLabels = stepCount === 4 ? (["1", "2", "3", "4"] as const) : STEP_LABELS_5;
+  const content = TEXTS[contentKey];
+
+  const totalSteps = stepCount;
+  const stepLabels = Array.from({ length: totalSteps }, (_, i) => String(i + 1)) as ("1" | "2" | "3" | "4" | "5")[];
+  const icons = stepCount === 4 ? STEP_ICONS_4 : STEP_ICONS_5;
+  const use2x2Grid = stepCount === 4 && cardVariant === "subpage";
+
+  const row1Steps = stepLabels.slice(0, 3);
+  const row2Steps = stepLabels.slice(3);
 
   return (
-    <section id="proces" className="relative py-20 md:py-32 lg:py-36">
-      <Container className="relative z-10">
-        <motion.header
-          className="text-center"
+    <section id="proces" className="section-process relative section-padding-block">
+      <div className="container-narrow section-intro text-center">
+        <motion.p
+          className="section-eyebrow"
           initial={initial}
           animate="visible"
           whileInView="visible"
           viewport={viewportOnce}
           variants={fadeInUp}
         >
-          <h2 className="heading-2 text-foreground">{t("title")}</h2>
-          {t("subtitle") && (
-            <p className="mt-2 body-lead text-foreground/70">{t("subtitle")}</p>
-          )}
-        </motion.header>
+          {content.badge}
+        </motion.p>
+        <motion.h2
+          className="heading-2 text-foreground mt-0"
+          initial={initial}
+          animate="visible"
+          whileInView="visible"
+          viewport={viewportOnce}
+          variants={fadeInUp}
+        >
+          {content.title}
+          {content.subtitle ? (
+            <span className="text-white/50"> {content.subtitle}</span>
+          ) : null}
+        </motion.h2>
+        {content.timeline && (
+          <motion.p
+            className="section-sub"
+            initial={initial}
+            animate="visible"
+            whileInView="visible"
+            viewport={viewportOnce}
+            variants={fadeInUp}
+          >
+            {content.timeline}
+          </motion.p>
+        )}
+      </div>
 
-        {/* Timeline: horizontal on desktop, vertical on mobile */}
+      <div className="container relative z-10">
         <motion.div
-          className="mt-[60px]"
+          className={cn("process-grid", use2x2Grid && "process-grid-2x2")}
           initial={initial}
           animate="visible"
           whileInView="visible"
           viewport={viewportOnce}
           variants={fadeInUp}
         >
-          {/* Desktop: horizontal line + 5 points */}
-          <div className="relative hidden md:block">
-            <div
-              className="absolute left-0 right-0 top-6 h-px -translate-y-px bg-white/10"
-              aria-hidden
-            />
-            <div className="flex">
-              {stepLabels.map((label) => (
-                <div
-                  key={label}
-                  className="group relative flex flex-1 flex-col items-center"
-                >
-                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-primary/60 bg-white/[0.02] backdrop-blur-sm text-[17px] font-semibold text-primary transition-all duration-200 hover:border-primary hover:shadow-[0_0_20px_rgba(0,229,160,0.25)]">
-                    <span className="block transition-transform duration-200 group-hover:scale-105">
-                      {label}
-                    </span>
-                  </div>
-                  <h3 className="mt-4 text-center heading-3 text-white">
-                    {t(`stepTitles.${label}`)}
-                  </h3>
-                  <p className="mt-1 text-center body-small text-white/60 transition-opacity group-hover:opacity-100">
-                    {t(`steps.${label}`)}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Mobile: vertical timeline */}
-          <div className="relative flex flex-col gap-10 md:hidden">
-            <div
-              className="absolute left-6 top-0 bottom-0 w-px bg-white/10"
-              aria-hidden
-            />
-            {stepLabels.map((label) => (
-              <div
-                key={label}
-                className="group relative flex items-start gap-4"
-              >
-                <div className="relative z-10 flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-primary/60 bg-white/[0.02] backdrop-blur-sm text-[17px] font-semibold text-primary transition-all duration-200 hover:border-primary hover:shadow-[0_0_20px_rgba(0,229,160,0.25)]">
-                  <span className="block transition-transform duration-200 group-hover:scale-105">
-                    {label}
-                  </span>
-                </div>
-                <div className="min-w-0 pt-1">
-                  <h3 className="heading-3 text-white">
-                    {t(`stepTitles.${label}`)}
-                  </h3>
-                  <p className="mt-0.5 body-small text-white/60 transition-opacity group-hover:opacity-100">
-                    {t(`steps.${label}`)}
-                  </p>
+          {use2x2Grid ? (
+            stepLabels.map((label, index) => (
+              <div key={label} className={cn("process-step", "card-subpage", "process-step-2x2")} style={glassBlurSm}>
+                <div className="step-number step-number-2x2">{index + 1}</div>
+                <div className="step-content">
+                  <IconBox emoji={icons[index]} className="mb-4" />
+                  <h3>{content.stepTitles[label]}</h3>
+                  <p>{content.steps[label]}</p>
                 </div>
               </div>
-            ))}
-          </div>
+            ))
+          ) : (
+            <>
+              {row1Steps.map((label, index) => (
+                <div key={label} className={cn("process-step", cardVariant === "subpage" && "card-subpage")} style={glassBlurSm}>
+                  <div className="step-number">
+                    {String(index + 1).padStart(2, "0")}
+                  </div>
+                  <div className="step-content">
+                    <IconBox emoji={icons[index]} className="mb-4" />
+                    <h3>{content.stepTitles[label]}</h3>
+                    <p>{content.steps[label]}</p>
+                  </div>
+                </div>
+              ))}
+
+              {row2Steps.length > 0 && (
+                <div className="process-step-row-2">
+                  {row2Steps.map((label, index) => (
+                    <div key={label} className={cn("process-step", cardVariant === "subpage" && "card-subpage")} style={glassBlurSm}>
+                      <div className="step-number">
+                        {String(3 + index + 1).padStart(2, "0")}
+                      </div>
+                      <div className="step-content">
+                        <IconBox emoji={icons[3 + index]} className="mb-4" />
+                        <h3>{content.stepTitles[label]}</h3>
+                        <p>{content.steps[label]}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </>
+          )}
         </motion.div>
 
-        <motion.p
-          className="mt-8 text-center body-lead text-foreground/70"
-          initial={initial}
-          animate="visible"
-          whileInView="visible"
-          viewport={viewportOnce}
-          variants={fadeInUp}
-        >
-          {t("timeline")}
-        </motion.p>
-
         <motion.div
-          className="mt-[60px] flex flex-col items-center justify-center gap-4 text-center"
+          className="process-cta"
           initial={initial}
           animate="visible"
           whileInView="visible"
           viewport={viewportOnce}
           variants={fadeInUp}
         >
-          {t("outro") && (
-            <p className="body-lead font-medium text-foreground/70 leading-relaxed">
-              {t("outro")}
+          {content.outro && (
+            <p className="body-lead font-medium text-foreground/70 leading-relaxed mb-4">
+              {content.outro}
             </p>
           )}
           <Link href="/proces">
-            <Button variant="primary" className="min-h-[3rem] px-8 py-3 body-standard font-medium">
-              {t("cta")}
+            <Button variant="secondary" className="min-h-[3rem] px-8 py-3 body-standard font-medium">
+              {content.cta} →
             </Button>
           </Link>
         </motion.div>
-      </Container>
+      </div>
     </section>
   );
 }

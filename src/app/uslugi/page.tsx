@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Hero } from "@/components/sections/Hero";
 import { OfertaPakiety } from "@/components/sections/OfertaPakiety";
 import { Section } from "@/components/ui/Section";
+import { Container } from "@/components/ui/Container";
 import { FAQSection } from "@/components/sections/FAQSection";
 import { KalkulatorSection } from "@/components/sections/KalkulatorSection";
 import { CTA } from "@/components/sections/CTA";
@@ -13,11 +14,11 @@ export default function UslugiPage() {
       <OfertaPakiety cardVariant="subpage" />
 
       <Section id="porownanie-pakietow" noWrapper>
-        <div className="container-narrow mb-10">
-          <p className="section-eyebrow">// Porównanie</p>
+        <Container variant="narrow" className="mb-10">
+          <p className="section-eyebrow">{"// Porównanie"}</p>
           <h2 className="heading-2 text-white mb-0">Który pakiet dla Ciebie?</h2>
-        </div>
-        <div className="container overflow-x-auto">
+        </Container>
+        <Container className="overflow-x-auto">
           <table className="compare-table">
             <thead>
               <tr>
@@ -66,7 +67,7 @@ export default function UslugiPage() {
               </tr>
             </tbody>
           </table>
-        </div>
+        </Container>
       </Section>
 
       <Section noWrapper>

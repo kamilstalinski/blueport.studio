@@ -1,19 +1,5 @@
-import { ReactNode } from "react";
 import { Container } from "@/components/ui/Container";
-
-type SectionProps = {
-  id?: string;
-  as?: "section" | "div";
-  tight?: boolean;
-  /** Pierwsza sekcja na stronie – dodaje padding-top = wysokość navbara + sekcja */
-  firstOnPage?: boolean;
-  /** Gradient od góry (jak w hero) – pierwsza sekcja po hero na podstronach */
-  topGradient?: boolean;
-  /** Gdy true – sekcja bez wrappera Container; użyj container-narrow/container wewnątrz (section-padding-block) */
-  noWrapper?: boolean;
-  children?: ReactNode;
-  className?: string;
-};
+import type { SectionProps } from "@/types";
 
 export function Section({
   id,

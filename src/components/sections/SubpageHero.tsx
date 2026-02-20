@@ -3,25 +3,7 @@
 import Link from "next/link";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
-
-export type SubpageHeroProps = {
-  /** Optional small eyebrow text above the headline */
-  eyebrow?: string;
-  /** Main headline (H1) */
-  title: string;
-  /** Short supporting paragraph below headline */
-  subtitle: string;
-  /** Primary CTA label (default: Sprawdź wycenę) */
-  primaryCtaLabel?: string;
-  /** Primary CTA href (default: /kalkulator) */
-  primaryCtaHref?: string;
-  /** Secondary CTA label (default: Umów konsultację) */
-  secondaryCtaLabel?: string;
-  /** Secondary CTA href (default: /kontakt) */
-  secondaryCtaHref?: string;
-  /** First section on page – adds navbar padding */
-  firstOnPage?: boolean;
-};
+import type { SubpageHeroProps } from "@/types";
 
 export function SubpageHero({
   eyebrow,
@@ -33,7 +15,7 @@ export function SubpageHero({
   secondaryCtaHref = "/kontakt",
   firstOnPage = true,
 }: SubpageHeroProps) {
-  const sectionPadding = firstOnPage ? "pt-navbar-first pb-28" : "py-28";
+  const sectionPadding = firstOnPage ? "pt-navbar-first section-padding-bottom" : "section-padding";
 
   return (
     <section
@@ -51,7 +33,7 @@ export function SubpageHero({
         />
       </div>
 
-      <Container className="relative z-10">
+      <Container variant="wide" noPadding={!firstOnPage} className="relative z-10">
         {eyebrow && (
           <p className="mb-3 body-small font-semibold uppercase tracking-wider text-white/50">
             {eyebrow}

@@ -3,8 +3,17 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import dynamic from "next/dynamic";
+
 import { Container } from "@/components/ui/Container";
+
+import { useAccentTheme } from "@/hooks/useAccentTheme";
+
 import { useReducedMotionPref } from "@/lib/animations";
+import { useGlassBlurStyle } from "@/lib/useGlassBlurStyle";
+
+import type { AccentTheme, HeroContentKey } from "@/types";
+
+import { EASE_OUT_EXPO } from "@/constants";
 
 const ColorBends = dynamic(
   () => import("@/components/ColorBends").then((m) => m.default),
@@ -12,20 +21,19 @@ const ColorBends = dynamic(
 );
 
 /** Kolory z globals.css (--color-primary, --color-accent-2); używane w ColorBends */
-const HERO_BENDS_COLORS_FALLBACK = ["#00e5a0", "#00b8d9"] as const;
+const HERO_BENDS_ACCENT_2 = "#00b8d9" as const;
+const HERO_BENDS_PRIMARY: Record<AccentTheme, string> = {
+  blue: "#3b82f6",
+  mint: "#00e5a0",
+  violet: "#a855f7",
+  amber: "#f59e0b",
+  cyan: "#06b6d4",
+  rose: "#f43f5e",
+};
 
 const HERO_NOISE_SVG = `data:image/svg+xml,${encodeURIComponent(
   '<svg xmlns="http://www.w3.org/2000/svg"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23n)"/></svg>'
 )}`;
-
-export type HeroContentKey =
-  | "Home.hero"
-  | "uslugi.hero"
-  | "realizacje.hero"
-  | "proces.hero"
-  | "kalkulator.hero"
-  | "kontakt.hero"
-  | "oNas.hero";
 
 const HERO_TEXTS: Record<HeroContentKey, { title: string; subtitle: string; ctaPrimary: string; ctaSecondary: string; ctaPrimaryHref: string; ctaSecondaryHref: string; stats: string }> = {
   "Home.hero": { title: "Strony internetowe, które zdobywają klientów.", subtitle: "Projektujemy szybkie strony i sklepy online w 1–2 tygodnie. Jasna wycena. Bez chaosu.", ctaPrimary: "Sprawdź koszt w 60 sekund", ctaSecondary: "Umów bezpłatną konsultację", ctaPrimaryHref: "#kalkulator", ctaSecondaryHref: "/kontakt", stats: "Realizacje w Szczecinie i całej Polsce" },
@@ -37,7 +45,6 @@ const HERO_TEXTS: Record<HeroContentKey, { title: string; subtitle: string; ctaP
   "oNas.hero": { title: "Tworzymy strony, które sprzedają. Bez chaosu.", subtitle: "Blueport to małe studio z konkretnym podejściem. Jasna wycena. Jasny proces. Realne efekty.", ctaPrimary: "Bezpłatna wycena", ctaSecondary: "Zobacz proces", ctaPrimaryHref: "/kalkulator", ctaSecondaryHref: "/proces", stats: "" },
 };
 
-const easeOutExpo = [0.16, 1, 0.3, 1];
 
 function CtaLink({ href, children }: { href: string; children: React.ReactNode }) {
   return href.startsWith("#") ? (
@@ -48,13 +55,17 @@ function CtaLink({ href, children }: { href: string; children: React.ReactNode }
 }
 
 export function Hero({ contentKey = "Home.hero" }: { contentKey?: HeroContentKey }) {
-  const c = HERO_TEXTS[contentKey];
+  const content = HERO_TEXTS[contentKey];
   const reduceMotion = useReducedMotionPref();
   const isHome = contentKey === "Home.hero";
-  const primaryHref = isHome ? "#kalkulator" : c.ctaPrimaryHref;
-  const secondaryHref = isHome ? "/kontakt" : c.ctaSecondaryHref;
-  const showSecondary = isHome || !!c.ctaSecondary;
-  const showStats = isHome ? true : !!c.stats;
+  const glassBlurLg = useGlassBlurStyle("lg");
+  const accent = useAccentTheme();
+  const heroBendsColors = [HERO_BENDS_PRIMARY[accent], HERO_BENDS_ACCENT_2];
+
+  const primaryHref = isHome ? "#kalkulator" : content.ctaPrimaryHref;
+  const secondaryHref = isHome ? "/kontakt" : content.ctaSecondaryHref;
+  const showSecondary = isHome || !!content.ctaSecondary;
+  const showStats = isHome ? true : !!content.stats;
 
   /* Non-home hero: ten sam wizualnie co strona główna (ColorBends, overlay, gradient), jedna kolumna wyśrodkowana, bez kart */
   if (!isHome) {
@@ -62,13 +73,13 @@ export function Hero({ contentKey = "Home.hero" }: { contentKey?: HeroContentKey
       <section
         id="hero"
         className="relative min-h-[55vh] md:min-h-[60vh] overflow-hidden"
-        style={{ background: "transparent" }}
+        style={{ background: "var(--color-hero-fade)" }}
       >
         <div className="absolute inset-0 z-0 opacity-90" aria-hidden>
           <ColorBends
             rotation={95}
             speed={0.2}
-            colors={[...HERO_BENDS_COLORS_FALLBACK]}
+            colors={heroBendsColors}
             transparent
             autoRotate={0.35}
             scale={1}
@@ -90,17 +101,17 @@ export function Hero({ contentKey = "Home.hero" }: { contentKey?: HeroContentKey
           aria-hidden
         />
         <div
-          className="pointer-events-none absolute inset-x-0 bottom-0 z-[2] h-72"
+          className="pointer-events-none absolute inset-x-0 bottom-0 z-[1] h-72"
           style={{ background: `linear-gradient(to top, var(--color-hero-fade), transparent)` }}
           aria-hidden
         />
         <Container variant="wide" className="relative z-10 grid grid-cols-1 items-center justify-items-center text-center min-h-[55vh] md:min-h-[60vh] pt-[calc(var(--navbar-height)+2rem)] pb-16 pointer-events-none">
           <div className="flex flex-col items-center max-w-2xl space-y-6 pointer-events-auto">
-            {showStats && c.stats && (
+            {showStats && content.stats && (
               <motion.div
                 initial={reduceMotion ? false : { opacity: 0, y: 24 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, ease: easeOutExpo, delay: 0.05 }}
+                transition={{ duration: 0.5, ease: EASE_OUT_EXPO, delay: 0.05 }}
                 className="hero-badge font-body inline-flex items-center gap-2 w-fit rounded-full py-1.5 px-3.5 text-[0.72rem] text-white/70 border border-white/20"
                 style={{ background: "var(--color-hero-badge-bg)" }}
               >
@@ -109,49 +120,50 @@ export function Hero({ contentKey = "Home.hero" }: { contentKey?: HeroContentKey
                   style={{ animation: reduceMotion ? "none" : "badgePulse 2s ease-in-out infinite" }}
                   aria-hidden
                 />
-                {c.stats}
+                {content.stats}
               </motion.div>
             )}
             <motion.h1
               initial={reduceMotion ? false : { opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, ease: easeOutExpo, delay: 0.1 }}
+              transition={{ duration: 0.5, ease: EASE_OUT_EXPO, delay: 0.1 }}
               className="font-heading text-white font-extrabold leading-[1.08] tracking-tight text-[clamp(2rem,8vw,2.8rem)] md:text-[clamp(2.6rem,5.5vw,3.5rem)]"
               style={{ letterSpacing: "-0.03em" }}
             >
-              {c.title}
+              {content.title}
             </motion.h1>
             <motion.p
               initial={reduceMotion ? false : { opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, ease: easeOutExpo, delay: 0.2 }}
+              transition={{ duration: 0.5, ease: EASE_OUT_EXPO, delay: 0.2 }}
               className="font-body body-lead max-w-xl mx-auto leading-[1.7]"
               style={{
                 fontSize: "clamp(0.95rem, 1.8vw, 1.1rem)",
                 color: "var(--color-text-secondary)",
               }}
             >
-              {c.subtitle}
+              {content.subtitle}
             </motion.p>
             <motion.div
               initial={reduceMotion ? false : { opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, ease: easeOutExpo, delay: 0.35 }}
+              transition={{ duration: 0.5, ease: EASE_OUT_EXPO, delay: 0.35 }}
               className="flex flex-wrap items-center justify-center gap-3 mt-8"
             >
               <CtaLink href={primaryHref}>
                 <button
                   type="button"
-                  className="hero-cta-primary font-body inline-flex items-center gap-2 rounded-[10px] text-black border-none cursor-pointer w-full sm:w-auto"
+                  className="hero-cta-primary font-body inline-flex items-center gap-2 rounded-[10px] border-none cursor-pointer w-full sm:w-auto"
                   style={{
                     background: "var(--color-primary)",
+                    color: "var(--color-on-primary)",
                     fontWeight: 700,
                     fontSize: "0.95rem",
                     padding: "14px 28px",
                     transition: "all 0.2s cubic-bezier(0.16, 1, 0.3, 1)",
                   }}
                 >
-                  {c.ctaPrimary}
+                  {content.ctaPrimary}
                   <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
                     <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
                   </svg>
@@ -171,7 +183,7 @@ export function Hero({ contentKey = "Home.hero" }: { contentKey?: HeroContentKey
                       border: "1px solid var(--color-border)",
                     }}
                   >
-                    {c.ctaSecondary}
+                    {content.ctaSecondary}
                   </button>
                 </CtaLink>
               )}
@@ -183,7 +195,7 @@ export function Hero({ contentKey = "Home.hero" }: { contentKey?: HeroContentKey
   }
 
   /* Home hero — full redesign */
-  const title = c.title;
+  const title = content.title;
   const lastWord = "klientów.";
   const titleBefore = title.endsWith(lastWord)
     ? title.slice(0, title.length - lastWord.length).trim()
@@ -194,14 +206,14 @@ export function Hero({ contentKey = "Home.hero" }: { contentKey?: HeroContentKey
     <section
       id="hero"
       className="relative min-h-[82vh] md:min-h-screen overflow-hidden"
-      style={{ background: "transparent" }}
+      style={{ background: "var(--color-hero-fade)" }}
     >
       {/* 1. ColorBends — tło z design systemu (śledzenie myszy), opacity tylko na tło */}
       <div className="absolute inset-0 z-0 opacity-90" aria-hidden>
         <ColorBends
           rotation={95}
           speed={0.2}
-          colors={[...HERO_BENDS_COLORS_FALLBACK]}
+          colors={heroBendsColors}
           transparent
           autoRotate={0.35}
           scale={1}
@@ -224,9 +236,9 @@ export function Hero({ contentKey = "Home.hero" }: { contentKey?: HeroContentKey
         }}
         aria-hidden
       />
-      {/* 4. Gradient na dole hero (jak u góry sekcji „Twoja strona nie sprzedaje?”) */}
+      {/* 4. Gradient na dole hero (z-[1] — poniżej treści z-10) */}
       <div
-        className="pointer-events-none absolute inset-x-0 bottom-0 z-[2] h-72"
+        className="pointer-events-none absolute inset-x-0 bottom-0 z-[1] h-72"
         style={{ background: `linear-gradient(to top, var(--color-hero-fade), transparent)` }}
         aria-hidden
       />
@@ -239,7 +251,7 @@ export function Hero({ contentKey = "Home.hero" }: { contentKey?: HeroContentKey
         <motion.div
           initial={reduceMotion ? false : { opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease: easeOutExpo, delay: 0.05 }}
+          transition={{ duration: 0.7, ease: EASE_OUT_EXPO, delay: 0.05 }}
           className="hero-badge font-body inline-flex items-center gap-2 w-fit mb-6 rounded-full py-1.5 px-3.5 text-[0.72rem] text-white/70 border border-white/20"
           style={{ background: "var(--color-hero-badge-bg)" }}
         >
@@ -248,14 +260,14 @@ export function Hero({ contentKey = "Home.hero" }: { contentKey?: HeroContentKey
             style={{ animation: reduceMotion ? "none" : "badgePulse 2s ease-in-out infinite" }}
             aria-hidden
           />
-          {c.stats}
+          {content.stats}
         </motion.div>
 
         {/* H1 */}
         <motion.h1
           initial={reduceMotion ? false : { opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease: easeOutExpo, delay: 0.1 }}
+          transition={{ duration: 0.7, ease: EASE_OUT_EXPO, delay: 0.1 }}
           className="font-heading text-white font-extrabold leading-[1.08] tracking-tight max-w-[560px] text-[clamp(2rem,8vw,2.8rem)] md:text-[clamp(2.6rem,5.5vw,4rem)]"
           style={{ letterSpacing: "-0.03em" }}
         >
@@ -286,36 +298,37 @@ export function Hero({ contentKey = "Home.hero" }: { contentKey?: HeroContentKey
         <motion.p
           initial={reduceMotion ? false : { opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease: easeOutExpo, delay: 0.35 }}
+          transition={{ duration: 0.7, ease: EASE_OUT_EXPO, delay: 0.35 }}
           className="font-body body-lead mt-5 mb-9 max-w-[420px] leading-[1.7] text-muted-foreground"
           style={{
             fontSize: "clamp(0.95rem, 1.8vw, 1.1rem)",
             color: "var(--color-text-secondary)",
           }}
         >
-          {c.subtitle}
+          {content.subtitle}
         </motion.p>
 
         {/* CTAs */}
         <motion.div
           initial={reduceMotion ? false : { opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease: easeOutExpo, delay: 0.5 }}
+          transition={{ duration: 0.7, ease: EASE_OUT_EXPO, delay: 0.5 }}
           className="flex flex-wrap items-center gap-3 w-full md:w-auto pointer-events-auto mt-8"
         >
           <CtaLink href={primaryHref}>
             <button
               type="button"
-              className="hero-cta-primary font-body inline-flex items-center gap-2 rounded-[10px] text-black border-none cursor-pointer w-full md:w-auto"
+              className="hero-cta-primary font-body inline-flex items-center gap-2 rounded-[10px] border-none cursor-pointer w-full md:w-auto"
               style={{
                 background: "var(--color-primary)",
+                color: "var(--color-on-primary)",
                 fontWeight: 700,
                 fontSize: "0.95rem",
                 padding: "14px 28px",
                 transition: "all 0.2s cubic-bezier(0.16, 1, 0.3, 1)",
               }}
             >
-              {c.ctaPrimary}
+              {content.ctaPrimary}
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
                 <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
               </svg>
@@ -335,7 +348,7 @@ export function Hero({ contentKey = "Home.hero" }: { contentKey?: HeroContentKey
                   border: "1px solid var(--color-border)",
                 }}
               >
-                {c.ctaSecondary}
+                {content.ctaSecondary}
               </button>
             </CtaLink>
           </span>
@@ -345,7 +358,7 @@ export function Hero({ contentKey = "Home.hero" }: { contentKey?: HeroContentKey
         <motion.div
           initial={reduceMotion ? false : { opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease: easeOutExpo, delay: 0.65 }}
+          transition={{ duration: 0.7, ease: EASE_OUT_EXPO, delay: 0.65 }}
           className="social-proof font-body flex flex-col md:flex-row items-center gap-3 md:gap-5 mt-6 md:mt-8 flex-nowrap justify-center md:justify-start overflow-visible"
         >
           <div className="sp-item shrink-0 flex flex-col items-center md:items-start text-center md:text-left">
@@ -372,10 +385,11 @@ export function Hero({ contentKey = "Home.hero" }: { contentKey?: HeroContentKey
           <motion.div
             initial={reduceMotion ? false : { opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: easeOutExpo, delay: 0.6 }}
+            transition={{ duration: 0.8, ease: EASE_OUT_EXPO, delay: 0.6 }}
             className="hero-card absolute left-0 top-[60px] w-[320px] rounded-2xl p-0 overflow-hidden"
             style={{
               animation: reduceMotion ? "none" : "floatA 5s ease-in-out infinite",
+              ...glassBlurLg,
             }}
             aria-hidden
           >
@@ -403,10 +417,11 @@ export function Hero({ contentKey = "Home.hero" }: { contentKey?: HeroContentKey
           <motion.div
             initial={reduceMotion ? false : { opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, ease: easeOutExpo, delay: 0.8 }}
+            transition={{ duration: 0.7, ease: EASE_OUT_EXPO, delay: 0.8 }}
             className="hero-card absolute right-0 top-5 w-[230px] rounded-2xl p-4"
             style={{
               animation: reduceMotion ? "none" : "floatB 6s ease-in-out 1s infinite",
+              ...glassBlurLg,
             }}
             aria-hidden
           >
@@ -427,10 +442,11 @@ export function Hero({ contentKey = "Home.hero" }: { contentKey?: HeroContentKey
           <motion.div
             initial={reduceMotion ? false : { opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: easeOutExpo, delay: 1 }}
+            transition={{ duration: 0.8, ease: EASE_OUT_EXPO, delay: 1 }}
             className="hero-card absolute right-0 bottom-10 w-[280px] rounded-2xl p-4"
             style={{
               animation: reduceMotion ? "none" : "floatC 7s ease-in-out 2s infinite",
+              ...glassBlurLg,
             }}
             aria-hidden
           >

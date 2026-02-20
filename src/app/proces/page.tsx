@@ -8,7 +8,7 @@ export default function ProcesPage() {
     <>
       <Hero contentKey="proces.hero" />
       <ProcesIntro />
-      <ProcesVerticalTimeline />
+      <ProcesVerticalTimeline cardVariant="subpage" />
       <CTA />
     </>
   );

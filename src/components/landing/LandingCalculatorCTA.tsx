@@ -6,8 +6,8 @@ import { Button } from "@/components/ui/Button";
 
 export function LandingCalculatorCTA() {
   return (
-    <section className="border-t border-border bg-section-gray py-section md:py-section-md">
-      <Container className="text-center">
+    <section className="border-t border-border bg-transparent section-padding">
+      <Container noPadding className="text-center">
         <h2 className="text-3xl font-semibold text-foreground sm:text-4xl">
           Sprawdź koszt realizacji w 60 sekund.
         </h2>

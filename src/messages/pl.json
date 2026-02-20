@@ -115,6 +115,31 @@
       },
       "cta": "Sprawdź koszt rozwiązania"
     },
+    "testimonials": {
+      "eyebrow": "Opinie",
+      "title": "Co mówią",
+      "titleAccent": "nasi klienci.",
+      "items": [
+        {
+          "text": "Strona gotowa w 10 dni, wszystko zgodnie z ustaleniami. Ruch z Google wzrósł 3x w ciągu miesiąca.",
+          "authorName": "Marek Kowalski",
+          "authorCompany": "Usługi hydrauliczne, Szczecin",
+          "initials": "MK"
+        },
+        {
+          "text": "Profesjonalna obsługa od A do Z. Sklep działa bez zarzutu, klienci chwalą prostotę zamawiania.",
+          "authorName": "Anna Nowak",
+          "authorCompany": "Sklep z rękodziełem, Poznań",
+          "initials": "AN"
+        },
+        {
+          "text": "W końcu mam stronę, z której jestem zadowolona. Szybki kontakt, konkretna wycena i termin dotrzymany w 100%.",
+          "authorName": "Katarzyna Wiśniewska",
+          "authorCompany": "Pracownia florystyczna, Gdańsk",
+          "initials": "KW"
+        }
+      ]
+    },
     "kalkulatorSekcja": {
       "title": "Sprawdź koszt swojej strony w 60 sekund.",
       "subtitle": "Wybierz zakres projektu i zobacz szacunkową wycenę. Bez zobowiązań.",

@@ -39,3 +39,6 @@ yarn-error.log*
 *.swp
 *.swo
 node_modules
+
+# cursor
+CURSOR_RULES.md

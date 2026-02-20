@@ -2,22 +2,10 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Section } from "@/components/ui/Section";
 import { Button } from "@/components/ui/Button";
+import type { CaseStudy } from "@/types";
+import type { PageParamsSlug } from "@/types";
 
-const CASE_STUDIES: Record<
-  string,
-  {
-    title: string;
-    client: string;
-    industry: string;
-    context: string;
-    challenge: string;
-    strategy: string;
-    implementation: string;
-    stack: string;
-    results: string;
-    lessons: string;
-  }
-> = {
+const CASE_STUDIES: Record<string, CaseStudy> = {
   "strona-firmowa-b2b": {
     title: "Strona firmowa B2B",
     client: "Firma B2B",
@@ -74,9 +62,7 @@ const CASE_STUDIES: Record<
   }
 };
 
-type Props = { params: Promise<{ slug: string }> };
-
-export default async function CaseStudyPage({ params }: Props) {
+export default async function CaseStudyPage({ params }: PageParamsSlug) {
   const { slug } = await params;
   const study = CASE_STUDIES[slug];
 

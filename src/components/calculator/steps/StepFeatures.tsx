@@ -1,106 +1,107 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import {
-  Palette,
-  Search,
-  Languages,
-  FileText,
-  CreditCard,
-  Calendar,
-  Workflow,
-  Gauge,
-  Mail,
-  BarChart3,
-  Share2,
-  Box,
-} from "lucide-react";
-import { FEATURE_COSTS } from "../logic/constants";
+import { IconBox } from "@/components/ui/IconBox";
+import { FEATURES_BY_PROJECT_TYPE } from "../logic/constants";
+import type { ProjectType, StepFeaturesProps } from "@/types";
 import { CALC_CARD_BASE, CALC_CARD_UNSELECTED, CALC_CARD_SELECTED } from "../calculatorStyles";
 
-const FEATURE_IDS = Object.keys(FEATURE_COSTS) as string[];
-
-type LucideIconProps = { className?: string; strokeWidth?: number };
+export type { StepFeaturesProps } from "@/types";
 
 const FEATURE_META: Record<
   string,
-  { label: string; description: string; icon: React.ComponentType<LucideIconProps> }
+  { label: string; description: string; emoji: string }
 > = {
   "custom-ui": {
-    label: "Indywidualny design UI",
+    label: "Projekt graficzny UI na zamówienie",
     description: "Unikalny wygląd i dopasowanie do marki",
-    icon: Palette,
+    emoji: "🎨",
   },
-  seo: {
-    label: "Optymalizacja SEO",
-    description: "Lepsza widoczność w wyszukiwarkach",
-    icon: Search,
+  "seo-advanced": {
+    label: "SEO zaawansowane",
+    description: "Meta, schema, sitemap, GSC",
+    emoji: "🔍",
   },
   multilingual: {
     label: "Wielojęzyczność",
-    description: "Wersje językowe strony",
-    icon: Languages,
+    description: "WPML lub i18n",
+    emoji: "🌐",
   },
   blog: {
-    label: "Sekcja blog",
+    label: "Moduł bloga",
     description: "Aktualności i artykuły",
-    icon: FileText,
+    emoji: "📄",
   },
   "online-payments": {
     label: "Płatności online",
-    description: "Integracja z bramkami płatności",
-    icon: CreditCard,
+    description: "Przelewy24, Stripe",
+    emoji: "💳",
   },
   booking: {
-    label: "System rezerwacji",
-    description: "Rezerwacje / terminy online",
-    icon: Calendar,
+    label: "System rezerwacji online",
+    description: "Rezerwacje / terminy",
+    emoji: "📅",
   },
   automation: {
-    label: "Zaawansowana automatyzacja",
-    description: "Procesy i powiadomienia",
-    icon: Workflow,
+    label: "Automatyzacja",
+    description: "Formularze, maile, CRM webhooks",
+    emoji: "⚙️",
   },
   performance: {
     label: "Optymalizacja wydajności",
-    description: "Szybsze ładowanie i cache",
-    icon: Gauge,
+    description: "Core Web Vitals",
+    emoji: "📊",
+  },
+  "headless-cms": {
+    label: "CMS headless",
+    description: "Sanity / Contentful",
+    emoji: "📦",
+  },
+  "product-filters": {
+    label: "Zaawansowane filtry produktów",
+    description: "Filtrowanie katalogu",
+    emoji: "🔎",
+  },
+  "abandoned-cart": {
+    label: "Odzyskiwanie porzuconych koszyków",
+    description: "E-maile, przypomnienia",
+    emoji: "🛒",
+  },
+  "loyalty-program": {
+    label: "Program lojalnościowy",
+    description: "Punkty, nagrody",
+    emoji: "⭐",
   },
 };
 
-const INTEGRATION_OPTIONS: { id: string; label: string; icon: React.ComponentType<LucideIconProps> }[] = [
-  { id: "crm", label: "CRM", icon: Box },
-  { id: "mail", label: "Newsletter / Mail", icon: Mail },
-  { id: "analytics", label: "Analityka", icon: BarChart3 },
-  { id: "social", label: "Social media", icon: Share2 },
-  { id: "other", label: "Inne", icon: Box },
+const INTEGRATION_OPTIONS: { id: string; label: string; emoji: string }[] = [
+  { id: "crm", label: "CRM (HubSpot, Pipedrive, Salesforce)", emoji: "📦" },
+  { id: "mail", label: "Newsletter / Mail (Mailchimp, Brevo)", emoji: "✉️" },
+  { id: "analytics", label: "Analityka (GA4, GTM, Hotjar)", emoji: "📊" },
+  { id: "social", label: "Social (Meta Pixel, LinkedIn)", emoji: "🔗" },
+  { id: "maps", label: "Mapa Google / lokalizacja", emoji: "📍" },
+  { id: "chat", label: "Chat / Messenger (LiveChat, Tidio)", emoji: "💬" },
+  { id: "other", label: "Inna integracja", emoji: "🔌" },
 ];
 
 function toggleInList(list: string[], id: string): string[] {
   return list.includes(id) ? list.filter((x) => x !== id) : [...list, id];
 }
 
-export interface StepFeaturesProps {
-  features: string[];
-  seo: boolean;
-  blog: boolean;
-  integrations: string[];
-  onFeaturesChange: (value: string[]) => void;
-  onSeoChange: (value: boolean) => void;
-  onBlogChange: (value: boolean) => void;
-  onIntegrationsChange: (value: string[]) => void;
+function getVisibleFeatureIds(projectType: ProjectType | null): string[] {
+  if (!projectType) return [];
+  return FEATURES_BY_PROJECT_TYPE[projectType] ?? [];
 }
 
 export function StepFeatures({
+  projectType,
   features,
-  seo,
-  blog,
   integrations,
   onFeaturesChange,
-  onSeoChange,
-  onBlogChange,
   onIntegrationsChange,
 }: StepFeaturesProps) {
+  const featureIds = getVisibleFeatureIds(projectType);
+
   return (
     <div data-step="features" className="space-y-8">
       <h2 className="text-2xl font-semibold tracking-tight text-foreground">
@@ -110,92 +111,55 @@ export function StepFeatures({
         Zaznacz wszystko, co ma być w projekcie. Możesz wybrać wiele opcji.
       </p>
 
-      <div className="grid gap-3 sm:grid-cols-2" role="group" aria-label="Funkcje">
-        {FEATURE_IDS.map((id) => {
-          const meta = FEATURE_META[id];
-          const Icon = meta?.icon ?? Box;
-          const isChecked = features.includes(id);
-          return (
-            <button
-              key={id}
-              type="button"
-              onClick={() => onFeaturesChange(toggleInList(features, id))}
-              className={cn(
-                CALC_CARD_BASE,
-                "flex items-start gap-4 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 active:scale-[0.99]",
-                isChecked ? CALC_CARD_SELECTED : CALC_CARD_UNSELECTED
-              )}
-              aria-pressed={isChecked}
-            >
-              <span
+      {featureIds.length > 0 && (
+        <div className="grid gap-3 sm:grid-cols-2" role="group" aria-label="Funkcje">
+          {featureIds.map((id) => {
+            const meta = FEATURE_META[id];
+            const emoji = meta?.emoji ?? "📦";
+            const isChecked = features.includes(id);
+            return (
+              <button
+                key={id}
+                type="button"
+                onClick={() => onFeaturesChange(toggleInList(features, id))}
                 className={cn(
-                  "flex h-10 w-10 shrink-0 items-center justify-center rounded-xl",
-                  isChecked ? "bg-primary/20 text-primary" : "bg-white/10 text-muted-foreground"
+                  CALC_CARD_BASE,
+                  "flex items-start gap-4 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 active:scale-[0.99]",
+                  isChecked ? CALC_CARD_SELECTED : CALC_CARD_UNSELECTED
                 )}
+                aria-pressed={isChecked}
               >
-                <Icon className="h-5 w-5" strokeWidth={2} />
-              </span>
-              <span className="flex-1">
-                <span className="block font-medium">
-                  {meta?.label ?? id}
-                </span>
-                {meta?.description && (
-                  <span className="mt-0.5 block text-sm text-muted-foreground">
-                    {meta.description}
+                <IconBox emoji={emoji} className="shrink-0" />
+                <span className="flex-1">
+                  <span className="block font-medium">
+                    {meta?.label ?? id}
                   </span>
-                )}
-              </span>
-              <span
-                className={cn(
-                  "flex h-6 w-6 shrink-0 items-center justify-center rounded-full border-2 text-xs font-medium",
-                  isChecked
-                    ? "border-primary bg-primary/20 text-primary"
-                    : "border-white/30 bg-transparent"
-                )}
-              >
-                {isChecked ? "✓" : ""}
-              </span>
-            </button>
-          );
-        })}
-      </div>
-
-      <div>
-        <h3 className="mb-3 text-lg font-medium text-foreground">Dodatki</h3>
-        <div className="flex flex-wrap gap-3">
-          <button
-            type="button"
-            onClick={() => onSeoChange(!seo)}
-            className={cn(
-              CALC_CARD_BASE,
-              "flex items-center gap-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2",
-              seo ? CALC_CARD_SELECTED : CALC_CARD_UNSELECTED
-            )}
-            aria-pressed={seo}
-          >
-            <Search className="h-5 w-5 shrink-0" strokeWidth={2} />
-            <span className="font-medium">SEO zaawansowane</span>
-          </button>
-          <button
-            type="button"
-            onClick={() => onBlogChange(!blog)}
-            className={cn(
-              CALC_CARD_BASE,
-              "flex items-center gap-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2",
-              blog ? CALC_CARD_SELECTED : CALC_CARD_UNSELECTED
-            )}
-            aria-pressed={blog}
-          >
-            <FileText className="h-5 w-5 shrink-0" strokeWidth={2} />
-            <span className="font-medium">Blog</span>
-          </button>
+                  {meta?.description && (
+                    <span className="mt-0.5 block text-sm text-muted-foreground">
+                      {meta.description}
+                    </span>
+                  )}
+                </span>
+                <span
+                  className={cn(
+                    "flex h-6 w-6 shrink-0 items-center justify-center rounded-full border-2 text-xs font-medium",
+                    isChecked
+                      ? "border-primary bg-primary/20 text-primary"
+                      : "border-white/30 bg-transparent"
+                  )}
+                >
+                  {isChecked ? "✓" : ""}
+                </span>
+              </button>
+            );
+          })}
         </div>
-      </div>
+      )}
 
       <div>
         <h3 className="mb-3 text-lg font-medium text-foreground">Integracje (opcjonalnie)</h3>
         <div className="flex flex-wrap gap-3">
-          {INTEGRATION_OPTIONS.map(({ id, label, icon: Icon }) => {
+          {INTEGRATION_OPTIONS.map(({ id, label, emoji }) => {
             const isChecked = integrations.includes(id);
             return (
               <button
@@ -211,7 +175,7 @@ export function StepFeatures({
                 )}
                 aria-pressed={isChecked}
               >
-                <Icon className="h-5 w-5 shrink-0" strokeWidth={2} />
+                <IconBox emoji={emoji} className="shrink-0" />
                 <span className="font-medium">{label}</span>
               </button>
             );

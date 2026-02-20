@@ -1,6 +1,7 @@
 import { Hero } from "@/components/sections/Hero";
 import { Section } from "@/components/ui/Section";
-import SpotlightCard from "@/components/SpotlightCard";
+import { SpotlightCard } from "@/components/SpotlightCard";
+import { GlassCard } from "@/components/ui/GlassCard";
 import { ProcesHome } from "@/components/sections/ProcesHome";
 import { CTA } from "@/components/sections/CTA";
 
@@ -39,12 +40,12 @@ export default function ONasPage() {
               key={i}
               className="custom-spotlight-card rounded-2xl h-full"
             >
-              <div className="glass-card card-subpage rounded-2xl p-8 h-full flex flex-col">
+              <GlassCard className="glass-card card-subpage rounded-2xl p-8 h-full flex flex-col">
                 <h3 className="heading-3 text-white">{item.title}</h3>
                 <p className="mt-3 text-white/70 leading-relaxed flex-1">
                   {item.text}
                 </p>
-              </div>
+              </GlassCard>
             </SpotlightCard>
           ))}
         </div>
@@ -68,7 +69,7 @@ export default function ONasPage() {
 
       <Section id="dla-kogo">
         <div className="dla-kogo-grid mx-auto grid max-w-[960px] gap-8 md:grid-cols-2">
-          <div className="dla-kogo-card-yes rounded-2xl border border-[var(--color-accent-border)] bg-primary-subtle p-8">
+          <GlassCard className="dla-kogo-card-yes rounded-2xl border border-[var(--color-accent-border)] bg-primary-subtle p-8">
             <h3 className="mb-4 text-[0.95rem] font-bold text-primary">Dla kogo jesteśmy</h3>
             <ul className="dla-kogo-list-yes mt-6 space-y-3">
               {DLA_KOGO_YES.map((item, i) => (
@@ -78,8 +79,8 @@ export default function ONasPage() {
                 </li>
               ))}
             </ul>
-          </div>
-          <div className="dla-kogo-card-no rounded-2xl border border-white/[0.07] bg-white/[0.02] p-8">
+          </GlassCard>
+          <GlassCard className="dla-kogo-card-no rounded-2xl border border-white/[0.07] bg-white/[0.02] p-8">
             <h3 className="mb-4 text-[0.95rem] font-bold text-white/60">Dla kogo nie jesteśmy</h3>
             <ul className="dla-kogo-list-no mt-6 space-y-3">
               {DLA_KOGO_NO.map((item, i) => (
@@ -89,7 +90,7 @@ export default function ONasPage() {
                 </li>
               ))}
             </ul>
-          </div>
+          </GlassCard>
         </div>
       </Section>
 

@@ -27,13 +27,13 @@ const config: Config = {
   			border: 'var(--color-border)',
   			primary: {
   				DEFAULT: 'var(--color-primary)',
-  				foreground: '#000000'
+  				foreground: 'var(--color-on-primary)'
   			},
   			'primary-hover': 'var(--color-primary-hover)',
   			'primary-subtle': 'var(--color-primary-subtle)',
   			accent: {
   				DEFAULT: 'var(--color-accent)',
-  				foreground: '#000000'
+  				foreground: 'var(--color-on-primary)'
   			},
   			'accent-2': 'var(--color-accent-2)',
   			'accent-orange': {
@@ -82,7 +82,7 @@ const config: Config = {
   			chart: {
   				'1': 'var(--color-primary)',
   				'2': 'var(--color-accent-2)',
-  				'3': '#00e5a0',
+  				'3': '#3b82f6',
   				'4': '#00b8d9',
   				'5': '#010A2B'
   			}
@@ -137,8 +137,8 @@ const config: Config = {
   			'card-hover': '0 4px 12px rgba(0, 0, 0, 0.06)'
   		},
   		spacing: {
-  			'section': '6.25rem',
-  			'section-md': '8.75rem'
+  			'section': 'var(--section-padding-y)',
+  			'section-md': 'var(--section-padding-y)'
   		},
   		keyframes: {
   			'float-subtle': {

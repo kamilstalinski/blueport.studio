@@ -3,22 +3,18 @@
 import Link from "next/link";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
-import {
-  BoltIcon,
-  CurrencyDollarIcon,
-  ShieldCheckIcon,
-} from "@heroicons/react/24/outline";
+import { IconBox } from "@/components/ui/IconBox";
 
 const TRUST_BULLETS = [
-  { icon: BoltIcon, label: "Szybka realizacja" },
-  { icon: CurrencyDollarIcon, label: "Jasna wycena" },
-  { icon: ShieldCheckIcon, label: "Wsparcie po wdrożeniu" },
+  { emoji: "⚡" as const, label: "Szybka realizacja" },
+  { emoji: "💳" as const, label: "Jasna wycena" },
+  { emoji: "🔒" as const, label: "Wsparcie po wdrożeniu" },
 ] as const;
 
 export function LandingHero() {
   return (
-    <section className="bg-background py-section md:py-section-md">
-      <Container>
+    <section className="bg-transparent section-padding">
+      <Container noPadding>
         <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
           <div>
             <h1 className="text-3xl font-semibold leading-tight text-foreground sm:text-4xl lg:text-5xl">
@@ -39,13 +35,9 @@ export function LandingHero() {
           <div className="aspect-[4/3] w-full overflow-hidden rounded-2xl border border-border bg-surface-alt" />
         </div>
         <ul className="mt-16 flex flex-wrap items-center justify-center gap-x-12 gap-y-6 border-t border-border pt-12">
-          {TRUST_BULLETS.map(({ icon: Icon, label }) => (
+          {TRUST_BULLETS.map(({ emoji, label }) => (
             <li key={label} className="flex items-center gap-3">
-              <Icon
-                className="h-6 w-6 shrink-0 text-primary"
-                strokeWidth={2}
-                aria-hidden
-              />
+              <IconBox emoji={emoji} />
               <span className="text-muted-foreground">{label}</span>
             </li>
           ))}

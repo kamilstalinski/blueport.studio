@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { Hero } from "@/components/sections/Hero";
 import { Section } from "@/components/ui/Section";
-import SpotlightCard from "@/components/SpotlightCard";
+import { SpotlightCard } from "@/components/SpotlightCard";
+import { GlassCard } from "@/components/ui/GlassCard";
 import { DlaczegoMy } from "@/components/sections/DlaczegoMy";
 import { KalkulatorSection } from "@/components/sections/KalkulatorSection";
 import { CTA } from "@/components/sections/CTA";
@@ -42,7 +43,7 @@ export default function RealizacjePage() {
                 className="custom-spotlight-card rounded-2xl h-full transition-all duration-300 hover:scale-[1.02]"
               >
                 <Link href={`/realizacje/${study.slug}`} className="group block h-full">
-                  <div className="glass-card card-subpage rounded-2xl p-0">
+                  <GlassCard className="glass-card card-subpage rounded-2xl p-0">
                     <div className="portfolio-img" aria-hidden>
                       <span className="img-placeholder">Podgląd wkrótce</span>
                     </div>
@@ -55,7 +56,7 @@ export default function RealizacjePage() {
                         Zobacz więcej
                       </span>
                     </div>
-                  </div>
+                  </GlassCard>
                 </Link>
               </SpotlightCard>
             </li>

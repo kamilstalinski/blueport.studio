@@ -11,10 +11,9 @@ import {
 import type {
   CalculatorState,
   CalculatorAction,
+  CalculatorContextValue,
   StepIndex,
-  PriceEstimate,
-  SummaryResult,
-} from "../types";
+} from "@/types";
 import { computePrice } from "../logic/pricingEngine";
 import { buildSummary } from "../logic/summary";
 import { validateStep as validateStepFn, canSubmit as canSubmitFn } from "../logic/validation";
@@ -22,9 +21,8 @@ import { validateStep as validateStepFn, canSubmit as canSubmitFn } from "../log
 const initialState: CalculatorState = {
   projectType: null,
   pagesCount: 0,
+  productCount: 0,
   features: [],
-  seo: false,
-  blog: false,
   integrations: [],
   urgency: "standard",
   budgetRange: "",
@@ -39,12 +37,10 @@ function reducer(state: CalculatorState, action: CalculatorAction): CalculatorSt
       return { ...state, projectType: action.payload };
     case "SET_PAGES_COUNT":
       return { ...state, pagesCount: action.payload };
+    case "SET_PRODUCT_COUNT":
+      return { ...state, productCount: action.payload };
     case "SET_FEATURES":
       return { ...state, features: action.payload };
-    case "SET_SEO":
-      return { ...state, seo: action.payload };
-    case "SET_BLOG":
-      return { ...state, blog: action.payload };
     case "SET_INTEGRATIONS":
       return { ...state, integrations: action.payload };
     case "SET_URGENCY":
@@ -63,20 +59,6 @@ function reducer(state: CalculatorState, action: CalculatorAction): CalculatorSt
     default:
       return state;
   }
-}
-
-interface CalculatorContextValue {
-  state: CalculatorState;
-  step: StepIndex;
-  dispatch: React.Dispatch<CalculatorAction>;
-  setStep: (step: StepIndex) => void;
-  updateState: (payload: Partial<CalculatorState>) => void;
-  getPrice: () => PriceEstimate;
-  getSummary: () => SummaryResult;
-  validateStep: (step: StepIndex) => { valid: boolean; error?: string };
-  canGoNext: (step: StepIndex) => boolean;
-  canSubmit: boolean;
-  reset: () => void;
 }
 
 const CalculatorContext = createContext<CalculatorContextValue | null>(null);
@@ -105,9 +87,8 @@ export function CalculatorProvider({ children }: { children: ReactNode }) {
   const updateState = useCallback((payload: Partial<CalculatorState>) => {
     if (payload.projectType !== undefined && payload.projectType !== null) dispatch({ type: "SET_PROJECT_TYPE", payload: payload.projectType });
     if (payload.pagesCount !== undefined) dispatch({ type: "SET_PAGES_COUNT", payload: payload.pagesCount });
+    if (payload.productCount !== undefined) dispatch({ type: "SET_PRODUCT_COUNT", payload: payload.productCount });
     if (payload.features !== undefined) dispatch({ type: "SET_FEATURES", payload: payload.features });
-    if (payload.seo !== undefined) dispatch({ type: "SET_SEO", payload: payload.seo });
-    if (payload.blog !== undefined) dispatch({ type: "SET_BLOG", payload: payload.blog });
     if (payload.integrations !== undefined) dispatch({ type: "SET_INTEGRATIONS", payload: payload.integrations });
     if (payload.urgency !== undefined) dispatch({ type: "SET_URGENCY", payload: payload.urgency });
     if (payload.budgetRange !== undefined) dispatch({ type: "SET_BUDGET_RANGE", payload: payload.budgetRange });
@@ -179,9 +160,9 @@ export function CalculatorProvider({ children }: { children: ReactNode }) {
 }
 
 export function useCalculator() {
-  const ctx = useContext(CalculatorContext);
-  if (!ctx) {
+  const calculatorContext = useContext(CalculatorContext);
+  if (!calculatorContext) {
     throw new Error("useCalculator must be used within CalculatorProvider");
   }
-  return ctx;
+  return calculatorContext;
 }

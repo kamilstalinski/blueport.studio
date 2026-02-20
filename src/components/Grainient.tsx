@@ -1,36 +1,15 @@
-import React, { useEffect, useRef } from 'react';
-import { Renderer, Program, Mesh, Triangle } from 'ogl';
-
-interface GrainientProps {
-  timeSpeed?: number;
-  colorBalance?: number;
-  warpStrength?: number;
-  warpFrequency?: number;
-  warpSpeed?: number;
-  warpAmplitude?: number;
-  blendAngle?: number;
-  blendSoftness?: number;
-  rotationAmount?: number;
-  noiseScale?: number;
-  grainAmount?: number;
-  grainScale?: number;
-  grainAnimated?: boolean;
-  contrast?: number;
-  gamma?: number;
-  saturation?: number;
-  centerX?: number;
-  centerY?: number;
-  zoom?: number;
-  color1?: string;
-  color2?: string;
-  color3?: string;
-  className?: string;
-}
+import React, { useEffect, useRef } from "react";
+import { Renderer, Program, Mesh, Triangle } from "ogl";
+import type { GrainientProps } from "@/types";
 
 const hexToRgb = (hex: string): [number, number, number] => {
   const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
   if (!result) return [1, 1, 1];
-  return [parseInt(result[1], 16) / 255, parseInt(result[2], 16) / 255, parseInt(result[3], 16) / 255];
+  return [
+    parseInt(result[1], 16) / 255,
+    parseInt(result[2], 16) / 255,
+    parseInt(result[3], 16) / 255,
+  ];
 };
 
 const vertex = `#version 300 es
@@ -124,7 +103,7 @@ void main(){
 }
 `;
 
-const Grainient: React.FC<GrainientProps> = ({
+export function Grainient({
   timeSpeed = 0.25,
   colorBalance = 0.0,
   warpStrength = 1.0,
@@ -144,11 +123,11 @@ const Grainient: React.FC<GrainientProps> = ({
   centerX = 0.0,
   centerY = 0.0,
   zoom = 0.9,
-  color1 = '#FF9FFC',
-  color2 = '#5227FF',
-  color3 = '#B19EEF',
-  className = ''
-}) => {
+  color1 = "#FF9FFC",
+  color2 = "#5227FF",
+  color3 = "#B19EEF",
+  className = "",
+}: GrainientProps) {
   const containerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -158,20 +137,20 @@ const Grainient: React.FC<GrainientProps> = ({
       webgl: 2,
       alpha: true,
       antialias: false,
-      dpr: Math.min(window.devicePixelRatio || 1, 2)
+      dpr: Math.min(window.devicePixelRatio || 1, 2),
     });
 
-    const gl = renderer.gl;
-    const canvas = gl.canvas as HTMLCanvasElement;
-    canvas.style.width = '100%';
-    canvas.style.height = '100%';
-    canvas.style.display = 'block';
+    const glContext = renderer.gl;
+    const canvas = glContext.canvas as HTMLCanvasElement;
+    canvas.style.width = "100%";
+    canvas.style.height = "100%";
+    canvas.style.display = "block";
 
     const container = containerRef.current;
     container.appendChild(canvas);
 
-    const geometry = new Triangle(gl);
-    const program = new Program(gl, {
+    const geometry = new Triangle(glContext);
+    const program = new Program(glContext, {
       vertex,
       fragment,
       uniforms: {
@@ -197,24 +176,24 @@ const Grainient: React.FC<GrainientProps> = ({
         uZoom: { value: zoom },
         uColor1: { value: new Float32Array(hexToRgb(color1)) },
         uColor2: { value: new Float32Array(hexToRgb(color2)) },
-        uColor3: { value: new Float32Array(hexToRgb(color3)) }
-      }
+        uColor3: { value: new Float32Array(hexToRgb(color3)) },
+      },
     });
 
-    const mesh = new Mesh(gl, { geometry, program });
+    const mesh = new Mesh(glContext, { geometry, program });
 
     const setSize = () => {
       const rect = container.getBoundingClientRect();
       const width = Math.max(1, Math.floor(rect.width));
       const height = Math.max(1, Math.floor(rect.height));
       renderer.setSize(width, height);
-      const res = (program.uniforms.iResolution as { value: Float32Array }).value;
-      res[0] = gl.drawingBufferWidth;
-      res[1] = gl.drawingBufferHeight;
+      const resolution = (program.uniforms.iResolution as { value: Float32Array }).value;
+      resolution[0] = glContext.drawingBufferWidth;
+      resolution[1] = glContext.drawingBufferHeight;
     };
 
-    const ro = new ResizeObserver(setSize);
-    ro.observe(container);
+    const resizeObserver = new ResizeObserver(setSize);
+    resizeObserver.observe(container);
     setSize();
 
     let raf = 0;
@@ -228,7 +207,7 @@ const Grainient: React.FC<GrainientProps> = ({
 
     return () => {
       cancelAnimationFrame(raf);
-      ro.disconnect();
+      resizeObserver.disconnect();
       try {
         container.removeChild(canvas);
       } catch {
@@ -257,10 +236,13 @@ const Grainient: React.FC<GrainientProps> = ({
     zoom,
     color1,
     color2,
-    color3
+    color3,
   ]);
 
-  return <div ref={containerRef} className={`relative h-full w-full overflow-hidden ${className}`.trim()} />;
-};
-
-export default Grainient;
+  return (
+    <div
+      ref={containerRef}
+      className={`relative h-full w-full overflow-hidden ${className}`.trim()}
+    />
+  );
+}

@@ -1,19 +1,33 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import type { ProjectType } from "../types";
+import type { ProjectType, StepProjectTypeProps } from "@/types";
 import { CALC_CARD_BASE, CALC_CARD_UNSELECTED, CALC_CARD_SELECTED } from "../calculatorStyles";
 
-const OPTIONS: { value: ProjectType; label: string }[] = [
-  { value: "wordpress", label: "Strona firmowa (WordPress)" },
-  { value: "woocommerce", label: "Sklep internetowy (WooCommerce)" },
-  { value: "next", label: "Projekt dedykowany (Next.js)" },
-];
+export type { StepProjectTypeProps } from "@/types";
 
-export interface StepProjectTypeProps {
-  value: ProjectType | null;
-  onChange: (value: ProjectType) => void;
-}
+const OPTIONS: { value: ProjectType; label: string }[] = [
+  {
+    value: "wordpress-standard",
+    label: "Strona firmowa Standard — Do 5 podstron, WordPress, SEO basic",
+  },
+  {
+    value: "wordpress-pro",
+    label: "Strona firmowa PRO — Rozbudowana, UI na zamówienie, wydajność",
+  },
+  {
+    value: "woocommerce-start",
+    label: "Sklep WooCommerce Start — Do 20 produktów, płatności, dostawy",
+  },
+  {
+    value: "woocommerce-pro",
+    label: "Sklep WooCommerce PRO — Rozbudowane funkcje, optymalizacja sprzedaży",
+  },
+  {
+    value: "nextjs",
+    label: "Projekt dedykowany Next.js — Wysoka wydajność, kod na zamówienie",
+  },
+];
 
 export function StepProjectType({ value, onChange }: StepProjectTypeProps) {
   return (

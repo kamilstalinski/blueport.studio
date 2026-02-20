@@ -6,9 +6,8 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { ScrollToTop } from "@/components/ui/ScrollToTop";
 import { SmoothScroll } from "@/components/providers/SmoothScroll";
-import { GradualBlurWithFooter } from "@/components/effects/GradualBlurWithFooter";
-import { GradualBlurTop } from "@/components/effects/GradualBlurTop";
 import { GlobalGradientBackground } from "@/components/effects/GlobalGradientBackground";
+import type { RootLayoutProps } from "@/types";
 
 export const inter = Inter({
   subsets: ["latin"],
@@ -30,10 +29,6 @@ export const metadata: Metadata = {
     "We engineer scalable, high-performance websites. Stable. Precise. Modular."
 };
 
-type RootLayoutProps = {
-  children: React.ReactNode;
-};
-
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html
@@ -44,23 +39,21 @@ export default function RootLayout({ children }: RootLayoutProps) {
       <head>
         <ThemeInitScript />
       </head>
-      <body className="font-body min-h-screen bg-bg text-text-primary antialiased transition-[background-color,color] duration-250 ease-out">
+      <body className="font-body min-h-screen bg-transparent text-text-primary antialiased transition-[background-color,color] duration-250 ease-out">
+        <GlobalGradientBackground />
+        <div className="page-grid-overlay" aria-hidden />
         <SmoothScroll>
           <div className="relative flex min-h-screen flex-col">
-            <GlobalGradientBackground />
-            <div className="page-grid-overlay" aria-hidden />
-            <GradualBlurTop />
-            <div className="fixed left-0 right-0 top-0 z-30">
-              <Navbar />
-            </div>
             <main className="flex-1 min-h-full">
               {children}
             </main>
             <Footer />
-            <GradualBlurWithFooter />
-            <ScrollToTop />
           </div>
         </SmoothScroll>
+        <div className="fixed left-0 right-0 top-0 z-30 isolate">
+          <Navbar />
+        </div>
+        <ScrollToTop />
       </body>
     </html>
   );

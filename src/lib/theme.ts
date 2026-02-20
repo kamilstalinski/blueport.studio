@@ -4,7 +4,8 @@
  * Used by inline script (no flash) and ThemeToggle.
  */
 
-export type Theme = "light" | "dark";
+import type { Theme } from "@/types";
+export type { Theme } from "@/types";
 
 const STORAGE_KEY = "blueport-theme";
 
@@ -15,8 +16,8 @@ function getSystemTheme(): Theme {
 
 export function getStoredTheme(): Theme | null {
   if (typeof window === "undefined") return null;
-  const raw = localStorage.getItem(STORAGE_KEY);
-  if (raw === "light" || raw === "dark") return raw;
+  const storedValue = localStorage.getItem(STORAGE_KEY);
+  if (storedValue === "light" || storedValue === "dark") return storedValue;
   return null;
 }
 

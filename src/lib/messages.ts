@@ -1,6 +1,7 @@
 import messages from "@/messages/pl.json";
+import type { ClientTranslationFn, ServerTranslationFn } from "@/types";
 
-type Messages = typeof messages;
+export type { ClientTranslationFn, ServerTranslationFn } from "@/types";
 
 function getNested(obj: unknown, path: string): unknown {
   const parts = path.split(".");
@@ -12,36 +13,28 @@ function getNested(obj: unknown, path: string): unknown {
   return current;
 }
 
-export type ClientTranslationFn = ((key: string) => string) & {
-  raw: (key: string) => unknown;
-};
-
 /**
  * Client hook: returns t(key) for namespace.key (string for JSX). Use t.raw(key) for arrays/objects.
  */
 export function useTranslations(namespace: string): ClientTranslationFn {
-  const t = (key: string): string => {
+  const translate = (key: string): string => {
     const value = getNested(messages, `${namespace}.${key}`);
     if (typeof value === "string") return value;
     return "";
   };
-  t.raw = (key: string): unknown => getNested(messages, `${namespace}.${key}`);
-  return t;
+  translate.raw = (key: string): unknown => getNested(messages, `${namespace}.${key}`);
+  return translate;
 }
-
-type ServerTranslationFn = ((key: string) => string) & {
-  raw: (key: string) => unknown;
-};
 
 /**
  * Server: returns t(key) that looks up namespace.key in messages (string for JSX). Use t.raw(key) for arrays/objects.
  */
 export function getTranslations(namespace: string): ServerTranslationFn {
-  const fn = (key: string): string => {
+  const serverTranslate = (key: string): string => {
     const value = getNested(messages, `${namespace}.${key}`);
     if (typeof value === "string") return value;
     return "";
   };
-  fn.raw = (key: string): unknown => getNested(messages, `${namespace}.${key}`);
-  return fn;
+  serverTranslate.raw = (key: string): unknown => getNested(messages, `${namespace}.${key}`);
+  return serverTranslate;
 }

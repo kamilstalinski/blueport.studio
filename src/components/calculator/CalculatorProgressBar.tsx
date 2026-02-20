@@ -1,15 +1,11 @@
 "use client";
 
-import { Check } from "lucide-react";
 import { cn } from "@/lib/utils";
-import type { StepIndex } from "./types";
+import type { CalculatorProgressBarProps, StepIndex } from "@/types";
+
+export type { CalculatorProgressBarProps } from "@/types";
 
 const TOTAL_STEPS = 6;
-
-export interface CalculatorProgressBarProps {
-  currentStep: StepIndex;
-  className?: string;
-}
 
 export function CalculatorProgressBar({
   currentStep,
@@ -55,7 +51,7 @@ export function CalculatorProgressBar({
                   aria-current={isActive ? "step" : undefined}
                 >
                   {isPast ? (
-                    <Check className="h-4 w-4" strokeWidth={2.5} aria-hidden />
+                    <span className="text-sm leading-none" aria-hidden>✓</span>
                   ) : (
                     stepNum
                   )}

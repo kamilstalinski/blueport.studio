@@ -3,13 +3,14 @@
 import { motion } from "framer-motion";
 import { IconBox } from "@/components/ui/IconBox";
 import { Section } from "@/components/ui/Section";
-import SpotlightCard from "@/components/SpotlightCard";
+import { SpotlightCard } from "@/components/SpotlightCard";
 import {
   fadeInUp,
   staggerContainer,
   viewportOnce,
   useReducedMotionPref,
 } from "@/lib/animations";
+import { useGlassBlurStyle } from "@/lib/useGlassBlurStyle";
 
 const ITEMS: { key: "one" | "services" | "local" | "stores" | "b2b"; emoji: string; label: string }[] = [
   { key: "one", emoji: "👤", label: "jednoosobowych działalności" },
@@ -21,6 +22,7 @@ const ITEMS: { key: "one" | "services" | "local" | "stores" | "b2b"; emoji: stri
 
 export function DlaKogo() {
   const reduceMotion = useReducedMotionPref();
+  const glassBlur = useGlassBlurStyle("default");
   const initial = reduceMotion ? "visible" : "hidden";
 
   return (
@@ -60,6 +62,7 @@ export function DlaKogo() {
             viewport={viewportOnce}
             variants={staggerContainer}
             className="glass-card rounded-2xl"
+            style={glassBlur}
           >
             <div className="border-b border-white/10 card-padding-inline" style={{ paddingBlock: "var(--space-2)" }}>
             <p className="body-lead font-medium text-foreground">

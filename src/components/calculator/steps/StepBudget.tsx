@@ -1,28 +1,25 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import type { Urgency } from "../types";
+import type { StepBudgetProps, Urgency } from "@/types";
 import { CALC_CARD_BASE, CALC_CARD_UNSELECTED, CALC_CARD_SELECTED } from "../calculatorStyles";
+
+export type { StepBudgetProps } from "@/types";
 
 const URGENCY_OPTIONS: { value: Urgency; label: string }[] = [
   { value: "standard", label: "Standard (4–6 tygodni)" },
-  { value: "express", label: "Ekspres (2–3 tygodnie, +15–25%)" },
+  { value: "express", label: "Ekspres (2–3 tygodnie, +20–30%)" },
 ];
 
 const BUDGET_OPTIONS = [
   { value: "", label: "Nie wiem" },
+  { value: "do-3k", label: "do 3 000 zł" },
   { value: "3k-5k", label: "3 000 – 5 000 zł" },
-  { value: "5k-10k", label: "5 000 – 10 000 zł" },
-  { value: "10k-15k", label: "10 000 – 15 000 zł" },
-  { value: "15k+", label: "Powyżej 15 000 zł" },
+  { value: "5k-8k", label: "5 000 – 8 000 zł" },
+  { value: "8k-12k", label: "8 000 – 12 000 zł" },
+  { value: "12k-20k", label: "12 000 – 20 000 zł" },
+  { value: "20k-plus", label: "powyżej 20 000 zł" },
 ];
-
-export interface StepBudgetProps {
-  urgency: Urgency;
-  budgetRange: string;
-  onUrgencyChange: (value: Urgency) => void;
-  onBudgetRangeChange: (value: string) => void;
-}
 
 export function StepBudget({
   urgency,

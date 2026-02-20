@@ -1,11 +1,25 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Section } from "@/components/ui/Section";
+
 import { IconBox } from "@/components/ui/IconBox";
-import SpotlightCard from "@/components/SpotlightCard";
-import { cn } from "@/lib/utils";
+import { Section } from "@/components/ui/Section";
+import { SpotlightCard } from "@/components/SpotlightCard";
+
 import { viewportOnce, useReducedMotionPref } from "@/lib/animations";
+import { useGlassBlurStyle } from "@/lib/useGlassBlurStyle";
+import { cn } from "@/lib/utils";
+
+import type { DlaczegoMyContentKey, DlaczegoMyProps } from "@/types";
+
+import { EASE_SMOOTH } from "@/constants";
+
+function getSectionId(contentKey: DlaczegoMyContentKey): string {
+  if (contentKey === "proces.dlaczego") return "dlaczego-proces";
+  if (contentKey === "realizacjeEfekty") return "efekty";
+  if (contentKey === "kalkulator.coDalej") return "co-dalej";
+  return "dlaczego-my";
+}
 
 const DEFAULT_KEYS = ["price", "time", "support"] as const;
 const EMOJI_MAP: Record<string, string> = {
@@ -48,23 +62,14 @@ const TEXTS: Record<string, { title: string; subtitle: string; items: Record<str
   },
 };
 
-type DlaczegoMyProps = {
-  contentKey?: "Home.dlaczegoMy" | "proces.dlaczego" | "realizacjeEfekty" | "kalkulator.coDalej";
-  itemKeys?: readonly string[];
-  /** Styl kart na podstronach (tło #111827, obramowanie 0.08) */
-  cardVariant?: "default" | "subpage";
-};
-
-const easeSmooth = [0.25, 0.46, 0.45, 0.94] as const;
-
 const headingVariants = {
   hidden: { opacity: 0, y: 16 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: easeSmooth } },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: EASE_SMOOTH } },
 };
 
 const subtitleVariants = {
   hidden: { opacity: 0, y: 12 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.4, delay: 0.06, ease: easeSmooth } },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.4, delay: 0.06, ease: EASE_SMOOTH } },
 };
 
 const listVariants = {
@@ -77,17 +82,18 @@ const listVariants = {
 
 const itemVariants = {
   hidden: { opacity: 0, x: -12 },
-  visible: { opacity: 1, x: 0, transition: { duration: 0.35, ease: easeSmooth } },
+  visible: { opacity: 1, x: 0, transition: { duration: 0.35, ease: EASE_SMOOTH } },
 };
 
 export function DlaczegoMy({ contentKey = "Home.dlaczegoMy", itemKeys, cardVariant = "default" }: DlaczegoMyProps) {
   const reduceMotion = useReducedMotionPref();
   const initial = reduceMotion ? "visible" : "hidden";
+  const glassBlurStyle = useGlassBlurStyle();
   const keys = (itemKeys ?? DEFAULT_KEYS) as string[];
-  const c = TEXTS[contentKey];
+  const content = TEXTS[contentKey];
 
   return (
-    <Section id={contentKey === "proces.dlaczego" ? "dlaczego-proces" : contentKey === "realizacjeEfekty" ? "efekty" : contentKey === "kalkulator.coDalej" ? "co-dalej" : "dlaczego-my"} className="section-benefits overflow-hidden" noWrapper>
+    <Section id={getSectionId(contentKey)} className="section-benefits overflow-hidden" noWrapper>
       <div className="container-narrow section-intro">
         <motion.h2
           className="heading-2 text-white text-center"
@@ -96,7 +102,7 @@ export function DlaczegoMy({ contentKey = "Home.dlaczegoMy", itemKeys, cardVaria
           viewport={viewportOnce}
           variants={headingVariants}
         >
-          {c.title}
+          {content.title}
         </motion.h2>
         <motion.p
           className="section-desc text-center mt-4 mx-auto"
@@ -105,7 +111,7 @@ export function DlaczegoMy({ contentKey = "Home.dlaczegoMy", itemKeys, cardVaria
           viewport={viewportOnce}
           variants={subtitleVariants}
         >
-          {c.subtitle}
+          {content.subtitle}
         </motion.p>
       </div>
 
@@ -129,13 +135,14 @@ export function DlaczegoMy({ contentKey = "Home.dlaczegoMy", itemKeys, cardVaria
                   whileInView="visible"
                   viewport={viewportOnce}
                   className="efekty-card"
+                  style={glassBlurStyle}
                 >
                   <IconBox emoji={emoji} className="efekty-icon" />
                   <h3 className="heading-3 text-white">
-                    {c.items[key] ?? key}
+                    {content.items[key] ?? key}
                   </h3>
                   <p className="text-white/60 body-small mt-1">
-                    {c.itemsDesc[key] ?? ""}
+                    {content.itemsDesc[key] ?? ""}
                   </p>
                 </motion.div>
               );
@@ -158,26 +165,31 @@ export function DlaczegoMy({ contentKey = "Home.dlaczegoMy", itemKeys, cardVaria
                   key={key}
                   className="custom-spotlight-card rounded-2xl h-full min-w-0 w-full"
                 >
-                  <motion.div
-                    variants={itemVariants}
-                    initial={initial}
-                    whileInView="visible"
-                    viewport={viewportOnce}
+                  <div
                     className={cn(
                       "card benefit-card rounded-2xl flex flex-col items-center text-center card-padding h-full min-h-full",
                       cardVariant === "subpage" && "card-subpage",
                     )}
+                    style={glassBlurStyle}
                   >
-                    <IconBox emoji={emoji} />
-                    <div className="min-w-0 flex-1 flex flex-col">
-                      <h3 className="heading-3 text-white">
-                        {c.items[key] ?? key}
-                      </h3>
-                      <p className="text-white/60 body-small mt-1">
-                        {c.itemsDesc[key] ?? ""}
-                      </p>
-                    </div>
-                  </motion.div>
+                    <motion.div
+                      className="flex flex-col items-center text-center h-full min-h-full flex-1 min-w-0"
+                      variants={itemVariants}
+                      initial={initial}
+                      whileInView="visible"
+                      viewport={viewportOnce}
+                    >
+                      <IconBox emoji={emoji} />
+                      <div className="min-w-0 flex-1 flex flex-col">
+                        <h3 className="heading-3 text-white">
+                          {content.items[key] ?? key}
+                        </h3>
+                        <p className="text-white/60 body-small mt-1">
+                          {content.itemsDesc[key] ?? ""}
+                        </p>
+                      </div>
+                    </motion.div>
+                  </div>
                 </SpotlightCard>
               );
               if (index === 0) return [card];

@@ -3,9 +3,11 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { IconBox } from "@/components/ui/IconBox";
-import SpotlightCard from "@/components/SpotlightCard";
+import { SpotlightCard } from "@/components/SpotlightCard";
 import { Button } from "@/components/ui/Button";
 import { useReducedMotionPref } from "@/lib/animations";
+import { useGlassBlurStyle } from "@/lib/useGlassBlurStyle";
+import type { ProcesVerticalTimelineProps } from "@/types";
 
 const CARD_BASE =
   "card process-card relative rounded-2xl min-w-0 flex-1 proces-timeline-card-padding";
@@ -35,13 +37,9 @@ const itemVariants = {
 
 const viewport = { once: true, amount: 0.3 };
 
-type ProcesVerticalTimelineProps = {
-  /** Styl kart na podstronie (tło #111827, obramowanie 0.08) */
-  cardVariant?: "default" | "subpage";
-};
-
 export function ProcesVerticalTimeline({ cardVariant = "default" }: ProcesVerticalTimelineProps = {}) {
   const reduceMotion = useReducedMotionPref();
+  const glassBlur = useGlassBlurStyle("default");
   const CARD_CLASS = `${CARD_BASE}${cardVariant === "subpage" ? " card-subpage" : ""}`;
 
   return (
@@ -109,7 +107,7 @@ export function ProcesVerticalTimeline({ cardVariant = "default" }: ProcesVertic
                   <SpotlightCard
                     className="custom-spotlight-card min-w-0 flex-1 rounded-2xl"
                   >
-                    <div className={CARD_CLASS}>{cardContent}</div>
+                    <div className={CARD_CLASS} style={glassBlur}>{cardContent}</div>
                   </SpotlightCard>
                 </div>
 
@@ -120,7 +118,7 @@ export function ProcesVerticalTimeline({ cardVariant = "default" }: ProcesVertic
                       <SpotlightCard
                         className="custom-spotlight-card w-[420px] max-w-full rounded-2xl lg:w-[480px]"
                       >
-                        <div className={`${CARD_CLASS} w-full`}>{cardContent}</div>
+                        <div className={`${CARD_CLASS} w-full`} style={glassBlur}>{cardContent}</div>
                       </SpotlightCard>
                     )}
                   </div>
@@ -132,7 +130,7 @@ export function ProcesVerticalTimeline({ cardVariant = "default" }: ProcesVertic
                       <SpotlightCard
                         className="custom-spotlight-card w-[420px] max-w-full rounded-2xl lg:w-[480px]"
                       >
-                        <div className={`${CARD_CLASS} w-full`}>{cardContent}</div>
+                        <div className={`${CARD_CLASS} w-full`} style={glassBlur}>{cardContent}</div>
                       </SpotlightCard>
                     )}
                   </div>

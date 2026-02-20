@@ -9,10 +9,9 @@ import {
   viewportOnce,
   useReducedMotionPref
 } from "@/lib/animations";
+import type { CTAProps } from "@/types";
 
-type CTAProps = { contentKey?: "Home.cta" | "oNas.cta" };
-
-export function CTA({ contentKey = "Home.cta" }: CTAProps) {
+export function CTA({ contentKey: _contentKey = "Home.cta" }: CTAProps) {
   const reduceMotion = useReducedMotionPref();
   const initial = reduceMotion ? "visible" : "hidden";
   const title = "Gotowy na nową stronę?";

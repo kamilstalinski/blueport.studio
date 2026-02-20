@@ -3,13 +3,14 @@
 import { motion } from "framer-motion";
 import { Section } from "@/components/ui/Section";
 import { IconBox } from "@/components/ui/IconBox";
-import SpotlightCard from "@/components/SpotlightCard";
+import { SpotlightCard } from "@/components/SpotlightCard";
 import {
   staggerContainer,
   fadeInUp,
   viewportOnce,
   useReducedMotionPref,
 } from "@/lib/animations";
+import { useGlassBlurStyle } from "@/lib/useGlassBlurStyle";
 
 const CARDS = [
   { key: "noSite" as const, emoji: "🌐" as const, title: "Brak strony", desc: "Twoja firma nie ma wizytówki online. Klienci szukają w internecie i Ciebie nie znajdują." },
@@ -20,6 +21,7 @@ const CARDS = [
 
 export function ProblemsGrid() {
   const reduceMotion = useReducedMotionPref();
+  const glassBlur = useGlassBlurStyle("default");
   const initial = reduceMotion ? "visible" : "hidden";
 
   return (
@@ -49,7 +51,7 @@ export function ProblemsGrid() {
             {CARDS.map(({ key, emoji, title, desc }) => (
               <motion.li key={key} variants={fadeInUp} className="flex min-h-0">
                 <SpotlightCard className="custom-spotlight-card flex h-full w-full min-w-0">
-                  <article className="card flex h-full min-h-0 flex-col rounded-xl card-padding">
+                  <article className="card flex h-full min-h-0 flex-col rounded-xl card-padding" style={glassBlur}>
                     <IconBox emoji={emoji} />
                     <h3 className="mt-5 shrink-0 heading-3 text-white">
                       {title}

@@ -1,14 +1,21 @@
-import { ReactNode } from "react";
+import { cn } from "@/lib/utils";
+import type { ContainerProps, ContainerVariant } from "@/types";
 
-type ContainerProps = {
-  children: ReactNode;
-  className?: string;
+const variantClass: Record<ContainerVariant, string> = {
+  narrow: "container-narrow",
+  default: "container",
+  wide: "container-wide",
 };
 
-export function Container({ children, className }: ContainerProps) {
+export function Container({
+  children,
+  className,
+  variant = "default",
+  noPadding,
+}: ContainerProps) {
   return (
     <div
-      className={`mx-auto w-full max-w-6xl px-6 ${className ?? ""}`}
+      className={cn(variantClass[variant], noPadding && "!px-0", className)}
     >
       {children}
     </div>

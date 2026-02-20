@@ -3,8 +3,9 @@
 import { motion } from "framer-motion";
 import { IconBox } from "@/components/ui/IconBox";
 import { Section } from "@/components/ui/Section";
-import SpotlightCard from "@/components/SpotlightCard";
+import { SpotlightCard } from "@/components/SpotlightCard";
 import { fadeInUp, viewportOnce, useReducedMotionPref } from "@/lib/animations";
+import { useGlassBlurStyle } from "@/lib/useGlassBlurStyle";
 
 const CARDS = [
   { emoji: "📋" as const, text: "50+ zrealizowanych projektów" },
@@ -16,6 +17,7 @@ const CARDS = [
 export function WhyBluePort() {
   const reduceMotion = useReducedMotionPref();
   const initial = reduceMotion ? "visible" : "hidden";
+  const glassBlurStyle = useGlassBlurStyle();
 
   return (
     <Section id="dlaczego-blueport">
@@ -43,18 +45,20 @@ export function WhyBluePort() {
             key={text}
             className="custom-spotlight-card rounded-2xl h-full"
           >
-            <motion.div
-              initial={initial}
-              whileInView="visible"
-              viewport={viewportOnce}
-              variants={fadeInUp}
-              className="card rounded-2xl p-8 h-full"
-            >
-              <IconBox emoji={emoji} />
-              <p className="mt-4 font-medium text-white">
-                {text}
-              </p>
-            </motion.div>
+            <div className="card rounded-2xl p-8 h-full" style={glassBlurStyle}>
+              <motion.div
+                className="h-full"
+                initial={initial}
+                whileInView="visible"
+                viewport={viewportOnce}
+                variants={fadeInUp}
+              >
+                <IconBox emoji={emoji} />
+                <p className="mt-4 font-medium text-white">
+                  {text}
+                </p>
+              </motion.div>
+            </div>
           </SpotlightCard>
         ))}
       </div>

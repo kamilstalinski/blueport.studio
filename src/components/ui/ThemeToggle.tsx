@@ -1,22 +1,18 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import {
-  getInitialTheme,
-  toggleTheme,
-  type Theme
-} from "@/lib/theme";
+import { getInitialTheme, toggleTheme } from "@/lib/theme";
 import { cn } from "@/lib/utils";
-
-type ThemeToggleVariant = "default" | "dark";
+import type { Theme } from "@/types";
+import type { ThemeToggleVariant } from "@/types";
 
 export function ThemeToggle({ variant = "default" }: { variant?: ThemeToggleVariant }) {
   const [theme, setTheme] = useState<Theme>("light");
-  const [mounted, setMounted] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
   const isDark = variant === "dark";
 
   useEffect(() => {
-    setMounted(true);
+    setIsMounted(true);
     setTheme(getInitialTheme());
   }, []);
 
@@ -25,7 +21,7 @@ export function ThemeToggle({ variant = "default" }: { variant?: ThemeToggleVari
     setTheme(next);
   };
 
-  if (!mounted) {
+  if (!isMounted) {
     return (
       <span
         className={cn(

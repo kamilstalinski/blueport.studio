@@ -2,27 +2,21 @@
 
 import { useCallback, useMemo } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { CalculatorProvider, useCalculator } from "./context/CalculatorContext";
-import type { StepIndex, SummaryResult } from "./types";
-import { CalculatorProgressBar } from "./CalculatorProgressBar";
-import { StepProjectType } from "./steps/StepProjectType";
-import { StepScope } from "./steps/StepScope";
-import { StepFeatures } from "./steps/StepFeatures";
-import { StepBudget } from "./steps/StepBudget";
-import { StepContact } from "./steps/StepContact";
-import { StepSummary } from "./steps/StepSummary";
+
 import { Button } from "@/components/ui/Button";
 
-export interface CalculatorProps {
-  /** Called when user submits from summary (step 6). Receives summary and contact. */
-  onSubmit?: (payload: {
-    summary: SummaryResult;
-    name: string;
-    email: string;
-    phone: string;
-  }) => void;
-  children?: never;
-}
+import { CalculatorProvider, useCalculator } from "./context/CalculatorContext";
+import { CalculatorProgressBar } from "./CalculatorProgressBar";
+import { StepBudget } from "./steps/StepBudget";
+import { StepContact } from "./steps/StepContact";
+import { StepFeatures } from "./steps/StepFeatures";
+import { StepProjectType } from "./steps/StepProjectType";
+import { StepScope } from "./steps/StepScope";
+import { StepSummary } from "./steps/StepSummary";
+
+import type { CalculatorProps, StepIndex } from "@/types";
+
+export type { CalculatorProps } from "@/types";
 
 const stepVariants = {
   enter: { opacity: 0, x: 12 },
@@ -91,20 +85,19 @@ function CalculatorInner({ onSubmit }: CalculatorProps) {
         return (
           <StepScope
             pagesCount={state.pagesCount}
-            onChange={(v) => updateState({ pagesCount: v })}
+            productCount={state.productCount}
+            onPagesCountChange={(v) => updateState({ pagesCount: v })}
+            onProductCountChange={(v) => updateState({ productCount: v })}
             projectType={state.projectType}
           />
         );
       case 3:
         return (
           <StepFeatures
+            projectType={state.projectType}
             features={state.features}
-            seo={state.seo}
-            blog={state.blog}
             integrations={state.integrations}
             onFeaturesChange={(v) => updateState({ features: v })}
-            onSeoChange={(v) => updateState({ seo: v })}
-            onBlogChange={(v) => updateState({ blog: v })}
             onIntegrationsChange={(v) => updateState({ integrations: v })}
           />
         );

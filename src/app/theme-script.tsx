@@ -10,6 +10,10 @@ export function ThemeInitScript() {
   var theme = (stored === 'light' || stored === 'dark') ? stored : 'dark';
   if (theme === 'dark') document.documentElement.classList.add('dark');
   else document.documentElement.classList.remove('dark');
+  var ak = 'blueport-accent';
+  var valid = ['blue','mint','violet','amber','cyan','rose'];
+  var accent = localStorage.getItem(ak);
+  document.documentElement.setAttribute('data-accent', valid.indexOf(accent) !== -1 ? accent : 'blue');
 })();
 `;
   return <script dangerouslySetInnerHTML={{ __html: script }} />;
