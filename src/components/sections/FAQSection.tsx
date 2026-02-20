@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { Section } from "@/components/ui/Section";
 import { cn } from "@/lib/utils";
 import { useGlassBlurStyle } from "@/lib/useGlassBlurStyle";
@@ -39,7 +40,7 @@ export function FAQSection({ faqKeys }: FAQSectionProps) {
               className={cn("faq-item", isOpen && "open")}
               style={glassBlurSm}
             >
-              <button
+              <motion.button
                 type="button"
                 onClick={() => setOpenKey(isOpen ? null : key)}
                 className={cn(
@@ -49,6 +50,7 @@ export function FAQSection({ faqKeys }: FAQSectionProps) {
                 aria-expanded={isOpen}
                 aria-controls={`faq-answer-${key}`}
                 id={`faq-question-${key}`}
+                whileTap={{ scale: 0.99 }}
               >
                 {isOpen && (
                   <div className="absolute left-0 top-0 h-full w-[3px] bg-white/50 rounded-l" aria-hidden />
@@ -61,29 +63,49 @@ export function FAQSection({ faqKeys }: FAQSectionProps) {
                 >
                   {item.q}
                 </span>
-                <span
+                <motion.span
+                  animate={{ rotate: isOpen ? 180 : 0 }}
+                  transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
                   className={cn(
-                    "inline-block text-lg leading-none shrink-0 transition-transform duration-300",
-                    isOpen && "rotate-180 text-white/80",
+                    "inline-block text-lg leading-none shrink-0 text-white/80",
                   )}
                   aria-hidden
                 >
                   ▼
-                </span>
-              </button>
-              <div
-                id={`faq-answer-${key}`}
-                role="region"
-                aria-labelledby={`faq-question-${key}`}
-                className={cn(
-                  "overflow-hidden transition-[max-height,opacity] duration-300 ease-out",
-                  isOpen ? "max-h-[32rem] opacity-100" : "max-h-0 opacity-0",
+                </motion.span>
+              </motion.button>
+              <AnimatePresence initial={false}>
+                {isOpen && (
+                  <motion.div
+                    key="content"
+                    id={`faq-answer-${key}`}
+                    role="region"
+                    aria-labelledby={`faq-question-${key}`}
+                    className="overflow-hidden"
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{
+                      height: "auto",
+                      opacity: 1,
+                      transition: {
+                        height: { duration: 0.35, ease: [0.16, 1, 0.3, 1] },
+                        opacity: { duration: 0.25, delay: 0.05 },
+                      },
+                    }}
+                    exit={{
+                      height: 0,
+                      opacity: 0,
+                      transition: {
+                        height: { duration: 0.25, ease: [0.4, 0, 0.2, 1] },
+                        opacity: { duration: 0.15 },
+                      },
+                    }}
+                  >
+                    <p className="text-white/70 leading-relaxed" style={{ paddingInline: "var(--card-padding)", paddingTop: "var(--space-2)", paddingBottom: "var(--space-3)" }}>
+                      {item.a}
+                    </p>
+                  </motion.div>
                 )}
-              >
-                <p className="text-white/70 leading-relaxed" style={{ paddingInline: "var(--card-padding)", paddingTop: "var(--space-2)", paddingBottom: "var(--space-3)" }}>
-                  {item.a}
-                </p>
-              </div>
+              </AnimatePresence>
             </li>
           );
         })}

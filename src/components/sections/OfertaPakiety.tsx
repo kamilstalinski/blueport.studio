@@ -1,10 +1,15 @@
 "use client";
 
 import Link from "next/link";
+import { motion } from "framer-motion";
 import { IconBox } from "@/components/ui/IconBox";
 import { Section } from "@/components/ui/Section";
 import { Button } from "@/components/ui/Button";
+import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { SpotlightCard } from "@/components/SpotlightCard";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import { useMotionSafe } from "@/hooks/useMotionSafe";
+import { springs } from "@/constants/animations";
 import { cn } from "@/lib/utils";
 import { useGlassBlurStyle } from "@/lib/useGlassBlurStyle";
 import type { OfertaPakietyProps } from "@/types";
@@ -41,27 +46,40 @@ const PACKAGE_INCLUDES: Record<(typeof CARDS)[number]["key"], string[]> = {
 
 export function OfertaPakiety({ topGradient = true, cardVariant = "default" }: OfertaPakietyProps) {
   const glassBlurStyle = useGlassBlurStyle();
+  const { ref, animate } = useScrollAnimation();
+  const { variants: v } = useMotionSafe();
 
   return (
     <Section id="oferta-pakiety" className="section-packages" topGradient={topGradient} tight noWrapper>
-      <div className={cn("container-narrow section-intro", topGradient && "relative z-10")}>
+      <ScrollReveal variant="fadeUp" className={cn("container-narrow section-intro", topGradient && "relative z-10")}>
         <h2 className="heading-2 text-white mb-0">
           Jasne pakiety. Konkretne efekty.
         </h2>
-      </div>
+      </ScrollReveal>
 
       <div className="container relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-3 items-stretch" style={{ gap: "var(--grid-gap)" }}>
+        <motion.div
+          ref={ref}
+          variants={v.stagger}
+          initial="hidden"
+          animate={animate}
+          className="grid grid-cols-1 md:grid-cols-3 items-stretch"
+          style={{ gap: "var(--grid-gap)" }}
+        >
           {CARDS.map((card, index) => {
             const { key, emoji, title, desc, price, cta } = card;
             const isMiddle = index === 1;
 
             return (
-              <SpotlightCard
-                key={key}
-                className={`custom-spotlight-card rounded-2xl h-full oferta-package-card ${isMiddle ? "oferta-package-featured" : ""}`}
-              >
-                <article
+              <motion.div key={key} variants={v.scaleIn}>
+                <motion.div
+                  whileHover={{ y: -4, transition: springs.smooth }}
+                  whileTap={{ scale: 0.98, transition: springs.stiff }}
+                >
+                  <SpotlightCard
+                    className={`custom-spotlight-card rounded-2xl h-full oferta-package-card ${isMiddle ? "oferta-package-featured" : ""}`}
+                  >
+                    <article
                   className={cn(
                     "card rounded-2xl flex flex-col h-full relative card-padding",
                     isMiddle && "card-featured",
@@ -116,9 +134,11 @@ export function OfertaPakiety({ topGradient = true, cardVariant = "default" }: O
                   </div>
                 </article>
               </SpotlightCard>
+                </motion.div>
+              </motion.div>
             );
           })}
-        </div>
+        </motion.div>
 
         <p className="body-small text-white/50 mt-10 text-center">
           Nie wiesz, który pakiet wybrać?{" "}

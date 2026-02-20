@@ -1,6 +1,7 @@
 "use client";
 
-import { useCallback, useMemo } from "react";
+import { useCallback, useMemo, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 import { Button } from "@/components/ui/Button";
 
@@ -14,6 +15,23 @@ import { StepScope } from "./steps/StepScope";
 import { StepSummary } from "./steps/StepSummary";
 
 import type { CalculatorProps, StepIndex } from "@/types";
+
+const stepVariants = {
+  enter: (direction: number) => ({
+    x: direction > 0 ? 40 : -40,
+    opacity: 0,
+  }),
+  center: {
+    x: 0,
+    opacity: 1,
+    transition: { duration: 0.35, ease: [0.16, 1, 0.3, 1] as const },
+  },
+  exit: (direction: number) => ({
+    x: direction > 0 ? -40 : 40,
+    opacity: 0,
+    transition: { duration: 0.2, ease: [0.4, 0, 0.2, 1] as const },
+  }),
+};
 
 export type { CalculatorProps } from "@/types";
 
@@ -31,15 +49,18 @@ function CalculatorInner({ onSubmit }: CalculatorProps) {
     reset,
   } = useCalculator();
 
+  const [direction, setDirection] = useState(1);
   const validation = useMemo(() => validateStep(step), [validateStep, step]);
   const price = useMemo(() => getPrice(), [getPrice, state]);
 
   const handleNext = useCallback(() => {
     if (!canGoNext(step)) return;
+    setDirection(1);
     if (step < 6) setStep((step + 1) as StepIndex);
   }, [step, setStep, canGoNext]);
 
   const handleBack = useCallback(() => {
+    setDirection(-1);
     if (step > 1) setStep((step - 1) as StepIndex);
   }, [step, setStep]);
 
@@ -140,9 +161,19 @@ function CalculatorInner({ onSubmit }: CalculatorProps) {
             className="min-h-[320px] mt-6"
             style={{ minHeight: "20rem" }}
           >
-            <div key={step} className="w-full">
-              {currentStepContent}
-            </div>
+            <AnimatePresence custom={direction} mode="wait">
+              <motion.div
+                key={step}
+                custom={direction}
+                variants={stepVariants}
+                initial="enter"
+                animate="center"
+                exit="exit"
+                className="w-full"
+              >
+                {currentStepContent}
+              </motion.div>
+            </AnimatePresence>
           </div>
 
           <nav

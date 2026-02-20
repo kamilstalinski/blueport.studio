@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/Button";
 import { IconBox } from "@/components/ui/IconBox";
+import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { cn } from "@/lib/utils";
 import { useGlassBlurStyle } from "@/lib/useGlassBlurStyle";
 import type { ProcesHomeProps } from "@/types";
@@ -47,7 +48,7 @@ export function ProcesHome({ contentKey = "Home.proces", stepCount = 5, cardVari
 
   return (
     <section id="proces" className="section-process relative section-padding-block">
-      <div className="container-narrow section-intro text-center">
+      <ScrollReveal variant="fadeUp" className="container-narrow section-intro text-center">
         <p className="section-eyebrow">
           {content.badge}
         </p>
@@ -62,7 +63,7 @@ export function ProcesHome({ contentKey = "Home.proces", stepCount = 5, cardVari
             {content.timeline}
           </p>
         )}
-      </div>
+      </ScrollReveal>
 
       <div className="container relative z-10">
         <div className={cn("process-grid", use2x2Grid && "process-grid-2x2")}>

@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useRef, useEffect, useCallback } from "react";
+import { motion, useInView, useMotionValue, useTransform, animate } from "framer-motion";
 
 const TOTAL = 60;
 const CIRCUMFERENCE = 2 * Math.PI * 54; // 339.292
@@ -9,24 +10,28 @@ const CIRCUMFERENCE = 2 * Math.PI * 54; // 339.292
 export function KalkulatorSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const ringRef = useRef<SVGCircleElement>(null);
-  const numberRef = useRef<HTMLSpanElement>(null);
   const btnRef = useRef<HTMLAnchorElement>(null);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const hasStartedRef = useRef(false);
   const startTimerRef = useRef<() => void>(() => {});
+  const introDoneRef = useRef(false);
+
+  const count = useMotionValue(0);
+  const rounded = useTransform(count, (v) => Math.round(v));
+  const isInView = useInView(sectionRef, { once: true, amount: 0.4 });
 
   const updateDisplay = useCallback((s: number) => {
-    if (numberRef.current) numberRef.current.textContent = String(s);
+    count.set(s);
     if (ringRef.current) {
       const progress = s / TOTAL;
       const offset = CIRCUMFERENCE * (1 - progress);
       ringRef.current.style.strokeDashoffset = String(offset);
     }
     sectionRef.current?.classList.toggle("ring-urgent", s <= 10);
-  }, []);
+  }, [count]);
 
   const startTimer = useCallback(() => {
-    if (intervalRef.current) return; // już działa
+    if (intervalRef.current) return;
     hasStartedRef.current = true;
     let s = TOTAL;
     updateDisplay(s);
@@ -56,8 +61,24 @@ export function KalkulatorSection() {
   }, [updateDisplay]);
 
   useEffect(() => {
+    if (!isInView || introDoneRef.current) return;
+    introDoneRef.current = true;
+    const controls = animate(count, 60, {
+      duration: 1.5,
+      ease: [0.16, 1, 0.3, 1],
+      delay: 0.3,
+    });
+    controls.then(() => {
+      if (ringRef.current) {
+        ringRef.current.style.strokeDashoffset = String(0);
+      }
+      startTimerRef.current();
+    });
+    return () => controls.stop();
+  }, [isInView, count]);
+
+  useEffect(() => {
     startTimerRef.current = startTimer;
-    updateDisplay(TOTAL);
 
     const section = sectionRef.current;
     if (!section) return;
@@ -66,7 +87,7 @@ export function KalkulatorSection() {
       (entries) => {
         const entry = entries[0];
         if (!entry) return;
-        if (entry.isIntersecting && !hasStartedRef.current) {
+        if (entry.isIntersecting && !hasStartedRef.current && introDoneRef.current) {
           startTimer();
         }
         if (!entry.isIntersecting && hasStartedRef.current) {
@@ -105,7 +126,12 @@ export function KalkulatorSection() {
       <div className="cta-bg-blob" aria-hidden />
 
       <div className="cta-content container-narrow">
-        <div className="timer-wrap">
+        <motion.div
+          className="timer-wrap"
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={isInView ? { opacity: 1, scale: 1 } : {}}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+        >
           <div className="timer-ring-container">
             <svg
               className="timer-svg"
@@ -132,18 +158,18 @@ export function KalkulatorSection() {
                 strokeWidth="3"
                 strokeLinecap="round"
                 strokeDasharray={CIRCUMFERENCE}
-                strokeDashoffset={0}
+                strokeDashoffset={CIRCUMFERENCE}
                 transform="rotate(-90 60 60)"
               />
             </svg>
             <div className="timer-center">
-              <span ref={numberRef} className="timer-number" id="timerNumber">
-                {TOTAL}
-              </span>
+              <motion.span className="timer-number" id="timerNumber">
+                {rounded}
+              </motion.span>
               <span className="timer-unit">sek</span>
             </div>
           </div>
-        </div>
+        </motion.div>
 
         <h2 id="cta-heading" className="cta-heading">
           {beforeHighlight}{" "}

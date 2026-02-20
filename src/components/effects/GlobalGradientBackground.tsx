@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { Grainient } from "@/components/Grainient";
 
 function getCssVar(name: string): string {
@@ -19,6 +20,9 @@ export function GlobalGradientBackground() {
   const [colors, setColors] = useState<{ color1: string; color2: string; color3: string }>(
     FALLBACK
   );
+
+  const { scrollY } = useScroll();
+  const meshY = useTransform(scrollY, [0, 1000], [0, -120]);
 
   const readColors = () => {
     setColors({
@@ -46,8 +50,8 @@ export function GlobalGradientBackground() {
       }}
       aria-hidden
     >
-      {/* Rozszerzenie powyżej i poniżej viewportu — brak ucięcia przy dynamicznym UI Chrome (vh/dvh) */}
-      <div
+      {/* Rozszerzenie powyżej i poniżej viewportu — subtelny parallax przy scrollu */}
+      <motion.div
         style={{
           position: "absolute",
           top: "-20vh",
@@ -56,6 +60,7 @@ export function GlobalGradientBackground() {
           width: "100%",
           height: "calc(100% + 40vh)",
           minHeight: "100dvh",
+          y: meshY,
         }}
       >
         <Grainient
@@ -84,7 +89,7 @@ export function GlobalGradientBackground() {
           className="absolute inset-0 h-full w-full"
           resizeDebounceMs={120}
         />
-      </div>
+      </motion.div>
     </div>
   );
 }

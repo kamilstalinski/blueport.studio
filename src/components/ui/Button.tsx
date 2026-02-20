@@ -1,5 +1,9 @@
+"use client";
+
 import * as React from "react";
+import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
+import { springs } from "@/constants/animations";
 import type { ButtonProps, ButtonVariant } from "@/types";
 
 export type { ButtonProps } from "@/types";
@@ -23,10 +27,12 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     };
 
     return (
-      <button
+      <motion.button
         ref={ref}
+        whileHover={{ scale: 1.03, transition: springs.bouncy }}
+        whileTap={{ scale: 0.97, transition: springs.stiff }}
         className={cn(base, variantClasses[variant], className)}
-        {...props}
+        {...(props as Record<string, unknown>)}
       />
     );
   }

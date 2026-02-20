@@ -1,9 +1,13 @@
 "use client";
 
+import { motion } from "framer-motion";
 import { IconBox } from "@/components/ui/IconBox";
 import { Section } from "@/components/ui/Section";
+import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { SpotlightCard } from "@/components/SpotlightCard";
-
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import { useMotionSafe } from "@/hooks/useMotionSafe";
+import { springs } from "@/constants/animations";
 import { useGlassBlurStyle } from "@/lib/useGlassBlurStyle";
 import { cn } from "@/lib/utils";
 
@@ -59,28 +63,40 @@ const TEXTS: Record<string, { title: string; subtitle: string; items: Record<str
 
 export function DlaczegoMy({ contentKey = "Home.dlaczegoMy", itemKeys, cardVariant = "default" }: DlaczegoMyProps) {
   const glassBlurStyle = useGlassBlurStyle();
+  const { ref, animate } = useScrollAnimation();
+  const { variants: v } = useMotionSafe();
   const keys = (itemKeys ?? DEFAULT_KEYS) as string[];
   const content = TEXTS[contentKey];
 
   return (
     <Section id={getSectionId(contentKey)} className="section-benefits overflow-hidden" noWrapper>
-      <div className="container-narrow section-intro">
+      <ScrollReveal variant="fadeUp" className="container-narrow section-intro">
         <h2 className="heading-2 text-white text-center">
           {content.title}
         </h2>
         <p className="section-desc text-center mt-4 mx-auto">
           {content.subtitle}
         </p>
-      </div>
+      </ScrollReveal>
 
       <div className="container">
         {contentKey === "realizacjeEfekty" ? (
-          <div className="efekty-grid mt-14" role="list">
+          <motion.div
+            ref={ref}
+            variants={v.stagger}
+            initial="hidden"
+            animate={animate}
+            className="efekty-grid mt-14"
+            role="list"
+          >
             {keys.map((key) => {
               const emoji = EMOJI_MAP[key] ?? "💳";
               return (
-                <div
+                <motion.div
                   key={key}
+                  variants={v.scaleIn}
+                  whileHover={{ y: -4, transition: springs.smooth }}
+                  whileTap={{ scale: 0.98, transition: springs.stiff }}
                   className="efekty-card"
                   style={glassBlurStyle}
                 >
@@ -91,12 +107,16 @@ export function DlaczegoMy({ contentKey = "Home.dlaczegoMy", itemKeys, cardVaria
                   <p className="text-white/60 body-small mt-1">
                     {content.itemsDesc[key] ?? ""}
                   </p>
-                </div>
+                </motion.div>
               );
             })}
-          </div>
+          </motion.div>
         ) : (
-          <div
+          <motion.div
+            ref={ref}
+            variants={v.stagger}
+            initial="hidden"
+            animate={animate}
             className="flex flex-col sm:grid sm:grid-cols-[1fr_auto_1fr_auto_1fr] items-stretch sm:mx-auto mt-14"
             style={{ gap: "var(--grid-gap)" }}
             role="list"
@@ -104,6 +124,12 @@ export function DlaczegoMy({ contentKey = "Home.dlaczegoMy", itemKeys, cardVaria
             {keys.flatMap((key, index) => {
               const emoji = EMOJI_MAP[key] ?? "💳";
               const card = (
+                <motion.div
+                  key={key}
+                  variants={v.scaleIn}
+                  whileHover={{ y: -4, transition: springs.smooth }}
+                  whileTap={{ scale: 0.98, transition: springs.stiff }}
+                >
                 <SpotlightCard
                   key={key}
                   className="custom-spotlight-card rounded-2xl h-full min-w-0 w-full"
@@ -128,6 +154,7 @@ export function DlaczegoMy({ contentKey = "Home.dlaczegoMy", itemKeys, cardVaria
                     </div>
                   </div>
                 </SpotlightCard>
+                </motion.div>
               );
               if (index === 0) return [card];
               return [
@@ -141,7 +168,7 @@ export function DlaczegoMy({ contentKey = "Home.dlaczegoMy", itemKeys, cardVaria
                 card,
               ];
             })}
-          </div>
+          </motion.div>
         )}
       </div>
     </Section>

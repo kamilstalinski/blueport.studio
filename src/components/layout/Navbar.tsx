@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { motion, useScroll, useTransform } from "framer-motion";
 
 import { useAccentTheme } from "@/hooks/useAccentTheme";
 import { cn } from "@/lib/utils";
@@ -17,6 +18,18 @@ export function Navbar() {
   const pathname = usePathname() ?? "";
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { scrollY } = useScroll();
+  const navBg = useTransform(
+    scrollY,
+    [0, 80],
+    ["rgba(0,0,0,0)", "rgba(0,0,0,0.85)"]
+  );
+  const navBlur = useTransform(scrollY, [0, 80], ["blur(0px)", "blur(20px)"]);
+  const navBorderOpacity = useTransform(
+    scrollY,
+    [0, 80],
+    ["rgba(255,255,255,0)", "rgba(255,255,255,0.08)"]
+  );
   const [isMobileView, setIsMobileView] = useState(false);
   const accent = useAccentTheme();
   const [isPaletteDropdownOpen, setIsPaletteDropdownOpen] = useState(false);
@@ -195,13 +208,16 @@ export function Navbar() {
   );
 
   return (
-    <header
+    <motion.header
       className={cn(
         "fixed top-0 left-0 right-0 z-50 box-border pb-2 transition-[padding] duration-300 ease-out isolate",
         useScrolledStyle ? "pt-3 md:pt-4" : "pt-0",
         !useScrolledStyle && "px-0",
         useScrolledStyle && "px-3 md:px-4",
       )}
+      initial={{ y: -64, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
     >
       <div
         className={cn(
@@ -209,11 +225,19 @@ export function Navbar() {
           useScrolledStyle ? "max-w-[1400px]" : "max-w-full",
         )}
       >
-        <div className={glassClass} style={glassStyle}>
+        <motion.div
+          className={glassClass}
+          style={{
+            ...glassStyle,
+            backgroundColor: navBg,
+            backdropFilter: navBlur,
+            borderBottomColor: navBorderOpacity,
+          }}
+        >
           <div className="container-wide relative flex w-full items-center justify-between gap-4">
             {navContent}
           </div>
-        </div>
+        </motion.div>
 
         {/* Rozwijane menu (mobile/tablet) */}
         <div
@@ -264,6 +288,6 @@ export function Navbar() {
           </div>
         </div>
       </div>
-    </header>
+    </motion.header>
   );
 }

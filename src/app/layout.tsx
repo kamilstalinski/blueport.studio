@@ -4,6 +4,7 @@ import { Inter, Space_Grotesk } from "next/font/google";
 import { ThemeInitScript } from "@/app/theme-script";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
+import { PageTransition } from "@/components/PageTransition";
 import { ScrollToTop } from "@/components/ui/ScrollToTop";
 import { SmoothScroll } from "@/components/providers/SmoothScroll";
 import { GlobalGradientBackground } from "@/components/effects/GlobalGradientBackground";
@@ -45,7 +46,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
         <SmoothScroll>
           <div className="relative flex min-h-screen flex-col">
             <main className="flex-1 min-h-full">
-              {children}
+              <PageTransition>{children}</PageTransition>
             </main>
             <Footer />
           </div>

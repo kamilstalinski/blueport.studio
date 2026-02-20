@@ -2,10 +2,12 @@
 
 import Link from "next/link";
 import dynamic from "next/dynamic";
+import { motion } from "framer-motion";
 
 import { Container } from "@/components/ui/Container";
 
 import { useAccentTheme } from "@/hooks/useAccentTheme";
+import { useMotionSafe } from "@/hooks/useMotionSafe";
 
 import { useGlassBlurStyle } from "@/lib/useGlassBlurStyle";
 
@@ -174,6 +176,7 @@ export function Hero({ contentKey = "Home.hero" }: { contentKey?: HeroContentKey
   }
 
   /* Home hero — full redesign */
+  const { variants: v } = useMotionSafe();
   const title = content.title;
   const lastWord = "klientów.";
   const titleBefore = title.endsWith(lastWord)
@@ -226,8 +229,15 @@ export function Hero({ contentKey = "Home.hero" }: { contentKey?: HeroContentKey
       <Container variant="wide" className="relative z-10 flex flex-col justify-center min-h-[82vh] md:min-h-screen pt-[calc(var(--navbar-height)+2rem)] pb-16 md:pb-24 pointer-events-none">
         {/* Left column — tekst; z-10 żeby karty były pod spodem */}
         <div className="relative z-10 flex flex-col justify-center max-w-[560px] w-full">
+        <motion.div
+          variants={v.staggerHero}
+          initial="hidden"
+          animate="visible"
+          className="flex flex-col justify-center max-w-[560px] w-full"
+        >
         {/* Badge */}
-        <div
+        <motion.div
+          variants={v.fadeIn}
           className="hero-badge font-body inline-flex items-center gap-2 w-fit mb-6 rounded-full py-1.5 px-3.5 text-[0.72rem] text-white/70 border border-white/20"
           style={{ background: "var(--color-hero-badge-bg)" }}
         >
@@ -236,10 +246,11 @@ export function Hero({ contentKey = "Home.hero" }: { contentKey?: HeroContentKey
             aria-hidden
           />
           {content.stats}
-        </div>
+        </motion.div>
 
         {/* H1 */}
-        <h1
+        <motion.h1
+          variants={v.fadeUp}
           className="font-heading text-white font-extrabold leading-[1.08] tracking-tight max-w-[560px] text-[clamp(2rem,8vw,2.8rem)] md:text-[clamp(2.6rem,5.5vw,4rem)]"
           style={{ letterSpacing: "-0.03em" }}
         >
@@ -264,10 +275,11 @@ export function Hero({ contentKey = "Home.hero" }: { contentKey?: HeroContentKey
               {titleHighlight}
             </span>
           )}
-        </h1>
+        </motion.h1>
 
         {/* Subheadline */}
-        <p
+        <motion.p
+          variants={v.fadeUp}
           className="font-body body-lead mt-5 mb-9 max-w-[420px] leading-[1.7] text-muted-foreground"
           style={{
             fontSize: "clamp(0.95rem, 1.8vw, 1.1rem)",
@@ -275,10 +287,10 @@ export function Hero({ contentKey = "Home.hero" }: { contentKey?: HeroContentKey
           }}
         >
           {content.subtitle}
-        </p>
+        </motion.p>
 
         {/* CTAs */}
-        <div className="flex flex-wrap items-center gap-3 w-full md:w-auto pointer-events-auto mt-8">
+        <motion.div variants={v.fadeUp} className="flex flex-wrap items-center gap-3 w-full md:w-auto pointer-events-auto mt-8">
           <CtaLink href={primaryHref}>
             <button
               type="button"
@@ -315,10 +327,10 @@ export function Hero({ contentKey = "Home.hero" }: { contentKey?: HeroContentKey
               </button>
             </CtaLink>
           </span>
-        </div>
+        </motion.div>
 
         {/* Social proof */}
-        <div className="social-proof font-body flex flex-col md:flex-row items-center gap-3 md:gap-5 mt-6 md:mt-8 flex-nowrap justify-center md:justify-start overflow-visible">
+        <motion.div variants={v.fadeUp} className="social-proof font-body flex flex-col md:flex-row items-center gap-3 md:gap-5 mt-6 md:mt-8 flex-nowrap justify-center md:justify-start overflow-visible">
           <div className="sp-item shrink-0 flex flex-col items-center md:items-start text-center md:text-left">
             <strong className="block text-[0.8rem] md:text-[0.95rem] font-bold text-white font-heading">47+</strong>
             <span className="body-small text-[0.6rem] md:text-[0.65rem] text-white/40 uppercase tracking-widest">zrealizowanych projektów</span>
@@ -333,14 +345,21 @@ export function Hero({ contentKey = "Home.hero" }: { contentKey?: HeroContentKey
             <strong className="block text-[0.8rem] md:text-[0.95rem] font-bold text-white font-heading">5.0 ★</strong>
             <span className="body-small text-[0.6rem] md:text-[0.65rem] text-white/40 uppercase tracking-widest">średnia ocena klientów</span>
           </div>
-        </div>
+        </motion.div>
+        </motion.div>
         </div>
 
         {/* Karty — absolute, right-8 = padding od prawej; z-0 żeby były pod lewą kolumną */}
         <div className="absolute right-8 top-1/2 hidden md:block pointer-events-none w-[520px] h-[560px] -translate-y-1/2 z-0">
-        <div className="relative h-full w-full">
+        <motion.div
+          className="relative h-full w-full"
+          variants={v.stagger}
+          initial="hidden"
+          animate="visible"
+        >
           {/* Card 1 — Gotowe w 8 dni */}
-          <div
+          <motion.div
+            variants={v.scaleIn}
             className="hero-card absolute left-0 top-[60px] w-[320px] rounded-2xl p-0 overflow-hidden"
             style={glassBlurLg}
             aria-hidden
@@ -363,10 +382,11 @@ export function Hero({ contentKey = "Home.hero" }: { contentKey?: HeroContentKey
                 <div className="h-full rounded-full bg-white/40" style={{ width: "78%" }} />
               </div>
             </div>
-          </div>
+          </motion.div>
 
           {/* Card 2 — Klient B2B */}
-          <div
+          <motion.div
+            variants={v.scaleIn}
             className="hero-card absolute right-0 top-5 w-[230px] rounded-2xl p-4"
             style={glassBlurLg}
             aria-hidden
@@ -382,10 +402,11 @@ export function Hero({ contentKey = "Home.hero" }: { contentKey?: HeroContentKey
               <span className="font-body text-[0.65rem] text-white/60">Klient zadowolony</span>
               <span className="text-white/50 text-[0.65rem]">★★★★★</span>
             </div>
-          </div>
+          </motion.div>
 
           {/* Card 3 — Ruch organiczny +340% */}
-          <div
+          <motion.div
+            variants={v.scaleIn}
             className="hero-card absolute right-0 bottom-10 w-[280px] rounded-2xl p-4"
             style={glassBlurLg}
             aria-hidden
@@ -431,8 +452,8 @@ export function Hero({ contentKey = "Home.hero" }: { contentKey?: HeroContentKey
               <span>Maj</span>
             </div>
             <p className="font-body mt-2 text-[0.55rem] text-white/40 italic">Źródło: Google Search Console</p>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
         </div>
       </Container>
     </section>

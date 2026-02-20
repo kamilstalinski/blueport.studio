@@ -218,3 +218,10 @@ export interface StepContactProps {
 export interface StepSummaryProps {
   summary: SummaryResult;
 }
+
+export interface ScrollRevealProps {
+  children: React.ReactNode;
+  variant?: "fadeUp" | "fadeIn" | "scaleIn" | "slideRight";
+  delay?: number;
+  className?: string;
+}
