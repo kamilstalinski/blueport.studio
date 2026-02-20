@@ -1490,32 +1490,38 @@ body .surface-3 {
   }
 }
 
-/* Nav glass — tokeny z palety (wyższy kontrast jak karty: glass-nav-*) */
+/* Nav glass — ten sam styl co karty glassmorphism (te same tokeny) */
 body .nav-glass {
-  background: var(--glass-nav-bg);
+  background: var(--glass-bg);
   backdrop-filter: blur(var(--glass-blur-nav, 12px)) saturate(180%);
   -webkit-backdrop-filter: blur(var(--glass-blur-nav, 12px)) saturate(180%);
-  border-color: var(--glass-nav-border);
-  border-top-color: var(--glass-nav-border);
-  box-shadow: var(--glass-nav-shadow);
+  border-color: var(--glass-border);
+  border-top-color: var(--glass-border-top);
+  box-shadow: var(--glass-shadow);
   transform: translateZ(0);
   -webkit-transform: translateZ(0);
 }
 body .nav-glass.nav-glass-scrolled,
 body .nav-glass.nav-glass-menu-open,
 body .nav-glass.nav-glass-dropdown {
-  background: var(--glass-nav-bg-hover);
-  border-color: var(--glass-nav-border-hover);
-  border-top-color: var(--glass-nav-border-hover);
-  box-shadow: var(--glass-nav-shadow);
+  background: var(--glass-bg-hover);
+  border-color: var(--glass-border-hover);
+  border-top-color: var(--glass-border-top-hover);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35), inset 0 1px 0 var(--glass-border-top-hover);
 }
 body .nav-glass-btn {
   background: var(--glass-bg);
-  border-color: var(--glass-border);
+  border: 1px solid var(--glass-border);
+  border-top: 1px solid var(--glass-border-top);
+  box-shadow: var(--glass-shadow);
+  backdrop-filter: blur(var(--glass-blur-sm, 22px));
+  -webkit-backdrop-filter: blur(var(--glass-blur-sm, 22px));
 }
 body .nav-glass-btn:hover {
   background: var(--glass-bg-hover);
   border-color: var(--glass-border-hover);
+  border-top-color: var(--glass-border-top-hover);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35), inset 0 1px 0 var(--glass-border-top-hover);
 }
 
 .calculator-glass {
