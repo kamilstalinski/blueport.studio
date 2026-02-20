@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { IconBox } from "@/components/ui/IconBox";
 import { SpotlightCard } from "@/components/SpotlightCard";
 import { Button } from "@/components/ui/Button";
-import { useReducedMotionPref } from "@/lib/animations";
+import { fadeInUp, defaultTransition, viewportOnce, useReducedMotionPref } from "@/lib/animations";
 import { useGlassBlurStyle } from "@/lib/useGlassBlurStyle";
 import type { ProcesVerticalTimelineProps } from "@/types";
 
@@ -27,15 +27,13 @@ const TIMELINE_STEPS = [
 const CTA_BLOCK = { text: "Całość zwykle trwa 1–2 tygodnie.", question: "Chcesz poznać dokładną wycenę?", button: "Przejdź do kalkulatora" };
 
 const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
+  hidden: { opacity: 0, y: 16 },
   visible: (i: number) => ({
     opacity: 1,
     y: 0,
-    transition: { duration: 0.35, ease: [0, 0, 0.2, 1], delay: i * 0.1 },
+    transition: { ...defaultTransition, delay: i * 0.1 },
   }),
 };
-
-const viewport = { once: true, amount: 0.3 };
 
 export function ProcesVerticalTimeline({ cardVariant = "default" }: ProcesVerticalTimelineProps = {}) {
   const reduceMotion = useReducedMotionPref();
@@ -95,7 +93,7 @@ export function ProcesVerticalTimeline({ cardVariant = "default" }: ProcesVertic
                 custom={index}
                 initial={reduceMotion ? "visible" : "hidden"}
                 whileInView="visible"
-                viewport={viewport}
+                viewport={viewportOnce}
                 variants={itemVariants}
                 className="relative flex min-h-[180px] flex-col gap-4 md:min-h-0 md:flex-row md:items-center md:gap-6"
               >
@@ -144,10 +142,10 @@ export function ProcesVerticalTimeline({ cardVariant = "default" }: ProcesVertic
       {/* CTA block */}
       <motion.div
         className="mt-20 text-center"
-        initial={{ opacity: 0, y: 16 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={viewport}
-        transition={{ duration: 0.35 }}
+        initial="hidden"
+        whileInView="visible"
+        viewport={viewportOnce}
+        variants={fadeInUp}
       >
         <p className="body-lead text-foreground/80">{CTA_BLOCK.text}</p>
         <p className="mt-2 heading-3 text-foreground">{CTA_BLOCK.question}</p>

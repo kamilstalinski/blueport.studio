@@ -1,13 +1,16 @@
 /**
  * Shared constants — magic numbers and curves used in 2+ places.
- * Animation easings for Framer Motion (cubic-bezier as [x1, y1, x2, y2]).
+ * Single canonical easing for all animations (brand: subtle, professional).
  */
 
-/** Expo ease-out — Hero, motion. Used with duration 0.5–0.8. */
+/** Canonical ease-out (expo) — all motion: Hero, sections, cards, buttons. */
 export const EASE_OUT_EXPO = [0.16, 1, 0.3, 1] as const;
 
-/** Smooth ease — DlaczegoMy, ProblemRozwiazanie. */
-export const EASE_SMOOTH = [0.25, 0.46, 0.45, 0.94] as const;
-
-/** CSS transition string (expo curve) — buttons, interactive elements. */
+/** CSS transition string (same curve) — buttons, interactive elements. */
 export const TRANSITION_SPRING_CSS = "all 0.2s cubic-bezier(0.16, 1, 0.3, 1)";
+
+/** Standard reveal duration (s) — section enter animations. */
+export const DURATION_REVEAL = 0.4;
+
+/** Stagger step (s) between children in list/grid reveals. */
+export const STAGGER_STEP = 0.06;

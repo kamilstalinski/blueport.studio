@@ -30,6 +30,10 @@
 
   /* Card hover transition — glass cards, benefit cards, process steps */
   --transition-card: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease, background 0.2s ease, border-color 0.2s ease;
+  /* Animation tokens — single easing and duration for all reveals */
+  --ease-reveal: cubic-bezier(0.16, 1, 0.3, 1);
+  --duration-reveal: 0.4s;
+  --duration-interaction: 0.2s;
 }
 
 @media (max-width: 768px) {
@@ -839,7 +843,7 @@ body .benefit-card {
   border-top: 1px solid var(--glass-border-top);
   border-radius: 12px;
   box-shadow: var(--glass-shadow);
-  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+  transition: var(--transition-card);
 }
 body .benefit-card:hover {
   background: var(--glass-bg-hover);
@@ -862,7 +866,7 @@ body .card[data-featured="true"] {
     0 8px 40px rgba(0, 0, 0, 0.3),
     0 0 56px var(--color-accent-glow),
     var(--glass-shadow);
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: var(--transition-card);
 }
 body .card-featured:hover,
 body .oferta-package-featured:hover .card-featured {
@@ -1714,9 +1718,9 @@ main {
   min-height: 100vh;
 }
 
-/* Hero — keyframes (redesign) */
+/* Hero / section reveal — unified with --duration-reveal, --ease-reveal */
 @keyframes fadeUp {
-  from { opacity: 0; transform: translateY(24px); }
+  from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
 }
 @keyframes blobPulse {
@@ -1766,6 +1770,7 @@ main {
 /* ═══════════════════════════════════════════════════════════════════════════
    Sekcja CTA „Sprawdź koszt w 60 sekund” — timer, tło, animacje
    ═══════════════════════════════════════════════════════════════════════════ */
+/* CTA section — same as fadeUp (unified reveal) */
 @keyframes ctaFadeUp {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
@@ -1808,7 +1813,7 @@ main {
   display: flex;
   justify-content: center;
   margin-bottom: 2.5rem;
-  animation: ctaFadeUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0s both;
+  animation: ctaFadeUp var(--duration-reveal) var(--ease-reveal) 0s both;
 }
 .cta-section .timer-ring-container {
   position: relative;
@@ -1863,7 +1868,7 @@ main {
   max-width: 640px;
   margin: 0 auto 1rem;
   line-height: 1.15;
-  animation: ctaFadeUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
+  animation: ctaFadeUp var(--duration-reveal) var(--ease-reveal) 0.15s both;
 }
 .cta-section .cta-heading .highlight {
   color: var(--color-primary);
@@ -1874,10 +1879,10 @@ main {
   max-width: 420px;
   margin: 0 auto 2.5rem;
   line-height: 1.7;
-  animation: ctaFadeUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.25s both;
+  animation: ctaFadeUp var(--duration-reveal) var(--ease-reveal) 0.25s both;
 }
 .cta-section .cta-btn-wrap {
-  animation: ctaFadeUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.35s both;
+  animation: ctaFadeUp var(--duration-reveal) var(--ease-reveal) 0.35s both;
 }
 .cta-section .cta-btn-primary {
   background: var(--color-primary);
@@ -1891,7 +1896,7 @@ main {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: var(--transition-card);
   text-decoration: none;
 }
 .cta-section .cta-btn-primary:hover {
@@ -1901,7 +1906,7 @@ main {
 }
 .cta-section .cta-btn-primary .btn-icon {
   display: inline-block;
-  transition: transform 0.2s;
+  transition: transform var(--duration-interaction);
 }
 .cta-section .cta-btn-primary:hover .btn-icon {
   transform: translateX(3px);
@@ -1917,7 +1922,7 @@ main {
   margin-top: 1rem;
   font-size: 0.72rem;
   color: rgba(255, 255, 255, 0.35);
-  animation: ctaFadeUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.45s both;
+  animation: ctaFadeUp var(--duration-reveal) var(--ease-reveal) 0.45s both;
 }
 .cta-section .cta-disclaimer span {
   display: inline-flex;

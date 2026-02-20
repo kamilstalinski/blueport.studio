@@ -4,9 +4,8 @@ import { motion } from "framer-motion";
 import { IconBox } from "@/components/ui/IconBox";
 import { SpotlightCard } from "@/components/SpotlightCard";
 import { Button } from "@/components/ui/Button";
-import { viewportOnce, useReducedMotionPref } from "@/lib/animations";
+import { fadeInUp, fadeInUpStrong, viewportOnce, useReducedMotionPref } from "@/lib/animations";
 import { useGlassBlurStyle } from "@/lib/useGlassBlurStyle";
-import { EASE_SMOOTH } from "@/constants";
 
 const PROBLEMS: { key: string; emoji: string; label: string }[] = [
   { key: "seo", emoji: "🔍", label: "brak widoczności w Google" },
@@ -21,16 +20,6 @@ const SOLUTIONS: { key: string; emoji: string; label: string }[] = [
   { key: "seo", emoji: "🔍", label: "optymalizacja SEO" },
   { key: "system", emoji: "👥", label: "system pozyskiwania klientów" },
 ];
-
-const headingVariants = {
-  hidden: { opacity: 0, y: 12 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.35, ease: EASE_SMOOTH } },
-};
-
-const cardVariants = {
-  hidden: { opacity: 0, y: 16 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: EASE_SMOOTH } },
-};
 
 export function ProblemRozwiazanie() {
   const reduceMotion = useReducedMotionPref();
@@ -50,7 +39,7 @@ export function ProblemRozwiazanie() {
           initial={initial}
           whileInView="visible"
           viewport={viewportOnce}
-          variants={headingVariants}
+          variants={fadeInUp}
         >
           Twoja strona nie sprzedaje?
         </motion.h2>
@@ -68,7 +57,7 @@ export function ProblemRozwiazanie() {
                 initial={initial}
                 whileInView="visible"
                 viewport={viewportOnce}
-                variants={cardVariants}
+                variants={fadeInUpStrong}
               >
                 <h3 className="heading-3 text-white mb-6">
                   Najczęstsze problemy
@@ -97,7 +86,7 @@ export function ProblemRozwiazanie() {
                 initial={initial}
                 whileInView="visible"
                 viewport={viewportOnce}
-                variants={cardVariants}
+                variants={fadeInUpStrong}
               >
                 <h3 className="heading-3 text-white mb-6">
                   Jak to rozwiązujemy
@@ -123,7 +112,7 @@ export function ProblemRozwiazanie() {
           initial={initial}
           whileInView="visible"
           viewport={viewportOnce}
-          variants={cardVariants}
+          variants={fadeInUpStrong}
         >
           <a href="#kalkulator">
             <Button variant="primary">Sprawdź koszt rozwiązania</Button>

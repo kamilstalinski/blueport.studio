@@ -6,13 +6,18 @@ import { IconBox } from "@/components/ui/IconBox";
 import { Section } from "@/components/ui/Section";
 import { SpotlightCard } from "@/components/SpotlightCard";
 
-import { viewportOnce, useReducedMotionPref } from "@/lib/animations";
+import {
+  fadeInUpStrong,
+  fadeInUp,
+  fadeInLeft,
+  staggerContainer,
+  viewportOnce,
+  useReducedMotionPref,
+} from "@/lib/animations";
 import { useGlassBlurStyle } from "@/lib/useGlassBlurStyle";
 import { cn } from "@/lib/utils";
 
 import type { DlaczegoMyContentKey, DlaczegoMyProps } from "@/types";
-
-import { EASE_SMOOTH } from "@/constants";
 
 function getSectionId(contentKey: DlaczegoMyContentKey): string {
   if (contentKey === "proces.dlaczego") return "dlaczego-proces";
@@ -62,29 +67,6 @@ const TEXTS: Record<string, { title: string; subtitle: string; items: Record<str
   },
 };
 
-const headingVariants = {
-  hidden: { opacity: 0, y: 16 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: EASE_SMOOTH } },
-};
-
-const subtitleVariants = {
-  hidden: { opacity: 0, y: 12 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.4, delay: 0.06, ease: EASE_SMOOTH } },
-};
-
-const listVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.06, delayChildren: 0.15 },
-  },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, x: -12 },
-  visible: { opacity: 1, x: 0, transition: { duration: 0.35, ease: EASE_SMOOTH } },
-};
-
 export function DlaczegoMy({ contentKey = "Home.dlaczegoMy", itemKeys, cardVariant = "default" }: DlaczegoMyProps) {
   const reduceMotion = useReducedMotionPref();
   const initial = reduceMotion ? "visible" : "hidden";
@@ -100,7 +82,7 @@ export function DlaczegoMy({ contentKey = "Home.dlaczegoMy", itemKeys, cardVaria
           initial={initial}
           whileInView="visible"
           viewport={viewportOnce}
-          variants={headingVariants}
+          variants={fadeInUpStrong}
         >
           {content.title}
         </motion.h2>
@@ -109,7 +91,7 @@ export function DlaczegoMy({ contentKey = "Home.dlaczegoMy", itemKeys, cardVaria
           initial={initial}
           whileInView="visible"
           viewport={viewportOnce}
-          variants={subtitleVariants}
+          variants={fadeInUp}
         >
           {content.subtitle}
         </motion.p>
@@ -123,14 +105,14 @@ export function DlaczegoMy({ contentKey = "Home.dlaczegoMy", itemKeys, cardVaria
             initial={initial}
             whileInView="visible"
             viewport={viewportOnce}
-            variants={listVariants}
+            variants={staggerContainer}
           >
             {keys.map((key) => {
               const emoji = EMOJI_MAP[key] ?? "💳";
               return (
                 <motion.div
                   key={key}
-                  variants={itemVariants}
+                  variants={fadeInLeft}
                   initial={initial}
                   whileInView="visible"
                   viewport={viewportOnce}
@@ -156,7 +138,7 @@ export function DlaczegoMy({ contentKey = "Home.dlaczegoMy", itemKeys, cardVaria
             initial={initial}
             whileInView="visible"
             viewport={viewportOnce}
-            variants={listVariants}
+            variants={staggerContainer}
           >
             {keys.flatMap((key, index) => {
               const emoji = EMOJI_MAP[key] ?? "💳";
@@ -174,7 +156,7 @@ export function DlaczegoMy({ contentKey = "Home.dlaczegoMy", itemKeys, cardVaria
                   >
                     <motion.div
                       className="flex flex-col items-center text-center h-full min-h-full flex-1 min-w-0"
-                      variants={itemVariants}
+                      variants={fadeInLeft}
                       initial={initial}
                       whileInView="visible"
                       viewport={viewportOnce}
