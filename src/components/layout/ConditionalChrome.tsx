@@ -6,13 +6,13 @@ import { Footer } from "@/components/layout/Footer";
 import { PageTransition } from "@/components/PageTransition";
 import { ScrollToTop } from "@/components/ui/ScrollToTop";
 
-const WYCENA_PATH = "/wycena";
+const NO_CHROME_PATHS = ["/wycena", "/kalkulator"];
 
 export function ConditionalChrome({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  const isWycena = pathname === WYCENA_PATH;
+  const hideChrome = NO_CHROME_PATHS.some((p) => pathname === p || pathname.startsWith(`${p}/`));
 
-  if (isWycena) {
+  if (hideChrome) {
     return (
       <>
         {children}
