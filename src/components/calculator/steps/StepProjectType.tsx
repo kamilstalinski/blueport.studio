@@ -68,11 +68,14 @@ function TierSwitch({
           }}
         />
       </button>
-      {isPro && (
-        <span className="text-xs font-medium text-primary uppercase tracking-wide">
-          PRO
-        </span>
-      )}
+      <span
+        className={cn(
+          "text-xs font-medium uppercase tracking-wide transition-colors duration-200",
+          isPro ? "text-primary" : "text-muted-foreground/60"
+        )}
+      >
+        PRO
+      </span>
     </div>
   );
 }
