@@ -196,7 +196,9 @@ function CalculatorInner({ onSubmit }: CalculatorProps) {
                 className="absolute top-0 right-0 text-2xl font-semibold tracking-tight text-foreground m-0"
                 aria-live="polite"
               >
-                Cena: {price.minPrice.toLocaleString("pl-PL")} – {price.maxPrice.toLocaleString("pl-PL")} zł
+                Cena: {price.minPrice === price.maxPrice
+                  ? `${price.minPrice.toLocaleString("pl-PL")} zł`
+                  : `${price.minPrice.toLocaleString("pl-PL")} – ${price.maxPrice.toLocaleString("pl-PL")} zł`}
               </p>
             )}
             <AnimatePresence custom={direction} mode="wait">
