@@ -5,12 +5,38 @@
 
 import type { ProjectType } from "@/types";
 
+export type ProjectCategory = "wordpress" | "woocommerce" | "nextjs";
+export type ProjectTier = "standard" | "pro";
+
 export interface ProjectTypeOption {
   id: NonNullable<ProjectType>;
   title: string;
   subtitle: string;
   includes: string[];
   techNote?: string;
+}
+
+/** Resolve projectType from category + tier. Next.js has no tier. */
+export function projectTypeFromCategoryTier(
+  category: ProjectCategory,
+  tier: ProjectTier
+): NonNullable<ProjectType> {
+  if (category === "wordpress") return tier === "pro" ? "wordpress-pro" : "wordpress-standard";
+  if (category === "woocommerce") return tier === "pro" ? "woocommerce-pro" : "woocommerce-start";
+  return "nextjs";
+}
+
+/** Category from projectType (for UI state). */
+export function categoryFromProjectType(type: NonNullable<ProjectType>): ProjectCategory {
+  if (type === "wordpress-standard" || type === "wordpress-pro") return "wordpress";
+  if (type === "woocommerce-start" || type === "woocommerce-pro") return "woocommerce";
+  return "nextjs";
+}
+
+/** Tier from projectType; for nextjs returns "standard". */
+export function tierFromProjectType(type: NonNullable<ProjectType>): ProjectTier {
+  if (type === "wordpress-pro" || type === "woocommerce-pro") return "pro";
+  return "standard";
 }
 
 export const PROJECT_TYPE_OPTIONS: ProjectTypeOption[] = [
@@ -76,6 +102,17 @@ export const PROJECT_TYPE_OPTIONS: ProjectTypeOption[] = [
     techNote: "Realizowane w Next.js / React",
   },
 ];
+
+const optionById = new Map(PROJECT_TYPE_OPTIONS.map((o) => [o.id, o]));
+
+/** Option to show for a category at given tier (includes list). */
+export function getProjectTypeOptionForCategoryTier(
+  category: ProjectCategory,
+  tier: ProjectTier
+): ProjectTypeOption {
+  const id = projectTypeFromCategoryTier(category, tier);
+  return optionById.get(id)!;
+}
 
 export const SCOPE_PRESETS_PAGES = [1, 3, 5, 10, 15, 20] as const;
 export const SCOPE_PRESETS_PRODUCTS = [10, 20, 50, 100, 200, 500] as const;
