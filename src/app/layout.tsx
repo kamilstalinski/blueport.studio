@@ -2,10 +2,7 @@ import type { Metadata } from "next";
 import "@/styles/globals.css";
 import { Inter, Space_Grotesk } from "next/font/google";
 import { ThemeInitScript } from "@/app/theme-script";
-import { Navbar } from "@/components/layout/Navbar";
-import { Footer } from "@/components/layout/Footer";
-import { PageTransition } from "@/components/PageTransition";
-import { ScrollToTop } from "@/components/ui/ScrollToTop";
+import { ConditionalChrome } from "@/components/layout/ConditionalChrome";
 import { SmoothScroll } from "@/components/providers/SmoothScroll";
 import { GlobalGradientBackground } from "@/components/effects/GlobalGradientBackground";
 import type { RootLayoutProps } from "@/types";
@@ -45,17 +42,8 @@ export default function RootLayout({ children }: RootLayoutProps) {
         <GlobalGradientBackground />
         <div className="page-grid-overlay" aria-hidden />
         <SmoothScroll>
-          <div className="layout-root relative flex min-h-screen flex-col">
-            <main className="flex-1 min-h-full">
-              <PageTransition>{children}</PageTransition>
-            </main>
-            <Footer />
-          </div>
+          <ConditionalChrome>{children}</ConditionalChrome>
         </SmoothScroll>
-        <div className="fixed left-0 right-0 top-0 z-30 isolate">
-          <Navbar />
-        </div>
-        <ScrollToTop />
       </body>
     </html>
   );
