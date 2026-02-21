@@ -7,6 +7,7 @@ import type {
   Urgency,
   ProjectType,
   ProjectPriority,
+  CalculatorState,
   CalculatorSubmitPayload,
 } from "./api.types";
 
@@ -175,6 +176,7 @@ export interface CalculatorProgressBarProps {
 }
 
 export interface StepBudgetProps {
+  state: CalculatorState;
   urgency: Urgency;
   onUrgencyChange: (value: Urgency) => void;
 }

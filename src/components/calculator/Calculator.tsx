@@ -145,6 +145,7 @@ function CalculatorInner({ onSubmit }: CalculatorProps) {
       case 4:
         return (
           <StepBudget
+            state={state}
             urgency={state.urgency}
             onUrgencyChange={(v) => updateState({ urgency: v })}
           />
