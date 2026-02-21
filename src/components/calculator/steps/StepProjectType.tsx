@@ -80,16 +80,25 @@ function TierSwitch({
   );
 }
 
+const CARD_TITLE_BY_CATEGORY: Record<ProjectCategory, string> = {
+  wordpress: "Strona firmowa",
+  woocommerce: "Sklep",
+  nextjs: "Projekt dedykowany",
+};
+
 function ProjectTypeCardContent({
   option,
+  titleOverride,
   afterSubtitle,
 }: {
   option: ProjectTypeOption;
+  titleOverride?: string;
   afterSubtitle?: React.ReactNode;
 }) {
+  const title = titleOverride ?? option.title;
   return (
     <>
-      <span className="text-base">{option.title}</span>
+      <span className="text-base font-semibold text-primary">{title}</span>
       <span className="text-sm text-muted-foreground mt-0.5">{option.subtitle}</span>
       {afterSubtitle}
       <ul className="mt-3 space-y-1.5 text-sm text-foreground/85">
@@ -170,6 +179,7 @@ export function StepProjectType({ value, onChange }: StepProjectTypeProps) {
         >
           <ProjectTypeCardContent
             option={getProjectTypeOptionForCategoryTier("wordpress", tierWordpress)}
+            titleOverride={CARD_TITLE_BY_CATEGORY.wordpress}
             afterSubtitle={
               <TierSwitch
                 category="wordpress"
@@ -197,6 +207,7 @@ export function StepProjectType({ value, onChange }: StepProjectTypeProps) {
         >
           <ProjectTypeCardContent
             option={getProjectTypeOptionForCategoryTier("woocommerce", tierWooCommerce)}
+            titleOverride={CARD_TITLE_BY_CATEGORY.woocommerce}
             afterSubtitle={
               <TierSwitch
                 category="woocommerce"
@@ -222,7 +233,10 @@ export function StepProjectType({ value, onChange }: StepProjectTypeProps) {
           aria-pressed={category === "nextjs"}
           aria-required
         >
-          <ProjectTypeCardContent option={getProjectTypeOptionForCategoryTier("nextjs", "standard")} />
+          <ProjectTypeCardContent
+            option={getProjectTypeOptionForCategoryTier("nextjs", "standard")}
+            titleOverride={CARD_TITLE_BY_CATEGORY.nextjs}
+          />
         </div>
       </div>
     </div>
