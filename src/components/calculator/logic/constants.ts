@@ -10,9 +10,9 @@ export type NonNullableProjectType = NonNullable<ProjectType>;
 /** Base prices (min/max) per project type. */
 export const BASE_PRICES: Record<NonNullableProjectType, { min: number; max: number }> = {
   "wordpress-standard": { min: 2500, max: 2500 },
-  "wordpress-pro": { min: 2500, max: 2500 },
+  "wordpress-pro": { min: 3500, max: 3500 },
   "woocommerce-start": { min: 3500, max: 3500 },
-  "woocommerce-pro": { min: 3500, max: 3500 },
+  "woocommerce-pro": { min: 4500, max: 4500 },
   nextjs: { min: 4500, max: 4500 },
 };
 
