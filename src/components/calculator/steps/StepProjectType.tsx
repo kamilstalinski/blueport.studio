@@ -24,37 +24,55 @@ function TierSwitch({
   tier: ProjectTier;
   onTierChange: (cat: "wordpress" | "woocommerce", t: ProjectTier) => void;
 }) {
+  const isPro = tier === "pro";
+
+  const handleClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    onTierChange(category, isPro ? "standard" : "pro");
+  };
+
   return (
     <div
-      className="inline-flex rounded-xl border-2 border-white/20 bg-white/10 p-1 mt-2"
-      role="group"
-      aria-label="Wariant Standard / Pro"
+      className="mt-2 flex items-center gap-2"
       onClick={(e) => e.stopPropagation()}
     >
       <button
         type="button"
-        onClick={() => onTierChange(category, "standard")}
+        role="switch"
+        aria-checked={isPro}
+        aria-label={isPro ? "Wariant Pro włączony" : "Wariant Standard włączony"}
+        onClick={handleClick}
         className={cn(
-          "rounded-lg px-3 py-1.5 text-sm font-medium transition-all",
-          tier === "standard"
-            ? "bg-primary/20 text-primary border border-primary/40"
-            : "text-muted-foreground hover:text-foreground border border-transparent"
+          "relative inline-flex h-6 w-11 shrink-0 rounded-full transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-bg)]",
+          "hover:before:absolute hover:before:inset-0 hover:before:rounded-full hover:before:content-['']",
+          isPro
+            ? "bg-primary/30 hover:before:bg-primary/10"
+            : "bg-white/20 hover:before:bg-white/10"
         )}
+        style={{
+          boxShadow: isPro ? "0 2px 8px var(--color-primary-glow)" : "0 2px 6px rgba(0,0,0,0.2)",
+        }}
       >
-        Standard
+        <span
+          className={cn(
+            "pointer-events-none inline-block h-5 w-5 rounded-full transition-all duration-200 mt-0.5 ml-0.5",
+            "shadow-sm",
+            isPro
+              ? "translate-x-5 bg-primary"
+              : "translate-x-0 bg-white"
+          )}
+          style={{
+            boxShadow: isPro
+              ? "0 2px 6px var(--color-primary-glow)"
+              : "0 2px 4px rgba(0,0,0,0.15)",
+          }}
+        />
       </button>
-      <button
-        type="button"
-        onClick={() => onTierChange(category, "pro")}
-        className={cn(
-          "rounded-lg px-3 py-1.5 text-sm font-medium transition-all",
-          tier === "pro"
-            ? "bg-primary/20 text-primary border border-primary/40"
-            : "text-muted-foreground hover:text-foreground border border-transparent"
-        )}
-      >
-        Pro
-      </button>
+      {isPro && (
+        <span className="text-xs font-medium text-primary uppercase tracking-wide">
+          PRO
+        </span>
+      )}
     </div>
   );
 }
