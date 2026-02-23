@@ -162,34 +162,6 @@ export function StepProjectType({ value, onChange }: StepProjectTypeProps) {
         role="group"
         aria-label="Rodzaj projektu"
       >
-        {/* Card: Strona firmowa (ze switchem w środku) */}
-        <div
-          role="button"
-          tabIndex={0}
-          onClick={() => handleCategorySelect("wordpress")}
-          onKeyDown={(e) => {
-            if (e.key === "Enter" || e.key === " ") {
-              e.preventDefault();
-              handleCategorySelect("wordpress");
-            }
-          }}
-          className={cardClass(category === "wordpress")}
-          aria-pressed={category === "wordpress"}
-          aria-required
-        >
-          <ProjectTypeCardContent
-            option={getProjectTypeOptionForCategoryTier("wordpress", tierWordpress)}
-            titleOverride={CARD_TITLE_BY_CATEGORY.wordpress}
-            afterSubtitle={
-              <TierSwitch
-                category="wordpress"
-                tier={tierWordpress}
-                onTierChange={handleTierChangeInCard}
-              />
-            }
-          />
-        </div>
-
         {/* Card: Sklep (ze switchem w środku) */}
         <div
           role="button"
@@ -212,6 +184,34 @@ export function StepProjectType({ value, onChange }: StepProjectTypeProps) {
               <TierSwitch
                 category="woocommerce"
                 tier={tierWooCommerce}
+                onTierChange={handleTierChangeInCard}
+              />
+            }
+          />
+        </div>
+
+        {/* Card: Strona firmowa (ze switchem w środku) — najbardziej promowana */}
+        <div
+          role="button"
+          tabIndex={0}
+          onClick={() => handleCategorySelect("wordpress")}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              handleCategorySelect("wordpress");
+            }
+          }}
+          className={cardClass(category === "wordpress")}
+          aria-pressed={category === "wordpress"}
+          aria-required
+        >
+          <ProjectTypeCardContent
+            option={getProjectTypeOptionForCategoryTier("wordpress", tierWordpress)}
+            titleOverride={CARD_TITLE_BY_CATEGORY.wordpress}
+            afterSubtitle={
+              <TierSwitch
+                category="wordpress"
+                tier={tierWordpress}
                 onTierChange={handleTierChangeInCard}
               />
             }

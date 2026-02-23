@@ -16,7 +16,7 @@ import type { OfertaPakietyProps } from "@/types";
 import { PACKAGES } from "@/constants/pricing";
 import type { PackageId } from "@/constants/pricing";
 
-const PACKAGE_ORDER: PackageId[] = ["wordpress", "woocommerce", "nextjs"];
+const PACKAGE_ORDER: PackageId[] = ["woocommerce", "wordpress", "nextjs"];
 
 const PACKAGE_EMOJI: Record<PackageId, string> = {
   wordpress: "⚡",

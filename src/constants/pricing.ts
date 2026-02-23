@@ -13,7 +13,7 @@ export const PACKAGES = {
       "Do 5 podstron, SEO on-page, formularz kontaktowy, panel CMS.",
     basePrice: 2500,
     deliveryDays: 14,
-    tag: null,
+    tag: "Najpopularniejszy",
   },
   woocommerce: {
     id: "woocommerce",
@@ -23,7 +23,7 @@ export const PACKAGES = {
       "Płatności online, integracja kurierów, panel zamówień, do 50 produktów.",
     basePrice: 4500,
     deliveryDays: 21,
-    tag: "Najpopularniejszy",
+    tag: null,
   },
   nextjs: {
     id: "nextjs",
