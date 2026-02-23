@@ -788,6 +788,10 @@ body .process-step:hover {
   .stats-bar {
     flex-direction: column;
     gap: 20px;
+    align-items: center;
+  }
+  .stat-item {
+    text-align: center;
   }
   .stat-divider {
     width: 40px;
