@@ -30,6 +30,9 @@
 
   /* Card hover transition — glass cards, benefit cards, process steps */
   --transition-card: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease, background 0.2s ease, border-color 0.2s ease;
+  /* Przyciski — jednolity transition przy hover */
+  --btn-transition: color 0.2s ease-out, background-color 0.2s ease-out, border-color 0.2s ease-out, box-shadow 0.2s ease-out, transform 0.2s ease-out;
+  --btn-min-height: 48px;
 }
 
 @media (max-width: 768px) {
@@ -1163,8 +1166,16 @@ body .process-card:hover {
   background: var(--color-primary);
   color: var(--color-on-primary);
   font-weight: 700;
+  min-height: var(--btn-min-height);
   padding: 14px 28px;
   border-radius: 10px;
+  transition: var(--btn-transition);
+}
+@media (max-width: 768px) {
+  #proces-timeline .proces-cta-button {
+    width: 100%;
+    justify-content: center;
+  }
 }
 
 .process-step .step-content h3 {
@@ -1766,6 +1777,11 @@ main {
 }
 
 /* Hero CTA — hierarchia przycisków (primary vs ghost, tokeny palety) */
+#hero .hero-cta-primary,
+#hero .hero-cta-ghost {
+  min-height: var(--btn-min-height);
+  transition: var(--btn-transition);
+}
 #hero .hero-cta-primary {
   color: var(--color-on-primary);
 }
@@ -1778,6 +1794,13 @@ main {
   color: rgba(255, 255, 255, 0.85);
   border-color: rgba(255, 255, 255, 0.25);
   background: rgba(255, 255, 255, 0.04);
+}
+@media (max-width: 768px) {
+  #hero .hero-cta-primary,
+  #hero .hero-cta-ghost {
+    width: 100%;
+    justify-content: center;
+  }
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
@@ -1885,14 +1908,16 @@ main {
   color: var(--color-on-primary);
   font-weight: 700;
   font-size: 0.95rem;
+  min-height: var(--btn-min-height);
   padding: 16px 36px;
   border-radius: 12px;
   border: none;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 10px;
-  transition: var(--transition-card);
+  transition: var(--btn-transition);
   text-decoration: none;
 }
 .cta-section .cta-btn-primary:hover {
@@ -1928,6 +1953,12 @@ main {
 @media (max-width: 768px) {
   .cta-section {
     padding-block: var(--space-8);
+  }
+}
+@media (max-width: 768px) {
+  .cta-section .cta-btn-primary {
+    width: 100%;
+    justify-content: center;
   }
 }
 @media (max-width: 640px) {
@@ -2110,10 +2141,18 @@ body .contact-form-card:hover {
   color: var(--color-primary);
   text-decoration: none;
   border: 1px solid var(--color-accent-border);
+  min-height: var(--btn-min-height);
   padding: 8px 14px;
   border-radius: 6px;
-  transition: all 0.2s;
-  display: inline-block;
+  transition: var(--btn-transition);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+@media (max-width: 768px) {
+  .btn-outline-sm {
+    width: 100%;
+  }
 }
 .btn-outline-sm:hover {
   background: var(--color-accent-subtle);
@@ -2276,11 +2315,15 @@ body .contact-form-card:hover {
 .calc-btn {
   font-size: 0.8rem;
   font-weight: 600;
+  min-height: var(--btn-min-height);
   padding: 12px 24px;
   border-radius: 10px;
   border: none;
   cursor: pointer;
-  transition: opacity 0.2s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--btn-transition);
 }
 
 .calc-btn:disabled {
@@ -2302,6 +2345,13 @@ body .contact-form-card:hover {
 .calc-btn--ghost:hover {
   color: rgba(255, 255, 255, 0.75);
   border-color: rgba(255, 255, 255, 0.2);
+}
+
+@media (max-width: 768px) {
+  .calc-btn {
+    width: 100%;
+    justify-content: center;
+  }
 }
 
 @media (max-width: 900px) {

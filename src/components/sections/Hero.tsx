@@ -135,7 +135,7 @@ export function Hero({ contentKey = "Home.hero" }: { contentKey?: HeroContentKey
               <CtaLink href={primaryHref}>
                 <button
                   type="button"
-                  className="hero-cta-primary font-body inline-flex items-center gap-2 rounded-[10px] border-none cursor-pointer w-full sm:w-auto"
+                  className="hero-cta-primary font-body inline-flex items-center justify-center gap-2 rounded-[10px] border-none cursor-pointer w-full md:w-auto"
                   style={{
                     background: "var(--color-primary)",
                     color: "var(--color-on-primary)",
@@ -154,7 +154,7 @@ export function Hero({ contentKey = "Home.hero" }: { contentKey?: HeroContentKey
                 <CtaLink href={secondaryHref}>
                   <button
                     type="button"
-                    className="hero-cta-ghost font-body rounded-[10px] cursor-pointer w-full sm:w-auto transition-all duration-200"
+                    className="hero-cta-ghost font-body rounded-[10px] cursor-pointer w-full md:w-auto inline-flex items-center justify-center"
                     style={{
                       background: "transparent",
                       color: "var(--color-text-secondary)",
@@ -294,7 +294,7 @@ export function Hero({ contentKey = "Home.hero" }: { contentKey?: HeroContentKey
           <CtaLink href={primaryHref}>
             <button
               type="button"
-              className="hero-cta-primary font-body inline-flex items-center gap-2 rounded-[10px] border-none cursor-pointer w-full md:w-auto"
+              className="hero-cta-primary font-body inline-flex items-center justify-center gap-2 rounded-[10px] border-none cursor-pointer w-full md:w-auto"
               style={{
                 background: "var(--color-primary)",
                 color: "var(--color-on-primary)",
@@ -313,7 +313,7 @@ export function Hero({ contentKey = "Home.hero" }: { contentKey?: HeroContentKey
             <CtaLink href={secondaryHref}>
               <button
                 type="button"
-                className="hero-cta-ghost font-body rounded-[10px] cursor-pointer w-full md:w-auto transition-all duration-200"
+                className="hero-cta-ghost font-body rounded-[10px] cursor-pointer w-full md:w-auto inline-flex items-center justify-center"
                 style={{
                   background: "transparent",
                   color: "var(--color-text-secondary)",
