@@ -11,7 +11,7 @@ export function ThemeInitScript() {
   if (theme === 'dark') document.documentElement.classList.add('dark');
   else document.documentElement.classList.remove('dark');
   var ak = 'blueport-accent';
-  var valid = ['blue','mint','violet','amber','cyan','rose'];
+  var valid = ['blue','violet','amber','cyan'];
   var accent = localStorage.getItem(ak);
   document.documentElement.setAttribute('data-accent', valid.indexOf(accent) !== -1 ? accent : 'blue');
 })();

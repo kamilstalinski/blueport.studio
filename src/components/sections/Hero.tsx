@@ -22,11 +22,9 @@ const ColorBends = dynamic(
 const HERO_BENDS_ACCENT_2 = "#00b8d9" as const;
 const HERO_BENDS_PRIMARY: Record<AccentTheme, string> = {
   blue: "#3b82f6",
-  mint: "#00e5a0",
   violet: "#a855f7",
   amber: "#f59e0b",
   cyan: "#06b6d4",
-  rose: "#f43f5e",
 };
 
 const HERO_NOISE_SVG = `data:image/svg+xml,${encodeURIComponent(

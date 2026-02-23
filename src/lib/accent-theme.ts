@@ -9,11 +9,9 @@ const STORAGE_KEY = "blueport-accent";
 
 const VALID_ACCENTS: AccentTheme[] = [
   "blue",
-  "mint",
   "violet",
   "amber",
   "cyan",
-  "rose",
 ];
 
 function isValidAccent(storedValue: string | null): storedValue is AccentTheme {

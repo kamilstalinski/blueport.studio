@@ -65,11 +65,9 @@ export function Navbar() {
 
   const accentOptions: { value: AccentTheme; color: string; label: string; bg: string }[] = [
     { value: "blue", color: "#3b82f6", label: "Niebieski", bg: "#00020f" },
-    { value: "mint", color: "#00e5a0", label: "Miętowy", bg: "#010c08" },
     { value: "violet", color: "#a855f7", label: "Fioletowy", bg: "#07020f" },
     { value: "amber", color: "#f59e0b", label: "Złoty", bg: "#0d0700" },
     { value: "cyan", color: "#06b6d4", label: "Cyjan", bg: "#000d10" },
-    { value: "rose", color: "#f43f5e", label: "Różany", bg: "#0f0005" },
   ];
 
   const paletteButton = (
@@ -94,7 +92,7 @@ export function Navbar() {
       </button>
       {isPaletteDropdownOpen && (
         <div
-          className="glass-card absolute right-0 top-full z-[100] mt-2 grid w-[9rem] grid-cols-3 gap-3 rounded-2xl p-3"
+          className="glass-card absolute right-0 top-full z-[100] mt-2 grid w-[9rem] grid-cols-2 gap-3 rounded-2xl p-3"
           role="menu"
           aria-label="Paleta kolorów"
           style={glassBlurDefault}
