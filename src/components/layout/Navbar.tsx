@@ -189,9 +189,9 @@ export function Navbar() {
             <Image
               src="/calculator-icon.png"
               alt="Bezpłatna wycena"
-              width={24}
-              height={24}
-              className="h-6 w-6"
+              width={20}
+              height={20}
+              className="h-5 w-5"
             />
           </span>
           <span className="max-[1115px]:hidden">{toUpper("Bezpłatna wycena")}</span>
