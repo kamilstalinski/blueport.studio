@@ -1,12 +1,38 @@
 import { Hero } from "@/components/sections/Hero";
-import { ProblemRozwiazanie } from "@/components/sections/ProblemRozwiazanie";
-import { DlaczegoMy } from "@/components/sections/DlaczegoMy";
-import { OfertaPakiety } from "@/components/sections/OfertaPakiety";
-import { TestimonialsSection } from "@/components/sections/TestimonialsSection";
-import { KalkulatorSection } from "@/components/sections/KalkulatorSection";
-import { ProcesHome } from "@/components/sections/ProcesHome";
-import { FAQSection } from "@/components/sections/FAQSection";
-import { CTA } from "@/components/sections/CTA";
+import dynamic from "next/dynamic";
+
+const ProblemRozwiazanie = dynamic(
+  () => import("@/components/sections/ProblemRozwiazanie").then((m) => m.ProblemRozwiazanie),
+  { ssr: true }
+);
+const DlaczegoMy = dynamic(
+  () => import("@/components/sections/DlaczegoMy").then((m) => m.DlaczegoMy),
+  { ssr: true }
+);
+const OfertaPakiety = dynamic(
+  () => import("@/components/sections/OfertaPakiety").then((m) => m.OfertaPakiety),
+  { ssr: true }
+);
+const TestimonialsSection = dynamic(
+  () => import("@/components/sections/TestimonialsSection").then((m) => m.TestimonialsSection),
+  { ssr: true }
+);
+const KalkulatorSection = dynamic(
+  () => import("@/components/sections/KalkulatorSection").then((m) => m.KalkulatorSection),
+  { ssr: true }
+);
+const ProcesHome = dynamic(
+  () => import("@/components/sections/ProcesHome").then((m) => m.ProcesHome),
+  { ssr: true }
+);
+const FAQSection = dynamic(
+  () => import("@/components/sections/FAQSection").then((m) => m.FAQSection),
+  { ssr: true }
+);
+const CTA = dynamic(
+  () => import("@/components/sections/CTA").then((m) => m.CTA),
+  { ssr: true }
+);
 
 export default function HomePage() {
   return (

@@ -26,10 +26,10 @@ export function FAQSection({ faqKeys }: FAQSectionProps) {
   const glassBlurSm = useGlassBlurStyle("sm");
 
   return (
-    <Section id="faq" noWrapper>
+    <Section id="faq" noWrapper ariaLabelledBy="faq-heading">
       <div className="container-narrow">
         <ScrollReveal variant="fadeUp" className="mb-10">
-          <h2 className="heading-2 text-center text-white mb-0">
+          <h2 id="faq-heading" className="heading-2 text-center text-white mb-0">
             Najczęstsze pytania
           </h2>
         </ScrollReveal>
@@ -78,38 +78,42 @@ export function FAQSection({ faqKeys }: FAQSectionProps) {
                   ▼
                 </motion.span>
               </motion.button>
-              <AnimatePresence initial={false}>
-                {isOpen && (
-                  <motion.div
-                    key="content"
-                    id={`faq-answer-${key}`}
-                    role="region"
-                    aria-labelledby={`faq-question-${key}`}
-                    className="overflow-hidden"
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{
-                      height: "auto",
-                      opacity: 1,
-                      transition: {
-                        height: { duration: 0.35, ease: ease.spring },
-                        opacity: { duration: 0.25, delay: 0.08 },
-                      },
-                    }}
-                    exit={{
-                      height: 0,
-                      opacity: 0,
-                      transition: {
-                        height: { duration: 0.25, ease: ease.sharp },
-                        opacity: { duration: 0.15 },
-                      },
-                    }}
-                  >
-                    <p className="text-white/70 leading-relaxed" style={{ paddingInline: "var(--card-padding)", paddingTop: "var(--space-2)", paddingBottom: "var(--space-3)" }}>
-                      {item.a}
-                    </p>
-                  </motion.div>
-                )}
-              </AnimatePresence>
+              <div
+                id={`faq-answer-${key}`}
+                role="region"
+                aria-labelledby={`faq-question-${key}`}
+                hidden={!isOpen}
+                className="overflow-hidden"
+              >
+                <AnimatePresence initial={false}>
+                  {isOpen && (
+                    <motion.div
+                      key="content"
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{
+                        height: "auto",
+                        opacity: 1,
+                        transition: {
+                          height: { duration: 0.35, ease: ease.spring },
+                          opacity: { duration: 0.25, delay: 0.08 },
+                        },
+                      }}
+                      exit={{
+                        height: 0,
+                        opacity: 0,
+                        transition: {
+                          height: { duration: 0.25, ease: ease.sharp },
+                          opacity: { duration: 0.15 },
+                        },
+                      }}
+                    >
+                      <p className="text-white/70 leading-relaxed" style={{ paddingInline: "var(--card-padding)", paddingTop: "var(--space-2)", paddingBottom: "var(--space-3)" }}>
+                        {item.a}
+                      </p>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
             </li>
           );
         })}

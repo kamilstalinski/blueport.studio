@@ -38,6 +38,28 @@
   }
 }
 
+/* ═══════════════════════════════════════════════════════════════════════════
+   A11Y — focus visible (keyboard), reduced motion
+   ═══════════════════════════════════════════════════════════════════════════ */
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
 /* Section padding — stosować na każdej sekcji */
 .section-padding {
   padding-block: var(--section-padding-y);
@@ -1994,6 +2016,10 @@ body .contact-form-card:hover {
 .contact-form-card textarea:focus {
   border-color: var(--color-accent-border);
   box-shadow: 0 0 0 3px var(--color-accent-subtle);
+}
+.contact-form-card input:focus:not(:focus-visible),
+.contact-form-card select:focus:not(:focus-visible),
+.contact-form-card textarea:focus:not(:focus-visible) {
   outline: none;
 }
 
@@ -2656,10 +2682,12 @@ body .contact-form-card:hover {
   padding: 11px 14px;
   font-size: 0.82rem;
   color: #fff;
-  outline: none;
   width: 100%;
   transition: border-color 0.2s, box-shadow 0.2s;
   font-family: inherit;
+}
+.field-input:focus:not(:focus-visible) {
+  outline: none;
 }
 
 .field-input::placeholder {

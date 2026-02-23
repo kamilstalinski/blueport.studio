@@ -23,7 +23,7 @@ export function ConditionalChrome({ children }: { children: React.ReactNode }) {
   return (
     <>
       <div className="layout-root relative flex min-h-screen flex-col">
-        <main className="flex-1 min-h-full">
+        <main id="main-content" className="flex-1 min-h-full">
           {children}
         </main>
         <Footer />

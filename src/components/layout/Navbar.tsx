@@ -181,7 +181,8 @@ export function Navbar() {
         <button
             type='button'
             className='group inline-flex w-10 h-10 min-[880px]:hidden items-center justify-center rounded-xl border border-white/20 bg-transparent text-foreground shadow-[0_1px_0_rgba(0,0,0,0.08),inset_0_1px_0_rgba(255,255,255,0.06)] transition hover:border-primary/40 hover:bg-primary/5 hover:shadow-[0_1px_0_rgba(0,0,0,0.08),inset_0_1px_0_rgba(255,255,255,0.08)]'
-            aria-pressed={isMenuOpen}
+            aria-expanded={isMenuOpen}
+            aria-controls="mobile-menu"
             aria-label={isMenuOpen ? "Zamknij menu" : "Otwórz menu"}
             onClick={() => setIsMenuOpen((prev) => !prev)}
           >
@@ -225,6 +226,8 @@ export function Navbar() {
 
         {/* Rozwijane menu (mobile/tablet) */}
         <div
+          id="mobile-menu"
+          aria-hidden={!isMenuOpen}
           className={cn(
             "min-[880px]:hidden transition-[max-height] duration-300 ease-out",
             isMenuOpen ? "max-h-[min(85vh,520px)] overflow-y-auto overflow-x-hidden" : "max-h-0 overflow-hidden",

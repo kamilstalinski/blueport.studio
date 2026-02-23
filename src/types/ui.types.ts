@@ -35,6 +35,8 @@ export interface SectionProps {
   noWrapper?: boolean;
   children?: ReactNode;
   className?: string;
+  /** ID of the element that labels this section (e.g. h2 id="faq-heading") for a11y */
+  ariaLabelledBy?: string;
 }
 
 export interface GlassCardProps {

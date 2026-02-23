@@ -25,7 +25,7 @@ export function Calculator() {
         </Link>
       </header>
 
-      <main className="calc-main">
+      <main id="main-content" className="calc-main">
         <CalculatorLeft calculator={calculator} />
         <CalculatorRight calculator={calculator} />
       </main>

@@ -9,7 +9,8 @@ export function Section({
   topGradient = false,
   noWrapper = false,
   children,
-  className
+  className,
+  ariaLabelledBy,
 }: SectionProps) {
   const firstClass = firstOnPage ? " pt-navbar-first" : "";
   const relativeClass = topGradient ? " relative" : "";
@@ -26,6 +27,7 @@ export function Section({
     <Tag
       id={id}
       className={`${paddingClass}${firstClass}${relativeClass}${tightClass} ${className ?? ""}`.trim()}
+      {...(ariaLabelledBy && { "aria-labelledby": ariaLabelledBy })}
     >
       {topGradient && (
         <div

@@ -54,52 +54,72 @@ export function StepContact({
       </div>
 
       {error && (
-        <p role="alert" className="rounded-xl border border-primary/30 bg-primary/10 px-4 py-3 text-sm text-primary">
+        <p role="alert" id="contact-form-error" className="rounded-xl border border-primary/30 bg-primary/10 px-4 py-3 text-sm text-primary">
           {error}
         </p>
       )}
       <div className="grid gap-5 sm:grid-cols-2">
-        <label className="block">
-          <span className="mb-2 block text-sm font-medium text-foreground">Imię / nazwa *</span>
+        <div className="block">
+          <label htmlFor="contact-name" className="mb-2 block text-sm font-medium text-foreground">
+            Imię / nazwa <span aria-hidden="true">*</span>
+            <span className="sr-only">(wymagane)</span>
+          </label>
           <Input
+            id="contact-name"
             type="text"
+            name="name"
+            autoComplete="name"
             value={name}
             onChange={(e) => onNameChange(e.target.value)}
             placeholder="np. Jan Kowalski"
             required
-            aria-required
+            aria-required="true"
+            aria-describedby={error ? "contact-form-error" : undefined}
             className={cn(
               "h-12 rounded-xl border-border bg-white/15 text-foreground placeholder:text-muted-foreground/80 focus:border-primary focus:ring-primary"
             )}
           />
-        </label>
-        <label className="block">
-          <span className="mb-2 block text-sm font-medium text-foreground">E-mail *</span>
+        </div>
+        <div className="block">
+          <label htmlFor="contact-email" className="mb-2 block text-sm font-medium text-foreground">
+            E-mail <span aria-hidden="true">*</span>
+            <span className="sr-only">(wymagane)</span>
+          </label>
           <Input
+            id="contact-email"
             type="email"
+            name="email"
+            autoComplete="email"
             value={email}
             onChange={(e) => onEmailChange(e.target.value)}
             placeholder="jan@firma.pl"
             required
-            aria-required
+            aria-required="true"
+            aria-describedby={error ? "contact-form-error" : undefined}
             className={cn(
               "h-12 rounded-xl border-border bg-white/15 text-foreground placeholder:text-muted-foreground/80 focus:border-primary focus:ring-primary"
             )}
           />
-        </label>
+        </div>
       </div>
-      <label className="block">
-        <span className="mb-2 block text-sm font-medium text-foreground">Telefon (opcjonalnie)</span>
+      <div className="block">
+        <label htmlFor="contact-phone" className="mb-2 block text-sm font-medium text-foreground">
+          Telefon (opcjonalnie)
+        </label>
         <Input
+          id="contact-phone"
           type="tel"
+          name="phone"
+          autoComplete="tel"
           value={phone}
           onChange={(e) => onPhoneChange(e.target.value)}
           placeholder="+48 123 456 789"
+          aria-describedby={error ? "contact-form-error" : undefined}
           className={cn(
             "h-12 max-w-sm rounded-xl border-border bg-white/15 text-foreground placeholder:text-muted-foreground/80 focus:border-primary focus:ring-primary"
           )}
         />
-      </label>
+      </div>
     </div>
   );
 }
