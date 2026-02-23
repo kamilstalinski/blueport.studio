@@ -182,9 +182,18 @@ export function Navbar() {
       <div className="relative z-10 flex shrink-0 items-center gap-3">
         <Link
           href="/kalkulator"
-          className="nav-cta-free-quote font-heading hidden items-center gap-2 rounded-[12px] border border-white/20 bg-transparent px-[18px] py-2.5 text-sm font-semibold uppercase tracking-[0.5px] text-foreground transition-all duration-200 ease-out hover:border-primary/40 hover:text-primary hover:bg-primary/5 min-[880px]:inline-flex max-[1115px]:px-2.5"
+          className="nav-cta-free-quote font-heading hidden items-center justify-center gap-2 rounded-[12px] border border-white/20 bg-transparent px-[18px] py-2.5 text-sm font-semibold uppercase tracking-[0.5px] text-foreground transition-all duration-200 ease-out hover:border-primary/40 hover:text-primary hover:bg-primary/5 min-[880px]:inline-flex max-[1115px]:px-2.5 max-[1115px]:p-2.5"
           title="Bezpłatna wycena"
         >
+          <span className="min-[880px]:block min-[1115px]:hidden shrink-0">
+            <Image
+              src="/calculator-icon.png"
+              alt="Bezpłatna wycena"
+              width={24}
+              height={24}
+              className="h-6 w-6"
+            />
+          </span>
           <span className="max-[1115px]:hidden">{toUpper("Bezpłatna wycena")}</span>
         </Link>
         {paletteButton}
