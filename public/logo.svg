@@ -1,35 +1,14 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-<rect x="56" y="56" width="52" height="400" rx="26" fill="#3B82F6"/>
-<rect x="108" y="56" width="180" height="52" rx="26" fill="#3B82F6"/>
-<rect x="108" y="204" width="160" height="52" rx="26" fill="#3B82F6"/>
-<rect x="236" y="56" width="52" height="200" rx="26" fill="#3B82F6"/>
-<rect x="108" y="204" width="52" height="100" rx="0" fill="#3B82F6"/>
-<circle cx="196" cy="156" r="78" fill="#3B82F6"/>
-<circle cx="196" cy="156" r="46" fill="#ffffff"/>
-<rect x="108" y="256" width="180" height="52" rx="26" fill="#3B82F6"/>
-<rect x="108" y="308" width="52" height="96" rx="26" fill="#3B82F6"/>
-<rect x="236" y="256" width="52" height="200" rx="26" fill="#3B82F6"/>
-<rect x="108" y="404" width="180" height="52" rx="26" fill="#3B82F6"/>
-<circle cx="196" cy="308" r="78" fill="#3B82F6"/>
-<circle cx="196" cy="308" r="46" fill="#ffffff"/>
-</svg>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400">
-<rect x="40" y="0" width="41" height="400" rx="20" fill="#3B82F6"/>
-<rect x="81" y="0" width="142" height="41" rx="20" fill="#3B82F6"/>
-<rect x="81" y="159" width="126" height="41" rx="20" fill="#3B82F6"/>
-<rect x="181" y="0" width="42" height="200" rx="21" fill="#3B82F6"/>
-<circle cx="152" cy="80" r="62" fill="#3B82F6"/>
-<circle cx="152" cy="80" r="36" fill="#ffffff"/>
-<rect x="81" y="200" width="142" height="41" rx="20" fill="#3B82F6"/>
-<rect x="81" y="241" width="41" height="82" rx="20" fill="#3B82F6"/>
-<rect x="181" y="200" width="42" height="200" rx="21" fill="#3B82F6"/>
-<rect x="81" y="359" width="142" height="41" rx="20" fill="#3B82F6"/>
-<circle cx="152" cy="282" r="62" fill="#3B82F6"/>
-<circle cx="152" cy="282" r="36" fill="#ffffff"/>
-<path d="M380 280 L380 120 Q380 100 400 100 L430 100 Q490 100 490 160 Q490 200 450 210 Q494 218 494 265 Q494 320 428 320 L400 320 Q380 320 380 300 Z M410 195 L428 195 Q462 195 462 160 Q462 128 428 128 L410 128 Z M410 292 L430 292 Q464 292 464 260 Q464 224 430 224 L410 224 Z" fill="#3B82F6"/>
-<path d="M520 320 L520 100 L550 100 L550 200 Q562 185 585 185 Q630 185 630 240 L630 320 L600 320 L600 245 Q600 212 578 212 Q556 212 550 232 L550 320 Z" fill="#3B82F6"/>
-<path d="M650 252 Q650 185 710 185 Q770 185 770 252 Q770 320 710 320 Q650 320 650 252 Z M680 252 Q680 294 710 294 Q740 294 740 252 Q740 211 710 211 Q680 211 680 252 Z" fill="#3B82F6"/>
-<path d="M790 365 L820 365 Q820 394 850 394 Q878 394 878 370 L878 305 Q864 320 842 320 Q790 320 790 252 Q790 185 842 185 Q866 185 880 202 L880 190 L908 190 L908 368 Q908 420 850 420 Q790 420 790 365 Z M820 252 Q820 294 848 294 Q876 294 878 254 L878 250 Q876 211 848 211 Q820 211 820 252 Z" fill="#3B82F6"/>
-<path d="M930 252 Q930 185 990 185 Q1048 185 1052 244 L1052 264 L960 264 Q962 294 992 294 Q1012 294 1022 280 L1048 294 Q1030 320 992 320 Q930 320 930 252 Z M960 242 L1022 242 Q1018 211 990 211 Q962 211 960 242 Z" fill="#3B82F6"/>
-<path d="M1070 320 L1070 190 L1098 190 L1100 208 Q1114 185 1140 185 Q1166 185 1174 208 Q1188 185 1216 185 Q1260 185 1260 240 L1260 320 L1230 320 L1230 245 Q1230 212 1210 212 Q1192 212 1186 232 L1186 320 L1156 320 L1156 245 Q1156 212 1136 212 Q1118 212 1100 232 L1100 320 Z" fill="#3B82F6"/>
+<svg width="96" height="96" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Największy okrąg -->
+      <circle cx="48" cy="48" r="44" fill="#111"/>
+      <!-- Drugi -->
+      <circle cx="48" cy="48" r="33" fill="#fff"/>
+      <!-- Trzeci -->
+      <circle cx="48" cy="48" r="23" fill="#111"/>
+      <!-- Czwarty -->
+      <circle cx="48" cy="48" r="14" fill="#fff"/>
+      <!-- Środek mint -->
+      <circle cx="48" cy="48" r="7" fill="#00e5a0"/>
+      <!-- Pionowy klin — przecina koncentryczne okręgi -->
+      <path d="M48 4 L62 4 L62 92 L48 92 Z" fill="#fff"/>
 </svg>
