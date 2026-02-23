@@ -111,7 +111,7 @@ export function Hero({ contentKey = "Home.hero" }: { contentKey?: HeroContentKey
                 style={{ background: "var(--color-hero-badge-bg)" }}
               >
                 <span
-                  className="badge-dot w-[7px] h-[7px] rounded-full bg-white/50 shrink-0"
+                  className="badge-dot w-[7px] h-[7px] rounded-full shrink-0"
                   aria-hidden
                 />
                 {content.stats}
@@ -243,7 +243,7 @@ export function Hero({ contentKey = "Home.hero" }: { contentKey?: HeroContentKey
           style={{ background: "var(--color-hero-badge-bg)" }}
         >
           <span
-            className="badge-dot w-[7px] h-[7px] rounded-full bg-white/50 shrink-0"
+            className="badge-dot w-[7px] h-[7px] rounded-full shrink-0"
             aria-hidden
           />
           {content.stats}

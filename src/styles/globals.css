@@ -1782,6 +1782,28 @@ main {
   min-height: var(--btn-min-height);
   transition: var(--btn-transition);
 }
+#hero .badge-dot {
+  display: inline-block;
+  background: var(--color-primary);
+  box-shadow: 0 0 0 0 var(--color-primary);
+  animation: badge-dot-pulse 2s ease-in-out infinite;
+}
+@keyframes badge-dot-pulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 var(--color-primary);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 0 8px 2px var(--color-primary);
+    transform: scale(1.2);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  #hero .badge-dot {
+    animation: none;
+    box-shadow: none;
+  }
+}
 #hero .hero-cta-primary {
   color: var(--color-on-primary);
 }
