@@ -3,7 +3,6 @@
 import { usePathname } from "next/navigation";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
-import { PageTransition } from "@/components/PageTransition";
 import { ScrollToTop } from "@/components/ui/ScrollToTop";
 
 const NO_CHROME_PATHS = ["/wycena", "/kalkulator"];
@@ -25,7 +24,7 @@ export function ConditionalChrome({ children }: { children: React.ReactNode }) {
     <>
       <div className="layout-root relative flex min-h-screen flex-col">
         <main className="flex-1 min-h-full">
-          <PageTransition>{children}</PageTransition>
+          {children}
         </main>
         <Footer />
       </div>
