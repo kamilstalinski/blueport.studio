@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 
 export function Footer() {
   const aboutLinks = [
@@ -28,8 +29,14 @@ export function Footer() {
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-3">
           <div className="flex flex-col gap-6">
             <Link href="/" className="flex items-center gap-2">
-              <span className="inline-flex h-10 w-10 items-center justify-center rounded-button bg-white/10 backdrop-blur-md border border-white/10 text-sm font-semibold text-white/90">
-                BP
+              <span className="relative inline-flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-button bg-white/10 backdrop-blur-md border border-white/10">
+                <Image
+                  src="/logo.svg"
+                  alt=""
+                  width={40}
+                  height={40}
+                  className="h-full w-full object-contain"
+                />
               </span>
               <span className="text-xl font-semibold lowercase tracking-tight text-white/90">
                 blueport
