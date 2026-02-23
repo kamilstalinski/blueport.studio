@@ -3,38 +3,17 @@
 import { motion } from "framer-motion";
 import type { useCalculator } from "@/hooks/useCalculator";
 import type { ProjectType } from "@/types/calculator.types";
+import { PACKAGES } from "@/constants/pricing";
 
 type CalculatorProps = ReturnType<typeof useCalculator>;
 
-const OPTIONS: Array<{
-  id: ProjectType;
-  title: string;
-  desc: string;
-  price: string;
-  tag: string | null;
-}> = [
-  {
-    id: "wordpress",
-    title: "Strona firmowa",
-    desc: "WordPress. Do 5 podstron, SEO, formularz kontaktowy.",
-    price: "od 2 500 zł",
-    tag: null,
-  },
-  {
-    id: "woocommerce",
-    title: "Sklep internetowy",
-    desc: "WooCommerce. Płatności, kurierzy, panel zamówień.",
-    price: "od 4 000 zł",
-    tag: "Najpopularniejszy",
-  },
-  {
-    id: "nextjs",
-    title: "Projekt dedykowany",
-    desc: "Next.js / React. Własna logika, bez szablonów.",
-    price: "od 6 000 zł",
-    tag: null,
-  },
-];
+const OPTIONS = Object.values(PACKAGES).map((pkg) => ({
+  id: pkg.id as ProjectType,
+  title: pkg.name,
+  desc: pkg.description,
+  price: `od ${pkg.basePrice.toLocaleString("pl-PL")} zł`,
+  tag: pkg.tag,
+}));
 
 export function Step1Type({ calculator }: { calculator: CalculatorProps }) {
   const { state, setProjectType } = calculator;

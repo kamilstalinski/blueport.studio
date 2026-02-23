@@ -2,31 +2,39 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import type { useCalculator } from "@/hooks/useCalculator";
-import { FEATURE_PRICES } from "@/hooks/useCalculator";
 import type { ProjectFeature } from "@/types/calculator.types";
+import {
+  PACKAGES,
+  FEATURES,
+  TIMELINE_MULTIPLIERS,
+  type PackageId,
+  type FeatureId,
+  type TimelineId,
+} from "@/constants/pricing";
 
 type CalculatorProps = ReturnType<typeof useCalculator>;
 
-const TYPE_LABELS: Record<string, string> = {
-  wordpress: "Strona firmowa (WordPress)",
-  woocommerce: "Sklep internetowy (WooCommerce)",
-  nextjs: "Projekt dedykowany (Next.js)",
-};
+function getTypeLabel(id: PackageId): string {
+  const pkg = PACKAGES[id];
+  return `${pkg.name} (${pkg.tech})`;
+}
 
-const FEATURE_LABELS: Record<ProjectFeature, string> = {
-  seo: "SEO on-page",
-  copywriting: "Copywriting",
-  animations: "Animacje premium",
-  cms: "Panel CMS",
-  integrations: "Integracje zewnętrzne",
-  hosting: "Hosting i domena",
-};
+function getFeatureLabel(id: ProjectFeature): string {
+  return FEATURES[id as FeatureId].label;
+}
 
-const TIMELINE_LABELS: Record<string, string> = {
-  express: "Ekspresowo (do 7 dni)",
-  standard: "Standardowo (2–3 tygodnie)",
-  relaxed: "Elastycznie (4+ tygodnie)",
-};
+function getFeaturePrice(id: ProjectFeature): number {
+  return FEATURES[id as FeatureId].price;
+}
+
+function getTimelineLabel(id: TimelineId): string {
+  const t = TIMELINE_MULTIPLIERS[id];
+  return id === "express"
+    ? `Ekspresowo (do 7 dni)`
+    : id === "relaxed"
+      ? "Elastycznie (4+ tygodnie)"
+      : "Standardowo (2–3 tygodnie)";
+}
 
 export function CalculatorRight({ calculator }: { calculator: CalculatorProps }) {
   const { state, priceSummary } = calculator;
@@ -78,9 +86,9 @@ export function CalculatorRight({ calculator }: { calculator: CalculatorProps })
                   exit={{ opacity: 0, height: 0 }}
                   className="breakdown-row"
                 >
-                  <span>{FEATURE_LABELS[f]}</span>
+                  <span>{getFeatureLabel(f)}</span>
                   <span>
-                    +{FEATURE_PRICES[f].toLocaleString("pl-PL")} zł
+                    +{getFeaturePrice(f).toLocaleString("pl-PL")} zł
                   </span>
                 </motion.div>
               ))}
@@ -109,7 +117,7 @@ export function CalculatorRight({ calculator }: { calculator: CalculatorProps })
                   exit={{ opacity: 0, scale: 0.9 }}
                   className="choice-chip choice-chip--primary"
                 >
-                  {TYPE_LABELS[state.projectType]}
+                  {getTypeLabel(state.projectType as PackageId)}
                 </motion.span>
               )}
               {state.timeline && (
@@ -119,7 +127,7 @@ export function CalculatorRight({ calculator }: { calculator: CalculatorProps })
                   animate={{ opacity: 1, scale: 1 }}
                   className="choice-chip"
                 >
-                  {TIMELINE_LABELS[state.timeline]}
+                  {getTimelineLabel(state.timeline as TimelineId)}
                 </motion.span>
               )}
               {state.features.map((f) => (
@@ -130,7 +138,7 @@ export function CalculatorRight({ calculator }: { calculator: CalculatorProps })
                   exit={{ opacity: 0, scale: 0.9 }}
                   className="choice-chip"
                 >
-                  {FEATURE_LABELS[f]}
+                  {getFeatureLabel(f)}
                 </motion.span>
               ))}
             </AnimatePresence>

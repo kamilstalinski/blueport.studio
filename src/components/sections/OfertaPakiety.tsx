@@ -13,29 +13,33 @@ import { springs } from "@/constants/animations";
 import { cn } from "@/lib/utils";
 import { useGlassBlurStyle } from "@/lib/useGlassBlurStyle";
 import type { OfertaPakietyProps } from "@/types";
+import { PACKAGES } from "@/constants/pricing";
+import type { PackageId } from "@/constants/pricing";
 
-const CARDS = [
-  { key: "sklepy" as const, emoji: "🛒" as const, title: "Sklepy internetowe (WooCommerce)", desc: "Sprzedawaj online bez skomplikowanych systemów.", price: "4 000 – 5 500 zł", cta: "Sprawdź wycenę" },
-  { key: "strony" as const, emoji: "⚡" as const, title: "Strony firmowe (WordPress)", desc: "Idealne dla firm, które potrzebują nowoczesnej wizytówki online.", price: "2 500 – 3 000 zł", cta: "Sprawdź wycenę" },
-  { key: "dedykowane" as const, emoji: "💻" as const, title: "Projekty dedykowane (Next.js)", desc: "Dla firm, które potrzebują czegoś więcej niż standardowy CMS.", price: "Od 6 000 zł", cta: "Sprawdź wycenę" },
-] as const;
+const PACKAGE_ORDER: PackageId[] = ["wordpress", "woocommerce", "nextjs"];
 
-const PACKAGE_INCLUDES: Record<(typeof CARDS)[number]["key"], string[]> = {
-  strony: [
+const PACKAGE_EMOJI: Record<PackageId, string> = {
+  wordpress: "⚡",
+  woocommerce: "🛒",
+  nextjs: "💻",
+};
+
+const PACKAGE_INCLUDES: Record<PackageId, string[]> = {
+  wordpress: [
     "Projekt graficzny UI",
     "Responsywność (mobile-first)",
     "Podstawowe SEO on-page",
     "Szkolenie z edycji (1h)",
     "30 dni wsparcia po wdrożeniu",
   ],
-  sklepy: [
+  woocommerce: [
     "Projekt graficzny UI",
     "Konfiguracja płatności (Przelewy24, BLIK)",
     "Import produktów (do 50 szt.)",
     "SEO on-page dla sklepu",
     "Szkolenie z obsługi WooCommerce (2h)",
   ],
-  dedykowane: [
+  nextjs: [
     "Architektura techniczna",
     "Integracje API / CRM",
     "Wycena indywidualna",
@@ -66,12 +70,15 @@ export function OfertaPakiety({ topGradient = true, cardVariant = "default" }: O
           className="grid grid-cols-1 md:grid-cols-3 items-stretch"
           style={{ gap: "var(--grid-gap)" }}
         >
-          {CARDS.map((card, index) => {
-            const { key, emoji, title, desc, price, cta } = card;
-            const isMiddle = index === 1;
+          {PACKAGE_ORDER.map((packageId) => {
+            const pkg = PACKAGES[packageId];
+            const title = `${pkg.name} (${pkg.tech})`;
+            const price = `od ${pkg.basePrice.toLocaleString("pl-PL")} zł`;
+            const isMiddle = !!pkg.tag;
+            const cta = "Sprawdź wycenę";
 
             return (
-              <motion.div key={key} variants={v.scaleIn} className={isMiddle ? "overflow-visible" : undefined}>
+              <motion.div key={packageId} variants={v.scaleIn} className={isMiddle ? "overflow-visible" : undefined}>
                 <motion.div
                   whileHover={isMiddle ? undefined : { y: -3, transition: springs.smooth }}
                   whileTap={isMiddle ? undefined : { scale: 0.992, transition: springs.stiff }}
@@ -88,20 +95,21 @@ export function OfertaPakiety({ topGradient = true, cardVariant = "default" }: O
                   style={glassBlurStyle}
                 >
                   <div className="flex flex-col h-full">
-                    {isMiddle && (
+                    {pkg.tag && (
                       <span
                         className="absolute top-4 right-4 body-small font-semibold px-3 py-1 rounded-full bg-primary text-primary-foreground border-0"
                         aria-hidden
                       >
-                        Najpopularniejsze
+                        {pkg.tag}
                       </span>
                     )}
-                    <IconBox emoji={emoji} />
+                    <IconBox emoji={PACKAGE_EMOJI[packageId]} />
                     <h3 className="heading-3 mt-6 text-white">{title}</h3>
-                    <p className="mt-3 body-standard text-white/60 leading-relaxed">{desc}</p>
+                    <p className="mt-3 body-standard text-white/60 leading-relaxed">{pkg.description}</p>
                     <div className="mt-6 flex-1">
                       <p className="heading-3 font-bold text-white mt-1">{price}</p>
-                      {cardVariant === "subpage" && PACKAGE_INCLUDES[key] && (
+                      <p className="body-small text-white/50 mt-1">{pkg.deliveryDays} dni realizacji</p>
+                      {cardVariant === "subpage" && PACKAGE_INCLUDES[packageId] && (
                         <div
                           className="mt-4 pt-4 border-t flex flex-col gap-1"
                           style={{
@@ -114,7 +122,7 @@ export function OfertaPakiety({ topGradient = true, cardVariant = "default" }: O
                           <span className="font-semibold text-white/70" style={{ fontSize: "0.75rem" }}>
                             Co zawiera:
                           </span>
-                          {PACKAGE_INCLUDES[key].map((item, i) => (
+                          {PACKAGE_INCLUDES[packageId].map((item, i) => (
                             <div key={i} className="flex gap-2 items-start" style={{ padding: "4px 0" }}>
                               <span className="shrink-0 text-primary" aria-hidden>✓</span>
                               <span>{item}</span>

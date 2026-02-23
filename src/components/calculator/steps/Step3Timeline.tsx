@@ -3,34 +3,27 @@
 import { motion } from "framer-motion";
 import type { useCalculator } from "@/hooks/useCalculator";
 import type { Timeline } from "@/types/calculator.types";
-
-type CalculatorProps = ReturnType<typeof useCalculator>;
+import { TIMELINE_MULTIPLIERS } from "@/constants/pricing";
+import type { TimelineId } from "@/constants/pricing";
 
 const OPTIONS: Array<{
   id: Timeline;
   label: string;
   desc: string;
   badge: string | null;
-}> = [
-  {
-    id: "express",
-    label: "Ekspresowo",
-    desc: "Do 7 dni roboczych",
-    badge: "+30%",
-  },
-  {
-    id: "standard",
-    label: "Standardowo",
-    desc: "2–3 tygodnie",
-    badge: null,
-  },
-  {
-    id: "relaxed",
-    label: "Elastycznie",
-    desc: "4+ tygodnie",
-    badge: "-5%",
-  },
-];
+}> = (Object.keys(TIMELINE_MULTIPLIERS) as TimelineId[]).map((id) => {
+  const t = TIMELINE_MULTIPLIERS[id];
+  const badge =
+    id === "express" ? "+30%" : id === "relaxed" ? "-5%" : null;
+  return {
+    id: id as Timeline,
+    label: t.label,
+    desc: t.days,
+    badge,
+  };
+});
+
+type CalculatorProps = ReturnType<typeof useCalculator>;
 
 export function Step3Timeline({ calculator }: { calculator: CalculatorProps }) {
   const { state, setTimeline } = calculator;

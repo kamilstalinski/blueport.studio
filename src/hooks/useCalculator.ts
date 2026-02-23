@@ -10,28 +10,13 @@ import type {
   Timeline,
   BudgetRange,
 } from "@/types/calculator.types";
-
-// ─── Cennik bazowy (eksport dla CalculatorRight breakdown) ─────────────────
-export const BASE_PRICES: Record<NonNullable<ProjectType>, number> = {
-  wordpress: 2500,
-  woocommerce: 4000,
-  nextjs: 6000,
-};
-
-export const FEATURE_PRICES: Record<ProjectFeature, number> = {
-  seo: 500,
-  copywriting: 800,
-  animations: 600,
-  cms: 400,
-  integrations: 700,
-  hosting: 300,
-};
-
-const TIMELINE_MULTIPLIERS: Record<NonNullable<Timeline>, number> = {
-  express: 1.3, // +30% za ekspresowe
-  standard: 1.0,
-  relaxed: 0.95, // -5% za elastyczny termin
-};
+import {
+  calculatePrice,
+  TIMELINE_MULTIPLIERS,
+  type PackageId,
+  type FeatureId,
+  type TimelineId,
+} from "@/constants/pricing";
 
 // ─── Hook ────────────────────────────────────────────────────
 const TOTAL_STEPS = 5;
@@ -117,31 +102,23 @@ export function useCalculator() {
   }, [state]);
 
   const priceSummary = useMemo((): PriceSummary => {
-    const base = state.projectType ? BASE_PRICES[state.projectType] : 0;
-    const featuresTotal = state.features.reduce(
-      (sum, f) => sum + FEATURE_PRICES[f],
-      0
-    );
-    const multiplier = state.timeline
-      ? TIMELINE_MULTIPLIERS[state.timeline]
-      : 1.0;
-
-    const subtotal = base + featuresTotal;
-    const total = Math.round((subtotal * multiplier) / 100) * 100;
-
-    const label =
-      total === 0
-        ? "Wybierz opcje"
-        : state.timeline === "express"
-          ? `od ${total.toLocaleString("pl-PL")} zł`
-          : `${total.toLocaleString("pl-PL")} – ${(total * 1.15).toLocaleString("pl-PL")} zł`;
-
+    if (!state.projectType) {
+      return {
+        base: 0,
+        featuresTotal: 0,
+        timelineMultiplier: 1.0,
+        total: 0,
+        label: "Wybierz opcje",
+      };
+    }
+    const packageId = state.projectType as PackageId;
+    const features = state.features as FeatureId[];
+    const timeline: TimelineId = state.timeline ?? "standard";
+    const result = calculatePrice(packageId, features, timeline);
+    const timelineMultiplier = TIMELINE_MULTIPLIERS[timeline].multiplier;
     return {
-      base,
-      featuresTotal,
-      timelineMultiplier: multiplier,
-      total,
-      label,
+      ...result,
+      timelineMultiplier,
     };
   }, [state.projectType, state.features, state.timeline]);
 
