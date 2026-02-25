@@ -3,14 +3,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import type { useCalculator } from "@/hooks/useCalculator";
 import type { ProjectFeature } from "@/types/calculator.types";
-import {
-  PACKAGES,
-  FEATURES,
-  TIMELINE_MULTIPLIERS,
-  type PackageId,
-  type FeatureId,
-  type TimelineId,
-} from "@/constants/pricing";
+import { PACKAGES, FEATURES, type PackageId, type FeatureId } from "@/constants/pricing";
 
 type CalculatorProps = ReturnType<typeof useCalculator>;
 
@@ -25,15 +18,6 @@ function getFeatureLabel(id: ProjectFeature): string {
 
 function getFeaturePrice(id: ProjectFeature): number {
   return FEATURES[id as FeatureId]?.price ?? 0;
-}
-
-function getTimelineLabel(id: TimelineId): string {
-  const t = TIMELINE_MULTIPLIERS[id];
-  return id === "express"
-    ? `Ekspresowo (do 7 dni)`
-    : id === "relaxed"
-      ? "Elastycznie (4+ tygodnie)"
-      : "Standardowo (2–3 tygodnie)";
 }
 
 export function CalculatorRight({ calculator }: { calculator: CalculatorProps }) {
@@ -93,18 +77,6 @@ export function CalculatorRight({ calculator }: { calculator: CalculatorProps })
                 </motion.div>
               ))}
             </AnimatePresence>
-            {state.timeline && state.timeline !== "standard" && (
-              <div className="breakdown-row breakdown-row--accent">
-                <span>
-                  {state.timeline === "express"
-                    ? "Ekspresowa realizacja"
-                    : "Rabat elastyczny"}
-                </span>
-                <span>
-                  {state.timeline === "express" ? "+30%" : "-5%"}
-                </span>
-              </div>
-            )}
           </div>
 
           <div className="calc-choices">
@@ -118,16 +90,6 @@ export function CalculatorRight({ calculator }: { calculator: CalculatorProps })
                   className="choice-chip choice-chip--primary"
                 >
                   {getTypeLabel(state.projectType as PackageId)}
-                </motion.span>
-              )}
-              {state.timeline && (
-                <motion.span
-                  key="timeline"
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  className="choice-chip"
-                >
-                  {getTimelineLabel(state.timeline as TimelineId)}
                 </motion.span>
               )}
               {state.features.map((f) => (

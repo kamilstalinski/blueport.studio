@@ -19,7 +19,7 @@ import {
 } from "@/constants/pricing";
 
 // ─── Hook ────────────────────────────────────────────────────
-const TOTAL_STEPS = 5;
+const TOTAL_STEPS = 4;
 
 const initialState: CalculatorState = {
   step: 0,
@@ -88,10 +88,8 @@ export function useCalculator() {
       case 1:
         return true;
       case 2:
-        return state.timeline !== null;
-      case 3:
         return state.budget !== null;
-      case 4:
+      case 3:
         return (
           state.contact.name.trim().length > 1 &&
           /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(state.contact.email)
@@ -120,7 +118,7 @@ export function useCalculator() {
       ...result,
       timelineMultiplier,
     };
-  }, [state.projectType, state.features, state.timeline]);
+  }, [state.projectType, state.features]);
 
   const handleSubmit = useCallback(async () => {
     setState((s) => ({ ...s, isSubmitting: true, error: null }));
@@ -132,7 +130,7 @@ export function useCalculator() {
           ...state.contact,
           projectType: state.projectType,
           features: state.features,
-          timeline: state.timeline,
+          timeline: state.timeline ?? "standard",
           budget: state.budget,
           estimatedPrice: priceSummary.label,
         }),
@@ -158,7 +156,6 @@ export function useCalculator() {
     goPrev,
     setProjectType,
     toggleFeature,
-    setTimeline,
     setBudget,
     setContact,
     handleSubmit,

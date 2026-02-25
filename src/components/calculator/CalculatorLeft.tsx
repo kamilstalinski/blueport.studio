@@ -6,7 +6,6 @@ import type { useCalculator } from "@/hooks/useCalculator";
 import { CalculatorProgress } from "./CalculatorProgress";
 import { Step1Type } from "./steps/Step1Type";
 import { Step2Features } from "./steps/Step2Features";
-import { Step3Timeline } from "./steps/Step3Timeline";
 import { Step4Budget } from "./steps/Step4Budget";
 import { Step5Contact } from "./steps/Step5Contact";
 
@@ -15,7 +14,6 @@ type CalculatorProps = ReturnType<typeof useCalculator>;
 const STEPS = [
   Step1Type,
   Step2Features,
-  Step3Timeline,
   Step4Budget,
   Step5Contact,
 ];
@@ -23,7 +21,6 @@ const STEPS = [
 const STEP_LABELS = [
   "Typ projektu",
   "Funkcje",
-  "Termin",
   "Budżet",
   "Kontakt",
 ];
