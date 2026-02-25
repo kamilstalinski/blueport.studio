@@ -94,7 +94,7 @@ export function OfertaPakiety({ topGradient = true, cardVariant = "default" }: O
                     </p>
                     <div className="mt-6 flex-1">
                       <p className="heading-3 font-bold text-white mt-1">{price}</p>
-                      <p className="body-small text-white/50 mt-1">{pkg.deliveryDays} dni realizacji</p>
+                      <p className="body-small text-white/50 mt-1">{pkg.deliveryLabel}</p>
                       {packageId === "strona-pro" && (
                         <p className="body-small text-white/55 mt-2" style={{ fontSize: "0.8rem" }}>
                           Większa elastyczność i bardziej dopracowany wygląd niż w wersji Start

@@ -13,6 +13,7 @@ export const PACKAGES = {
       "Szybka i profesjonalna strona firmowa na sprawdzonym rozwiązaniu. Idealna na start działalności lub odświeżenie obecnej strony.",
     basePrice: 2500,
     deliveryDays: 14,
+    deliveryLabel: "7–14 dni roboczych",
     tag: null,
     coZawiera: [
       "Gotowy, profesjonalny wygląd dopasowany do Twojej branży",
@@ -32,6 +33,7 @@ export const PACKAGES = {
       "Indywidualnie zaprojektowana strona dopasowana do Twojej marki i klientów. Większa elastyczność, lepsza struktura treści i bardziej dopracowany wygląd.",
     basePrice: 3900,
     deliveryDays: 21,
+    deliveryLabel: "14–21 dni roboczych",
     tag: "Najczęściej wybierane",
     coZawiera: [
       "Indywidualny projekt wizualny (bez gotowego szablonu)",
@@ -52,6 +54,7 @@ export const PACKAGES = {
       "Kompletny sklep internetowy gotowy do sprzedaży. Prosty w obsłudze i przygotowany do przyjmowania zamówień online.",
     basePrice: 4900,
     deliveryDays: 21,
+    deliveryLabel: "21 dni roboczych",
     tag: null,
     coZawiera: [
       "Sklep internetowy z możliwością zarządzania produktami",
@@ -71,6 +74,7 @@ export const PACKAGES = {
       "Projekt pisany od podstaw dla zaawansowanych potrzeb i skalowania.",
     basePrice: 6500,
     deliveryDays: 30,
+    deliveryLabel: "od 30 dni (w zależności od zakresu)",
     tag: null,
     coZawiera: [
       "Architektura techniczna",
