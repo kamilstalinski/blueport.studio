@@ -87,10 +87,19 @@ export function OfertaPakiety({ topGradient = true, cardVariant = "default" }: O
                     )}
                     <IconBox emoji={PACKAGE_EMOJI[packageId]} />
                     <h3 className="heading-3 mt-6 text-white">{title}</h3>
-                    <p className="mt-3 body-standard text-white/60 leading-relaxed">{pkg.description}</p>
+                    <p className="mt-3 body-standard text-white/60 leading-relaxed">
+                      {packageId === "strona-pro"
+                        ? "Custom design dopasowany do marki + przemyślana struktura strony"
+                        : pkg.description}
+                    </p>
                     <div className="mt-6 flex-1">
                       <p className="heading-3 font-bold text-white mt-1">{price}</p>
                       <p className="body-small text-white/50 mt-1">{pkg.deliveryDays} dni realizacji</p>
+                      {packageId === "strona-pro" && (
+                        <p className="body-small text-white/55 mt-2" style={{ fontSize: "0.8rem" }}>
+                          Większa elastyczność i bardziej dopracowany wygląd niż w wersji Start
+                        </p>
+                      )}
                       {cardVariant === "subpage" && pkg.coZawiera?.length && (
                         <div
                           className="mt-4 pt-4 border-t flex flex-col gap-1"
