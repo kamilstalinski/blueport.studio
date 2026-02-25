@@ -8,7 +8,7 @@ export const PACKAGES = {
   "strona-start": {
     id: "strona-start",
     name: "Strona START",
-    tech: "WordPress (szablon premium)",
+    tech: "WordPress",
     description:
       "Szybka realizacja na gotowym motywie premium. Customizacja kolorów i typografii — idealna na start.",
     basePrice: 2500,
@@ -27,7 +27,7 @@ export const PACKAGES = {
   "strona-pro": {
     id: "strona-pro",
     name: "Strona PRO",
-    tech: "WordPress (Custom Design)",
+    tech: "WordPress",
     description:
       "Indywidualny projekt wizualny dopasowany do Twojej marki + przemyślana struktura treści zwiększająca czytelność i konwersję.",
     basePrice: 3900,
