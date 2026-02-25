@@ -7,7 +7,7 @@
 export const PACKAGES = {
   "start-online": {
     id: "start-online",
-    name: "Start Online",
+    name: "Strona START",
     tech: "WordPress (szablon premium)",
     description:
       "Szybka strona firmowa na profesjonalnym motywie. Idealna na start.",

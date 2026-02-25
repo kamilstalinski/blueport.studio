@@ -3,7 +3,7 @@
     "pakiety": [
       {
         "id": "start-online",
-        "name": "Start Online",
+        "name": "Strona START",
         "tech": "WordPress (szablon premium)",
         "description": "Szybka strona firmowa na profesjonalnym motywie. Idealna na start.",
         "basePrice": 2500,
@@ -105,7 +105,7 @@
     "pakiety": [
       {
         "id": "start-online",
-        "title": "Start Online",
+        "title": "Strona START",
         "subtitle": "WordPress (szablon premium)",
         "basePriceMin": 2500,
         "basePriceMax": 2500,
