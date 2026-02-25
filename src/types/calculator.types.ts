@@ -1,5 +1,5 @@
 export type ProjectType =
-  | "start-online"
+  | "strona-start"
   | "strona-pro"
   | "sklep-online"
   | "projekt-dedykowany"

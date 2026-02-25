@@ -2,7 +2,7 @@
   "oferta": {
     "pakiety": [
       {
-        "id": "start-online",
+        "id": "strona-start",
         "name": "Strona START",
         "tech": "WordPress (szablon premium)",
         "description": "Szybka strona firmowa na profesjonalnym motywie. Idealna na start.",
@@ -104,7 +104,7 @@
   "kalkulator": {
     "pakiety": [
       {
-        "id": "start-online",
+        "id": "strona-start",
         "title": "Strona START",
         "subtitle": "WordPress (szablon premium)",
         "basePriceMin": 2500,
@@ -174,7 +174,7 @@
       }
     ],
     "dodatkiPerPakiet": {
-      "start-online": ["seo-advanced", "copywriting", "blog", "language-version", "performance-upgrade"],
+      "strona-start": ["seo-advanced", "copywriting", "blog", "language-version", "performance-upgrade"],
       "strona-pro": ["seo-advanced", "copywriting", "blog", "language-version", "crm", "mail-automation", "integrations-api", "performance-upgrade"],
       "sklep-online": ["seo-advanced", "copywriting", "blog", "language-version", "product-filters", "product-variants", "abandoned-cart", "loyalty-program", "wholesaler-feed", "crm", "mail-automation", "integrations-api", "erp", "performance-upgrade"],
       "projekt-dedykowany": ["seo-advanced", "copywriting", "blog", "language-version", "crm", "mail-automation", "integrations-api", "headless-cms", "performance-upgrade", "cicd-deployment", "multi-language-advanced"]

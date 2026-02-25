@@ -5,8 +5,8 @@
  */
 
 export const PACKAGES = {
-  "start-online": {
-    id: "start-online",
+  "strona-start": {
+    id: "strona-start",
     name: "Strona START",
     tech: "WordPress (szablon premium)",
     description:
@@ -90,7 +90,7 @@ export const FEATURES = {
     description: "Schema.org, sitemap XML, Google Search Console, meta opisy",
     price: 700,
     group: "widocznosc" as const,
-    availableForPackages: ["start-online", "strona-pro", "sklep-online", "projekt-dedykowany"] as const,
+    availableForPackages: ["strona-start", "strona-pro", "sklep-online", "projekt-dedykowany"] as const,
   },
   copywriting: {
     id: "copywriting",
@@ -98,7 +98,7 @@ export const FEATURES = {
     description: "Teksty sprzedażowe do 5 podstron",
     price: 800,
     group: "widocznosc" as const,
-    availableForPackages: ["start-online", "strona-pro", "sklep-online", "projekt-dedykowany"] as const,
+    availableForPackages: ["strona-start", "strona-pro", "sklep-online", "projekt-dedykowany"] as const,
   },
   blog: {
     id: "blog",
@@ -106,7 +106,7 @@ export const FEATURES = {
     description: "System publikacji wpisów, kategorie, tagi",
     price: 500,
     group: "widocznosc" as const,
-    availableForPackages: ["start-online", "strona-pro", "sklep-online", "projekt-dedykowany"] as const,
+    availableForPackages: ["strona-start", "strona-pro", "sklep-online", "projekt-dedykowany"] as const,
   },
   "language-version": {
     id: "language-version",
@@ -114,7 +114,7 @@ export const FEATURES = {
     description: "Dodatkowy język (np. PL + EN)",
     price: 900,
     group: "widocznosc" as const,
-    availableForPackages: ["start-online", "strona-pro", "sklep-online", "projekt-dedykowany"] as const,
+    availableForPackages: ["strona-start", "strona-pro", "sklep-online", "projekt-dedykowany"] as const,
   },
   "product-filters": {
     id: "product-filters",
@@ -202,7 +202,7 @@ export const FEATURES = {
     description: "Core Web Vitals, CDN, caching",
     price: 500,
     group: "skalowanie" as const,
-    availableForPackages: ["start-online", "strona-pro", "sklep-online", "projekt-dedykowany"] as const,
+    availableForPackages: ["strona-start", "strona-pro", "sklep-online", "projekt-dedykowany"] as const,
   },
   "cicd-deployment": {
     id: "cicd-deployment",

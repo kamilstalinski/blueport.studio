@@ -17,14 +17,14 @@ import { PACKAGES } from "@/constants/pricing";
 import type { PackageId } from "@/constants/pricing";
 
 const PACKAGE_ORDER: PackageId[] = [
-  "start-online",
+  "strona-start",
   "strona-pro",
   "sklep-online",
   "projekt-dedykowany",
 ];
 
 const PACKAGE_EMOJI: Record<PackageId, string> = {
-  "start-online": "⚡",
+  "strona-start": "⚡",
   "strona-pro": "✨",
   "sklep-online": "🛒",
   "projekt-dedykowany": "💻",
