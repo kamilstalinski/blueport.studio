@@ -49,7 +49,7 @@ export function OfertaPakiety({ topGradient = true, cardVariant = "default" }: O
           variants={v.stagger}
           initial="hidden"
           animate={animate}
-          className="grid grid-cols-1 md:grid-cols-3 items-stretch"
+          className="grid grid-cols-1 md:grid-cols-2 items-stretch"
           style={{ gap: "var(--grid-gap)" }}
         >
           {PACKAGE_ORDER.map((packageId) => {
