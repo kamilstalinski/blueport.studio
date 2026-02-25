@@ -275,10 +275,7 @@ export function calculatePrice(
   const totalRounded = Math.round(raw / 100) * 100;
   const total = Math.max(MIN_PRICE, Math.min(MAX_PRICE, totalRounded));
 
-  const label =
-    timeline === "express"
-      ? `od ${total.toLocaleString("pl-PL")} zł`
-      : `${total.toLocaleString("pl-PL")} – ${Math.round((total * 1.15) / 100) * 100} zł`;
+  const label = `od ${total.toLocaleString("pl-PL")} zł`;
 
   return { base, featuresTotal, total, label };
 }
