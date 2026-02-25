@@ -16,36 +16,18 @@ import type { OfertaPakietyProps } from "@/types";
 import { PACKAGES } from "@/constants/pricing";
 import type { PackageId } from "@/constants/pricing";
 
-const PACKAGE_ORDER: PackageId[] = ["woocommerce", "wordpress", "nextjs"];
+const PACKAGE_ORDER: PackageId[] = [
+  "start-online",
+  "strona-pro",
+  "sklep-online",
+  "projekt-dedykowany",
+];
 
 const PACKAGE_EMOJI: Record<PackageId, string> = {
-  wordpress: "⚡",
-  woocommerce: "🛒",
-  nextjs: "💻",
-};
-
-const PACKAGE_INCLUDES: Record<PackageId, string[]> = {
-  wordpress: [
-    "Projekt graficzny UI",
-    "Responsywność (mobile-first)",
-    "Podstawowe SEO on-page",
-    "Szkolenie z edycji (1h)",
-    "30 dni wsparcia po wdrożeniu",
-  ],
-  woocommerce: [
-    "Projekt graficzny UI",
-    "Konfiguracja płatności (Przelewy24, BLIK)",
-    "Import produktów (do 50 szt.)",
-    "SEO on-page dla sklepu",
-    "Szkolenie z obsługi WooCommerce (2h)",
-  ],
-  nextjs: [
-    "Architektura techniczna",
-    "Integracje API / CRM",
-    "Wycena indywidualna",
-    "Dedykowany opiekun projektu",
-    "SLA i dokumentacja",
-  ],
+  "start-online": "⚡",
+  "strona-pro": "✨",
+  "sklep-online": "🛒",
+  "projekt-dedykowany": "💻",
 };
 
 export function OfertaPakiety({ topGradient = true, cardVariant = "default" }: OfertaPakietyProps) {
@@ -109,7 +91,7 @@ export function OfertaPakiety({ topGradient = true, cardVariant = "default" }: O
                     <div className="mt-6 flex-1">
                       <p className="heading-3 font-bold text-white mt-1">{price}</p>
                       <p className="body-small text-white/50 mt-1">{pkg.deliveryDays} dni realizacji</p>
-                      {cardVariant === "subpage" && PACKAGE_INCLUDES[packageId] && (
+                      {cardVariant === "subpage" && pkg.coZawiera?.length && (
                         <div
                           className="mt-4 pt-4 border-t flex flex-col gap-1"
                           style={{
@@ -122,7 +104,7 @@ export function OfertaPakiety({ topGradient = true, cardVariant = "default" }: O
                           <span className="font-semibold text-white/70" style={{ fontSize: "0.75rem" }}>
                             Co zawiera:
                           </span>
-                          {PACKAGE_INCLUDES[packageId].map((item, i) => (
+                          {pkg.coZawiera.map((item, i) => (
                             <div key={i} className="flex gap-2 items-start" style={{ padding: "4px 0" }}>
                               <span className="shrink-0 text-primary" aria-hidden>✓</span>
                               <span>{item}</span>

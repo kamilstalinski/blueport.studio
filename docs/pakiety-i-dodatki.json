@@ -2,207 +2,186 @@
   "oferta": {
     "pakiety": [
       {
-        "id": "wordpress",
-        "name": "Strona Firmowa",
-        "tech": "WordPress",
-        "description": "Do 5 podstron, SEO on-page, formularz kontaktowy, panel CMS.",
+        "id": "start-online",
+        "name": "Start Online",
+        "tech": "WordPress (szablon premium)",
+        "description": "Szybka strona firmowa na profesjonalnym motywie. Idealna na start.",
         "basePrice": 2500,
         "deliveryDays": 14,
-        "tag": "Najpopularniejszy",
+        "tag": null,
         "coZawiera": [
-          "Projekt graficzny UI",
+          "Gotowy motyw premium",
+          "Personalizacja kolorów i typografii",
+          "Do 5 podstron",
+          "Formularz kontaktowy",
           "Responsywność (mobile-first)",
-          "Podstawowe SEO on-page",
-          "Szkolenie z edycji (1h)",
-          "30 dni wsparcia po wdrożeniu"
+          "Instalacja GA4",
+          "14 dni wsparcia po wdrożeniu"
         ]
       },
       {
-        "id": "woocommerce",
-        "name": "Sklep Internetowy",
+        "id": "strona-pro",
+        "name": "Strona PRO",
+        "tech": "WordPress (custom design)",
+        "description": "Indywidualny projekt UX/UI dla firm budujących markę i przewagę.",
+        "basePrice": 3900,
+        "deliveryDays": 21,
+        "tag": "Najczęściej wybierane",
+        "coZawiera": [
+          "Indywidualny projekt UX/UI",
+          "Do 10 podstron",
+          "Custom sekcje",
+          "Microinteractions",
+          "SEO techniczne",
+          "Optymalizacja wydajności",
+          "30 dni wsparcia"
+        ]
+      },
+      {
+        "id": "sklep-online",
+        "name": "Sklep Online",
         "tech": "WooCommerce",
-        "description": "Płatności online, integracja kurierów, panel zamówień, do 50 produktów.",
-        "basePrice": 4500,
+        "description": "Kompletny sklep internetowy gotowy do sprzedaży.",
+        "basePrice": 4900,
         "deliveryDays": 21,
         "tag": null,
         "coZawiera": [
-          "Projekt graficzny UI",
-          "Konfiguracja płatności (Przelewy24, BLIK)",
-          "Import produktów (do 50 szt.)",
-          "SEO on-page dla sklepu",
-          "Szkolenie z obsługi WooCommerce (2h)"
+          "WooCommerce",
+          "Do 30 produktów",
+          "Płatności online",
+          "Integracja kurierów",
+          "Panel zamówień",
+          "Responsywność",
+          "Podstawowe SEO"
         ]
       },
       {
-        "id": "nextjs",
+        "id": "projekt-dedykowany",
         "name": "Projekt Dedykowany",
-        "tech": "Next.js",
-        "description": "Własna logika biznesowa, API, bez szablonów. Wycena indywidualna.",
+        "tech": "Next.js / React",
+        "description": "Projekt pisany od podstaw dla zaawansowanych potrzeb i skalowania.",
         "basePrice": 6500,
         "deliveryDays": 30,
         "tag": null,
         "coZawiera": [
           "Architektura techniczna",
-          "Integracje API / CRM",
-          "Wycena indywidualna",
-          "Dedykowany opiekun projektu",
-          "SLA i dokumentacja"
+          "Custom frontend",
+          "Integracje API",
+          "Performance-first development",
+          "Dokumentacja techniczna",
+          "Możliwość headless CMS"
         ]
       }
     ],
-    "dodatki": [
+    "dodatkiGrupy": [
       {
-        "id": "seo",
-        "label": "SEO on-page",
-        "description": "Optymalizacja meta, nagłówków, sitemap, robots.txt",
-        "price": 500
+        "id": "widocznosc",
+        "label": "Widoczność",
+        "dodatki": ["seo-advanced", "copywriting", "blog", "language-version"]
       },
       {
-        "id": "copywriting",
-        "label": "Copywriting",
-        "description": "Teksty sprzedażowe do 5 podstron",
-        "price": 800
+        "id": "sprzedaz",
+        "label": "Sprzedaż (sklep)",
+        "dodatki": ["product-filters", "product-variants", "abandoned-cart", "loyalty-program", "wholesaler-feed"]
       },
       {
-        "id": "animations",
-        "label": "Animacje premium",
-        "description": "Framer Motion — scroll reveal, hover, page transitions",
-        "price": 600
+        "id": "automatyzacja",
+        "label": "Automatyzacja",
+        "dodatki": ["crm", "mail-automation", "integrations-api", "erp"]
       },
       {
-        "id": "cms",
-        "label": "Rozszerzony CMS",
-        "description": "Panel do edycji treści bez programisty",
-        "price": 400
-      },
-      {
-        "id": "integrations",
-        "label": "Integracje zewnętrzne",
-        "description": "Google Analytics, Hotjar, CRM, systemy mailingowe",
-        "price": 700
-      },
-      {
-        "id": "hosting",
-        "label": "Hosting i domena",
-        "description": "Konfiguracja VPS, SSL, backup, pierwszy rok w cenie",
-        "price": 300
+        "id": "skalowanie",
+        "label": "Skalowanie (Next.js)",
+        "dodatki": ["headless-cms", "performance-upgrade", "cicd-deployment", "multi-language-advanced"]
       }
     ],
     "trybyRealizacji": [
       { "id": "express", "label": "Ekspresowo", "days": "7 dni roboczych", "multiplier": 1.3 },
-      { "id": "standard", "label": "Standardowo", "days": "2–3 tygodnie", "multiplier": 1.0 },
+      { "id": "standard", "label": "Standardowo", "days": "2–3 tygodnie", "multiplier": 1 },
       { "id": "relaxed", "label": "Elastycznie", "days": "4+ tygodnie", "multiplier": 0.95 }
     ]
   },
   "kalkulator": {
     "pakiety": [
       {
-        "id": "wordpress-standard",
-        "title": "Strona firmowa Standard",
-        "subtitle": "Szybka realizacja na WordPress",
+        "id": "start-online",
+        "title": "Start Online",
+        "subtitle": "WordPress (szablon premium)",
         "basePriceMin": 2500,
         "basePriceMax": 2500,
         "basePagesIncluded": 5,
         "baseProductsIncluded": null,
         "includes": [
+          "Gotowy motyw premium",
           "Do 5 podstron",
-          "Motyw WordPress + customizacja",
-          "SEO podstawowe",
           "Formularz kontaktowy",
-          "Responsywność (mobile)"
+          "Responsywność (mobile-first)",
+          "Instalacja GA4",
+          "14 dni wsparcia"
         ]
       },
       {
-        "id": "wordpress-pro",
-        "title": "Strona firmowa PRO",
-        "subtitle": "Indywidualny projekt UI + WordPress",
-        "basePriceMin": 3500,
-        "basePriceMax": 3500,
+        "id": "strona-pro",
+        "title": "Strona PRO",
+        "subtitle": "WordPress (custom design)",
+        "basePriceMin": 3900,
+        "basePriceMax": 3900,
         "basePagesIncluded": 10,
         "baseProductsIncluded": null,
         "includes": [
-          "Indywidualny projekt graficzny UI (wliczony w cenę)",
+          "Indywidualny projekt UX/UI",
           "Do 10 podstron",
-          "Zaawansowane sekcje i animacje",
+          "Custom sekcje",
+          "Microinteractions",
           "SEO techniczne",
-          "Wydajność i Core Web Vitals"
+          "30 dni wsparcia"
         ]
       },
       {
-        "id": "woocommerce-start",
-        "title": "Sklep WooCommerce Start",
-        "subtitle": "Gotowy sklep do 20 produktów",
-        "basePriceMin": 3500,
-        "basePriceMax": 3500,
+        "id": "sklep-online",
+        "title": "Sklep Online",
+        "subtitle": "WooCommerce",
+        "basePriceMin": 4900,
+        "basePriceMax": 4900,
         "basePagesIncluded": 0,
-        "baseProductsIncluded": 20,
+        "baseProductsIncluded": 30,
         "includes": [
-          "Do 20 produktów",
-          "Przelewy24 / PayU",
-          "Integracja kurierów (InPost, DPD)",
-          "Panel zarządzania zamówieniami",
-          "Responsywność"
+          "WooCommerce",
+          "Do 30 produktów",
+          "Płatności online",
+          "Integracja kurierów",
+          "Panel zamówień",
+          "Podstawowe SEO"
         ]
       },
       {
-        "id": "woocommerce-pro",
-        "title": "Sklep WooCommerce PRO",
-        "subtitle": "Rozbudowany sklep z optymalizacją sprzedaży",
-        "basePriceMin": 4500,
-        "basePriceMax": 4500,
-        "basePagesIncluded": 0,
-        "baseProductsIncluded": 50,
-        "includes": [
-          "Nielimitowane produkty",
-          "Zaawansowane filtry i warianty",
-          "Odzyskiwanie porzuconych koszyków",
-          "Integracja z hurtownią / XML",
-          "Projekt UI sklepu"
-        ]
-      },
-      {
-        "id": "nextjs",
-        "title": "Projekt dedykowany",
-        "subtitle": "Strona pisana na zamówienie, bez szablonów",
-        "basePriceMin": 4500,
-        "basePriceMax": 4500,
+        "id": "projekt-dedykowany",
+        "title": "Projekt Dedykowany",
+        "subtitle": "Next.js / React",
+        "basePriceMin": 6500,
+        "basePriceMax": 6500,
         "basePagesIncluded": 0,
         "baseProductsIncluded": null,
         "techNote": "Realizowane w Next.js / React",
         "includes": [
-          "Indywidualny projekt UX/UI",
-          "Kod pisany od podstaw",
-          "Wysoka wydajność i bezpieczeństwo",
-          "Opcjonalny panel do zarządzania treścią",
-          "Nieograniczone możliwości funkcjonalne"
+          "Architektura techniczna",
+          "Custom frontend",
+          "Integracje API",
+          "Performance-first development",
+          "Dokumentacja techniczna",
+          "Możliwość headless CMS"
         ]
       }
     ],
-    "dodatki": [
-      { "id": "custom-ui-upgrade", "label": "Projekt graficzny UI (upgrade)", "description": "Własny projekt graficzny zamiast gotowego motywu", "minCost": 900, "maxCost": 1600 },
-      { "id": "seo-advanced", "label": "SEO zaawansowane", "description": "Schema.org, sitemap XML, Google Search Console, meta opisy", "minCost": 550, "maxCost": 900 },
-      { "id": "blog", "label": "Moduł bloga / aktualności", "description": "System publikacji wpisów, kategorie, tagi", "minCost": 350, "maxCost": 600 },
-      { "id": "booking", "label": "System rezerwacji online", "description": "Kalendarz, sloty, potwierdzenia e-mail", "minCost": 1200, "maxCost": 2000 },
-      { "id": "automation", "label": "Automatyzacja i CRM", "description": "Formularze → CRM, maile automatyczne, webhooks", "minCost": 1100, "maxCost": 1900 },
-      { "id": "performance", "label": "Optymalizacja wydajności", "description": "Core Web Vitals, lazy loading, caching, CDN setup", "minCost": 350, "maxCost": 650 },
-      { "id": "product-filters", "label": "Zaawansowane filtry produktów", "description": "Filtrowanie po cechach, cenie, dostępności (AJAX)", "minCost": 700, "maxCost": 1300 },
-      { "id": "product-variants", "label": "Warianty produktów", "description": "Rozmiary, kolory, konfiguratory — zaawansowane kombinacje", "minCost": 600, "maxCost": 1100 },
-      { "id": "abandoned-cart", "label": "Odzyskiwanie porzuconych koszyków", "description": "Automatyczne maile do klientów którzy nie dokończyli zakupu", "minCost": 500, "maxCost": 900 },
-      { "id": "loyalty-program", "label": "Program lojalnościowy", "description": "Punkty, rangi klientów, kupony", "minCost": 1100, "maxCost": 1900 },
-      { "id": "wholesaler-feed", "label": "Integracja z hurtownią (XML/API)", "description": "Automatyczny import produktów z zewnętrznego źródła", "minCost": 1400, "maxCost": 2500 },
-      { "id": "headless-cms", "label": "CMS headless (Sanity / Contentful)", "description": "Edytor treści zewnętrzny, oddzielony od kodu", "minCost": 1400, "maxCost": 2400 },
-      { "id": "online-payments", "label": "Płatności online", "description": "Przelewy24, PayU lub Stripe — konfiguracja i testy", "minCost": 600, "maxCost": 1100 }
-    ],
     "dodatkiPerPakiet": {
-      "wordpress-standard": ["custom-ui-upgrade", "seo-advanced", "blog", "booking", "performance"],
-      "wordpress-pro": ["seo-advanced", "blog", "booking", "automation", "performance"],
-      "woocommerce-start": ["seo-advanced", "blog", "product-filters", "product-variants", "abandoned-cart", "performance"],
-      "woocommerce-pro": ["seo-advanced", "blog", "product-filters", "product-variants", "abandoned-cart", "loyalty-program", "wholesaler-feed", "automation", "performance"],
-      "nextjs": ["seo-advanced", "blog", "booking", "automation", "performance", "headless-cms", "online-payments"]
+      "start-online": ["seo-advanced", "copywriting", "blog", "language-version", "performance-upgrade"],
+      "strona-pro": ["seo-advanced", "copywriting", "blog", "language-version", "crm", "mail-automation", "integrations-api", "performance-upgrade"],
+      "sklep-online": ["seo-advanced", "copywriting", "blog", "language-version", "product-filters", "product-variants", "abandoned-cart", "loyalty-program", "wholesaler-feed", "crm", "mail-automation", "integrations-api", "erp", "performance-upgrade"],
+      "projekt-dedykowany": ["seo-advanced", "copywriting", "blog", "language-version", "crm", "mail-automation", "integrations-api", "headless-cms", "performance-upgrade", "cicd-deployment", "multi-language-advanced"]
     },
     "zakres": {
       "presetyStron": [1, 3, 5, 10, 15, 20],
-      "presetyProduktow": [10, 20, 50, 100, 200, 500],
+      "presetyProduktow": [10, 20, 30, 50, 100, 200],
       "kosztDodatkowejStrony": [
         { "zakres": "1-5", "minZaSzt": 220, "maxZaSzt": 300 },
         { "zakres": "6-15", "minZaSzt": 170, "maxZaSzt": 240 },
@@ -232,7 +211,7 @@
       { "id": "other", "label": "Inna integracja", "minCost": 450, "maxCost": 950, "woocommerceOnly": false }
     ],
     "pilnosc": [
-      { "id": "standard", "label": "Standard", "multiplierMin": 1.0, "multiplierMax": 1.0 },
+      { "id": "standard", "label": "Standard", "multiplierMin": 1, "multiplierMax": 1 },
       { "id": "express", "label": "Ekspres", "multiplierMin": 1.2, "multiplierMax": 1.3 }
     ],
     "priorytet": [
@@ -241,9 +220,6 @@
       { "value": "quality", "label": "Najwyższa jakość", "description": "Zależy mi na efekcie, budżet elastyczny" },
       { "value": "feature", "label": "Konkretna funkcjonalność", "description": "Mam specyficzne wymagania techniczne" }
     ],
-    "ograniczenia": {
-      "minCena": 2500,
-      "maxCena": 28000
-    }
+    "ograniczenia": { "minCena": 2500, "maxCena": 28000 }
   }
 }

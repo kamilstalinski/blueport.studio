@@ -1,12 +1,28 @@
-export type ProjectType = "wordpress" | "woocommerce" | "nextjs" | null;
+export type ProjectType =
+  | "start-online"
+  | "strona-pro"
+  | "sklep-online"
+  | "projekt-dedykowany"
+  | null;
 
 export type ProjectFeature =
-  | "seo"
+  | "seo-advanced"
   | "copywriting"
-  | "animations"
-  | "cms"
-  | "integrations"
-  | "hosting";
+  | "blog"
+  | "language-version"
+  | "product-filters"
+  | "product-variants"
+  | "abandoned-cart"
+  | "loyalty-program"
+  | "wholesaler-feed"
+  | "crm"
+  | "mail-automation"
+  | "integrations-api"
+  | "erp"
+  | "headless-cms"
+  | "performance-upgrade"
+  | "cicd-deployment"
+  | "multi-language-advanced";
 
 export type Timeline = "express" | "standard" | "relaxed" | null;
 

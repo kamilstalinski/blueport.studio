@@ -20,11 +20,11 @@ function getTypeLabel(id: PackageId): string {
 }
 
 function getFeatureLabel(id: ProjectFeature): string {
-  return FEATURES[id as FeatureId].label;
+  return FEATURES[id as FeatureId]?.label ?? id;
 }
 
 function getFeaturePrice(id: ProjectFeature): number {
-  return FEATURES[id as FeatureId].price;
+  return FEATURES[id as FeatureId]?.price ?? 0;
 }
 
 function getTimelineLabel(id: TimelineId): string {

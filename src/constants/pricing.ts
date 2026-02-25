@@ -5,78 +5,220 @@
  */
 
 export const PACKAGES = {
-  wordpress: {
-    id: "wordpress",
-    name: "Strona Firmowa",
-    tech: "WordPress",
+  "start-online": {
+    id: "start-online",
+    name: "Start Online",
+    tech: "WordPress (szablon premium)",
     description:
-      "Do 5 podstron, SEO on-page, formularz kontaktowy, panel CMS.",
+      "Szybka strona firmowa na profesjonalnym motywie. Idealna na start.",
     basePrice: 2500,
     deliveryDays: 14,
-    tag: "Najpopularniejszy",
+    tag: null,
+    coZawiera: [
+      "Gotowy motyw premium",
+      "Personalizacja kolorów i typografii",
+      "Do 5 podstron",
+      "Formularz kontaktowy",
+      "Responsywność (mobile-first)",
+      "Instalacja GA4",
+      "14 dni wsparcia po wdrożeniu",
+    ],
   },
-  woocommerce: {
-    id: "woocommerce",
-    name: "Sklep Internetowy",
+  "strona-pro": {
+    id: "strona-pro",
+    name: "Strona PRO",
+    tech: "WordPress (custom design)",
+    description:
+      "Indywidualny projekt UX/UI dla firm budujących markę i przewagę.",
+    basePrice: 3900,
+    deliveryDays: 21,
+    tag: "Najczęściej wybierane",
+    coZawiera: [
+      "Indywidualny projekt UX/UI",
+      "Do 10 podstron",
+      "Custom sekcje",
+      "Microinteractions",
+      "SEO techniczne",
+      "Optymalizacja wydajności",
+      "30 dni wsparcia",
+    ],
+  },
+  "sklep-online": {
+    id: "sklep-online",
+    name: "Sklep Online",
     tech: "WooCommerce",
     description:
-      "Płatności online, integracja kurierów, panel zamówień, do 50 produktów.",
-    basePrice: 4500,
+      "Kompletny sklep internetowy gotowy do sprzedaży.",
+    basePrice: 4900,
     deliveryDays: 21,
     tag: null,
+    coZawiera: [
+      "WooCommerce",
+      "Do 30 produktów",
+      "Płatności online",
+      "Integracja kurierów",
+      "Panel zamówień",
+      "Responsywność",
+      "Podstawowe SEO",
+    ],
   },
-  nextjs: {
-    id: "nextjs",
+  "projekt-dedykowany": {
+    id: "projekt-dedykowany",
     name: "Projekt Dedykowany",
-    tech: "Next.js",
+    tech: "Next.js / React",
     description:
-      "Własna logika biznesowa, API, bez szablonów. Wycena indywidualna.",
+      "Projekt pisany od podstaw dla zaawansowanych potrzeb i skalowania.",
     basePrice: 6500,
     deliveryDays: 30,
     tag: null,
+    coZawiera: [
+      "Architektura techniczna",
+      "Custom frontend",
+      "Integracje API",
+      "Performance-first development",
+      "Dokumentacja techniczna",
+      "Możliwość headless CMS",
+    ],
   },
 } as const;
 
+/** Add-on groups: 1=Widoczność, 2=Sprzedaż (sklep), 3=Automatyzacja, 4=Skalowanie (Next.js). */
 export const FEATURES = {
-  seo: {
-    id: "seo",
-    label: "SEO on-page",
-    description:
-      "Optymalizacja meta, nagłówków, sitemap, robots.txt",
-    price: 500,
+  "seo-advanced": {
+    id: "seo-advanced",
+    label: "SEO zaawansowane",
+    description: "Schema.org, sitemap XML, Google Search Console, meta opisy",
+    price: 700,
+    group: "widocznosc" as const,
+    availableForPackages: ["start-online", "strona-pro", "sklep-online", "projekt-dedykowany"] as const,
   },
   copywriting: {
     id: "copywriting",
-    label: "Copywriting",
+    label: "Copywriting sprzedażowy",
     description: "Teksty sprzedażowe do 5 podstron",
     price: 800,
+    group: "widocznosc" as const,
+    availableForPackages: ["start-online", "strona-pro", "sklep-online", "projekt-dedykowany"] as const,
   },
-  animations: {
-    id: "animations",
-    label: "Animacje premium",
-    description:
-      "Framer Motion — scroll reveal, hover, page transitions",
-    price: 600,
+  blog: {
+    id: "blog",
+    label: "Blog / aktualności",
+    description: "System publikacji wpisów, kategorie, tagi",
+    price: 500,
+    group: "widocznosc" as const,
+    availableForPackages: ["start-online", "strona-pro", "sklep-online", "projekt-dedykowany"] as const,
   },
-  cms: {
-    id: "cms",
-    label: "Rozszerzony CMS",
-    description: "Panel do edycji treści bez programisty",
-    price: 400,
+  "language-version": {
+    id: "language-version",
+    label: "Wersja językowa",
+    description: "Dodatkowy język (np. PL + EN)",
+    price: 900,
+    group: "widocznosc" as const,
+    availableForPackages: ["start-online", "strona-pro", "sklep-online", "projekt-dedykowany"] as const,
   },
-  integrations: {
-    id: "integrations",
-    label: "Integracje zewnętrzne",
-    description:
-      "Google Analytics, Hotjar, CRM, systemy mailingowe",
+  "product-filters": {
+    id: "product-filters",
+    label: "Zaawansowane filtry",
+    description: "Filtrowanie po cechach, cenie, dostępności (AJAX)",
+    price: 1000,
+    group: "sprzedaz" as const,
+    availableForPackages: ["sklep-online"] as const,
+  },
+  "product-variants": {
+    id: "product-variants",
+    label: "Warianty produktów",
+    description: "Rozmiary, kolory, konfiguratory",
+    price: 850,
+    group: "sprzedaz" as const,
+    availableForPackages: ["sklep-online"] as const,
+  },
+  "abandoned-cart": {
+    id: "abandoned-cart",
+    label: "Porzucone koszyki",
+    description: "Automatyczne maile do klientów, którzy nie dokończyli zakupu",
     price: 700,
+    group: "sprzedaz" as const,
+    availableForPackages: ["sklep-online"] as const,
   },
-  hosting: {
-    id: "hosting",
-    label: "Hosting i domena",
-    description:
-      "Konfiguracja VPS, SSL, backup, pierwszy rok w cenie",
-    price: 300,
+  "loyalty-program": {
+    id: "loyalty-program",
+    label: "Program lojalnościowy",
+    description: "Punkty, rangi klientów, kupony",
+    price: 1500,
+    group: "sprzedaz" as const,
+    availableForPackages: ["sklep-online"] as const,
+  },
+  "wholesaler-feed": {
+    id: "wholesaler-feed",
+    label: "Integracja hurtowni",
+    description: "Automatyczny import produktów (XML/API)",
+    price: 1900,
+    group: "sprzedaz" as const,
+    availableForPackages: ["sklep-online"] as const,
+  },
+  crm: {
+    id: "crm",
+    label: "CRM",
+    description: "HubSpot, Pipedrive — formularze i leady",
+    price: 650,
+    group: "automatyzacja" as const,
+    availableForPackages: ["strona-pro", "sklep-online", "projekt-dedykowany"] as const,
+  },
+  "mail-automation": {
+    id: "mail-automation",
+    label: "Automatyzacja mailowa",
+    description: "Mailchimp, Brevo — kampanie i automaty",
+    price: 550,
+    group: "automatyzacja" as const,
+    availableForPackages: ["strona-pro", "sklep-online", "projekt-dedykowany"] as const,
+  },
+  "integrations-api": {
+    id: "integrations-api",
+    label: "Integracje API",
+    description: "Zewnętrzne systemy, webhooks",
+    price: 700,
+    group: "automatyzacja" as const,
+    availableForPackages: ["strona-pro", "sklep-online", "projekt-dedykowany"] as const,
+  },
+  erp: {
+    id: "erp",
+    label: "ERP",
+    description: "Subiekt / system magazynowy",
+    price: 1850,
+    group: "automatyzacja" as const,
+    availableForPackages: ["sklep-online"] as const,
+  },
+  "headless-cms": {
+    id: "headless-cms",
+    label: "Headless CMS",
+    description: "Sanity / Contentful — edytor oddzielony od kodu",
+    price: 1900,
+    group: "skalowanie" as const,
+    availableForPackages: ["projekt-dedykowany"] as const,
+  },
+  "performance-upgrade": {
+    id: "performance-upgrade",
+    label: "Performance upgrade",
+    description: "Core Web Vitals, CDN, caching",
+    price: 500,
+    group: "skalowanie" as const,
+    availableForPackages: ["start-online", "strona-pro", "sklep-online", "projekt-dedykowany"] as const,
+  },
+  "cicd-deployment": {
+    id: "cicd-deployment",
+    label: "CI/CD deployment",
+    description: "Automatyczne wdrożenia i testy",
+    price: 1200,
+    group: "skalowanie" as const,
+    availableForPackages: ["projekt-dedykowany"] as const,
+  },
+  "multi-language-advanced": {
+    id: "multi-language-advanced",
+    label: "Multi-language advanced",
+    description: "Wielojęzyczność zaawansowana (3+ języki)",
+    price: 1400,
+    group: "skalowanie" as const,
+    availableForPackages: ["projekt-dedykowany"] as const,
   },
 } as const;
 
@@ -102,6 +244,9 @@ export type PackageId = keyof typeof PACKAGES;
 export type FeatureId = keyof typeof FEATURES;
 export type TimelineId = keyof typeof TIMELINE_MULTIPLIERS;
 
+const MIN_PRICE = 2500;
+const MAX_PRICE = 28000;
+
 export interface CalculatePriceResult {
   base: number;
   featuresTotal: number;
@@ -111,6 +256,7 @@ export interface CalculatePriceResult {
 
 /**
  * Compute final price from package, selected features, and timeline.
+ * Clamped to MIN_PRICE–MAX_PRICE.
  */
 export function calculatePrice(
   packageId: PackageId,
@@ -118,13 +264,16 @@ export function calculatePrice(
   timeline: TimelineId
 ): CalculatePriceResult {
   const base = PACKAGES[packageId].basePrice;
-  const featuresTotal = features.reduce(
+  const allowed = getFeaturesForPackage(packageId);
+  const validFeatures = features.filter((f) => allowed.includes(f));
+  const featuresTotal = validFeatures.reduce(
     (sum, f) => sum + FEATURES[f].price,
     0
   );
   const multiplier = TIMELINE_MULTIPLIERS[timeline].multiplier;
   const raw = (base + featuresTotal) * multiplier;
-  const total = Math.round(raw / 100) * 100;
+  const totalRounded = Math.round(raw / 100) * 100;
+  const total = Math.max(MIN_PRICE, Math.min(MAX_PRICE, totalRounded));
 
   const label =
     timeline === "express"
@@ -132,4 +281,11 @@ export function calculatePrice(
       : `${total.toLocaleString("pl-PL")} – ${Math.round((total * 1.15) / 100) * 100} zł`;
 
   return { base, featuresTotal, total, label };
+}
+
+/** Features available for a given package (for calculator step). */
+export function getFeaturesForPackage(packageId: PackageId): FeatureId[] {
+  return (Object.keys(FEATURES) as FeatureId[]).filter((id) =>
+    (FEATURES[id].availableForPackages as readonly PackageId[]).includes(packageId)
+  );
 }

@@ -1,22 +1,28 @@
 "use client";
 
+import { useMemo } from "react";
 import { motion } from "framer-motion";
 import type { useCalculator } from "@/hooks/useCalculator";
 import type { ProjectFeature } from "@/types/calculator.types";
-import { FEATURES } from "@/constants/pricing";
-import type { FeatureId } from "@/constants/pricing";
-
-const FEATURE_OPTIONS = (Object.keys(FEATURES) as FeatureId[]).map((id) => ({
-  id: id as ProjectFeature,
-  label: FEATURES[id].label,
-  desc: FEATURES[id].description,
-  price: `+${FEATURES[id].price.toLocaleString("pl-PL")} zł`,
-}));
+import { FEATURES, getFeaturesForPackage } from "@/constants/pricing";
+import type { FeatureId, PackageId } from "@/constants/pricing";
 
 type CalculatorProps = ReturnType<typeof useCalculator>;
 
 export function Step2Features({ calculator }: { calculator: CalculatorProps }) {
   const { state, toggleFeature } = calculator;
+
+  const featureOptions = useMemo(() => {
+    const packageId = state.projectType as PackageId | null;
+    if (!packageId) return [];
+    const ids = getFeaturesForPackage(packageId);
+    return ids.map((id) => ({
+      id: id as ProjectFeature,
+      label: FEATURES[id].label,
+      desc: FEATURES[id].description,
+      price: `+${FEATURES[id].price.toLocaleString("pl-PL")} zł`,
+    }));
+  }, [state.projectType]);
 
   return (
     <div className="step">
@@ -24,8 +30,8 @@ export function Step2Features({ calculator }: { calculator: CalculatorProps }) {
       <p className="step-desc">Opcjonalnie. Możesz pominąć.</p>
 
       <div className="step-features">
-        {FEATURE_OPTIONS.map((f) => {
-          const isSelected = state.features.includes(f.id);
+        {featureOptions.map((f) => {
+          const isSelected = state.features.includes(f.id as ProjectFeature);
           return (
             <motion.button
               key={f.id}
