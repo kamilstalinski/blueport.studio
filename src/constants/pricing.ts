@@ -49,7 +49,7 @@ export const PACKAGES = {
   "sklep-online": {
     id: "sklep-online",
     name: "Sklep Online",
-    tech: "Sklep internetowy",
+    tech: "WooCommerce",
     description:
       "Kompletny sklep internetowy gotowy do sprzedaży. Prosty w obsłudze i przygotowany do przyjmowania zamówień online.",
     basePrice: 4900,
@@ -70,8 +70,7 @@ export const PACKAGES = {
     id: "projekt-dedykowany",
     name: "Projekt Dedykowany",
     tech: "Next.js / React",
-    description:
-      "Projekt pisany od podstaw dla zaawansowanych potrzeb i skalowania.",
+    description: "Projekt pisany od podstaw dla zaawansowanych potrzeb i skalowania.",
     basePrice: 6500,
     deliveryDays: 30,
     deliveryLabel: "od 30 dni (w zależności od zakresu)",
@@ -92,18 +91,30 @@ export const FEATURES = {
   "seo-advanced": {
     id: "seo-advanced",
     label: "Lepsza widoczność w Google",
-    description: "Rozszerzona optymalizacja pomagająca Twojej stronie pojawiać się wyżej w wynikach wyszukiwania.",
+    description:
+      "Rozszerzona optymalizacja pomagająca Twojej stronie pojawiać się wyżej w wynikach wyszukiwania.",
     price: 700,
     group: "widocznosc" as const,
-    availableForPackages: ["strona-start", "strona-pro", "sklep-online", "projekt-dedykowany"] as const,
+    availableForPackages: [
+      "strona-start",
+      "strona-pro",
+      "sklep-online",
+      "projekt-dedykowany",
+    ] as const,
   },
   copywriting: {
     id: "copywriting",
     label: "Profesjonalne teksty",
-    description: "Teksty dopasowane do Twojej branży i klientów, które budują zaufanie i zachęcają do kontaktu.",
+    description:
+      "Teksty dopasowane do Twojej branży i klientów, które budują zaufanie i zachęcają do kontaktu.",
     price: 800,
     group: "widocznosc" as const,
-    availableForPackages: ["strona-start", "strona-pro", "sklep-online", "projekt-dedykowany"] as const,
+    availableForPackages: [
+      "strona-start",
+      "strona-pro",
+      "sklep-online",
+      "projekt-dedykowany",
+    ] as const,
   },
   blog: {
     id: "blog",
@@ -111,7 +122,12 @@ export const FEATURES = {
     description: "Możliwość publikowania artykułów, wpisów i aktualności firmowych.",
     price: 500,
     group: "widocznosc" as const,
-    availableForPackages: ["strona-start", "strona-pro", "sklep-online", "projekt-dedykowany"] as const,
+    availableForPackages: [
+      "strona-start",
+      "strona-pro",
+      "sklep-online",
+      "projekt-dedykowany",
+    ] as const,
   },
   "language-version": {
     id: "language-version",
@@ -119,7 +135,12 @@ export const FEATURES = {
     description: "Strona dostępna w kolejnym języku, np. polskim i angielskim.",
     price: 900,
     group: "widocznosc" as const,
-    availableForPackages: ["strona-start", "strona-pro", "sklep-online", "projekt-dedykowany"] as const,
+    availableForPackages: [
+      "strona-start",
+      "strona-pro",
+      "sklep-online",
+      "projekt-dedykowany",
+    ] as const,
   },
   "product-filters": {
     id: "product-filters",
@@ -207,7 +228,12 @@ export const FEATURES = {
     description: "Poprawa szybkości i stabilności działania strony.",
     price: 500,
     group: "skalowanie" as const,
-    availableForPackages: ["strona-start", "strona-pro", "sklep-online", "projekt-dedykowany"] as const,
+    availableForPackages: [
+      "strona-start",
+      "strona-pro",
+      "sklep-online",
+      "projekt-dedykowany",
+    ] as const,
   },
   "cicd-deployment": {
     id: "cicd-deployment",
@@ -271,10 +297,7 @@ export function calculatePrice(
   const base = PACKAGES[packageId].basePrice;
   const allowed = getFeaturesForPackage(packageId);
   const validFeatures = features.filter((f) => allowed.includes(f));
-  const featuresTotal = validFeatures.reduce(
-    (sum, f) => sum + FEATURES[f].price,
-    0
-  );
+  const featuresTotal = validFeatures.reduce((sum, f) => sum + FEATURES[f].price, 0);
   const multiplier = TIMELINE_MULTIPLIERS[timeline].multiplier;
   const raw = (base + featuresTotal) * multiplier;
   const totalRounded = Math.round(raw / 100) * 100;
