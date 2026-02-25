@@ -2490,6 +2490,10 @@ body .contact-form-card:hover {
   gap: 10px;
 }
 
+.option-card-wrapper {
+  position: relative;
+}
+
 .option-card {
   text-align: left;
   padding: 16px 20px;
@@ -2500,6 +2504,85 @@ body .contact-form-card:hover {
   cursor: pointer;
   transition: all 0.2s;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.option-card-main {
+  flex: 1;
+}
+
+.option-more-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.6);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 4px 0;
+  margin-top: 2px;
+  transition: color 0.2s;
+  align-self: flex-start;
+}
+
+.option-more-btn:hover {
+  color: var(--color-primary);
+}
+
+.option-more-chevron {
+  font-size: 0.5rem;
+  transition: transform 0.2s;
+}
+
+.option-card-wrapper:has(.option-dropdown) .option-more-chevron {
+  transform: rotate(180deg);
+}
+
+.option-dropdown {
+  margin-top: 2px;
+  padding: 14px 16px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.06);
+  overflow: hidden;
+}
+
+.option-dropdown-title {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+  margin-bottom: 10px;
+}
+
+.option-dropdown-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.4;
+}
+
+.option-dropdown-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.option-dropdown-list li::before {
+  content: "✓";
+  color: var(--color-primary);
+  font-weight: 700;
+  flex-shrink: 0;
 }
 
 .option-card:hover {
