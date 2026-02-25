@@ -49,7 +49,7 @@ export function OfertaPakiety({ topGradient = true, cardVariant = "default" }: O
           variants={v.stagger}
           initial="hidden"
           animate={animate}
-          className="grid grid-cols-1 md:grid-cols-2 items-stretch"
+          className="grid grid-cols-1 md:grid-cols-2 md:grid-rows-2 items-stretch"
           style={{ gap: "var(--grid-gap)" }}
         >
           {PACKAGE_ORDER.map((packageId) => {
@@ -60,8 +60,9 @@ export function OfertaPakiety({ topGradient = true, cardVariant = "default" }: O
             const cta = "Sprawdź wycenę";
 
             return (
-              <motion.div key={packageId} variants={v.scaleIn} className={isMiddle ? "overflow-visible" : undefined}>
+              <motion.div key={packageId} variants={v.scaleIn} className={cn("h-full min-h-0", isMiddle && "overflow-visible")}>
                 <motion.div
+                  className="h-full"
                   whileHover={isMiddle ? undefined : { y: -3, transition: springs.smooth }}
                   whileTap={isMiddle ? undefined : { scale: 0.992, transition: springs.stiff }}
                 >
