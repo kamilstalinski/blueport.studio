@@ -5,55 +5,55 @@
         "id": "strona-start",
         "name": "Strona START",
         "tech": "WordPress",
-        "description": "Szybka realizacja na gotowym motywie premium. Customizacja kolorów i typografii — idealna na start.",
+        "description": "Szybka i profesjonalna strona firmowa na sprawdzonym rozwiązaniu. Idealna na start działalności lub odświeżenie obecnej strony.",
         "basePrice": 2500,
         "deliveryDays": 14,
         "tag": null,
         "coZawiera": [
-          "Gotowy motyw premium",
-          "Customizacja kolorów i typografii",
-          "Do 5 podstron",
+          "Gotowy, profesjonalny wygląd dopasowany do Twojej branży",
+          "Personalizacja kolorów i treści pod Twoją markę",
+          "Do 5 podstron (np. Oferta, O nas, Kontakt)",
           "Formularz kontaktowy",
-          "Responsywność (mobile-first)",
-          "Instalacja GA4",
-          "14 dni wsparcia po wdrożeniu"
+          "Strona dostosowana do telefonów i tabletów",
+          "Instalacja podstawowej analityki (statystyki odwiedzin)",
+          "14 dni wsparcia po uruchomieniu"
         ]
       },
       {
         "id": "strona-pro",
         "name": "Strona PRO",
         "tech": "WordPress",
-        "description": "Indywidualny projekt wizualny dopasowany do Twojej marki + przemyślana struktura treści zwiększająca czytelność i konwersję.",
+        "description": "Indywidualnie zaprojektowana strona dopasowana do Twojej marki i klientów. Większa elastyczność, lepsza struktura treści i bardziej dopracowany wygląd.",
         "basePrice": 3900,
         "deliveryDays": 21,
         "tag": "Najczęściej wybierane",
         "coZawiera": [
           "Indywidualny projekt wizualny (bez gotowego szablonu)",
           "Do 10 podstron",
-          "Strategiczna struktura sekcji (CTA, social proof, hierarchy)",
-          "Customowe sekcje dopasowane do branży",
-          "Microinteractions i subtelne animacje",
-          "SEO techniczne (meta, nagłówki, struktura)",
-          "Optymalizacja wydajności",
+          "Przemyślana struktura sekcji zwiększająca czytelność",
+          "Sekcje dopasowane do Twojej branży",
+          "Subtelne animacje i nowoczesne detale",
+          "Optymalizacja pod kątem widoczności w Google",
+          "Szybsze i bardziej płynne działanie strony",
           "30 dni wsparcia po wdrożeniu"
         ]
       },
       {
         "id": "sklep-online",
         "name": "Sklep Online",
-        "tech": "WooCommerce",
-        "description": "Kompletny sklep internetowy gotowy do sprzedaży.",
+        "tech": "Sklep internetowy",
+        "description": "Kompletny sklep internetowy gotowy do sprzedaży. Prosty w obsłudze i przygotowany do przyjmowania zamówień online.",
         "basePrice": 4900,
         "deliveryDays": 21,
         "tag": null,
         "coZawiera": [
-          "WooCommerce",
-          "Do 30 produktów",
-          "Płatności online",
-          "Integracja kurierów",
-          "Panel zamówień",
-          "Responsywność",
-          "Podstawowe SEO"
+          "Sklep internetowy z możliwością zarządzania produktami",
+          "Do 30 produktów na start",
+          "Płatności online (karta, szybkie przelewy)",
+          "Integracja z firmami kurierskimi",
+          "Panel do obsługi zamówień",
+          "Strona dostosowana do urządzeń mobilnych",
+          "Podstawowa optymalizacja pod wyszukiwarki"
         ]
       },
       {
@@ -113,13 +113,13 @@
         "basePagesIncluded": 5,
         "baseProductsIncluded": null,
         "includes": [
-          "Gotowy motyw premium",
-          "Customizacja motywu",
-          "Do 5 podstron",
+          "Gotowy, profesjonalny wygląd dopasowany do branży",
+          "Personalizacja kolorów i treści",
+          "Do 5 podstron (np. Oferta, O nas, Kontakt)",
           "Formularz kontaktowy",
-          "Responsywność (mobile-first)",
-          "Instalacja GA4",
-          "14 dni wsparcia"
+          "Strona na telefony i tablety",
+          "Podstawowa analityka (statystyki odwiedzin)",
+          "14 dni wsparcia po uruchomieniu"
         ]
       },
       {
@@ -133,27 +133,28 @@
         "includes": [
           "Indywidualny projekt wizualny",
           "Do 10 podstron",
-          "Custom sekcje dopasowane do branży",
+          "Sekcje dopasowane do branży",
           "Rozbudowana struktura treści",
-          "SEO techniczne",
-          "Wydajność i Core Web Vitals"
+          "Optymalizacja pod widoczność w Google",
+          "Szybsze i płynniejsze działanie strony"
         ]
       },
       {
         "id": "sklep-online",
         "title": "Sklep Online",
-        "subtitle": "WooCommerce",
+        "subtitle": "Sklep internetowy",
         "basePriceMin": 4900,
         "basePriceMax": 4900,
         "basePagesIncluded": 0,
         "baseProductsIncluded": 30,
         "includes": [
-          "WooCommerce",
-          "Do 30 produktów",
-          "Płatności online",
-          "Integracja kurierów",
-          "Panel zamówień",
-          "Podstawowe SEO"
+          "Sklep z zarządzaniem produktami",
+          "Do 30 produktów na start",
+          "Płatności online (karta, szybkie przelewy)",
+          "Integracja z firmami kurierskimi",
+          "Panel do obsługi zamówień",
+          "Strona na urządzenia mobilne",
+          "Podstawowa optymalizacja pod wyszukiwarki"
         ]
       },
       {

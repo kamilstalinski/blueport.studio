@@ -89,7 +89,7 @@ export function OfertaPakiety({ topGradient = true, cardVariant = "default" }: O
                     <h3 className="heading-3 mt-6 text-white">{title}</h3>
                     <p className="mt-3 body-standard text-white/60 leading-relaxed">
                       {packageId === "strona-pro"
-                        ? "Custom design dopasowany do marki + przemyślana struktura strony"
+                        ? "Indywidualnie zaprojektowana strona dopasowana do Twojej marki i klientów."
                         : pkg.description}
                     </p>
                     <div className="mt-6 flex-1">
