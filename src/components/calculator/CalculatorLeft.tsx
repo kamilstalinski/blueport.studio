@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import type { useCalculator } from "@/hooks/useCalculator";
 import { CalculatorProgress } from "./CalculatorProgress";
@@ -39,6 +40,11 @@ export function CalculatorLeft({ calculator }: { calculator: CalculatorProps }) 
   const shouldReduceMotion = useReducedMotion();
   const StepComponent = STEPS[state.step];
   const isLastStep = state.step === totalSteps - 1;
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    scrollContainerRef.current?.scrollTo({ top: 0, behavior: "smooth" });
+  }, [state.step]);
 
   const slideVariants = {
     enter: (dir: number) => ({
@@ -64,7 +70,7 @@ export function CalculatorLeft({ calculator }: { calculator: CalculatorProps }) 
   };
 
   return (
-    <div className="calc-left">
+    <div ref={scrollContainerRef} className="calc-left">
       <CalculatorProgress
         current={state.step}
         total={totalSteps}
