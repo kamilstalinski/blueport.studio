@@ -41,9 +41,16 @@ export function CalculatorLeft({ calculator }: { calculator: CalculatorProps }) 
   const StepComponent = STEPS[state.step];
   const isLastStep = state.step === totalSteps - 1;
   const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const topRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    scrollContainerRef.current?.scrollTo({ top: 0, behavior: "smooth" });
+    const scrollToTop = () => {
+      topRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+      scrollContainerRef.current?.scrollTo({ top: 0, behavior: "smooth" });
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    };
+    const id = window.setTimeout(scrollToTop, 150);
+    return () => window.clearTimeout(id);
   }, [state.step]);
 
   const slideVariants = {
@@ -70,7 +77,8 @@ export function CalculatorLeft({ calculator }: { calculator: CalculatorProps }) 
   };
 
   return (
-    <div ref={scrollContainerRef} className="calc-left">
+    <div ref={scrollContainerRef} className="calc-left" style={{ position: "relative" }}>
+      <div ref={topRef} aria-hidden className="absolute top-0 left-0 w-px h-px pointer-events-none" />
       <CalculatorProgress
         current={state.step}
         total={totalSteps}
