@@ -40,8 +40,6 @@ export function GlobalGradientBackground() {
 
   useEffect(() => {
     readColors();
-    window.addEventListener("blueport-accent-change", readColors);
-    return () => window.removeEventListener("blueport-accent-change", readColors);
   }, []);
 
   return (

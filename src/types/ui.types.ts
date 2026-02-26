@@ -48,8 +48,6 @@ export interface GlassCardProps {
 
 export type InputProps = React.InputHTMLAttributes<HTMLInputElement>;
 
-export type ThemeToggleVariant = "default" | "dark";
-
 export interface GrainientProps {
   timeSpeed?: number;
   colorBalance?: number;

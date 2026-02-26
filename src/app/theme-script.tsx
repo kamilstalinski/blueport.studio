@@ -1,19 +1,12 @@
 /**
- * Inline script: runs before first paint to prevent flash of wrong theme.
- * Must be in <head> or immediately after <html>. No React, no hydration delay.
+ * Inline script: sets fixed theme before first paint (dark + blue accent).
+ * No localStorage, no user choice.
  */
 export function ThemeInitScript() {
   const script = `
 (function() {
-  var k = 'blueport-theme';
-  var stored = localStorage.getItem(k);
-  var theme = (stored === 'light' || stored === 'dark') ? stored : 'dark';
-  if (theme === 'dark') document.documentElement.classList.add('dark');
-  else document.documentElement.classList.remove('dark');
-  var ak = 'blueport-accent';
-  var valid = ['blue','violet','amber','cyan'];
-  var accent = localStorage.getItem(ak);
-  document.documentElement.setAttribute('data-accent', valid.indexOf(accent) !== -1 ? accent : 'blue');
+  document.documentElement.classList.add('dark');
+  document.documentElement.setAttribute('data-accent', 'blue');
 })();
 `;
   return <script dangerouslySetInnerHTML={{ __html: script }} />;

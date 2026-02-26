@@ -6,12 +6,11 @@ import { motion } from "framer-motion";
 
 import { Container } from "@/components/ui/Container";
 
-import { useAccentTheme } from "@/hooks/useAccentTheme";
 import { useMotionSafe } from "@/hooks/useMotionSafe";
 
 import { useGlassBlurStyle } from "@/lib/useGlassBlurStyle";
 
-import type { AccentTheme, HeroContentKey } from "@/types";
+import type { HeroContentKey } from "@/types";
 
 const ColorBends = dynamic(
   () => import("@/components/ColorBends").then((m) => m.default),
@@ -20,12 +19,7 @@ const ColorBends = dynamic(
 
 /** Kolory z globals.css (--color-primary, --color-accent-2); używane w ColorBends */
 const HERO_BENDS_ACCENT_2 = "#00b8d9" as const;
-const HERO_BENDS_PRIMARY: Record<AccentTheme, string> = {
-  blue: "#3b82f6",
-  violet: "#a855f7",
-  amber: "#f59e0b",
-  cyan: "#06b6d4",
-};
+const HERO_BENDS_PRIMARY = "#3b82f6" as const;
 
 const HERO_NOISE_SVG = `data:image/svg+xml,${encodeURIComponent(
   '<svg xmlns="http://www.w3.org/2000/svg"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23n)"/></svg>'
@@ -55,8 +49,7 @@ export function Hero({ contentKey = "Home.hero" }: { contentKey?: HeroContentKey
   const content = HERO_TEXTS[contentKey];
   const isHome = contentKey === "Home.hero";
   const glassBlurLg = useGlassBlurStyle("lg");
-  const accent = useAccentTheme();
-  const heroBendsColors = [HERO_BENDS_PRIMARY[accent], HERO_BENDS_ACCENT_2];
+  const heroBendsColors = [HERO_BENDS_PRIMARY, HERO_BENDS_ACCENT_2];
 
   const primaryHref = isHome ? "#kalkulator" : content.ctaPrimaryHref;
   const secondaryHref = isHome ? "/kontakt" : content.ctaSecondaryHref;

@@ -1,29 +1,21 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 
-import { useAccentTheme } from "@/hooks/useAccentTheme";
 import { duration, ease } from "@/constants/animations";
 import { cn } from "@/lib/utils";
-import { applyAccent } from "@/lib/accent-theme";
 import { useGlassBlurStyle } from "@/lib/useGlassBlurStyle";
-
-import type { AccentTheme } from "@/types";
 
 export function Navbar() {
   const glassBlurNav = useGlassBlurStyle("nav");
-  const glassBlurDefault = useGlassBlurStyle();
   const pathname = usePathname() ?? "";
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isMobileView, setIsMobileView] = useState(false);
-  const accent = useAccentTheme();
-  const [isPaletteDropdownOpen, setIsPaletteDropdownOpen] = useState(false);
-  const paletteDropdownRef = useRef<HTMLDivElement>(null);
 
   const navLinks = [
     { href: "/", label: "Home" },
@@ -50,76 +42,8 @@ export function Navbar() {
     return () => window.removeEventListener("resize", check);
   }, []);
 
-  useEffect(() => {
-    if (!isPaletteDropdownOpen) return;
-    const handleClickOutside = (e: MouseEvent) => {
-      if (paletteDropdownRef.current && !paletteDropdownRef.current.contains(e.target as Node)) {
-        setIsPaletteDropdownOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [isPaletteDropdownOpen]);
-
   const useScrolledStyle = isScrolled || isMobileView;
 
-  const accentOptions: { value: AccentTheme; color: string; label: string; bg: string }[] = [
-    { value: "blue", color: "#3b82f6", label: "Niebieski", bg: "#00020f" },
-    { value: "violet", color: "#a855f7", label: "Fioletowy", bg: "#07020f" },
-    { value: "amber", color: "#f59e0b", label: "Złoty", bg: "#0d0700" },
-    { value: "cyan", color: "#06b6d4", label: "Cyjan", bg: "#000d10" },
-  ];
-
-  const paletteButton = (
-    <div className="relative shrink-0" ref={paletteDropdownRef}>
-      <button
-        type="button"
-        onClick={() => setIsPaletteDropdownOpen((prev) => !prev)}
-        aria-expanded={isPaletteDropdownOpen}
-        aria-haspopup="true"
-        aria-label="Wybierz kolor motywu"
-        title="Wybierz kolor motywu"
-        className={cn(
-          "inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border bg-transparent text-foreground transition focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:ring-offset-transparent min-[880px]:h-10 min-[880px]:w-10",
-          isPaletteDropdownOpen
-            ? "border-primary/50 bg-primary/5"
-            : "border-white/20 hover:border-primary/40 hover:bg-primary/5"
-        )}
-      >
-        <span className="text-xl leading-none" aria-hidden>
-          🎨
-        </span>
-      </button>
-      {isPaletteDropdownOpen && (
-        <div
-          className="glass-card absolute right-0 top-full z-[100] mt-2 grid w-[9rem] grid-cols-2 gap-3 rounded-2xl p-3"
-          role="menu"
-          aria-label="Paleta kolorów"
-          style={glassBlurDefault}
-        >
-          {accentOptions.map((opt) => (
-            <button
-              key={opt.value}
-              type="button"
-              role="menuitem"
-              onClick={() => {
-                applyAccent(opt.value);
-                setIsPaletteDropdownOpen(false);
-              }}
-              aria-label={opt.label}
-              className={cn(
-                "h-8 w-8 shrink-0 rounded-full border-2 transition hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:ring-offset-transparent",
-                accent === opt.value
-                  ? "border-white/80 ring-2 ring-primary/50"
-                  : "border-white/30 hover:border-white/50"
-              )}
-              style={{ backgroundColor: opt.color }}
-            />
-          ))}
-        </div>
-      )}
-    </div>
-  );
   const glassBase = "nav-glass relative flex w-full items-center justify-between ";
   const glassClass =
     glassBase +
@@ -196,7 +120,6 @@ export function Navbar() {
           </span>
           <span className="max-[1115px]:hidden">{toUpper("Bezpłatna wycena")}</span>
         </Link>
-        {paletteButton}
         <button
           type="button"
           className="group inline-flex w-10 h-10 min-[880px]:hidden items-center justify-center rounded-xl border border-white/20 bg-transparent text-foreground shadow-[0_1px_0_rgba(0,0,0,0.08),inset_0_1px_0_rgba(255,255,255,0.06)] transition hover:border-primary/40 hover:bg-primary/5 hover:shadow-[0_1px_0_rgba(0,0,0,0.08),inset_0_1px_0_rgba(255,255,255,0.08)]"

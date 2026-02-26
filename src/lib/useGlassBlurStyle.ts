@@ -47,8 +47,6 @@ export function useGlassBlurStyle(variant: GlassBlurVariant = "default"): React.
 
   useEffect(() => {
     update();
-    window.addEventListener("blueport-accent-change", update);
-    return () => window.removeEventListener("blueport-accent-change", update);
   }, [variant]);
 
   return style;
