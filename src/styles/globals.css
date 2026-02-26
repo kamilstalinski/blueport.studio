@@ -1813,13 +1813,6 @@ main {
   transform: translateY(-3px);
   box-shadow: 0 8px 32px rgba(255, 255, 255, 0.15);
 }
-@media (max-width: 768px) {
-  #hero .hero-cta-primary,
-  #hero .hero-cta-ghost {
-    width: auto;
-    min-width: 0;
-  }
-}
 
 /* ═══════════════════════════════════════════════════════════════════════════
    Sekcja CTA „Sprawdź koszt w 60 sekund” — timer, tło
