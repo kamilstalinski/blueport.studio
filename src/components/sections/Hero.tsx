@@ -204,7 +204,7 @@ export function Hero({ contentKey = "Home.hero" }: { contentKey?: HeroContentKey
             >
               {content.subtitle}
             </p>
-            <div className="flex flex-nowrap items-center justify-center gap-3 mt-8 w-full">
+            <div className="flex flex-nowrap items-center justify-start gap-3 mt-8 w-full">
               <CtaLink href={primaryHref} className="inline-flex shrink-0">
                 <button
                   type="button"
@@ -378,7 +378,7 @@ export function Hero({ contentKey = "Home.hero" }: { contentKey?: HeroContentKey
             {/* CTAs */}
             <motion.div
               variants={v.fadeUp}
-              className="flex flex-nowrap items-center justify-center gap-3 w-full pointer-events-auto mt-8"
+              className="flex flex-nowrap items-center justify-start gap-3 w-full pointer-events-auto mt-8"
             >
               <CtaLink href={primaryHref} className="inline-flex shrink-0">
                 <button
