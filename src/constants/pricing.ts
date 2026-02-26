@@ -7,7 +7,7 @@
 export const PACKAGES = {
   "strona-start": {
     id: "strona-start",
-    name: "Strona start (od 7 dni roboczych)",
+    name: "Strona start (od 7 dni)",
     tech: "WordPress",
     description:
       "Szybka i profesjonalna strona firmowa na sprawdzonym rozwiązaniu. Idealna na start działalności lub odświeżenie obecnej strony.",
@@ -27,7 +27,7 @@ export const PACKAGES = {
   },
   "strona-pro": {
     id: "strona-pro",
-    name: "Strona Pro (od 14 dni roboczych)",
+    name: "Strona Pro (od 14 dni)",
     tech: "WordPress",
     description:
       "Indywidualnie zaprojektowana strona dopasowana do Twojej marki i klientów. Większa elastyczność, lepsza struktura treści i bardziej dopracowany wygląd.",
@@ -48,7 +48,7 @@ export const PACKAGES = {
   },
   "sklep-online": {
     id: "sklep-online",
-    name: "Sklep Online (od 21 dni roboczych)",
+    name: "Sklep Online (od 21 dni)",
     tech: "WooCommerce",
     description:
       "Kompletny sklep internetowy gotowy do sprzedaży. Prosty w obsłudze i przygotowany do przyjmowania zamówień online.",
@@ -68,7 +68,7 @@ export const PACKAGES = {
   },
   "projekt-dedykowany": {
     id: "projekt-dedykowany",
-    name: "Dedykowany od 30 dni roboczych",
+    name: "Dedykowany od 30 dni",
     tech: "Next.js / React",
     description: "Projekt pisany od podstaw dla zaawansowanych potrzeb i skalowania.",
     basePrice: 6500,
