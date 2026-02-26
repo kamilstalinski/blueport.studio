@@ -344,9 +344,7 @@ export function Hero({ contentKey = "Home.hero" }: { contentKey?: HeroContentKey
                   className="inline-block bg-clip-text text-transparent"
                   style={{
                     backgroundImage:
-                      "linear-gradient(90deg, var(--color-primary) 0%, var(--color-primary) 25%, var(--color-accent-2) 75%, var(--color-accent-2) 100%)",
-                    backgroundSize: "220% 100%",
-                    backgroundPosition: "0% 50%",
+                      "linear-gradient(90deg, var(--color-primary), var(--color-accent-2))",
                     WebkitBackgroundClip: "text",
                     WebkitTextFillColor: "transparent",
                   }}
