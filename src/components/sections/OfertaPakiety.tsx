@@ -43,26 +43,19 @@ export function OfertaPakiety({ topGradient = true, cardVariant = "default" }: O
     const pkg = PACKAGES[packageId];
     const title = `${pkg.name} (${pkg.tech})`;
     const price = `od ${pkg.basePrice.toLocaleString("pl-PL")} zł`;
-    const isFeatured = !!pkg.tag;
     const cta = "Sprawdź wycenę";
 
     return (
       <motion.div key={packageId} variants={v.scaleIn} className="h-full min-h-0">
         <motion.div
           className="h-full"
-          whileHover={isFeatured ? undefined : { y: -3, transition: springs.smooth }}
-          whileTap={isFeatured ? undefined : { scale: 0.992, transition: springs.stiff }}
+          whileHover={{ y: -3, transition: springs.smooth }}
+          whileTap={{ scale: 0.992, transition: springs.stiff }}
         >
-          <SpotlightCard
-            className={cn(
-              "custom-spotlight-card rounded-2xl h-full oferta-package-card",
-              isFeatured && "oferta-package-featured",
-            )}
-          >
+          <SpotlightCard className="custom-spotlight-card rounded-2xl h-full oferta-package-card">
             <article
               className={cn(
                 "card rounded-2xl flex flex-col h-full relative card-padding",
-                isFeatured && "card-featured",
                 cardVariant === "subpage" && "card-subpage",
               )}
               style={glassBlurStyle}
@@ -106,10 +99,8 @@ export function OfertaPakiety({ topGradient = true, cardVariant = "default" }: O
                 </div>
                 <Link href="/kalkulator" className="mt-8 inline-block">
                   <Button
-                    variant={isFeatured ? "primary" : "ghost"}
-                    className={
-                      !isFeatured ? "!text-white/80 hover:!bg-white/10 hover:!text-white focus-visible:!ring-white/30" : undefined
-                    }
+                    variant="ghost"
+                    className="package-card-cta !text-white/80 hover:!bg-white/10 hover:!text-white focus-visible:!ring-white/30"
                   >
                     {cta}
                   </Button>
@@ -272,7 +263,7 @@ export function OfertaPakiety({ topGradient = true, cardVariant = "default" }: O
                           <Link href="/kalkulator" className="mt-8 inline-block">
                             <Button
                               variant="ghost"
-                              className="!text-white/80 hover:!bg-white/10 hover:!text-white focus-visible:!ring-white/30"
+                              className="package-card-cta !text-white/80 hover:!bg-white/10 hover:!text-white focus-visible:!ring-white/30"
                             >
                               {cta}
                             </Button>
