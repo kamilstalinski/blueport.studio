@@ -139,6 +139,75 @@ export function OfertaPakiety({ topGradient = true, cardVariant = "default" }: O
           className="grid grid-cols-1 md:grid-cols-3 items-stretch"
           style={{ gap: "var(--grid-gap)" }}
         >
+          {/* Rząd 1: switcher tylko nad pierwszą kartą, pozostałe komórki puste — nie psuć layoutu */}
+          <div className="flex items-center justify-center col-span-1">
+            <div
+              className="flex items-center gap-3"
+              role="group"
+              aria-label="Wersja pakietu WordPress"
+            >
+              <button
+                type="button"
+                onClick={() => setWordPressVariant("strona-start")}
+                className={cn(
+                  "body-small font-medium transition-colors cursor-pointer",
+                  wordPressVariant === "strona-start"
+                    ? "text-white"
+                    : "text-white/50 hover:text-white/80",
+                )}
+              >
+                START
+              </button>
+              <button
+                type="button"
+                role="switch"
+                aria-checked={wordPressVariant === "strona-pro"}
+                aria-label={wordPressVariant === "strona-pro" ? "Pakiet PRO (wyłącz dla START)" : "Pakiet START (włącz dla PRO)"}
+                onClick={() => setWordPressVariant(wordPressVariant === "strona-pro" ? "strona-start" : "strona-pro")}
+                className={cn(
+                  "package-toggle relative inline-flex shrink-0 rounded-full transition-colors duration-200 ease-out",
+                  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-transparent",
+                  "h-7 w-12 cursor-pointer",
+                  wordPressVariant === "strona-pro"
+                    ? "bg-[var(--color-primary-subtle)]"
+                    : "bg-white/15",
+                )}
+                style={{
+                  transition: "background-color 0.25s cubic-bezier(0.16, 1, 0.3, 1)",
+                }}
+              >
+                <span
+                  className={cn(
+                    "package-toggle-thumb absolute top-1 rounded-full transition-all duration-200 ease-out",
+                    "h-5 w-5",
+                    wordPressVariant === "strona-pro"
+                      ? "left-6 bg-[var(--color-primary)] shadow-[0_0_0_0_var(--color-primary-glow)] hover:shadow-[0_0_12px_2px_var(--color-primary-glow)] focus-visible:shadow-[0_0_14px_4px_var(--color-primary-glow)] active:shadow-[0_0_18px_6px_var(--color-primary-glow)]"
+                      : "left-[4px] bg-white/95 text-white shadow-[0_0_0_0_rgba(255,255,255,0.15)] hover:shadow-[0_0_10px_2px_rgba(255,255,255,0.2)] focus-visible:shadow-[0_0_12px_4px_rgba(255,255,255,0.25)] active:shadow-[0_0_14px_6px_rgba(255,255,255,0.3)]",
+                  )}
+                  style={{
+                    transition: "left 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease, background-color 0.25s ease",
+                  }}
+                  aria-hidden
+                />
+              </button>
+              <button
+                type="button"
+                onClick={() => setWordPressVariant("strona-pro")}
+                className={cn(
+                  "body-small font-medium transition-colors cursor-pointer",
+                  wordPressVariant === "strona-pro"
+                    ? "text-white"
+                    : "text-white/50 hover:text-white/80",
+                )}
+              >
+                PRO
+              </button>
+            </div>
+          </div>
+          <div className="hidden md:block min-h-0" aria-hidden />
+          <div className="hidden md:block min-h-0" aria-hidden />
+
+          {/* Rząd 2: trzy karty w jednym rzędzie, ta sama wysokość */}
           {SECTION_PACKAGE_ORDER.map((item, index) => {
             if (item === "wordpress-merge") {
               const pkg = PACKAGES[wordPressVariant];
@@ -157,76 +226,12 @@ export function OfertaPakiety({ topGradient = true, cardVariant = "default" }: O
                     <SpotlightCard className="custom-spotlight-card rounded-2xl h-full oferta-package-card oferta-package-featured">
                       <article
                         className={cn(
-                          "card rounded-2xl flex flex-col h-full relative card-featured overflow-hidden",
+                          "card rounded-2xl flex flex-col h-full relative card-padding card-featured",
                           cardVariant === "subpage" && "card-subpage",
                         )}
                         style={glassBlurStyle}
                       >
-                        {/* Switcher na górze karty — osobny pasek */}
-                        <div
-                          className="flex items-center justify-center gap-3 px-[var(--card-padding)] py-3 border-b border-white/10 bg-white/[0.03]"
-                          role="group"
-                          aria-label="Wersja pakietu WordPress"
-                        >
-                          <button
-                            type="button"
-                            onClick={() => setWordPressVariant("strona-start")}
-                            className={cn(
-                              "body-small font-medium transition-colors cursor-pointer",
-                              wordPressVariant === "strona-start"
-                                ? "text-white"
-                                : "text-white/50 hover:text-white/80",
-                            )}
-                          >
-                            START
-                          </button>
-                          <button
-                            type="button"
-                            role="switch"
-                            aria-checked={isPro}
-                            aria-label={isPro ? "Pakiet PRO (wyłącz dla START)" : "Pakiet START (włącz dla PRO)"}
-                            onClick={() => setWordPressVariant(isPro ? "strona-start" : "strona-pro")}
-                            className={cn(
-                              "package-toggle relative inline-flex shrink-0 rounded-full transition-colors duration-200 ease-out",
-                              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-transparent",
-                              "h-7 w-12 cursor-pointer",
-                              isPro
-                                ? "bg-[var(--color-primary-subtle)]"
-                                : "bg-white/15",
-                            )}
-                            style={{
-                              transition: "background-color 0.25s cubic-bezier(0.16, 1, 0.3, 1)",
-                            }}
-                          >
-                            <span
-                              className={cn(
-                                "package-toggle-thumb absolute top-1 rounded-full transition-all duration-200 ease-out",
-                                "h-5 w-5",
-                                isPro
-                                  ? "left-6 bg-[var(--color-primary)] shadow-[0_0_0_0_var(--color-primary-glow)] hover:shadow-[0_0_12px_2px_var(--color-primary-glow)] focus-visible:shadow-[0_0_14px_4px_var(--color-primary-glow)] active:shadow-[0_0_18px_6px_var(--color-primary-glow)]"
-                                  : "left-[4px] bg-white/95 text-white shadow-[0_0_0_0_rgba(255,255,255,0.15)] hover:shadow-[0_0_10px_2px_rgba(255,255,255,0.2)] focus-visible:shadow-[0_0_12px_4px_rgba(255,255,255,0.25)] active:shadow-[0_0_14px_6px_rgba(255,255,255,0.3)]",
-                              )}
-                              style={{
-                                transition: "left 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease, background-color 0.25s ease",
-                              }}
-                              aria-hidden
-                            />
-                          </button>
-                          <button
-                            type="button"
-                            onClick={() => setWordPressVariant("strona-pro")}
-                            className={cn(
-                              "body-small font-medium transition-colors cursor-pointer",
-                              wordPressVariant === "strona-pro"
-                                ? "text-white"
-                                : "text-white/50 hover:text-white/80",
-                            )}
-                          >
-                            PRO
-                          </button>
-                        </div>
-
-                        <div className="relative flex flex-col h-full card-padding">
+                        <div className="relative flex flex-col h-full">
                           {isPro && (
                             <span
                               className="absolute top-4 right-4 body-small font-semibold px-3 py-1 rounded-full bg-primary text-primary-foreground border-0"
