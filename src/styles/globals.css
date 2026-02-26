@@ -1942,6 +1942,10 @@ main {
 .cta-section .cta-btn-primary:hover .btn-icon {
   transform: translateX(3px);
 }
+.cta-section .cta-btn-wrap {
+  display: flex;
+  justify-content: center;
+}
 .cta-section .cta-disclaimer {
   display: flex;
   justify-content: center;
@@ -1973,6 +1977,10 @@ main {
   }
 }
 @media (max-width: 768px) {
+  .cta-section .cta-btn-wrap {
+    width: 100%;
+    align-items: stretch;
+  }
   .cta-section .cta-btn-primary {
     width: 100%;
     justify-content: center;
@@ -1993,14 +2001,23 @@ main {
   .cta-section .cta-heading {
     font-size: clamp(1.5rem, 7vw, 2rem);
   }
+  .cta-section .cta-btn-wrap {
+    width: 100%;
+  }
   .cta-section .cta-btn-primary {
     width: 100%;
     justify-content: center;
+    padding: 14px 24px;
+    font-size: 0.9rem;
   }
   .cta-section .cta-disclaimer {
+    width: 100%;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
+    justify-content: flex-start;
     gap: 0.5rem;
+    margin-top: 1.25rem;
+    font-size: 0.75rem;
   }
 }
 
