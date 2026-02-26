@@ -1961,6 +1961,12 @@ main {
   color: var(--color-primary);
 }
 
+@media (min-width: 769px) {
+  .cta-section .cta-disclaimer {
+    font-size: var(--min-font-size-desktop);
+  }
+}
+
 @media (max-width: 768px) {
   .cta-section {
     padding-block: var(--space-8);
