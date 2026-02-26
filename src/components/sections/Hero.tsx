@@ -204,11 +204,11 @@ export function Hero({ contentKey = "Home.hero" }: { contentKey?: HeroContentKey
             >
               {content.subtitle}
             </p>
-            <div className="flex flex-nowrap items-center justify-start gap-3 mt-8 w-full">
-              <CtaLink href={primaryHref} className="inline-flex shrink-0">
+            <div className="flex flex-col sm:flex-row flex-nowrap items-stretch sm:items-center justify-start gap-3 mt-8 w-full">
+              <CtaLink href={primaryHref} className="w-full sm:w-auto inline-flex shrink-0">
                 <button
                   type="button"
-                  className="hero-cta-primary font-body inline-flex items-center justify-center gap-2 rounded-[10px] border-none cursor-pointer shrink-0"
+                  className="hero-cta-primary font-body inline-flex items-center justify-center gap-2 rounded-[10px] border-none cursor-pointer w-full sm:w-auto shrink-0"
                   style={{
                     background: "var(--color-primary)",
                     color: "var(--color-on-primary)",
@@ -229,10 +229,10 @@ export function Hero({ contentKey = "Home.hero" }: { contentKey?: HeroContentKey
                 </button>
               </CtaLink>
               {showSecondary && (
-                <CtaLink href={secondaryHref} className="inline-flex shrink-0">
+                <CtaLink href={secondaryHref} className="w-full sm:w-auto inline-flex shrink-0">
                   <button
                     type="button"
-                    className="hero-cta-ghost font-body rounded-[10px] cursor-pointer shrink-0 inline-flex items-center justify-center gap-2"
+                    className="hero-cta-ghost font-body rounded-[10px] cursor-pointer w-full sm:w-auto shrink-0 inline-flex items-center justify-center gap-2"
                     style={{
                       background: "rgba(255,255,255,0.12)",
                       color: "white",
@@ -378,12 +378,12 @@ export function Hero({ contentKey = "Home.hero" }: { contentKey?: HeroContentKey
             {/* CTAs */}
             <motion.div
               variants={v.fadeUp}
-              className="flex flex-nowrap items-center justify-start gap-3 w-full pointer-events-auto mt-8"
+              className="flex flex-col sm:flex-row flex-nowrap items-stretch sm:items-center justify-start gap-3 w-full pointer-events-auto mt-8"
             >
-              <CtaLink href={primaryHref} className="inline-flex shrink-0">
+              <CtaLink href={primaryHref} className="w-full sm:w-auto inline-flex shrink-0">
                 <button
                   type="button"
-                  className="hero-cta-primary font-body inline-flex items-center justify-center gap-2 rounded-[10px] border-none cursor-pointer shrink-0"
+                  className="hero-cta-primary font-body inline-flex items-center justify-center gap-2 rounded-[10px] border-none cursor-pointer w-full sm:w-auto shrink-0"
                   style={{
                     background: "var(--color-primary)",
                     color: "var(--color-on-primary)",
@@ -403,11 +403,11 @@ export function Hero({ contentKey = "Home.hero" }: { contentKey?: HeroContentKey
                   </svg>
                 </button>
               </CtaLink>
-              <span className="inline-flex shrink-0">
-                <CtaLink href={secondaryHref} className="inline-flex shrink-0">
+              <span className="w-full sm:w-auto inline-flex shrink-0">
+                <CtaLink href={secondaryHref} className="w-full sm:w-auto inline-flex shrink-0">
                   <button
                     type="button"
-                    className="hero-cta-ghost font-body rounded-[10px] cursor-pointer shrink-0 inline-flex items-center justify-center gap-2"
+                    className="hero-cta-ghost font-body rounded-[10px] cursor-pointer w-full sm:w-auto shrink-0 inline-flex items-center justify-center gap-2"
                     style={{
                       background: "rgba(255,255,255,0.12)",
                       color: "white",
