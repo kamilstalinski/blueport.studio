@@ -33,11 +33,37 @@
   /* Przyciski — jednolity transition przy hover */
   --btn-transition: color 0.2s ease-out, background-color 0.2s ease-out, border-color 0.2s ease-out, box-shadow 0.2s ease-out, transform 0.2s ease-out;
   --btn-min-height: 48px;
+  /* Minimum font size on desktop (readability) — 12px */
+  --min-font-size-desktop: 0.75rem;
 }
 
 @media (max-width: 768px) {
   :root {
     --section-padding-x: 20px;
+  }
+}
+
+/* Desktop: enforce minimum font size 12px */
+@media (min-width: 769px) {
+  .section-eyebrow,
+  .img-placeholder,
+  .realizacje-card-btn,
+  .stat-label,
+  .cta-section .timer-unit,
+  .cta-section .cta-disclaimer,
+  .contact-form-card .contact-label,
+  .contact-info .contact-label,
+  .calc-logo-mark,
+  .calc-summary-label,
+  .option-more-chevron,
+  .option-dropdown-title,
+  .option-tag,
+  .field-label {
+    font-size: var(--min-font-size-desktop);
+  }
+  .testimonial-author .author-avatar,
+  .testimonial-author .author-company {
+    font-size: var(--min-font-size-desktop);
   }
 }
 

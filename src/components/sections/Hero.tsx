@@ -182,7 +182,7 @@ export function Hero({ contentKey = "Home.hero" }: { contentKey?: HeroContentKey
           <div className="flex flex-col items-center max-w-2xl space-y-6 pointer-events-auto">
             {showStats && content.stats && (
               <div
-                className="hero-badge font-body inline-flex items-center gap-2 w-fit rounded-full py-1.5 px-3.5 text-[0.72rem] text-white/70 border border-white/20"
+                className="hero-badge font-body inline-flex items-center gap-2 w-fit rounded-full py-1.5 px-3.5 text-[0.72rem] md:text-[0.75rem] text-white/70 border border-white/20"
                 style={{ background: "var(--color-hero-badge-bg)" }}
               >
                 <span className="badge-dot w-[7px] h-[7px] rounded-full shrink-0" aria-hidden />
@@ -318,7 +318,7 @@ export function Hero({ contentKey = "Home.hero" }: { contentKey?: HeroContentKey
             {/* Badge */}
             <motion.div
               variants={v.fadeIn}
-              className="hero-badge font-body inline-flex items-center gap-2 w-fit mb-6 rounded-full py-1.5 px-3.5 text-[0.72rem] text-white/70 border border-white/20"
+              className="hero-badge font-body inline-flex items-center gap-2 w-fit mb-6 rounded-full py-1.5 px-3.5 text-[0.72rem] md:text-[0.75rem] text-white/70 border border-white/20"
               style={{ background: "var(--color-hero-badge-bg)" }}
             >
               <span className="badge-dot w-[7px] h-[7px] rounded-full shrink-0" aria-hidden />
@@ -424,7 +424,7 @@ export function Hero({ contentKey = "Home.hero" }: { contentKey?: HeroContentKey
                 <strong className="block text-[0.8rem] md:text-[0.95rem] font-bold text-white font-heading">
                   47+
                 </strong>
-                <span className="body-small text-[0.6rem] md:text-[0.65rem] text-white/40 uppercase tracking-widest">
+                <span className="body-small text-[0.6rem] md:text-[0.75rem] text-white/40 uppercase tracking-widest">
                   zrealizowanych projektów
                 </span>
               </div>
@@ -436,7 +436,7 @@ export function Hero({ contentKey = "Home.hero" }: { contentKey?: HeroContentKey
                 <strong className="block text-[0.8rem] md:text-[0.95rem] font-bold text-white font-heading">
                   1–2 tyg.
                 </strong>
-                <span className="body-small text-[0.6rem] md:text-[0.65rem] text-white/40 uppercase tracking-widest">
+                <span className="body-small text-[0.6rem] md:text-[0.75rem] text-white/40 uppercase tracking-widest">
                   średni czas realizacji
                 </span>
               </div>
@@ -448,7 +448,7 @@ export function Hero({ contentKey = "Home.hero" }: { contentKey?: HeroContentKey
                 <strong className="block text-[0.8rem] md:text-[0.95rem] font-bold text-white font-heading">
                   5.0 ★
                 </strong>
-                <span className="body-small text-[0.6rem] md:text-[0.65rem] text-white/40 uppercase tracking-widest">
+                <span className="body-small text-[0.6rem] md:text-[0.75rem] text-white/40 uppercase tracking-widest">
                   średnia ocena klientów
                 </span>
               </div>
@@ -484,7 +484,7 @@ export function Hero({ contentKey = "Home.hero" }: { contentKey?: HeroContentKey
                 </div>
               </div>
               <div className="p-4">
-                <p className="font-body text-[0.65rem] text-white/50 uppercase tracking-wider mb-2">
+                <p className="font-body text-[0.65rem] md:text-[0.75rem] text-white/50 uppercase tracking-wider mb-2">
                   Realizacja
                 </p>
                 <div className="h-1 w-full rounded-full bg-white/10 overflow-hidden">
@@ -500,16 +500,16 @@ export function Hero({ contentKey = "Home.hero" }: { contentKey?: HeroContentKey
               style={glassBlurLg}
               aria-hidden
             >
-              <p className="font-body text-[0.65rem] text-white/50">Strona firmowa</p>
+              <p className="font-body text-[0.65rem] md:text-[0.75rem] text-white/50">Strona firmowa</p>
               <p className="font-heading text-[0.9rem] font-bold text-white mt-0.5">Klient B2B</p>
-              <p className="font-body text-white/60 text-[0.72rem] mt-1 flex items-center gap-1">
+              <p className="font-body text-white/60 text-[0.72rem] md:text-[0.75rem] mt-1 flex items-center gap-1">
                 <span aria-hidden>✓</span> Wdrożono
               </p>
               <div className="my-3 h-px bg-white/10" />
               <div className="flex items-center gap-2">
                 <div className="w-7 h-7 rounded-full bg-white/20 shrink-0" aria-hidden />
-                <span className="font-body text-[0.65rem] text-white/60">Klient zadowolony</span>
-                <span className="text-white/50 text-[0.65rem]">★★★★★</span>
+                <span className="font-body text-[0.65rem] md:text-[0.75rem] text-white/60">Klient zadowolony</span>
+                <span className="text-white/50 text-[0.65rem] md:text-[0.75rem]">★★★★★</span>
               </div>
             </motion.div>
 
@@ -553,14 +553,14 @@ export function Hero({ contentKey = "Home.hero" }: { contentKey?: HeroContentKey
                   />
                 ))}
               </div>
-              <div className="mt-1.5 flex justify-between text-[0.55rem] text-white/45">
+              <div className="mt-1.5 flex justify-between text-[0.55rem] md:text-[0.75rem] text-white/45">
                 <span>Sty</span>
                 <span>Lut</span>
                 <span>Mar</span>
                 <span>Kwi</span>
                 <span>Maj</span>
               </div>
-              <p className="font-body mt-2 text-[0.55rem] text-white/40 italic">
+              <p className="font-body mt-2 text-[0.55rem] md:text-[0.75rem] text-white/40 italic">
                 Źródło: Google Search Console
               </p>
             </motion.div>
