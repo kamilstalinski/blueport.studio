@@ -1141,15 +1141,15 @@ body .process-card:hover {
 .process-step-row-2 {
   grid-column: 1 / -1;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   gap: 24px;
   align-items: stretch;
 }
 .process-step-row-2 .process-step:nth-child(1) {
-  grid-column: 1;
+  grid-column: 2;
 }
 .process-step-row-2 .process-step:nth-child(2) {
-  grid-column: 2;
+  grid-column: 3;
 }
 
 /* O-nas: 2x2 grid "Jak wygląda współpraca?" — glass jak na stronie głównej */
