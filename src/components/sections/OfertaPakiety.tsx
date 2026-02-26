@@ -41,7 +41,7 @@ export function OfertaPakiety({ topGradient = true, cardVariant = "default" }: O
 
   const renderPackageCard = (packageId: PackageId, index: number) => {
     const pkg = PACKAGES[packageId];
-    const title = `${pkg.name} (${pkg.tech})`;
+    const title = pkg.name;
     const price = `od ${pkg.basePrice.toLocaleString("pl-PL")} zł`;
     const cta = "Sprawdź wycenę";
 
@@ -202,7 +202,7 @@ export function OfertaPakiety({ topGradient = true, cardVariant = "default" }: O
           {SECTION_PACKAGE_ORDER.map((item, index) => {
             if (item === "wordpress-merge") {
               const pkg = PACKAGES[wordPressVariant];
-              const title = `${pkg.name} (${pkg.tech})`;
+              const title = pkg.name;
               const price = `od ${pkg.basePrice.toLocaleString("pl-PL")} zł`;
               const isPro = wordPressVariant === "strona-pro";
               const cta = "Sprawdź wycenę";

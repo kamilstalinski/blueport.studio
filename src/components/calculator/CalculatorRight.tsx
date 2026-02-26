@@ -8,8 +8,7 @@ import { PACKAGES, FEATURES, type PackageId, type FeatureId } from "@/constants/
 type CalculatorProps = ReturnType<typeof useCalculator>;
 
 function getTypeLabel(id: PackageId): string {
-  const pkg = PACKAGES[id];
-  return `${pkg.name} (${pkg.tech})`;
+  return PACKAGES[id].name;
 }
 
 function getFeatureLabel(id: ProjectFeature): string {
