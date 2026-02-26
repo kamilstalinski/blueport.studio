@@ -204,11 +204,11 @@ export function Hero({ contentKey = "Home.hero" }: { contentKey?: HeroContentKey
             >
               {content.subtitle}
             </p>
-            <div className="flex flex-wrap items-center justify-center gap-3 mt-8">
-              <CtaLink href={primaryHref} className="w-full md:w-auto block">
+            <div className="flex flex-nowrap items-center justify-center gap-3 mt-8 overflow-x-auto overflow-y-hidden py-1">
+              <CtaLink href={primaryHref} className="inline-flex shrink-0">
                 <button
                   type="button"
-                  className="hero-cta-primary font-body inline-flex items-center justify-center gap-2 rounded-[10px] border-none cursor-pointer w-full md:w-auto"
+                  className="hero-cta-primary font-body inline-flex items-center justify-center gap-2 rounded-[10px] border-none cursor-pointer shrink-0"
                   style={{
                     background: "var(--color-primary)",
                     color: "var(--color-on-primary)",
@@ -229,10 +229,10 @@ export function Hero({ contentKey = "Home.hero" }: { contentKey?: HeroContentKey
                 </button>
               </CtaLink>
               {showSecondary && (
-                <CtaLink href={secondaryHref} className="w-full md:w-auto block">
+                <CtaLink href={secondaryHref} className="inline-flex shrink-0">
                   <button
                     type="button"
-                    className="hero-cta-ghost font-body rounded-[10px] cursor-pointer w-full md:w-auto inline-flex items-center justify-center gap-2"
+                    className="hero-cta-ghost font-body rounded-[10px] cursor-pointer shrink-0 inline-flex items-center justify-center gap-2"
                     style={{
                       background: "rgba(255,255,255,0.12)",
                       color: "white",
@@ -378,12 +378,12 @@ export function Hero({ contentKey = "Home.hero" }: { contentKey?: HeroContentKey
             {/* CTAs */}
             <motion.div
               variants={v.fadeUp}
-              className="flex flex-wrap items-center gap-3 w-full md:w-auto pointer-events-auto mt-8"
+              className="flex flex-nowrap items-center justify-center gap-3 w-full md:w-auto pointer-events-auto mt-8 overflow-x-auto overflow-y-hidden py-1"
             >
-              <CtaLink href={primaryHref} className="w-full md:w-auto block">
+              <CtaLink href={primaryHref} className="inline-flex shrink-0">
                 <button
                   type="button"
-                  className="hero-cta-primary font-body inline-flex items-center justify-center gap-2 rounded-[10px] border-none cursor-pointer w-full md:w-auto"
+                  className="hero-cta-primary font-body inline-flex items-center justify-center gap-2 rounded-[10px] border-none cursor-pointer shrink-0"
                   style={{
                     background: "var(--color-primary)",
                     color: "var(--color-on-primary)",
@@ -403,11 +403,11 @@ export function Hero({ contentKey = "Home.hero" }: { contentKey?: HeroContentKey
                   </svg>
                 </button>
               </CtaLink>
-              <span className="w-full md:w-auto block">
-                <CtaLink href={secondaryHref} className="w-full md:w-auto block">
+              <span className="inline-flex shrink-0">
+                <CtaLink href={secondaryHref} className="inline-flex shrink-0">
                   <button
                     type="button"
-                    className="hero-cta-ghost font-body rounded-[10px] cursor-pointer w-full md:w-auto inline-flex items-center justify-center gap-2"
+                    className="hero-cta-ghost font-body rounded-[10px] cursor-pointer shrink-0 inline-flex items-center justify-center gap-2"
                     style={{
                       background: "rgba(255,255,255,0.12)",
                       color: "white",
