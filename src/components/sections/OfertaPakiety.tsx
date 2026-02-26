@@ -270,7 +270,12 @@ export function OfertaPakiety({ topGradient = true, cardVariant = "default" }: O
                             ) : null}
                           </div>
                           <Link href="/kalkulator" className="mt-8 inline-block">
-                            <Button variant="primary">{cta}</Button>
+                            <Button
+                              variant="ghost"
+                              className="!text-white/80 hover:!bg-white/10 hover:!text-white focus-visible:!ring-white/30"
+                            >
+                              {cta}
+                            </Button>
                           </Link>
                         </div>
                       </article>
