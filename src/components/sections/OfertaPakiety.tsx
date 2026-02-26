@@ -171,29 +171,68 @@ export function OfertaPakiety({ topGradient = true, cardVariant = "default" }: O
                               Najczęściej wybierane
                             </span>
                           )}
-                          {/* Switch START / PRO */}
+                          {/* Toggle START / PRO — track + thumb, etykiety po bokach */}
                           <div
-                            className="inline-flex rounded-xl p-1 border border-white/20 bg-white/5 w-fit"
-                            role="tablist"
+                            className="flex items-center gap-3 w-fit"
+                            role="group"
                             aria-label="Wersja pakietu WordPress"
                           >
-                            {(["strona-start", "strona-pro"] as const).map((id) => (
-                              <button
-                                key={id}
-                                type="button"
-                                role="tab"
-                                aria-selected={wordPressVariant === id}
-                                onClick={() => setWordPressVariant(id)}
+                            <button
+                              type="button"
+                              onClick={() => setWordPressVariant("strona-start")}
+                              className={cn(
+                                "body-small font-medium transition-colors cursor-pointer",
+                                wordPressVariant === "strona-start"
+                                  ? "text-white"
+                                  : "text-white/50 hover:text-white/80",
+                              )}
+                            >
+                              START
+                            </button>
+                            <button
+                              type="button"
+                              role="switch"
+                              aria-checked={isPro}
+                              aria-label={isPro ? "Pakiet PRO (wyłącz dla START)" : "Pakiet START (włącz dla PRO)"}
+                              onClick={() => setWordPressVariant(isPro ? "strona-start" : "strona-pro")}
+                              className={cn(
+                                "package-toggle relative inline-flex shrink-0 rounded-full transition-colors duration-200 ease-out",
+                                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-transparent",
+                                "h-7 w-12 cursor-pointer",
+                                isPro
+                                  ? "bg-[var(--color-primary-subtle)]"
+                                  : "bg-white/15",
+                              )}
+                              style={{
+                                transition: "background-color 0.25s cubic-bezier(0.16, 1, 0.3, 1)",
+                              }}
+                            >
+                              <span
                                 className={cn(
-                                  "px-4 py-2 rounded-lg body-small font-medium transition-colors",
-                                  wordPressVariant === id
-                                    ? "bg-primary text-primary-foreground border-0 shadow-sm"
-                                    : "text-white/70 hover:text-white hover:bg-white/10 border-transparent",
+                                  "package-toggle-thumb absolute top-1 rounded-full transition-all duration-200 ease-out",
+                                  "h-5 w-5",
+                                  isPro
+                                    ? "left-6 bg-[var(--color-primary)] shadow-[0_0_0_0_var(--color-primary-glow)] hover:shadow-[0_0_12px_2px_var(--color-primary-glow)] focus-visible:shadow-[0_0_14px_4px_var(--color-primary-glow)] active:shadow-[0_0_18px_6px_var(--color-primary-glow)]"
+                                    : "left-[4px] bg-white/95 text-white shadow-[0_0_0_0_rgba(255,255,255,0.15)] hover:shadow-[0_0_10px_2px_rgba(255,255,255,0.2)] focus-visible:shadow-[0_0_12px_4px_rgba(255,255,255,0.25)] active:shadow-[0_0_14px_6px_rgba(255,255,255,0.3)]",
                                 )}
-                              >
-                                {id === "strona-start" ? "START" : "PRO"}
-                              </button>
-                            ))}
+                                style={{
+                                  transition: "left 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease, background-color 0.25s ease",
+                                }}
+                                aria-hidden
+                              />
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => setWordPressVariant("strona-pro")}
+                              className={cn(
+                                "body-small font-medium transition-colors cursor-pointer",
+                                wordPressVariant === "strona-pro"
+                                  ? "text-white"
+                                  : "text-white/50 hover:text-white/80",
+                              )}
+                            >
+                              PRO
+                            </button>
                           </div>
                           <IconBox emoji={PACKAGE_EMOJI[wordPressVariant]} />
                           <h3 className="heading-3 mt-6 text-white">{title}</h3>
