@@ -19,23 +19,27 @@ export function CTA({ contentKey: _contentKey = "Home.cta" }: CTAProps) {
           <p className="body-lead mx-auto max-w-prose text-white/70">
             {subtitle}
           </p>
-          <div className="mt-12 flex flex-col items-center gap-4 w-full max-w-xl mx-auto">
-            <Link href="/kalkulator" className="w-full md:w-auto">
-              <span className="inline-block w-full md:w-auto">
+          <div className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-4 w-full max-w-xl mx-auto">
+            <Link href="/kontakt" className="w-full sm:w-auto order-1 sm:order-1">
+              <span className="inline-block w-full sm:w-auto">
                 <Button
                   variant="primary"
-                  className="!rounded-[10px] !px-7 !py-3.5 font-bold !min-h-0"
+                  className="!rounded-[10px] !px-7 !py-3.5 font-bold !min-h-0 w-full"
                   style={{ background: "var(--color-primary)", color: "var(--color-on-primary)" }}
+                >
+                  Umów konsultację
+                </Button>
+              </span>
+            </Link>
+            <Link href="/kalkulator" className="w-full sm:w-auto order-2 sm:order-2">
+              <span className="inline-block w-full sm:w-auto">
+                <Button
+                  variant="secondary"
+                  className="!rounded-[10px] !px-7 !py-3.5 font-semibold !min-h-0 w-full border-white/30 hover:bg-white/20"
                 >
                   Sprawdź wycenę
                 </Button>
               </span>
-            </Link>
-            <Link
-              href="/kontakt"
-              className="text-sm text-white/70 hover:text-primary underline underline-offset-2 transition-colors"
-            >
-              Umów konsultację
             </Link>
           </div>
         </div>

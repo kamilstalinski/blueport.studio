@@ -232,17 +232,25 @@ export function Hero({ contentKey = "Home.hero" }: { contentKey?: HeroContentKey
                 <CtaLink href={secondaryHref} className="w-full md:w-auto block">
                   <button
                     type="button"
-                    className="hero-cta-ghost font-body rounded-[10px] cursor-pointer w-full md:w-auto inline-flex items-center justify-center"
+                    className="hero-cta-ghost font-body rounded-[10px] cursor-pointer w-full md:w-auto inline-flex items-center justify-center gap-2"
                     style={{
-                      background: "transparent",
-                      color: "var(--color-text-secondary)",
-                      fontWeight: 400,
-                      fontSize: "0.88rem",
-                      padding: "14px 20px",
-                      border: "1px solid var(--color-border)",
+                      background: "rgba(255,255,255,0.12)",
+                      color: "white",
+                      fontWeight: 600,
+                      fontSize: "0.95rem",
+                      padding: "14px 28px",
+                      border: "2px solid rgba(255,255,255,0.5)",
                     }}
                   >
                     {content.ctaSecondary}
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
+                      <path
+                        d="M2 7h10M8 3l4 4-4 4"
+                        stroke="currentColor"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                      />
+                    </svg>
                   </button>
                 </CtaLink>
               )}
@@ -399,17 +407,25 @@ export function Hero({ contentKey = "Home.hero" }: { contentKey?: HeroContentKey
                 <CtaLink href={secondaryHref} className="w-full md:w-auto block">
                   <button
                     type="button"
-                    className="hero-cta-ghost font-body rounded-[10px] cursor-pointer w-full md:w-auto inline-flex items-center justify-center"
+                    className="hero-cta-ghost font-body rounded-[10px] cursor-pointer w-full md:w-auto inline-flex items-center justify-center gap-2"
                     style={{
-                      background: "transparent",
-                      color: "var(--color-text-secondary)",
-                      fontWeight: 400,
-                      fontSize: "0.88rem",
-                      padding: "14px 20px",
-                      border: "1px solid var(--color-border)",
+                      background: "rgba(255,255,255,0.12)",
+                      color: "white",
+                      fontWeight: 600,
+                      fontSize: "0.95rem",
+                      padding: "14px 28px",
+                      border: "2px solid rgba(255,255,255,0.5)",
                     }}
                   >
                     {content.ctaSecondary}
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
+                      <path
+                        d="M2 7h10M8 3l4 4-4 4"
+                        stroke="currentColor"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                      />
+                    </svg>
                   </button>
                 </CtaLink>
               </span>

@@ -1807,9 +1807,10 @@ main {
   box-shadow: 0 12px 40px var(--color-primary-glow-hover);
 }
 #hero .hero-cta-ghost:hover {
-  color: rgba(255, 255, 255, 0.85);
-  border-color: rgba(255, 255, 255, 0.25);
-  background: rgba(255, 255, 255, 0.04);
+  color: white;
+  border-color: rgba(255, 255, 255, 0.65);
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 24px rgba(255, 255, 255, 0.12);
 }
 @media (max-width: 768px) {
   #hero .hero-cta-primary,
