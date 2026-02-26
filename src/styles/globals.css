@@ -55,12 +55,16 @@
   .contact-info .contact-label,
   .calc-logo-mark,
   .calc-summary-label,
+  .calc-step-dot,
+  .calc-step-label,
   .option-more-chevron,
   .option-dropdown-title,
   .option-tag,
+  .option-badge,
   .field-label {
     font-size: var(--min-font-size-desktop);
   }
+  /* Opinie — karty testimonials */
   .testimonial-author .author-avatar,
   .testimonial-author .author-company {
     font-size: var(--min-font-size-desktop);
