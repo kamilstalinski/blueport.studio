@@ -7,13 +7,13 @@
 export const PACKAGES = {
   "strona-start": {
     id: "strona-start",
-    name: "Strona start (od 7 dni)",
+    name: "Strona start (od 7 dni roboczych)",
     tech: "WordPress",
     description:
       "Szybka i profesjonalna strona firmowa na sprawdzonym rozwiązaniu. Idealna na start działalności lub odświeżenie obecnej strony.",
     basePrice: 2500,
     deliveryDays: 7,
-    deliveryLabel: "od 7 dni",
+    deliveryLabel: "od 7 dni roboczych",
     tag: null,
     coZawiera: [
       "Gotowy, profesjonalny wygląd dopasowany do Twojej branży",
@@ -27,13 +27,13 @@ export const PACKAGES = {
   },
   "strona-pro": {
     id: "strona-pro",
-    name: "Strona Pro (od 14 dni)",
+    name: "Strona Pro (od 14 dni roboczych)",
     tech: "WordPress",
     description:
       "Indywidualnie zaprojektowana strona dopasowana do Twojej marki i klientów. Większa elastyczność, lepsza struktura treści i bardziej dopracowany wygląd.",
     basePrice: 3900,
     deliveryDays: 14,
-    deliveryLabel: "od 14 dni",
+    deliveryLabel: "od 14 dni roboczych",
     tag: null,
     coZawiera: [
       "Indywidualny projekt wizualny (bez gotowego szablonu)",
@@ -48,13 +48,13 @@ export const PACKAGES = {
   },
   "sklep-online": {
     id: "sklep-online",
-    name: "Sklep Online (od 21 dni)",
+    name: "Sklep Online (od 21 dni roboczych)",
     tech: "WooCommerce",
     description:
       "Kompletny sklep internetowy gotowy do sprzedaży. Prosty w obsłudze i przygotowany do przyjmowania zamówień online.",
     basePrice: 4900,
     deliveryDays: 21,
-    deliveryLabel: "od 21 dni",
+    deliveryLabel: "od 21 dni roboczych",
     tag: null,
     coZawiera: [
       "Sklep internetowy z możliwością zarządzania produktami",
@@ -68,12 +68,12 @@ export const PACKAGES = {
   },
   "projekt-dedykowany": {
     id: "projekt-dedykowany",
-    name: "Dedykowany od 30 dni",
+    name: "Dedykowany od 30 dni roboczych",
     tech: "Next.js / React",
     description: "Projekt pisany od podstaw dla zaawansowanych potrzeb i skalowania.",
     basePrice: 6500,
     deliveryDays: 30,
-    deliveryLabel: "od 30 dni",
+    deliveryLabel: "od 30 dni roboczych",
     tag: null,
     coZawiera: [
       "Architektura techniczna",
