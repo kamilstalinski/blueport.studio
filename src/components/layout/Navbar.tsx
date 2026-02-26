@@ -136,21 +136,21 @@ export function Navbar() {
             aria-hidden
           >
             <rect
-              className="origin-center -translate-y-[5px] translate-x-[7px] transition-all duration-300 ease-out-back group-[[aria-pressed=true]]:translate-x-0 group-[[aria-pressed=true]]:translate-y-0 group-[[aria-pressed=true]]:rotate-[315deg]"
+              className="origin-center -translate-y-[5px] translate-x-[7px] transition-all duration-300 ease-out-back group-[[aria-expanded=true]]:translate-x-0 group-[[aria-expanded=true]]:translate-y-0 group-[[aria-expanded=true]]:rotate-[315deg]"
               y="7"
               width="9"
               height="2"
               rx="1"
             />
             <rect
-              className="origin-center transition-all duration-300 ease-out-back-strong group-[[aria-pressed=true]]:rotate-45"
+              className="origin-center transition-all duration-300 ease-out-back-strong group-[[aria-expanded=true]]:rotate-45"
               y="7"
               width="16"
               height="2"
               rx="1"
             />
             <rect
-              className="origin-center translate-y-[5px] transition-all duration-300 ease-out-back group-[[aria-pressed=true]]:translate-y-0 group-[[aria-pressed=true]]:rotate-[135deg]"
+              className="origin-center translate-y-[5px] transition-all duration-300 ease-out-back group-[[aria-expanded=true]]:translate-y-0 group-[[aria-expanded=true]]:rotate-[135deg]"
               y="7"
               width="9"
               height="2"
