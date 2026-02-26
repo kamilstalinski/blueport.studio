@@ -223,23 +223,15 @@ export function OfertaPakiety({ topGradient = true, cardVariant = "default" }: O
                     whileHover={{ y: -3, transition: springs.smooth }}
                     whileTap={{ scale: 0.992, transition: springs.stiff }}
                   >
-                    <SpotlightCard className="custom-spotlight-card rounded-2xl h-full oferta-package-card oferta-package-featured">
+                    <SpotlightCard className="custom-spotlight-card rounded-2xl h-full oferta-package-card">
                       <article
                         className={cn(
-                          "card rounded-2xl flex flex-col h-full relative card-padding card-featured",
+                          "card rounded-2xl flex flex-col h-full relative card-padding",
                           cardVariant === "subpage" && "card-subpage",
                         )}
                         style={glassBlurStyle}
                       >
                         <div className="relative flex flex-col h-full">
-                          {isPro && (
-                            <span
-                              className="absolute top-4 right-4 body-small font-semibold px-3 py-1 rounded-full bg-primary text-primary-foreground border-0"
-                              aria-hidden
-                            >
-                              Najczęściej wybierane
-                            </span>
-                          )}
                           <IconBox emoji={PACKAGE_EMOJI[wordPressVariant]} />
                           <h3 className="heading-3 mt-6 text-white">{title}</h3>
                           <p className="mt-3 body-standard text-white/60 leading-relaxed">
