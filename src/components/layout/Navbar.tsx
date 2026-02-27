@@ -65,7 +65,7 @@ export function Navbar() {
     <>
       <Link
         href="/"
-        className="relative z-10 flex shrink-0 items-center gap-2.5 text-foreground transition-opacity hover:opacity-90"
+        className="relative z-10 flex shrink-0 items-center gap-2.5 text-foreground"
       >
         <span className="relative inline-flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-button border border-white/10 bg-white/10 backdrop-blur-md">
           <Image

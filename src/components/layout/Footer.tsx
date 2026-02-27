@@ -33,9 +33,9 @@ export function Footer() {
                 <Image
                   src="/logo%20v1.svg"
                   alt=""
-                  width={40}
-                  height={40}
-                  className="h-full w-full object-contain"
+                  width={32}
+                  height={32}
+                  className="h-8 w-8 object-contain"
                 />
               </span>
               <span className="text-xl font-semibold lowercase tracking-tight text-white/90">
