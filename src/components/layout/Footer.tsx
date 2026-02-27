@@ -29,13 +29,13 @@ export function Footer() {
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-3">
           <div className="flex flex-col gap-6">
             <Link href="/" className="flex items-center gap-2">
-              <span className="relative inline-flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-button bg-white/10 backdrop-blur-md border border-white/10">
+              <span className="relative inline-flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-button border border-white/10 bg-surface">
                 <Image
                   src="/logo%20v1.svg"
                   alt=""
                   width={32}
                   height={32}
-                  className="h-8 w-8 object-contain"
+                  className="h-8 w-8 object-contain opacity-100"
                 />
               </span>
               <span className="text-xl font-semibold lowercase tracking-tight text-white/90">
