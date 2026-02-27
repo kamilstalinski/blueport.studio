@@ -31,7 +31,7 @@ export function Footer() {
             <Link href="/" className="flex items-center gap-2">
               <span className="relative inline-flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-button bg-white/10 backdrop-blur-md border border-white/10">
                 <Image
-                  src="/logo.svg"
+                  src="/logo%20v1.svg"
                   alt=""
                   width={40}
                   height={40}

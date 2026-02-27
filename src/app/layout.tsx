@@ -59,7 +59,7 @@ export const metadata: Metadata = {
     googleBot: { index: true, follow: true },
   },
   icons: {
-    icon: "/logo.svg",
+    icon: "/logo%20v1.svg",
   },
 };
 
