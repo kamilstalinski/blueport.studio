@@ -67,13 +67,13 @@ export function Navbar() {
         href="/"
         className="relative z-10 flex shrink-0 items-center gap-2.5 text-foreground transition-opacity hover:opacity-90"
       >
-        <span className="font-heading relative inline-flex h-9 w-9 flex-shrink-0 items-center justify-center overflow-hidden rounded-full bg-primary text-black md:h-10 md:w-10">
+        <span className="relative inline-flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-button border border-white/10 bg-white/10 backdrop-blur-md">
           <Image
             src="/logo%20v1.svg"
             alt="Blueport Studio — strona główna"
-            width={40}
-            height={40}
-            className="h-full w-full object-contain"
+            width={32}
+            height={32}
+            className="h-8 w-8 object-contain"
           />
         </span>
         <span className="font-heading text-base font-semibold lowercase tracking-tight text-foreground md:text-lg">
