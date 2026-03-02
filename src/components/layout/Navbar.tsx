@@ -63,22 +63,14 @@ export function Navbar() {
 
   const navContent = (
     <>
-      <Link
-        href="/"
-        className="relative z-10 flex shrink-0 items-center gap-2.5 text-foreground"
-      >
-        <span className="relative inline-flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-button border border-white/10 bg-surface">
-          <Image
-            src="/logo%20v1.svg"
-            alt="Blueport Studio — strona główna"
-            width={32}
-            height={32}
-            className="h-8 w-8 object-contain opacity-100"
-          />
-        </span>
-        <span className="font-heading text-base font-semibold lowercase tracking-tight text-foreground md:text-lg">
-          blueport
-        </span>
+      <Link href="/" className="relative z-10 flex shrink-0 items-center">
+        <Image
+          src="/logov3.svg"
+          alt="Blueport Studio — strona główna"
+          width={70}
+          height={70}
+          className="h-full w-20 object-contain opacity-100"
+        />
       </Link>
       <nav
         aria-label="Główna nawigacja"
@@ -110,13 +102,7 @@ export function Navbar() {
           title="Bezpłatna wycena"
         >
           <span className="min-[880px]:inline-flex shrink-0" aria-hidden>
-            <Image
-              src="/calculator-icon.png"
-              alt=""
-              width={20}
-              height={20}
-              className="h-5 w-5"
-            />
+            <Image src="/calculator-icon.png" alt="" width={20} height={20} className="h-5 w-5" />
           </span>
           <span className="max-[1115px]:hidden">{toUpper("Bezpłatna wycena")}</span>
         </Link>

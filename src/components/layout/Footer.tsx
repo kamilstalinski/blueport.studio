@@ -8,14 +8,14 @@ export function Footer() {
     { href: "/o-nas", label: "O nas" },
     { href: "/kontakt", label: "Kontakt" },
     { href: "/faq", label: "FAQ" },
-    { href: "/polityka-prywatnosci", label: "Polityka prywatności" }
+    { href: "/polityka-prywatnosci", label: "Polityka prywatności" },
   ];
 
   const moreLinks = [
     { href: "/uslugi", label: "Usługi" },
     { href: "/realizacje", label: "Realizacje" },
     { href: "/proces", label: "Proces" },
-    { href: "/regulamin", label: "Regulamin" }
+    { href: "/regulamin", label: "Regulamin" },
   ];
 
   return (
@@ -24,33 +24,30 @@ export function Footer() {
       className="relative bg-gradient-to-b from-[var(--color-footer-from)] via-[var(--color-footer-via)] to-[var(--color-footer-to)]"
       style={{ paddingTop: "var(--space-10)", paddingBottom: "var(--space-5)" }}
     >
-      <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent" aria-hidden />
+      <div
+        className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent"
+        aria-hidden
+      />
       <div className="container-wide relative py-16 md:py-20 lg:py-24">
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-3">
           <div className="flex flex-col gap-6">
             <Link href="/" className="flex items-center gap-2">
-              <span className="relative inline-flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-button border border-white/10 bg-surface">
-                <Image
-                  src="/logo%20v1.svg"
-                  alt=""
-                  width={32}
-                  height={32}
-                  className="h-8 w-8 object-contain opacity-100"
-                />
-              </span>
-              <span className="text-xl font-semibold lowercase tracking-tight text-white/90">
-                blueport
-              </span>
+              <Image
+                src="/logov3.svg"
+                alt=""
+                width={32}
+                height={32}
+                className="h-full w-20 object-contain opacity-100"
+              />
             </Link>
             <p className="max-w-xs text-sm leading-relaxed text-white/90">
-              BluePort Studio — nowoczesne strony i sklepy online dla małych firm. Lokalnie. Konkretnie. Z jasną wyceną.
+              BluePort Studio — nowoczesne strony i sklepy online dla małych firm. Lokalnie.
+              Konkretnie. Z jasną wyceną.
             </p>
           </div>
 
           <div>
-            <h3 className="text-xs font-semibold uppercase tracking-wider text-white">
-              O nas
-            </h3>
+            <h3 className="text-xs font-semibold uppercase tracking-wider text-white">O nas</h3>
             <ul className="mt-6 flex flex-col gap-3">
               {aboutLinks.map(({ href, label }) => (
                 <li key={href}>
@@ -66,9 +63,7 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="text-xs font-semibold uppercase tracking-wider text-white">
-              Więcej
-            </h3>
+            <h3 className="text-xs font-semibold uppercase tracking-wider text-white">Więcej</h3>
             <ul className="mt-6 flex flex-col gap-3">
               {moreLinks.map(({ href, label }) => (
                 <li key={href}>
