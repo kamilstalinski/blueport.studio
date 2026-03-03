@@ -1,8 +1,25 @@
 import { useReducedMotion } from "framer-motion";
 import { variants, duration, ease } from "@/constants/animations";
 
-// Zwraca animacje lub ich wersję bez ruchu (tylko opacity)
-export function useMotionSafe() {
+type SimpleVariant = {
+  hidden: { opacity: number };
+  visible: { opacity: number };
+};
+
+export type UseMotionSafeReturn = {
+  variants: typeof variants | {
+    fadeUp: SimpleVariant;
+    fadeIn: SimpleVariant;
+    scaleIn: SimpleVariant;
+    stagger: (typeof variants)["stagger"];
+    staggerHero: (typeof variants)["staggerHero"];
+    slideRight: SimpleVariant;
+  };
+  duration: Record<keyof typeof duration, number>;
+  ease: typeof ease;
+};
+
+export function useMotionSafe(): UseMotionSafeReturn {
   const shouldReduce = useReducedMotion();
 
   if (shouldReduce) {

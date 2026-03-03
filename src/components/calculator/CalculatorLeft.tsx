@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import type { useCalculator } from "@/hooks/useCalculator";
+import { ease } from "@/constants/animations";
 import { CalculatorProgress } from "./CalculatorProgress";
 import { Step1Type } from "./steps/Step1Type";
 import { Step2Features } from "./steps/Step2Features";
@@ -60,7 +61,7 @@ export function CalculatorLeft({ calculator }: { calculator: CalculatorProps }) 
       opacity: 1,
       transition: {
         duration: 0.5,
-        ease: [0.25, 0.46, 0.45, 0.94] as const,
+        ease: ease.smooth,
       },
     },
     exit: (dir: number) => ({
@@ -68,7 +69,7 @@ export function CalculatorLeft({ calculator }: { calculator: CalculatorProps }) 
       opacity: 0,
       transition: {
         duration: 0.3,
-        ease: [0.4, 0, 0.2, 1] as const,
+        ease: ease.sharp,
       },
     }),
   };

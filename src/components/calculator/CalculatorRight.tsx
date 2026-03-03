@@ -2,8 +2,8 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import type { useCalculator } from "@/hooks/useCalculator";
-import type { ProjectFeature } from "@/types/calculator.types";
 import { PACKAGES, FEATURES, type PackageId, type FeatureId } from "@/constants/pricing";
+import { ease } from "@/constants/animations";
 
 type CalculatorProps = ReturnType<typeof useCalculator>;
 
@@ -11,12 +11,12 @@ function getTypeLabel(id: PackageId): string {
   return PACKAGES[id].name;
 }
 
-function getFeatureLabel(id: ProjectFeature): string {
-  return FEATURES[id as FeatureId]?.label ?? id;
+function getFeatureLabel(id: FeatureId): string {
+  return FEATURES[id]?.label ?? id;
 }
 
-function getFeaturePrice(id: ProjectFeature): number {
-  return FEATURES[id as FeatureId]?.price ?? 0;
+function getFeaturePrice(id: FeatureId): number {
+  return FEATURES[id]?.price ?? 0;
 }
 
 export function CalculatorRight({ calculator }: { calculator: CalculatorProps }) {
@@ -47,7 +47,7 @@ export function CalculatorRight({ calculator }: { calculator: CalculatorProps })
             key={priceSummary.label}
             initial={{ opacity: 0, y: 6 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
+            transition={{ duration: 0.4, ease: ease.smooth }}
             className="calc-price"
           >
             {priceSummary.label}
@@ -88,7 +88,7 @@ export function CalculatorRight({ calculator }: { calculator: CalculatorProps })
                   exit={{ opacity: 0, scale: 0.9 }}
                   className="choice-chip choice-chip--primary"
                 >
-                  {getTypeLabel(state.projectType as PackageId)}
+                  {getTypeLabel(state.projectType)}
                 </motion.span>
               )}
               {state.features.map((f) => (

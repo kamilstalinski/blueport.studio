@@ -1,6 +1,7 @@
 "use client";
 
 import { CALC_GLASS_CARD } from "../calculatorStyles";
+import { cn } from "@/lib/utils";
 import type { StepSummaryProps } from "@/types";
 
 export function StepSummary({ summary }: StepSummaryProps) {
@@ -13,9 +14,7 @@ export function StepSummary({ summary }: StepSummaryProps) {
         Sprawdź zebrane informacje. Po wysłaniu skontaktujemy się z doprecyzowaniem oferty.
       </p>
 
-      <div
-        className={`${CALC_GLASS_CARD} p-6 md:p-8`}
-      >
+      <div className={cn(CALC_GLASS_CARD, "p-6 md:p-8")}>
         <p className="mb-4 text-sm text-muted-foreground">
           {summary.projectDescription}
         </p>

@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import type { useCalculator } from "@/hooks/useCalculator";
 import type { BudgetRange } from "@/types/calculator.types";
+import { cn } from "@/lib/utils";
 
 type CalculatorProps = ReturnType<typeof useCalculator>;
 
@@ -28,7 +29,7 @@ export function Step4Budget({ calculator }: { calculator: CalculatorProps }) {
             type="button"
             onClick={() => setBudget(opt.id)}
             whileTap={{ scale: 0.99 }}
-            className={`option-card ${state.budget === opt.id ? "selected" : ""}`}
+            className={cn("option-card", state.budget === opt.id && "selected")}
           >
             <div className="option-title">{opt.label}</div>
           </motion.button>

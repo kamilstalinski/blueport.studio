@@ -1,30 +1,13 @@
-export type ProjectType =
-  | "strona-start"
-  | "strona-pro"
-  | "sklep-online"
-  | "projekt-dedykowany"
-  | null;
+import type { PackageId, FeatureId, TimelineId } from "@/constants/pricing";
 
-export type ProjectFeature =
-  | "seo-advanced"
-  | "copywriting"
-  | "blog"
-  | "language-version"
-  | "product-filters"
-  | "product-variants"
-  | "abandoned-cart"
-  | "loyalty-program"
-  | "wholesaler-feed"
-  | "crm"
-  | "mail-automation"
-  | "integrations-api"
-  | "erp"
-  | "headless-cms"
-  | "performance-upgrade"
-  | "cicd-deployment"
-  | "multi-language-advanced";
+/** Package id or null (no selection). Derived from pricing PACKAGES. */
+export type ProjectType = PackageId | null;
 
-export type Timeline = "express" | "standard" | "relaxed" | null;
+/** Feature id. Same as FeatureId from pricing; alias for domain use. */
+export type ProjectFeature = FeatureId;
+
+/** Timeline id or null. Derived from pricing TIMELINE_MULTIPLIERS. */
+export type Timeline = TimelineId | null;
 
 export type BudgetRange =
   | "under3k"

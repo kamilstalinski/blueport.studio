@@ -13,13 +13,24 @@ import type {
 import {
   calculatePrice,
   TIMELINE_MULTIPLIERS,
-  type PackageId,
-  type FeatureId,
   type TimelineId,
 } from "@/constants/pricing";
 
-// ─── Hook ────────────────────────────────────────────────────
 const TOTAL_STEPS = 4;
+
+export type UseCalculatorReturn = {
+  state: CalculatorState;
+  priceSummary: PriceSummary;
+  canGoNext: boolean;
+  totalSteps: number;
+  goNext: () => void;
+  goPrev: () => void;
+  setProjectType: (type: ProjectType) => void;
+  toggleFeature: (feature: ProjectFeature) => void;
+  setBudget: (budget: BudgetRange) => void;
+  setContact: (field: keyof ContactData, value: string) => void;
+  handleSubmit: () => Promise<void>;
+};
 
 const initialState: CalculatorState = {
   step: 0,
@@ -34,7 +45,7 @@ const initialState: CalculatorState = {
   error: null,
 };
 
-export function useCalculator() {
+export function useCalculator(): UseCalculatorReturn {
   const [state, setState] = useState<CalculatorState>(initialState);
 
   const goNext = useCallback(() => {
@@ -64,10 +75,6 @@ export function useCalculator() {
         ? s.features.filter((f) => f !== feature)
         : [...s.features, feature],
     }));
-  }, []);
-
-  const setTimeline = useCallback((timeline: Timeline) => {
-    setState((s) => ({ ...s, timeline }));
   }, []);
 
   const setBudget = useCallback((budget: BudgetRange) => {
@@ -109,8 +116,8 @@ export function useCalculator() {
         label: "Wybierz opcje",
       };
     }
-    const packageId = state.projectType as PackageId;
-    const features = state.features as FeatureId[];
+    const packageId = state.projectType;
+    const features = state.features;
     const timeline: TimelineId = state.timeline ?? "standard";
     const result = calculatePrice(packageId, features, timeline);
     const timelineMultiplier = TIMELINE_MULTIPLIERS[timeline].multiplier;

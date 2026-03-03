@@ -1,4 +1,5 @@
 import { Container } from "@/components/ui/Container";
+import { cn } from "@/lib/utils";
 import type { SectionProps } from "@/types";
 
 export function Section({
@@ -12,9 +13,6 @@ export function Section({
   className,
   ariaLabelledBy,
 }: SectionProps) {
-  const firstClass = firstOnPage ? " pt-navbar-first" : "";
-  const relativeClass = topGradient ? " relative" : "";
-  const tightClass = tight ? " section-tight" : "";
   const paddingClass = noWrapper ? "section-padding-block" : "section-padding";
   const content = noWrapper ? (
     children
@@ -26,7 +24,13 @@ export function Section({
   return (
     <Tag
       id={id}
-      className={`${paddingClass}${firstClass}${relativeClass}${tightClass} ${className ?? ""}`.trim()}
+      className={cn(
+        paddingClass,
+        firstOnPage && "pt-navbar-first",
+        topGradient && "relative",
+        tight && "section-tight",
+        className
+      )}
       {...(ariaLabelledBy && { "aria-labelledby": ariaLabelledBy })}
     >
       {topGradient && (

@@ -1,9 +1,8 @@
 "use client";
 
 import React, { useRef, useState, useEffect } from "react";
-
-import type { SpotlightCardProps } from "@/types";
-import type { Position } from "@/types";
+import { cn } from "@/lib/utils";
+import type { SpotlightCardProps, Position } from "@/types";
 
 const DRIFT_RADIUS = 40;
 const DRIFT_SPEED = 0.0003;
@@ -73,7 +72,7 @@ export function SpotlightCard({
       onBlur={handleBlur}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      className={`relative border border-transparent bg-transparent p-0 rounded-2xl ${className}`}
+      className={cn("relative border border-transparent bg-transparent p-0 rounded-2xl", className)}
     >
       <div
         className="pointer-events-none absolute inset-0 z-0 rounded-2xl opacity-0 transition-opacity duration-500 ease-in-out"

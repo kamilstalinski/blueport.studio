@@ -5,6 +5,7 @@ import { IconBox } from "@/components/ui/IconBox";
 import { SpotlightCard } from "@/components/SpotlightCard";
 import { Button } from "@/components/ui/Button";
 import { useGlassBlurStyle } from "@/lib/useGlassBlurStyle";
+import { cn } from "@/lib/utils";
 import type { ProcesVerticalTimelineProps } from "@/types";
 
 const CARD_BASE =
@@ -26,7 +27,7 @@ const CTA_BLOCK = { text: "Całość zwykle trwa 1–2 tygodnie.", question: "Ch
 
 export function ProcesVerticalTimeline({ cardVariant = "default" }: ProcesVerticalTimelineProps = {}) {
   const glassBlur = useGlassBlurStyle("default");
-  const CARD_CLASS = `${CARD_BASE}${cardVariant === "subpage" ? " card-subpage" : ""}`;
+  const cardClass = cn(CARD_BASE, cardVariant === "subpage" && "card-subpage");
 
   return (
     <section
@@ -85,7 +86,7 @@ export function ProcesVerticalTimeline({ cardVariant = "default" }: ProcesVertic
                   <SpotlightCard
                     className="custom-spotlight-card min-w-0 flex-1 rounded-2xl"
                   >
-                    <div className={CARD_CLASS} style={glassBlur}>{cardContent}</div>
+                    <div className={cardClass} style={glassBlur}>{cardContent}</div>
                   </SpotlightCard>
                 </div>
 
@@ -95,7 +96,7 @@ export function ProcesVerticalTimeline({ cardVariant = "default" }: ProcesVertic
                       <SpotlightCard
                         className="custom-spotlight-card w-[420px] max-w-full rounded-2xl lg:w-[480px]"
                       >
-                        <div className={`${CARD_CLASS} w-full`} style={glassBlur}>{cardContent}</div>
+                        <div className={cn(cardClass, "w-full")} style={glassBlur}>{cardContent}</div>
                       </SpotlightCard>
                     )}
                   </div>
@@ -107,7 +108,7 @@ export function ProcesVerticalTimeline({ cardVariant = "default" }: ProcesVertic
                       <SpotlightCard
                         className="custom-spotlight-card w-[420px] max-w-full rounded-2xl lg:w-[480px]"
                       >
-                        <div className={`${CARD_CLASS} w-full`} style={glassBlur}>{cardContent}</div>
+                        <div className={cn(cardClass, "w-full")} style={glassBlur}>{cardContent}</div>
                       </SpotlightCard>
                     )}
                   </div>

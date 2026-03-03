@@ -1,12 +1,14 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { cn } from "@/lib/utils";
+import { ease } from "@/constants/animations";
 
-interface CalculatorProgressProps {
+type CalculatorProgressProps = {
   current: number;
   total: number;
   labels: string[];
-}
+};
 
 export function CalculatorProgress({
   current,
@@ -19,7 +21,7 @@ export function CalculatorProgress({
         <motion.div
           className="calc-progress-fill"
           animate={{ width: `${((current + 1) / total) * 100}%` }}
-          transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
+          transition={{ duration: 0.5, ease: ease.smooth }}
         />
       </div>
 
@@ -27,7 +29,11 @@ export function CalculatorProgress({
         {labels.map((label, i) => (
           <div
             key={label}
-            className={`calc-progress-step ${i < current ? "done" : i === current ? "active" : ""}`}
+            className={cn(
+              "calc-progress-step",
+              i < current && "done",
+              i === current && "active"
+            )}
           >
             <motion.div
               className="calc-step-dot"

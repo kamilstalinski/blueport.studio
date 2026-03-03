@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "@/styles/globals.css";
 import { Inter, Space_Grotesk } from "next/font/google";
+import { cn } from "@/lib/utils";
 import { ThemeInitScript } from "@/app/theme-script";
 import { ConditionalChrome } from "@/components/layout/ConditionalChrome";
 import { SmoothScroll } from "@/components/providers/SmoothScroll";
@@ -67,7 +68,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html
       lang="pl"
-      className={`${inter.variable} ${spaceGrotesk.variable}`}
+      className={cn(inter.variable, spaceGrotesk.variable)}
       suppressHydrationWarning
     >
       <head>

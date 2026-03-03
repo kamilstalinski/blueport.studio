@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
+import { cn } from "@/lib/utils";
 import type { SubpageHeroProps } from "@/types";
 
 export function SubpageHero({
@@ -15,11 +16,12 @@ export function SubpageHero({
   secondaryCtaHref = "/kontakt",
   firstOnPage = true,
 }: SubpageHeroProps) {
-  const sectionPadding = firstOnPage ? "pt-navbar-first section-padding-bottom" : "section-padding";
-
   return (
     <section
-      className={`relative ${sectionPadding} text-center`}
+      className={cn(
+        "relative text-center",
+        firstOnPage ? "pt-navbar-first section-padding-bottom" : "section-padding"
+      )}
       aria-labelledby="subpage-hero-title"
     >
       {/* Subtle glass accent behind content */}

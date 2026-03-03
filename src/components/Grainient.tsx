@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { Renderer, Program, Mesh, Triangle } from "ogl";
+import { cn } from "@/lib/utils";
 import type { GrainientProps } from "@/types";
 
 const hexToRgb = (hex: string): [number, number, number] => {
@@ -258,7 +259,7 @@ export function Grainient({
   return (
     <div
       ref={containerRef}
-      className={`relative h-full w-full overflow-hidden ${className}`.trim()}
+      className={cn("relative h-full w-full overflow-hidden", className)}
     />
   );
 }

@@ -1,16 +1,16 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import type { useCalculator } from "@/hooks/useCalculator";
-import type { ProjectType } from "@/types/calculator.types";
 import { PACKAGES } from "@/constants/pricing";
 import type { PackageId } from "@/constants/pricing";
+import { cn } from "@/lib/utils";
 
 type CalculatorProps = ReturnType<typeof useCalculator>;
 
 const OPTIONS = Object.values(PACKAGES).map((pkg) => ({
-  id: pkg.id as ProjectType,
+  id: pkg.id,
   title: pkg.name,
   desc: pkg.description,
   price: `od ${pkg.basePrice.toLocaleString("pl-PL")} zł`,
@@ -23,15 +23,17 @@ export function Step1Type({ calculator }: { calculator: CalculatorProps }) {
   const [openDropdownId, setOpenDropdownId] = useState<PackageId | null>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    if (openDropdownId === null) return;
-    function handleClickOutside(e: MouseEvent) {
-      if (dropdownRef.current?.contains(e.target as Node)) return;
+  const handleClickOutside = useCallback((e: MouseEvent) => {
+    if (!(e.target instanceof Node) || !dropdownRef.current?.contains(e.target)) {
       setOpenDropdownId(null);
     }
+  }, []);
+
+  useEffect(() => {
+    if (openDropdownId === null) return;
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [openDropdownId]);
+  }, [openDropdownId, handleClickOutside]);
 
   return (
     <div className="step">
@@ -52,7 +54,7 @@ export function Step1Type({ calculator }: { calculator: CalculatorProps }) {
                 }
               }}
               whileTap={{ scale: 0.99 }}
-              className={`option-card ${state.projectType === opt.id ? "selected" : ""}`}
+              className={cn("option-card", state.projectType === opt.id && "selected")}
               aria-pressed={state.projectType === opt.id}
             >
               {opt.tag && <span className="option-tag">{opt.tag}</span>}
