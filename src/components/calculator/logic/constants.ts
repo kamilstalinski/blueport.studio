@@ -3,9 +3,9 @@
  * Feature and integration costs come from calculatorOptions.
  */
 
-import type { ProjectType } from "@/types";
+import type { LegacyProjectType } from "@/types";
 
-export type NonNullableProjectType = NonNullable<ProjectType>;
+export type NonNullableProjectType = NonNullable<LegacyProjectType>;
 
 /** Base prices (min/max) per project type. */
 export const BASE_PRICES: Record<NonNullableProjectType, { min: number; max: number }> = {

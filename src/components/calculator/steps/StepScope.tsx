@@ -1,15 +1,15 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import type { ProjectType, StepScopeProps } from "@/types";
+import type { LegacyProjectType, StepScopeProps } from "@/types";
 import { SCOPE_PRESETS_PAGES, SCOPE_PRESETS_PRODUCTS } from "../logic/calculatorOptions";
 import { CALC_CARD_BASE, CALC_CARD_UNSELECTED, CALC_CARD_SELECTED } from "../calculatorStyles";
 
 export type { StepScopeProps } from "@/types";
 
-const PRODUCT_PROJECT_TYPES: ProjectType[] = ["woocommerce-start", "woocommerce-pro"];
+const PRODUCT_PROJECT_TYPES: NonNullable<LegacyProjectType>[] = ["woocommerce-start", "woocommerce-pro"];
 
-function isProductScope(projectType: ProjectType | null): boolean {
+function isProductScope(projectType: LegacyProjectType | null): boolean {
   return projectType !== null && PRODUCT_PROJECT_TYPES.includes(projectType);
 }
 

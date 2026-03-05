@@ -1,4 +1,4 @@
-import type { CalculatorState, EstimateResult } from "@/types";
+import type { EstimateResult } from "@/types";
 import {
   BASE_PRICES,
   getPagesCostRange,
@@ -8,11 +8,22 @@ import {
   ABSOLUTE_MIN_PRICE,
   ABSOLUTE_MAX_PRICE,
 } from "./constants";
-import { getFeatureCost } from "./calculatorOptions";
-import { INTEGRATION_OPTIONS } from "./calculatorOptions";
+import { getFeatureCost, INTEGRATION_OPTIONS } from "./calculatorOptions";
+import type { LegacyProjectType } from "@/types";
 
 const PAGE_PROJECT_TYPES = ["wordpress-standard", "wordpress-pro", "nextjs"] as const;
 const PRODUCT_PROJECT_TYPES = ["woocommerce-start", "woocommerce-pro"] as const;
+
+/** Legacy state shape for computePrice (scope, languageCount, integrations, urgency). */
+export interface LegacyCalculatorState {
+  projectType: LegacyProjectType;
+  scopeUnit: "pages" | "products";
+  scopeCount: number;
+  features: string[];
+  languageCount: number;
+  integrations: string[];
+  urgency: "standard" | "express";
+}
 
 const LANGUAGE_COST: Record<number, { min: number; max: number }> = {
   1: { min: 0, max: 0 },
@@ -29,7 +40,7 @@ function clampValue(n: number): number {
   return Math.max(ABSOLUTE_MIN_PRICE, Math.min(n, ABSOLUTE_MAX_PRICE));
 }
 
-export function computePrice(state: CalculatorState): EstimateResult {
+export function computePrice(state: LegacyCalculatorState): EstimateResult {
   const { projectType, scopeUnit, scopeCount, features, languageCount, integrations, urgency } = state;
 
   if (!projectType) {

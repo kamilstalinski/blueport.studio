@@ -1,6 +1,10 @@
 import type React from "react";
+import type { PackageId, FeatureId, TimelineId } from "@/constants/pricing";
 
-export type ProjectType =
+export type { PackageId, FeatureId, TimelineId };
+
+/** @deprecated Legacy 6-step flow used PackageId; use that instead. Kept for pricingEngine/constants/calculatorOptions. */
+export type LegacyProjectType =
   | "wordpress-standard"
   | "wordpress-pro"
   | "woocommerce-start"
@@ -8,8 +12,13 @@ export type ProjectType =
   | "nextjs"
   | null;
 
-export type ScopeUnit = "pages" | "products";
+/** @deprecated Legacy estimate range. New flow uses single total from calculatePrice. */
+export interface EstimateResult {
+  min: number;
+  max: number;
+}
 
+/** @deprecated Legacy timeline. New flow uses TimelineId (express | standard | relaxed). */
 export type Urgency = "standard" | "express";
 
 export type StepIndex = 1 | 2 | 3 | 4 | 5 | 6;
@@ -17,13 +26,9 @@ export type StepIndex = 1 | 2 | 3 | 4 | 5 | 6;
 export type ProjectPriority = "speed" | "price" | "quality" | "feature" | null;
 
 export interface CalculatorState {
-  projectType: ProjectType;
-  scopeUnit: ScopeUnit;
-  scopeCount: number;
-  features: string[];
-  languageCount: number;
-  integrations: string[];
-  urgency: Urgency;
+  packageId: PackageId | null;
+  features: FeatureId[];
+  timeline: TimelineId;
   projectPriority: ProjectPriority;
   name: string;
   email: string;
@@ -35,57 +40,46 @@ export interface PriceEstimate {
   maxPrice: number;
 }
 
-export interface EstimateResult {
-  min: number;
-  max: number;
-}
-
-export interface PriceBreakdownItem {
+export interface BreakdownItem {
   label: string;
-  min: number;
-  max: number;
+  price: number;
 }
-
-/** Alias for summary breakdown items. */
-export type BreakdownItem = PriceBreakdownItem;
 
 export interface SummaryResult {
-  projectDescription: string;
-  estimate: PriceEstimate;
+  packageName: string;
+  total: number;
+  label: string;
+  base: number;
+  featuresTotal: number;
   breakdown: BreakdownItem[];
   estimatedTimeline: string;
   qualificationTags: string[];
+  projectDescription: string;
 }
 
 export type CalculatorAction =
-  | { type: "SET_PROJECT_TYPE"; payload: NonNullable<ProjectType> }
-  | { type: "SET_SCOPE_COUNT"; payload: number }
-  | { type: "SET_FEATURES"; payload: string[] }
-  | { type: "SET_LANGUAGE_COUNT"; payload: number }
-  | { type: "SET_INTEGRATIONS"; payload: string[] }
-  | { type: "SET_URGENCY"; payload: Urgency }
+  | { type: "SET_PACKAGE_ID"; payload: PackageId }
+  | { type: "SET_FEATURES"; payload: FeatureId[] }
+  | { type: "SET_TIMELINE"; payload: TimelineId }
   | { type: "SET_PROJECT_PRIORITY"; payload: ProjectPriority }
   | { type: "SET_NAME"; payload: string }
   | { type: "SET_EMAIL"; payload: string }
   | { type: "SET_PHONE"; payload: string }
-  | { type: "SET_STEP"; payload: StepIndex }
   | { type: "RESET" };
 
-/** Payload passed to onSubmit. */
+/** Payload passed to onSubmit and API /api/leads. */
 export interface CalculatorSubmitPayload {
   name: string;
   email: string;
   phone: string;
-  projectType: ProjectType;
-  scopeUnit: ScopeUnit;
-  scopeCount: number;
-  features: string[];
-  languageCount: number;
-  integrations: string[];
-  urgency: Urgency;
+  packageId: PackageId;
+  features: FeatureId[];
+  timeline: TimelineId;
   projectPriority: ProjectPriority;
-  estimateMin: number;
-  estimateMax: number;
+  total: number;
+  base: number;
+  featuresTotal: number;
+  label: string;
   estimatedTimeline: string;
   qualificationTags: string[];
   projectDescription: string;
@@ -105,6 +99,7 @@ export interface CalculatorContextValue {
   updateState: (payload: Partial<CalculatorState>) => void;
   getPrice: () => PriceEstimate;
   getSummary: () => SummaryResult;
+  getSubmitPayload: () => CalculatorSubmitPayload | null;
   validateStep: (step: StepIndex) => StepValidationResult;
   canGoNext: (step: StepIndex) => boolean;
   canSubmit: boolean;

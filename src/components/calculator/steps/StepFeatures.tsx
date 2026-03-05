@@ -3,7 +3,7 @@
 import { cn } from "@/lib/utils";
 import { IconBox } from "@/components/ui/IconBox";
 import { FEATURES_BY_TYPE, LANGUAGE_OPTIONS, INTEGRATION_OPTIONS as INTEGRATION_OPTIONS_DATA } from "../logic/calculatorOptions";
-import type { ProjectType, StepFeaturesProps } from "@/types";
+import type { LegacyProjectType, StepFeaturesProps } from "@/types";
 import { CALC_CARD_BASE, CALC_CARD_UNSELECTED, CALC_CARD_SELECTED } from "../calculatorStyles";
 
 export type { StepFeaturesProps } from "@/types";
@@ -41,7 +41,7 @@ function toggleInList(list: string[], id: string): string[] {
   return list.includes(id) ? list.filter((x) => x !== id) : [...list, id];
 }
 
-function getVisibleFeatureIds(projectType: ProjectType | null, languageCount: number): string[] {
+function getVisibleFeatureIds(projectType: LegacyProjectType | null, languageCount: number): string[] {
   if (!projectType) return [];
   const features = FEATURES_BY_TYPE[projectType] ?? [];
   return features
@@ -76,12 +76,12 @@ export function StepFeatures({
           {featureIds.map((id) => {
             const feature = FEATURES_BY_TYPE[projectType!]?.find((f) => f.id === id);
             const emoji = FEATURE_EMOJI[id] ?? "📦";
-            const isChecked = features.includes(id);
+            const isChecked = (features as string[]).includes(id);
             return (
               <button
                 key={id}
                 type="button"
-                onClick={() => onFeaturesChange(toggleInList(features, id))}
+                onClick={() => onFeaturesChange(toggleInList(features as string[], id))}
                 className={cn(
                   CALC_CARD_BASE,
                   "flex items-start gap-4 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2",
@@ -145,13 +145,13 @@ export function StepFeatures({
         <div className="flex flex-wrap gap-3">
           {integrationOptions.map(({ id, label }) => {
             const emoji = INTEGRATION_EMOJI[id] ?? "🔌";
-            const isChecked = integrations.includes(id);
+            const isChecked = (integrations as string[]).includes(id);
             return (
               <button
                 key={id}
                 type="button"
                 onClick={() =>
-                  onIntegrationsChange(toggleInList(integrations, id))
+                  onIntegrationsChange(toggleInList(integrations as string[], id))
                 }
                 className={cn(
                   CALC_CARD_BASE,

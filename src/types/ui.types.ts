@@ -4,11 +4,14 @@ import type { GlassBlurVariant } from "./theme.types";
 import type {
   SummaryResult,
   StepIndex,
-  Urgency,
-  ProjectType,
+  TimelineId,
+  PackageId,
+  FeatureId,
   ProjectPriority,
   CalculatorState,
   CalculatorSubmitPayload,
+  Urgency,
+  LegacyProjectType,
 } from "./api.types";
 
 export type ButtonVariant = "primary" | "ghost" | "outline" | "accent" | "secondary";
@@ -181,8 +184,16 @@ export interface StepBudgetProps {
   onUrgencyChange: (value: Urgency) => void;
 }
 
+/** New flow (pricing-based): packageId + features only. */
+export interface StepFeaturesPropsNew {
+  packageId: PackageId | null;
+  features: FeatureId[];
+  onFeaturesChange: (value: FeatureId[]) => void;
+}
+
+/** Legacy flow: projectType + languageCount + integrations. */
 export interface StepFeaturesProps {
-  projectType: ProjectType | null;
+  projectType: LegacyProjectType | null;
   features: string[];
   languageCount: number;
   integrations: string[];
@@ -196,12 +207,13 @@ export interface StepScopeProps {
   productCount: number;
   onPagesCountChange: (value: number) => void;
   onProductCountChange: (value: number) => void;
-  projectType: ProjectType;
+  projectType: NonNullable<LegacyProjectType>;
 }
 
+/** Legacy flow: category + tier (wordpress-standard, woocommerce-start, nextjs, etc.). */
 export interface StepProjectTypeProps {
-  value: ProjectType | null;
-  onChange: (value: ProjectType) => void;
+  value: LegacyProjectType | null;
+  onChange: (value: NonNullable<LegacyProjectType>) => void;
 }
 
 export interface StepContactProps {

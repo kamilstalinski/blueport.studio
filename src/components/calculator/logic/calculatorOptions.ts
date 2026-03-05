@@ -3,7 +3,10 @@
  * Used by UI components and by pricing/summary logic.
  */
 
-import type { ProjectType } from "@/types";
+import type { LegacyProjectType } from "@/types";
+
+/** Legacy project type for options; use PackageId from pricing for new flow. */
+type ProjectType = LegacyProjectType;
 
 export type ProjectCategory = "wordpress" | "woocommerce" | "nextjs";
 export type ProjectTier = "standard" | "pro";

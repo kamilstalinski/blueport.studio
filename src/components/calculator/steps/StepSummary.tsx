@@ -30,9 +30,7 @@ export function StepSummary({ summary }: StepSummaryProps) {
             Szacowana wycena
           </p>
           <p className="text-3xl font-bold tracking-tight text-foreground">
-            {summary.estimate.minPrice === summary.estimate.maxPrice
-              ? `${summary.estimate.minPrice.toLocaleString("pl-PL")} zł`
-              : `${summary.estimate.minPrice.toLocaleString("pl-PL")} – ${summary.estimate.maxPrice.toLocaleString("pl-PL")} zł`}
+            {summary.label}
           </p>
           <p className="mt-3 text-sm text-muted-foreground">
             To orientacyjna wycena. Finalna cena ustalana jest po rozmowie.
@@ -48,9 +46,7 @@ export function StepSummary({ summary }: StepSummaryProps) {
               >
                 <span className="text-foreground">{item.label}</span>
                 <span className="text-foreground">
-                  {item.min === item.max
-                    ? `${item.min.toLocaleString("pl-PL")} zł`
-                    : `${item.min.toLocaleString("pl-PL")} – ${item.max.toLocaleString("pl-PL")} zł`}
+                  {item.price.toLocaleString("pl-PL")} zł
                 </span>
               </li>
             ))}

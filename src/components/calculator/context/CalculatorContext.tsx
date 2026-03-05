@@ -13,19 +13,15 @@ import type {
   CalculatorAction,
   CalculatorContextValue,
   StepIndex,
+  CalculatorSubmitPayload,
 } from "@/types";
-import { computePrice } from "../logic/pricingEngine";
-import { buildSummary, getPriceEstimate } from "../logic/summary";
-import { validateStep as validateStepFn, canSubmit as canSubmitFn } from "../logic/validation";
+import { buildSummary } from "../logic/summary";
+import { validateStep as validateStepFn, canGoNext as canGoNextFn, canSubmit as canSubmitFn } from "../logic/validation";
 
 const initialState: CalculatorState = {
-  projectType: null,
-  scopeUnit: "pages",
-  scopeCount: 0,
+  packageId: null,
   features: [],
-  languageCount: 1,
-  integrations: [],
-  urgency: "standard",
+  timeline: "standard",
   projectPriority: null,
   name: "",
   email: "",
@@ -34,28 +30,17 @@ const initialState: CalculatorState = {
 
 function reducer(state: CalculatorState, action: CalculatorAction): CalculatorState {
   switch (action.type) {
-    case "SET_PROJECT_TYPE": {
-      const projectType = action.payload;
-      const scopeUnit =
-        projectType === "woocommerce-start" || projectType === "woocommerce-pro" ? "products" : "pages";
+    case "SET_PACKAGE_ID": {
       return {
         ...state,
-        projectType,
-        scopeUnit,
-        scopeCount: 0,
+        packageId: action.payload,
         features: [],
       };
     }
-    case "SET_SCOPE_COUNT":
-      return { ...state, scopeCount: action.payload };
     case "SET_FEATURES":
       return { ...state, features: action.payload };
-    case "SET_LANGUAGE_COUNT":
-      return { ...state, languageCount: action.payload };
-    case "SET_INTEGRATIONS":
-      return { ...state, integrations: action.payload };
-    case "SET_URGENCY":
-      return { ...state, urgency: action.payload };
+    case "SET_TIMELINE":
+      return { ...state, timeline: action.payload };
     case "SET_PROJECT_PRIORITY":
       return { ...state, projectPriority: action.payload };
     case "SET_NAME":
@@ -95,21 +80,44 @@ export function CalculatorProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const updateState = useCallback((payload: Partial<CalculatorState>) => {
-    if (payload.projectType !== undefined && payload.projectType !== null)
-      dispatch({ type: "SET_PROJECT_TYPE", payload: payload.projectType });
-    if (payload.scopeCount !== undefined) dispatch({ type: "SET_SCOPE_COUNT", payload: payload.scopeCount });
+    if (payload.packageId !== undefined && payload.packageId !== null)
+      dispatch({ type: "SET_PACKAGE_ID", payload: payload.packageId });
     if (payload.features !== undefined) dispatch({ type: "SET_FEATURES", payload: payload.features });
-    if (payload.languageCount !== undefined) dispatch({ type: "SET_LANGUAGE_COUNT", payload: payload.languageCount });
-    if (payload.integrations !== undefined) dispatch({ type: "SET_INTEGRATIONS", payload: payload.integrations });
-    if (payload.urgency !== undefined) dispatch({ type: "SET_URGENCY", payload: payload.urgency });
+    if (payload.timeline !== undefined) dispatch({ type: "SET_TIMELINE", payload: payload.timeline });
     if (payload.projectPriority !== undefined) dispatch({ type: "SET_PROJECT_PRIORITY", payload: payload.projectPriority });
     if (payload.name !== undefined) dispatch({ type: "SET_NAME", payload: payload.name });
     if (payload.email !== undefined) dispatch({ type: "SET_EMAIL", payload: payload.email });
     if (payload.phone !== undefined) dispatch({ type: "SET_PHONE", payload: payload.phone });
   }, []);
 
-  const getPrice = useCallback(() => getPriceEstimate(state), [state]);
   const getSummary = useCallback(() => buildSummary(state), [state]);
+
+  const getPrice = useCallback(() => {
+    const summary = buildSummary(state);
+    return { minPrice: summary.total, maxPrice: summary.total };
+  }, [state]);
+
+  const getSubmitPayload = useCallback((): CalculatorSubmitPayload | null => {
+    if (!canSubmitFn(state) || !state.packageId) return null;
+    const summary = buildSummary(state);
+    return {
+      name: state.name,
+      email: state.email,
+      phone: state.phone,
+      packageId: state.packageId,
+      features: state.features,
+      timeline: state.timeline,
+      projectPriority: state.projectPriority,
+      total: summary.total,
+      base: summary.base,
+      featuresTotal: summary.featuresTotal,
+      label: summary.label,
+      estimatedTimeline: summary.estimatedTimeline,
+      qualificationTags: summary.qualificationTags,
+      projectDescription: summary.projectDescription,
+      breakdown: summary.breakdown,
+    };
+  }, [state]);
 
   const validateStep = useCallback(
     (s: StepIndex) => validateStepFn(s, state),
@@ -117,7 +125,7 @@ export function CalculatorProvider({ children }: { children: ReactNode }) {
   );
 
   const canGoNext = useCallback(
-    (s: StepIndex) => validateStepFn(s, state).valid,
+    (s: StepIndex) => canGoNextFn(s, state),
     [state]
   );
 
@@ -137,6 +145,7 @@ export function CalculatorProvider({ children }: { children: ReactNode }) {
       updateState,
       getPrice,
       getSummary,
+      getSubmitPayload,
       validateStep,
       canGoNext,
       canSubmit: canSubmitFlag,
@@ -149,6 +158,7 @@ export function CalculatorProvider({ children }: { children: ReactNode }) {
       updateState,
       getPrice,
       getSummary,
+      getSubmitPayload,
       validateStep,
       canGoNext,
       canSubmitFlag,
