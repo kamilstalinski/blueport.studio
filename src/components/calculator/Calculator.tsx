@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useCalculator } from "@/hooks/useCalculator";
 import { CalculatorLeft } from "./CalculatorLeft";
 import { CalculatorRight } from "./CalculatorRight";
@@ -17,8 +18,13 @@ export function Calculator() {
 
       <header className="calc-header">
         <Link href="/" className="calc-logo">
-          <span className="calc-logo-mark">BP</span>
-          <span className="calc-logo-text">blueport</span>
+          <Image
+            src="/logov3.svg"
+            alt="Blueport Studio — strona główna"
+            width={70}
+            height={70}
+            className="h-10 w-auto object-contain md:h-12"
+          />
         </Link>
         <Link href="/" className="calc-back">
           ← Wróć na stronę

@@ -114,17 +114,19 @@ export function CalculatorLeft({ calculator }: { calculator: CalculatorProps }) 
         <motion.button
           type="button"
           onClick={isLastStep ? handleSubmit : goNext}
-          disabled={!canGoNext || state.isSubmitting}
-          whileHover={canGoNext ? { scale: 1.025 } : {}}
-          whileTap={canGoNext ? { scale: 0.975 } : {}}
+          disabled={!canGoNext || state.isSubmitting || state.isSubmitted}
+          whileHover={canGoNext && !state.isSubmitted ? { scale: 1.025 } : {}}
+          whileTap={canGoNext && !state.isSubmitted ? { scale: 0.975 } : {}}
           className="calc-btn calc-btn--primary"
           style={{ marginLeft: "auto" }}
         >
-          {state.isSubmitting
-            ? "Wysyłam..."
-            : isLastStep
-              ? "Wyślij zapytanie →"
-              : "Dalej →"}
+          {state.isSubmitted && isLastStep
+            ? "Wysłano ✓"
+            : state.isSubmitting
+              ? "Wysyłam..."
+              : isLastStep
+                ? "Wyślij zapytanie →"
+                : "Dalej →"}
         </motion.button>
       </div>
     </div>
