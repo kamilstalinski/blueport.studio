@@ -3,6 +3,7 @@ import { Resend } from "resend";
 import { NextRequest, NextResponse } from "next/server";
 import { PACKAGES, FEATURES } from "@/constants/pricing";
 import type { PackageId, FeatureId, TimelineId } from "@/constants/pricing";
+import { LOGO_BASE64 } from "@/lib/emailAssets";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -260,7 +261,9 @@ function clientEmailHtml(data: {
       ';font-family:Inter,system-ui,sans-serif;">',
     '<div style="' + wrapperStyle + '">',
     '<div style="' + headerStyle + '">',
-    '<img src="https://murqbxklwhuitfhkslsc.supabase.co/storage/v1/object/public/logo/logov3.svg" alt="BluePort Studio" width="70" height="70" style="display:block;width:70px;height:70px;object-fit:contain;margin:0 auto;" />',
+    '<img src="' +
+      LOGO_BASE64 +
+      '" alt="BluePort Studio" width="70" height="70" style="display:block;width:70px;height:70px;object-fit:contain;margin:0 auto;" />',
     '<p style="margin:' +
       d.space[2] +
       " 0 0;color:" +
@@ -295,9 +298,9 @@ function clientEmailHtml(data: {
       d.space[2] +
       ';"><span style="font-size:15px;font-weight:600;color:' +
       d.textPrimary +
-      ';">Razem:</span><span style="font-size:28px;font-weight:700;color:' +
+      ';">Razem</span><span style="font-size:28px;font-weight:700;color:' +
       d.primary +
-      ';"> ~' +
+      ';">' +
       formatPrice(data.total) +
       "</span></div>",
     '<div style="margin-top:' +
@@ -424,7 +427,9 @@ function notificationEmailHtml(data: {
       ';font-family:Inter,system-ui,sans-serif;">',
     '<div style="' + wrapperStyle + '">',
     '<div style="' + headerStyle + '">',
-    '<img src="https://murqbxklwhuitfhkslsc.supabase.co/storage/v1/object/public/logo/logov3.svg" alt="BluePort Studio" width="48" height="48" style="display:block;width:48px;height:48px;object-fit:contain;" />',
+    '<img src="' +
+      LOGO_BASE64 +
+      '" alt="BluePort Studio" width="70" height="70" style="display:block;width:70px;height:70px;object-fit:contain;margin:0 auto;" />',
     '<div><h1 style="margin:0;color:' +
       d.textPrimary +
       ';font-size:18px;font-weight:600;">Nowy lead z kalkulatora</h1>',
