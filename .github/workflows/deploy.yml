@@ -5,19 +5,30 @@ on:
     branches: [main, prod]
 
 jobs:
+  # ─── JOB 1: Testy ────────────────────────────────────
   test:
     name: Testy i type-check
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: Checkout kodu
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: npm
-      - run: npm ci
-      - run: npx tsc --noEmit
-      - run: npm run lint
+
+      - name: Instalacja zależności
+        run: npm ci
+
+      - name: TypeScript type-check
+        run: npx tsc --noEmit
+
+      - name: Lint
+        run: npm run lint
+
       - name: Build testowy
         run: npm run build
         env:
@@ -27,11 +38,12 @@ jobs:
           RESEND_FROM: ${{ secrets.RESEND_FROM }}
           NOTIFICATION_EMAIL: ${{ secrets.NOTIFICATION_EMAIL }}
 
+  # ─── JOB 2: Deploy ───────────────────────────────────
   deploy:
     name: Deploy na Hetzner
     runs-on: ubuntu-latest
     needs: test
-    if: github.ref == 'refs/heads/prod' # ← deploy TYLKO z gałęzi prod
+    if: github.ref == 'refs/heads/prod'
 
     steps:
       - name: Deploy przez SSH
@@ -43,37 +55,29 @@ jobs:
     envs: NEXT_PUBLIC_SUPABASE_URL,SUPABASE_SERVICE_ROLE_KEY,RESEND_API_KEY,RESEND_FROM,NOTIFICATION_EMAIL
     script: |
       cd ~/blueport.studio
-        uses: appleboy/ssh-action@v1
-        with:
-          host: ${{ secrets.SERVER_IP }}
-          username: ${{ secrets.SERVER_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          envs: NEXT_PUBLIC_SUPABASE_URL,SUPABASE_SERVICE_ROLE_KEY,RESEND_API_KEY,RESEND_FROM,NOTIFICATION_EMAIL
-          script: |
-            cd ~/blueport.studio
 
-      echo "→ Pull najnowszego kodu"
-      git pull origin prod
+            echo "→ Pull najnowszego kodu"
+            git pull origin prod
 
-      echo "→ Instalacja zależności"
-      npm ci
+            echo "→ Instalacja zależności"
+            npm ci
 
-      echo "→ Zapis zmiennych środowiskowych"
-      {
-        echo "NEXT_PUBLIC_SUPABASE_URL=$NEXT_PUBLIC_SUPABASE_URL"
-        echo "SUPABASE_SERVICE_ROLE_KEY=$SUPABASE_SERVICE_ROLE_KEY"
-        echo "RESEND_API_KEY=$RESEND_API_KEY"
-        echo "RESEND_FROM=$RESEND_FROM"
-        echo "NOTIFICATION_EMAIL=$NOTIFICATION_EMAIL"
-      } > .env.local
+            echo "→ Zapis zmiennych środowiskowych"
+            {
+              echo "NEXT_PUBLIC_SUPABASE_URL=$NEXT_PUBLIC_SUPABASE_URL"
+              echo "SUPABASE_SERVICE_ROLE_KEY=$SUPABASE_SERVICE_ROLE_KEY"
+              echo "RESEND_API_KEY=$RESEND_API_KEY"
+              echo "RESEND_FROM=$RESEND_FROM"
+              echo "NOTIFICATION_EMAIL=$NOTIFICATION_EMAIL"
+            } > .env.local
 
-      echo "→ Weryfikacja zmiennych"
-      cat .env.local
+            echo "→ Weryfikacja zmiennych"
+            cat .env.local
 
-      echo "→ Build produkcyjny"
-      npm run build
+            echo "→ Build produkcyjny"
+            npm run build
 
-      echo "→ Restart aplikacji"
-      pm2 restart blueport
+            echo "→ Restart aplikacji"
+            pm2 restart blueport
 
-      echo "✓ Deploy zakończony"
+            echo "✓ Deploy zakończony"
