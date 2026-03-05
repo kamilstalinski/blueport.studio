@@ -60,24 +60,4 @@ jobs:
             git pull origin prod
 
             echo "→ Instalacja zależności"
-            npm ci
-
-            echo "→ Zapis zmiennych środowiskowych"
-            {
-              echo "NEXT_PUBLIC_SUPABASE_URL=$NEXT_PUBLIC_SUPABASE_URL"
-              echo "SUPABASE_SERVICE_ROLE_KEY=$SUPABASE_SERVICE_ROLE_KEY"
-              echo "RESEND_API_KEY=$RESEND_API_KEY"
-              echo "RESEND_FROM=$RESEND_FROM"
-              echo "NOTIFICATION_EMAIL=$NOTIFICATION_EMAIL"
-            } > .env.local
-
-            echo "→ Weryfikacja zmiennych"
-            cat .env.local
-
-            echo "→ Build produkcyjny"
-            npm run build
-
-            echo "→ Restart aplikacji"
-            pm2 restart blueport
-
-            echo "✓ Deploy zakończony"
+            n
