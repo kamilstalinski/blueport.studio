@@ -8,9 +8,7 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 
 /** Domena do assetów w mailach — zawsze publiczny URL (nie localhost), żeby logo się ładowało. */
 const EMAIL_ASSETS_BASE =
-  process.env.EMAIL_LOGO_BASE_URL ??
-  process.env.NEXT_PUBLIC_SITE_URL ??
-  "https://blueport.studio";
+  process.env.EMAIL_LOGO_BASE_URL ?? process.env.NEXT_PUBLIC_SITE_URL ?? "https://blueport.studio";
 
 /** Logo w mailach: PNG ma lepsze wsparcie (Gmail, Outlook). SVG: ustaw EMAIL_LOGO_URL na pełny URL do PNG. */
 function getEmailLogoUrl(): string {
@@ -196,17 +194,17 @@ function clientEmailHtml(data: {
   const breakdownRows = data.breakdown
     .map(
       (item) =>
-        "<tr><td style=\"padding:12px 0;font-size:14px;color:" +
+        '<tr><td style="padding:12px 0;font-size:14px;color:' +
         d.textPrimary +
         ";border-bottom:1px solid " +
         d.border +
-        ";\">" +
+        ';">' +
         item.label +
-        "</td><td style=\"padding:12px 0;font-size:14px;color:" +
+        '</td><td style="padding:12px 0;font-size:14px;color:' +
         d.textPrimary +
         ";text-align:right;border-bottom:1px solid " +
         d.border +
-        ";\">" +
+        ';">' +
         formatPrice(item.price) +
         "</td></tr>"
     )
@@ -255,71 +253,89 @@ function clientEmailHtml(data: {
     ";";
 
   return [
-    "<!DOCTYPE html><html lang=\"pl\">",
-    "<head><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"></head>",
-    "<body style=\"margin:0;padding:0;background:" +
+    '<!DOCTYPE html><html lang="pl">',
+    '<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>',
+    '<body style="margin:0;padding:0;background:' +
       d.bg +
-      ";font-family:Inter,system-ui,sans-serif;\">",
-    "<div style=\"" + wrapperStyle + "\">",
-    "<div style=\"" + headerStyle + "\">",
-    "<img src=\"" +
-      logoUrl +
-      "\" alt=\"BluePort Studio\" width=\"70\" height=\"70\" style=\"display:block;width:70px;height:70px;object-fit:contain;margin:0 auto;\" />",
-    "<p style=\"margin:" + d.space[2] + " 0 0;color:" + d.textSecondary + ";font-size:14px;\">Twoja wycena jest gotowa</p>",
+      ';font-family:Inter,system-ui,sans-serif;">',
+    '<div style="' + wrapperStyle + '">',
+    '<div style="' + headerStyle + '">',
+    '<img src="https://murqbxklwhuitfhkslsc.supabase.co/storage/v1/object/public/logo/logov3.svg" alt="BluePort Studio" width="70" height="70" style="display:block;width:70px;height:70px;object-fit:contain;margin:0 auto;" />',
+    '<p style="margin:' +
+      d.space[2] +
+      " 0 0;color:" +
+      d.textSecondary +
+      ';font-size:14px;">Twoja wycena jest gotowa</p>',
     "</div>",
-    "<div style=\"" + bodyStyle + "\">",
-    "<p style=\"margin:0 0 " +
+    '<div style="' + bodyStyle + '">',
+    '<p style="margin:0 0 ' +
       d.space[3] +
       ";font-size:16px;color:" +
       d.textPrimary +
-      ";line-height:1.6;\">Cześć <strong>" +
+      ';line-height:1.6;">Cześć <strong>' +
       data.name +
       "</strong>,<br><br>dziękuję za wypełnienie kalkulatora. Poniżej znajdziesz szczegółową wycenę Twojego projektu.</p>",
-    "<div style=\"" + cardStyle + "\">",
-    "<p style=\"margin:0 0 4px;font-size:0.65rem;color:" + d.muted + ";text-transform:uppercase;letter-spacing:0.18em;\">Wybrany pakiet</p>",
-    "<p style=\"margin:0 0 " + d.space[2] + ";font-size:17px;font-weight:600;color:" + d.textPrimary + ";\">" + PACKAGES[data.packageId].name + "</p>",
-    "<table style=\"width:100%;border-collapse:collapse;margin-bottom:" + d.space[2] + ";\">" + breakdownRows + "</table>",
-    "<div style=\"display:flex;justify-content:space-between;align-items:center;padding-top:" +
+    '<div style="' + cardStyle + '">',
+    '<p style="margin:0 0 4px;font-size:0.65rem;color:' +
+      d.muted +
+      ';text-transform:uppercase;letter-spacing:0.18em;">Wybrany pakiet</p>',
+    '<p style="margin:0 0 ' +
       d.space[2] +
-      ";\"><span style=\"font-size:15px;font-weight:600;color:" +
+      ";font-size:17px;font-weight:600;color:" +
       d.textPrimary +
-      ";\">Razem</span><span style=\"font-size:28px;font-weight:700;color:" +
+      ';">' +
+      PACKAGES[data.packageId].name +
+      "</p>",
+    '<table style="width:100%;border-collapse:collapse;margin-bottom:' +
+      d.space[2] +
+      ';">' +
+      breakdownRows +
+      "</table>",
+    '<div style="display:flex;justify-content:space-between;align-items:center;padding-top:' +
+      d.space[2] +
+      ';"><span style="font-size:15px;font-weight:600;color:' +
+      d.textPrimary +
+      ';">Razem:</span><span style="font-size:28px;font-weight:700;color:' +
       d.primary +
-      ";\">" +
+      ';"> ~' +
       formatPrice(data.total) +
       "</span></div>",
-    "<div style=\"margin-top:" +
+    '<div style="margin-top:' +
       d.space[2] +
       ";padding-top:" +
       d.space[2] +
       ";border-top:1px solid " +
       d.border +
-      ";\"><p style=\"margin:0 0 4px;font-size:0.65rem;color:" +
+      ';"><p style="margin:0 0 4px;font-size:0.65rem;color:' +
       d.muted +
-      ";text-transform:uppercase;\">Czas realizacji</p><p style=\"margin:0;font-size:16px;font-weight:600;color:" +
+      ';text-transform:uppercase;">Czas realizacji</p><p style="margin:0;font-size:16px;font-weight:600;color:' +
       d.textPrimary +
-      ";\">" +
+      ';">' +
       data.estimatedTimeline +
       "</p></div>",
     "</div>",
-    "<p style=\"margin:0 0 " +
+    '<p style="margin:0 0 ' +
       d.space[2] +
       ";font-size:14px;color:" +
       d.textSecondary +
-      ";line-height:1.6;\">To wycena orientacyjna. Skontaktuję się z Tobą w ciągu <strong style=\"color:" +
+      ';line-height:1.6;">To wycena orientacyjna. Skontaktuję się z Tobą w ciągu <strong style="color:' +
       d.textPrimary +
-      ";\">24 godzin roboczych</strong>, żeby omówić szczegóły.</p>",
-    "<p style=\"margin:0;font-size:14px;color:" +
+      ';">24 godzin roboczych</strong>, żeby omówić szczegóły.</p>',
+    '<p style="margin:0;font-size:14px;color:' +
       d.textSecondary +
-      ";\">Pytania? <a href=\"mailto:" +
+      ';">Pytania? <a href="mailto:' +
       notifEmail +
-      "\" style=\"color:" +
+      '" style="color:' +
       d.primary +
-      ";text-decoration:none;font-weight:500;\">" +
+      ';text-decoration:none;font-weight:500;">' +
       notifEmail +
       "</a></p>",
     "</div>",
-    "<div style=\"" + footerStyle + "\"><p style=\"margin:0;font-size:12px;color:" + d.muted + ";text-align:center;\">BluePort Studio · Szczecin · Wiadomość wysłana automatycznie</p></div>",
+    '<div style="' +
+      footerStyle +
+      '"><p style="margin:0;font-size:12px;color:' +
+      d.muted +
+      ';text-align:center;">BluePort Studio · Szczecin · Wiadomość wysłana automatycznie</p></div>',
     "</div></body></html>",
   ].join("");
 }
@@ -346,35 +362,34 @@ function notificationEmailHtml(data: {
     data.qualificationTags
       .map(
         (t) =>
-          "<span style=\"display:inline-block;background:" +
+          '<span style="display:inline-block;background:' +
           d.primarySubtle +
           ";color:" +
           d.primary +
           ";padding:6px 12px;border-radius:20px;font-size:12px;margin:2px;border:1px solid " +
           d.border +
-          ";\">" +
+          ';">' +
           t +
           "</span>"
       )
-      .join("") ||
-    "<p style=\"color:" + d.muted + ";font-size:13px;margin:0;\">Brak tagów</p>";
+      .join("") || '<p style="color:' + d.muted + ';font-size:13px;margin:0;">Brak tagów</p>';
 
   const featuresList = data.features.length
     ? data.features.map((f) => FEATURES[f].label).join(", ")
     : "—";
 
   const row = (label: string, value: string) =>
-    "<tr><td style=\"padding:12px 0;font-size:14px;color:" +
+    '<tr><td style="padding:12px 0;font-size:14px;color:' +
     d.textSecondary +
     ";width:42%;border-bottom:1px solid " +
     d.border +
-    ";\">" +
+    ';">' +
     label +
-    "</td><td style=\"padding:12px 0;font-size:14px;color:" +
+    '</td><td style="padding:12px 0;font-size:14px;color:' +
     d.textPrimary +
     ";font-weight:500;border-bottom:1px solid " +
     d.border +
-    ";\">" +
+    ';">' +
     value +
     "</td></tr>";
 
@@ -402,35 +417,57 @@ function notificationEmailHtml(data: {
     ";";
 
   return [
-    "<!DOCTYPE html><html lang=\"pl\">",
-    "<head><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"></head>",
-    "<body style=\"margin:0;padding:0;background:" + d.bg + ";font-family:Inter,system-ui,sans-serif;\">",
-    "<div style=\"" + wrapperStyle + "\">",
-    "<div style=\"" + headerStyle + "\">",
-    "<img src=\"" +
-      logoUrl +
-      "\" alt=\"BluePort Studio\" width=\"48\" height=\"48\" style=\"display:block;width:48px;height:48px;object-fit:contain;\" />",
-    "<div><h1 style=\"margin:0;color:" + d.textPrimary + ";font-size:18px;font-weight:600;\">Nowy lead z kalkulatora</h1>",
-    "<p style=\"margin:4px 0 0;color:" + d.muted + ";font-size:13px;\">" + new Date().toLocaleString("pl-PL") + "</p></div>",
+    '<!DOCTYPE html><html lang="pl">',
+    '<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>',
+    '<body style="margin:0;padding:0;background:' +
+      d.bg +
+      ';font-family:Inter,system-ui,sans-serif;">',
+    '<div style="' + wrapperStyle + '">',
+    '<div style="' + headerStyle + '">',
+    '<img src="https://murqbxklwhuitfhkslsc.supabase.co/storage/v1/object/public/logo/logov3.svg" alt="BluePort Studio" width="48" height="48" style="display:block;width:48px;height:48px;object-fit:contain;" />',
+    '<div><h1 style="margin:0;color:' +
+      d.textPrimary +
+      ';font-size:18px;font-weight:600;">Nowy lead z kalkulatora</h1>',
+    '<p style="margin:4px 0 0;color:' +
+      d.muted +
+      ';font-size:13px;">' +
+      new Date().toLocaleString("pl-PL") +
+      "</p></div>",
     "</div>",
-    "<div style=\"padding:" + d.space[3] + " " + d.space[4] + ";\">" + tags + "</div>",
-    "<div style=\"padding:" + d.space[2] + " " + d.space[4] + " " + d.space[4] + ";\">",
-    "<table style=\"width:100%;border-collapse:collapse;\">",
+    '<div style="padding:' + d.space[3] + " " + d.space[4] + ';">' + tags + "</div>",
+    '<div style="padding:' + d.space[2] + " " + d.space[4] + " " + d.space[4] + ';">',
+    '<table style="width:100%;border-collapse:collapse;">',
     row("Imię i nazwisko", data.name),
-    row("Email", "<a href=\"mailto:" + data.email + "\" style=\"color:" + d.primary + ";text-decoration:none;\">" + data.email + "</a>"),
+    row(
+      "Email",
+      '<a href="mailto:' +
+        data.email +
+        '" style="color:' +
+        d.primary +
+        ';text-decoration:none;">' +
+        data.email +
+        "</a>"
+    ),
     row("Telefon", data.phone || "—"),
     row("Pakiet", PACKAGES[data.packageId].name),
     row("Dodatki", featuresList),
     row("Tryb realizacji", formatTimeline(data.timeline)),
     row("Priorytet klienta", formatPriority(data.projectPriority)),
-    row("Wycena", "<span style=\"color:" + d.primary + ";font-weight:700;font-size:16px;\">" + formatPrice(data.total) + "</span>"),
+    row(
+      "Wycena",
+      '<span style="color:' +
+        d.primary +
+        ';font-weight:700;font-size:16px;">' +
+        formatPrice(data.total) +
+        "</span>"
+    ),
     row("Czas realizacji", data.estimatedTimeline),
     "</table>",
-    "<div style=\"margin-top:" +
+    '<div style="margin-top:' +
       d.space[3] +
-      ";\"><a href=\"mailto:" +
+      ';"><a href="mailto:' +
       data.email +
-      "?subject=Twoja wycena — BluePort Studio\" style=\"display:inline-block;background:" +
+      '?subject=Twoja wycena — BluePort Studio" style="display:inline-block;background:' +
       d.primary +
       ";color:" +
       d.textPrimary +
@@ -438,7 +475,7 @@ function notificationEmailHtml(data: {
       d.space[3] +
       ";min-height:48px;line-height:20px;border-radius:" +
       d.buttonRadius +
-      ";text-decoration:none;font-weight:600;font-size:14px;\">Odpowiedz klientowi</a></div>",
+      ';text-decoration:none;font-weight:600;font-size:14px;">Odpowiedz klientowi</a></div>',
     "</div></div></body></html>",
   ].join("");
 }
