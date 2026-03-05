@@ -15,6 +15,7 @@ import {
   TIMELINE_MULTIPLIERS,
   type TimelineId,
 } from "@/constants/pricing";
+import { buildSummary } from "@/components/calculator/logic/summary";
 
 const TOTAL_STEPS = 4;
 
@@ -128,18 +129,38 @@ export function useCalculator(): UseCalculatorReturn {
   }, [state.projectType, state.features]);
 
   const handleSubmit = useCallback(async () => {
+    if (!state.projectType) return;
     setState((s) => ({ ...s, isSubmitting: true, error: null }));
     try {
-      const response = await fetch("/api/contact", {
+      const timeline: TimelineId = state.timeline ?? "standard";
+      const summary = buildSummary({
+        packageId: state.projectType,
+        features: state.features,
+        timeline,
+        projectPriority: null,
+        name: state.contact.name,
+        email: state.contact.email,
+        phone: state.contact.phone,
+      });
+      const response = await fetch("/api/leads", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          ...state.contact,
-          projectType: state.projectType,
+          name: state.contact.name,
+          email: state.contact.email,
+          phone: state.contact.phone,
+          packageId: state.projectType,
           features: state.features,
-          timeline: state.timeline ?? "standard",
-          budget: state.budget,
-          estimatedPrice: priceSummary.label,
+          timeline,
+          projectPriority: null,
+          total: summary.total,
+          base: summary.base,
+          featuresTotal: summary.featuresTotal,
+          label: summary.label,
+          estimatedTimeline: summary.estimatedTimeline,
+          qualificationTags: summary.qualificationTags,
+          projectDescription: summary.projectDescription,
+          breakdown: summary.breakdown,
         }),
       });
       if (!response.ok) throw new Error("Błąd wysyłania");
@@ -152,7 +173,7 @@ export function useCalculator(): UseCalculatorReturn {
           "Coś poszło nie tak. Napisz bezpośrednio na kontakt@blueport.studio",
       }));
     }
-  }, [state, priceSummary.label]);
+  }, [state]);
 
   return {
     state,
