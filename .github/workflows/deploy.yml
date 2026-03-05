@@ -35,34 +35,37 @@ jobs:
 
     steps:
       - name: Deploy przez SSH
-        uses: appleboy/ssh-action@v1
-        with:
-          host: ${{ secrets.SERVER_IP }}
-          username: ${{ secrets.SERVER_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          envs: NEXT_PUBLIC_SUPABASE_URL,SUPABASE_SERVICE_ROLE_KEY,RESEND_API_KEY,RESEND_FROM,NOTIFICATION_EMAIL
-          script: |
-            cd ~/blueport-studio
+  uses: appleboy/ssh-action@v1
+  with:
+    host: ${{ secrets.SERVER_IP }}
+    username: ${{ secrets.SERVER_USER }}
+    key: ${{ secrets.SSH_PRIVATE_KEY }}
+    envs: NEXT_PUBLIC_SUPABASE_URL,SUPABASE_SERVICE_ROLE_KEY,RESEND_API_KEY,RESEND_FROM,NOTIFICATION_EMAIL
+    script: |
+      cd ~/blueport.studio
 
-            echo "→ Pull najnowszego kodu"
-            git pull origin prod
+      echo "→ Pull najnowszego kodu"
+      git pull origin prod
 
-            echo "→ Instalacja zależności"
-            npm ci
+      echo "→ Instalacja zależności"
+      npm ci
 
-            echo "→ Zapis zmiennych środowiskowych"
-            {
-              echo "NEXT_PUBLIC_SUPABASE_URL=$NEXT_PUBLIC_SUPABASE_URL"
-              echo "SUPABASE_SERVICE_ROLE_KEY=$SUPABASE_SERVICE_ROLE_KEY"
-              echo "RESEND_API_KEY=$RESEND_API_KEY"
-              echo "RESEND_FROM=$RESEND_FROM"
-              echo "NOTIFICATION_EMAIL=$NOTIFICATION_EMAIL"
-            } > .env.local
+      echo "→ Zapis zmiennych środowiskowych"
+      {
+        echo "NEXT_PUBLIC_SUPABASE_URL=$NEXT_PUBLIC_SUPABASE_URL"
+        echo "SUPABASE_SERVICE_ROLE_KEY=$SUPABASE_SERVICE_ROLE_KEY"
+        echo "RESEND_API_KEY=$RESEND_API_KEY"
+        echo "RESEND_FROM=$RESEND_FROM"
+        echo "NOTIFICATION_EMAIL=$NOTIFICATION_EMAIL"
+      } > .env.local
 
-            echo "→ Build produkcyjny"
-            npm run build
+      echo "→ Weryfikacja zmiennych"
+      cat .env.local
 
-            echo "→ Restart aplikacji"
-            pm2 restart blueport
+      echo "→ Build produkcyjny"
+      npm run build
 
-            echo "✓ Deploy zakończony"
+      echo "→ Restart aplikacji"
+      pm2 restart blueport
+
+      echo "✓ Deploy zakończony"
