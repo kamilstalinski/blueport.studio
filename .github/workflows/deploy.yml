@@ -11,22 +11,17 @@ jobs:
     steps:
       - name: Checkout kodu
         uses: actions/checkout@v4
-
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: npm
-
-      - name: Instalacja zależności
+      - name: Instalacja zaleznosci
         run: npm ci
-
       - name: TypeScript type-check
         run: npx tsc --noEmit
-
       - name: Lint
         run: npm run lint
-
       - name: Build testowy
         run: npm run build
         env:
@@ -35,11 +30,10 @@ jobs:
           RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
           RESEND_FROM: ${{ secrets.RESEND_FROM }}
           NOTIFICATION_EMAIL: ${{ secrets.NOTIFICATION_EMAIL }}
-
   deploy:
     name: Deploy na Hetzner
     runs-on: ubuntu-latest
-    eds: test
+    needs: test
     if: github.ref == 'refs/heads/prod'
     steps:
       - name: Deploy przez SSH
@@ -51,11 +45,8 @@ jobs:
           envs: NEXT_PUBLIC_SUPABASE_URL,SUPABASE_SERVICE_ROLE_KEY,RESEND_API_KEY,RESEND_FROM,NOTIFICATION_EMAIL
           script: |
             cd ~/blueport.studio
-            echo "→ Pull najnowszego kodu"
             git pull origin prod
-            echo "→ Instalacja zależności"
             npm ci
-            echo "→ Zapis zmiennych środowiskowych"
             {
               echo "NEXT_PUBLIC_SUPABASE_URL=$NEXT_PUBLIC_SUPABASE_URL"
               echo "SUPABASE_SERVICE_ROLE_KEY=$SUPABASE_SERVICE_ROLE_KEY"
@@ -63,9 +54,5 @@ jobs:
               echo "RESEND_FROM=$RESEND_FROM"
               echo "NOTIFICATION_EMAIL=$NOTIFICATION_EMAIL"
             } > .env.local
-            echo "→ Weryfikacja z           cat .env.local
-            echo "→ Build produkcyjny"
             npm run build
-            echo "→ Restart aplikacji"
             pm2 restart blueport
-            echo "✓ Deploy zakończony"
