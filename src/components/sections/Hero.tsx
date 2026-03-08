@@ -5,16 +5,16 @@ import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
 
 import { Container } from "@/components/ui/Container";
+import { HeroVisual } from "@/components/sections/HeroVisual";
 
 import { useMotionSafe } from "@/hooks/useMotionSafe";
 
-import { useGlassBlurStyle } from "@/lib/useGlassBlurStyle";
-
 import type { HeroContentKey } from "@/types";
 
-const ColorBends = dynamic(() => import("@/components/ColorBends").then((m) => m.default), {
-  ssr: false,
-});
+const ColorBends = dynamic(
+  () => import("@/components/ColorBends").then((m) => m.default),
+  { ssr: false }
+);
 
 /** Kolory z globals.css (--color-primary, --color-accent-2); używane w ColorBends */
 const HERO_BENDS_ACCENT_2 = "#00b8d9" as const;
@@ -128,7 +128,6 @@ function CtaLink({
 export function Hero({ contentKey = "Home.hero" }: { contentKey?: HeroContentKey }) {
   const content = HERO_TEXTS[contentKey];
   const isHome = contentKey === "Home.hero";
-  const glassBlurLg = useGlassBlurStyle("lg");
   const { variants: v } = useMotionSafe();
   const heroBendsColors = [HERO_BENDS_PRIMARY, HERO_BENDS_ACCENT_2];
 
@@ -472,115 +471,9 @@ export function Hero({ contentKey = "Home.hero" }: { contentKey?: HeroContentKey
           </motion.div>
         </div>
 
-        {/* Karty — absolute, right-8 = padding od prawej; z-0 żeby były pod lewą kolumną */}
-        <div className="absolute right-8 top-1/2 hidden md:block pointer-events-none w-[520px] h-[560px] -translate-y-1/2 z-0">
-          <motion.div
-            className="relative h-full w-full"
-            variants={v.stagger}
-            initial="hidden"
-            animate="visible"
-          >
-            {/* Card 1 — Gotowe w 8 dni */}
-            <motion.div
-              variants={v.fadeIn}
-              className="hero-card absolute left-0 top-[60px] w-[320px] rounded-2xl p-0 overflow-hidden"
-              style={glassBlurLg}
-              aria-hidden
-            >
-              <div className="flex items-center gap-1.5 px-2.5 py-2 border-b border-white/10">
-                <span className="w-2.5 h-2.5 rounded-full bg-[var(--color-status-red)]" />
-                <span className="w-2.5 h-2.5 rounded-full bg-[var(--color-status-amber)]" />
-                <span className="w-2.5 h-2.5 rounded-full bg-white/40" />
-              </div>
-              <div className="relative h-[140px] bg-gradient-to-br from-white/10 to-white/5">
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-3">
-                  <span className="font-heading text-white font-bold text-[0.85rem]">
-                    Gotowe w 8 dni
-                  </span>
-                </div>
-              </div>
-              <div className="p-4">
-                <p className="font-body text-[0.65rem] md:text-[0.75rem] text-white/50 uppercase tracking-wider mb-2">
-                  Realizacja
-                </p>
-                <div className="h-1 w-full rounded-full bg-white/10 overflow-hidden">
-                  <div className="h-full rounded-full bg-white/40" style={{ width: "78%" }} />
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Card 2 — Klient B2B */}
-            <motion.div
-              variants={v.fadeIn}
-              className="hero-card absolute right-0 top-5 w-[230px] rounded-2xl p-4"
-              style={glassBlurLg}
-              aria-hidden
-            >
-              <p className="font-body text-[0.65rem] md:text-[0.75rem] text-white/50">Strona firmowa</p>
-              <p className="font-heading text-[0.9rem] font-bold text-white mt-0.5">Klient B2B</p>
-              <p className="font-body text-white/60 text-[0.72rem] md:text-[0.75rem] mt-1 flex items-center gap-1">
-                <span aria-hidden>✓</span> Wdrożono
-              </p>
-              <div className="my-3 h-px bg-white/10" />
-              <div className="flex items-center gap-2">
-                <div className="w-7 h-7 rounded-full bg-white/20 shrink-0" aria-hidden />
-                <span className="font-body text-[0.65rem] md:text-[0.75rem] text-white/60">Klient zadowolony</span>
-                <span className="text-white/50 text-[0.65rem] md:text-[0.75rem]">★★★★★</span>
-              </div>
-            </motion.div>
-
-            {/* Card 3 — Ruch organiczny +340% */}
-            <motion.div
-              variants={v.fadeIn}
-              className="hero-card absolute right-0 bottom-10 w-[280px] rounded-2xl p-4"
-              style={glassBlurLg}
-              aria-hidden
-            >
-              <div className="flex items-center gap-1.5 px-2 py-1.5 border-b border-white/10 mb-3">
-                <span className="w-2 h-2 rounded-full bg-[var(--color-status-red)]" />
-                <span className="w-2 h-2 rounded-full bg-[var(--color-status-amber)]" />
-                <span className="w-2 h-2 rounded-full bg-white/40" />
-              </div>
-              <p className="font-body text-sm text-white/90 flex items-center gap-2 flex-wrap">
-                Ruch organiczny
-                <span
-                  className="font-heading inline-flex items-center gap-0.5 rounded px-1.5 py-0.5 text-white/80 text-xs font-semibold"
-                  style={{ background: "var(--color-border)" }}
-                >
-                  +340% ↑
-                </span>
-              </p>
-              <div className="mt-3 flex items-end justify-between gap-1 h-14">
-                {[
-                  { h: 28, o: 0.5 },
-                  { h: 36, o: 0.6 },
-                  { h: 44, o: 0.8 },
-                  { h: 52, o: 0.9 },
-                  { h: 56, o: 1 },
-                ].map(({ h, o }, i) => (
-                  <div
-                    key={i}
-                    className="flex-1 min-w-0 rounded-t bg-white/40"
-                    style={{
-                      height: h,
-                      opacity: o,
-                      transformOrigin: "bottom",
-                    }}
-                  />
-                ))}
-              </div>
-              <div className="mt-1.5 flex justify-between text-[0.55rem] md:text-[0.75rem] text-white/45">
-                <span>Sty</span>
-                <span>Lut</span>
-                <span>Mar</span>
-                <span>Kwi</span>
-                <span>Maj</span>
-              </div>
-              <p className="font-body mt-2 text-[0.55rem] md:text-[0.75rem] text-white/40 italic">
-                Źródło: Google Search Console
-              </p>
-            </motion.div>
-          </motion.div>
+        {/* Prawa sekcja — HeroVisual (pulse rings, logo, orbit, stat badges); z-1 pod lewą kolumną, overflow visible dla glow; na mobile w flow pod tekstem */}
+        <div className="relative z-[1] overflow-visible w-full min-h-[340px] block pointer-events-none md:absolute md:right-8 md:top-1/2 md:-translate-y-1/2 md:w-[520px] md:h-[560px] md:min-h-0">
+          <HeroVisual />
         </div>
       </Container>
     </section>
