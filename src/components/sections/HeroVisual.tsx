@@ -153,10 +153,10 @@ export function HeroVisual(): React.ReactElement {
           }
         >
           <Image
-            src="/logo%20v1.svg"
+            src="/circle-logo.svg"
             alt=""
-            width={52}
-            height={52}
+            width={80}
+            height={80}
             className="shrink-0"
           />
         </motion.div>
