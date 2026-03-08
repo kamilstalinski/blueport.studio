@@ -37,24 +37,9 @@ const ORBIT_ITEMS: OrbitItem[] = [
 ];
 
 const STAT_BADGES = [
-  {
-    value: "3+",
-    label: "Lata doświadczenia",
-    position: { top: "12%", right: "8%" },
-    delay: 0.2,
-  },
-  {
-    value: "15+",
-    label: "Projektów",
-    position: { bottom: "28%", right: "4%" },
-    delay: 0.4,
-  },
-  {
-    value: "100%",
-    label: "Zadowolonych klientów",
-    position: { bottom: "12%", left: "8%" },
-    delay: 0.6,
-  },
+  { value: "3+", label: "Lata doświadczenia", position: { top: "12%", right: "8%" }, delay: 0.2 },
+  { value: "15+", label: "Projektów", position: { bottom: "28%", right: "4%" }, delay: 0.4 },
+  { value: "100%", label: "Zadowolonych klientów", position: { bottom: "12%", left: "8%" }, delay: 0.6 },
 ] as const;
 
 function getPosition(angle: number, radius: number): { x: number; y: number } {
@@ -154,11 +139,12 @@ export function HeroVisual(): React.ReactElement {
           aria-hidden
         >
           <motion.div
-            animate={noMotion ? undefined : { y: [-3, 3, -3] }}
+            className={styles.statBadgeInner}
+            animate={noMotion ? undefined : { y: [-6, 6, -6] }}
             transition={
               noMotion
                 ? { duration: 0 }
-                : { duration: 4, repeat: Infinity, ease: "easeInOut", delay: badge.delay }
+                : { duration: 3.5, repeat: Infinity, ease: "easeInOut", delay: badge.delay }
             }
           >
             <div className={styles.statValue}>{badge.value}</div>
