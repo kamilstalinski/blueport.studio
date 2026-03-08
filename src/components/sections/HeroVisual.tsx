@@ -70,82 +70,85 @@ export function HeroVisual(): React.ReactElement {
 
   return (
     <div className={styles.visualRoot}>
-      {/* WARSTWA 0 — Glow radialny */}
-      <div className={styles.radialGlow} aria-hidden />
+      {/* Wspólny środek — logo, pierścienie i orbita w jednym kontenerze, żeby były idealnie współśrodkowe */}
+      <div className={styles.centerHub}>
+        {/* WARSTWA 0 — Glow radialny */}
+        <div className={styles.radialGlow} aria-hidden />
 
-      {/* WARSTWA 1 — Pulse rings */}
-      {PULSE_RADII.map((r, i) => (
+        {/* WARSTWA 1 — Pulse rings (współśrodkowe z logo) */}
+        {PULSE_RADII.map((r, i) => (
+          <motion.div
+            key={r}
+            className={styles.pulseRing}
+            style={{ width: r * 2, height: r * 2 }}
+            animate={
+              noMotion
+                ? undefined
+                : { scale: [0.97, 1.02, 0.97], opacity: [0.7, 0.35, 0.7] }
+            }
+            transition={
+              noMotion
+                ? { duration: 0 }
+                : {
+                    duration: 3,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                    delay: i * 0.6,
+                  }
+            }
+            aria-hidden
+          />
+        ))}
+
+        {/* WARSTWA 2 — Orbiting system (obraca się cały) */}
         <motion.div
-          key={r}
-          className={styles.pulseRing}
-          style={{ width: r * 2, height: r * 2 }}
-          animate={
-            noMotion
-              ? undefined
-              : { scale: [0.97, 1.02, 0.97], opacity: [0.4, 0.15, 0.4] }
-          }
+          className={styles.orbitSystem}
+          animate={noMotion ? undefined : { rotate: 360 }}
           transition={
             noMotion
               ? { duration: 0 }
-              : {
-                  duration: 3,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                  delay: i * 0.6,
-                }
+              : { duration: ORBIT_DURATION, repeat: Infinity, ease: "linear" }
           }
           aria-hidden
-        />
-      ))}
+        >
+          {ORBIT_ITEMS.map((item) => {
+            const pos = getPosition(item.angle, item.radius);
+            return (
+              <motion.div
+                key={item.label}
+                className={styles.orbitIcon}
+                style={{
+                  left: `calc(50% + ${pos.x}px - 22px)`,
+                  top: `calc(50% + ${pos.y}px - 22px)`,
+                }}
+                title={item.label}
+                animate={noMotion ? undefined : { rotate: -360 }}
+                transition={
+                  noMotion
+                    ? { duration: 0 }
+                    : {
+                        duration: ORBIT_DURATION,
+                        repeat: Infinity,
+                        ease: "linear",
+                      }
+                }
+              >
+                <item.icon size={18} className="text-white/70" aria-hidden />
+              </motion.div>
+            );
+          })}
+        </motion.div>
 
-      {/* WARSTWA 2 — Orbiting system (obraca się cały) */}
-      <motion.div
-        className={styles.orbitSystem}
-        animate={noMotion ? undefined : { rotate: 360 }}
-        transition={
-          noMotion
-            ? { duration: 0 }
-            : { duration: ORBIT_DURATION, repeat: Infinity, ease: "linear" }
-        }
-        aria-hidden
-      >
-        {ORBIT_ITEMS.map((item) => {
-          const pos = getPosition(item.angle, item.radius);
-          return (
-            <motion.div
-              key={item.label}
-              className={styles.orbitIcon}
-              style={{
-                left: `calc(50% + ${pos.x}px - 22px)`,
-                top: `calc(50% + ${pos.y}px - 22px)`,
-              }}
-              title={item.label}
-              animate={noMotion ? undefined : { rotate: -360 }}
-              transition={
-                noMotion
-                  ? { duration: 0 }
-                  : {
-                      duration: ORBIT_DURATION,
-                      repeat: Infinity,
-                      ease: "linear",
-                    }
-              }
-            >
-              <item.icon size={18} className="text-white/70" aria-hidden />
-            </motion.div>
-          );
-        })}
-      </motion.div>
-
-      {/* WARSTWA 3 — Logo centrum (bez obrotu); ikony orbitują wokół niego */}
-      <div className={styles.logoCore} aria-hidden>
-        <Image
-          src="/circle-logo.svg"
-          alt=""
-          width={200}
-          height={200}
-          className="shrink-0"
-        />
+        {/* WARSTWA 3 — Logo w centrum orbit */}
+        <div className={styles.logoCore} aria-hidden>
+          <Image
+            src="/circle-logo.svg"
+            alt=""
+            width={200}
+            height={200}
+            className="shrink-0"
+          />
+        </div>
       </div>
 
       {/* WARSTWA 4 — Stat badges (statyczne, nie obracają się) */}
