@@ -36,12 +36,6 @@ const ORBIT_ITEMS: OrbitItem[] = [
   { angle: 330, radius: 225, icon: Smartphone,    label: "Mobile first" },
 ];
 
-const STAT_BADGES = [
-  { value: "3+", label: "Lata doświadczenia", position: { top: "12%", right: "8%" }, delay: 0.2 },
-  { value: "15+", label: "Projektów", position: { bottom: "28%", right: "4%" }, delay: 0.4 },
-  { value: "100%", label: "Zadowolonych klientów", position: { bottom: "12%", left: "8%" }, delay: 0.6 },
-] as const;
-
 function getPosition(angle: number, radius: number): { x: number; y: number } {
   const rad = (angle * Math.PI) / 180;
   return {
@@ -126,32 +120,6 @@ export function HeroVisual(): React.ReactElement {
       <div className={styles.logoCore} aria-hidden>
         <Image src="/circle-logo.svg" alt="" width={200} height={200} />
       </div>
-
-      {/* ── Stat badges ── */}
-      {STAT_BADGES.map((badge) => (
-        <motion.div
-          key={badge.label}
-          className={styles.statBadge}
-          style={badge.position}
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: badge.delay, duration: 0.6 }}
-          aria-hidden
-        >
-          <motion.div
-            className={styles.statBadgeInner}
-            animate={noMotion ? undefined : { y: [-6, 6, -6] }}
-            transition={
-              noMotion
-                ? { duration: 0 }
-                : { duration: 3.5, repeat: Infinity, ease: "easeInOut", delay: badge.delay }
-            }
-          >
-            <div className={styles.statValue}>{badge.value}</div>
-            <div className={styles.statLabel}>{badge.label}</div>
-          </motion.div>
-        </motion.div>
-      ))}
     </div>
   );
 }
