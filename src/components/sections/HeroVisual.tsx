@@ -62,7 +62,6 @@ function getPosition(angle: number, radius: number): { x: number; y: number } {
 }
 
 const ORBIT_DURATION = 60;
-const LOGO_ROTATE_DURATION = 30;
 
 export function HeroVisual(): React.ReactElement {
   const shouldReduceMotion = useReducedMotion();
@@ -138,28 +137,15 @@ export function HeroVisual(): React.ReactElement {
         })}
       </motion.div>
 
-      {/* WARSTWA 3 — Logo centrum (favicon) */}
+      {/* WARSTWA 3 — Logo centrum (bez obrotu); ikony orbitują wokół niego */}
       <div className={styles.logoCore} aria-hidden>
-        <motion.div
-          animate={noMotion ? undefined : { rotate: 360 }}
-          transition={
-            noMotion
-              ? { duration: 0 }
-              : {
-                  duration: LOGO_ROTATE_DURATION,
-                  repeat: Infinity,
-                  ease: "linear",
-                }
-          }
-        >
-          <Image
-            src="/circle-logo.svg"
-            alt=""
-            width={80}
-            height={80}
-            className="shrink-0"
-          />
-        </motion.div>
+        <Image
+          src="/circle-logo.svg"
+          alt=""
+          width={200}
+          height={200}
+          className="shrink-0"
+        />
       </div>
 
       {/* WARSTWA 4 — Stat badges (statyczne, nie obracają się) */}

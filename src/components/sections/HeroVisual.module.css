@@ -61,8 +61,8 @@
 }
 
 .logoCore {
-  width: 100px;
-  height: 100px;
+  width: 240px;
+  height: 240px;
   border-radius: 50%;
   background: color-mix(in srgb, var(--color-primary) 12%, transparent);
   border: 1px solid color-mix(in srgb, var(--color-primary) 30%, transparent);
