@@ -14,9 +14,6 @@ import type { LucideIcon } from "lucide-react";
 
 import styles from "./HeroVisual.module.css";
 
-/** Zewnętrzne obręcze — jasność maleje od 270 → 360 → 450 px. */
-const PULSE_RADII = [270, 360, 450] as const;
-
 interface OrbitItem {
   angle: number;
   radius: number;
@@ -62,23 +59,41 @@ export function HeroVisual(): React.ReactElement {
         <div className={styles.ringFillInner} />
       </div>
 
-      {/* Obręcze — jasność wyraźnie maleje od wewnętrznej do zewnętrznej */}
-      {PULSE_RADII.map((r, i) => (
-        <div
-          key={r}
-          className={
-            i === 0
-              ? styles.pulseRingWrapperInner
-              : i === 1
-                ? styles.pulseRingWrapperMiddle
-                : styles.pulseRingWrapperOuter
-          }
-          style={{ width: r * 2, height: r * 2 }}
-          aria-hidden
+      {/* Obręcze — SVG (wektory) dla ostrych krawędzi, bez pikselizacji */}
+      <div className={styles.pulseRingsSvgWrapper} aria-hidden>
+        <svg
+          className={styles.pulseRingsSvg}
+          viewBox="0 0 900 900"
+          xmlns="http://www.w3.org/2000/svg"
         >
-          <div className={styles.pulseRing} />
-        </div>
-      ))}
+          <defs>
+            <filter id="pulseRingGlowInner" x="-20%" y="-20%" width="140%" height="140%">
+              <feGaussianBlur in="SourceGraphic" stdDeviation="4" result="blur" />
+              <feMerge>
+                <feMergeNode in="blur" />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
+            <filter id="pulseRingGlowMiddle" x="-20%" y="-20%" width="140%" height="140%">
+              <feGaussianBlur in="SourceGraphic" stdDeviation="3" result="blur" />
+              <feMerge>
+                <feMergeNode in="blur" />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
+            <filter id="pulseRingGlowOuter" x="-20%" y="-20%" width="140%" height="140%">
+              <feGaussianBlur in="SourceGraphic" stdDeviation="2" result="blur" />
+              <feMerge>
+                <feMergeNode in="blur" />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
+          </defs>
+          <circle cx="450" cy="450" r="270" className={styles.pulseRingInner} />
+          <circle cx="450" cy="450" r="360" className={styles.pulseRingMiddle} />
+          <circle cx="450" cy="450" r="450" className={styles.pulseRingOuter} />
+        </svg>
+      </div>
 
       {/* ── Orbiting system ──
           Zajmuje cały visualRoot (100% × 100%), obraca się względem swojego środka.
