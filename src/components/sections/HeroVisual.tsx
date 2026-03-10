@@ -21,10 +21,6 @@ const PULSE_RINGS: readonly [number, number][] = [
   [450, 0.14],
 ] as const;
 
-/** Promienie na których leży poziomy promień — kółka na każdej obręczy (wypełniony pierścień 200 + 3 okręgi). */
-const RAY_RADII = [200, 270, 360, 450] as const;
-const RAY_DOT_OPACITY: Record<number, number> = { 200: 0.62, 270: 0.48, 360: 0.3, 450: 0.14 };
-
 interface OrbitItem {
   angle: number;
   radius: number;
@@ -118,29 +114,23 @@ export function HeroVisual(): React.ReactElement {
         ))}
       </svg>
 
-      {/* Poziomy promień przez środek + kółka na każdej obręczy (w stylu Palma, kolor primary) */}
-      <div className={styles.rayWrapper} aria-hidden>
-        <div className={styles.rayLine} />
-        {RAY_RADII.map((r) => (
-          <div
-            key={`left-${r}`}
-            className={styles.rayDot}
-            style={{
-              left: `calc(50% - ${r}px)`,
-              opacity: RAY_DOT_OPACITY[r],
-            }}
+      {/* Etykieta „4+ lat doświadczenia” z linią łączącą do obręczy (styl Palma) */}
+      <div className={styles.heroLabelWrapper} aria-hidden>
+        <svg className={styles.heroLabelLine} viewBox="0 0 100 100" preserveAspectRatio="none">
+          <line
+            x1="77"
+            y1="50"
+            x2="92"
+            y2="28"
+            stroke="var(--color-primary)"
+            strokeOpacity="0.4"
+            strokeWidth="0.8"
           />
-        ))}
-        {RAY_RADII.map((r) => (
-          <div
-            key={`right-${r}`}
-            className={styles.rayDot}
-            style={{
-              left: `calc(50% + ${r}px)`,
-              opacity: RAY_DOT_OPACITY[r],
-            }}
-          />
-        ))}
+        </svg>
+        <div className={styles.heroLabel}>
+          <span className={styles.heroLabelValue}>4+</span>
+          <span className={styles.heroLabelText}>lat doświadczenia</span>
+        </div>
       </div>
 
       {/* ── Orbiting system ──

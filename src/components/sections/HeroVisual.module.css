@@ -58,44 +58,49 @@
   overflow: visible;
 }
 
-/* Poziomy promień — najjaśniejszy na środku, wygasza się do koloru obręczy w stronę krawędzi */
-.rayWrapper {
+/* Etykieta „4+ lat doświadczenia” + linia do obręczy (styl Palma) */
+.heroLabelWrapper {
   position: absolute;
   inset: 0;
-  z-index: 3;
+  z-index: 6;
   pointer-events: none;
 }
 
-.rayLine {
+.heroLabelLine {
   position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 900px;
-  height: 2px;
-  transform: translate(-50%, -50%);
-  background: linear-gradient(
-    to right,
-    color-mix(in srgb, var(--color-primary) 14%, transparent) 0%,
-    color-mix(in srgb, var(--color-primary) 30%, transparent) 25%,
-    color-mix(in srgb, var(--color-primary) 55%, transparent) 42%,
-    color-mix(in srgb, var(--color-primary) 88%, transparent) 50%,
-    color-mix(in srgb, var(--color-primary) 55%, transparent) 58%,
-    color-mix(in srgb, var(--color-primary) 30%, transparent) 75%,
-    color-mix(in srgb, var(--color-primary) 14%, transparent) 100%
-  );
+  inset: 0;
+  width: 100%;
+  height: 100%;
 }
 
-/* Kółka na obręczach (na wzór Palma, kolor primary) — opacity z RAY_DOT_OPACITY */
-.rayDot {
+.heroLabel {
   position: absolute;
-  top: 50%;
-  width: 14px;
-  height: 14px;
-  transform: translate(-50%, -50%);
-  border-radius: 50%;
-  border: 2px solid var(--color-primary);
-  background: color-mix(in srgb, var(--color-primary) 12%, transparent);
-  box-shadow: 0 0 8px color-mix(in srgb, var(--color-primary) 25%, transparent);
+  right: 8%;
+  top: 28%;
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--color-surface) 90%, transparent);
+  border: 1px solid color-mix(in srgb, var(--color-primary) 20%, transparent);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+  font-family: var(--font-body), system-ui, sans-serif;
+}
+
+.heroLabelValue {
+  display: block;
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--color-primary);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.heroLabelText {
+  display: block;
+  font-size: 0.65rem;
+  color: rgba(255, 255, 255, 0.5);
+  margin-top: 2px;
+  letter-spacing: 0.03em;
 }
 
 /* ── Orbit system ──
