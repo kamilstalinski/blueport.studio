@@ -60,6 +60,9 @@ export function HeroVisual(): React.ReactElement {
       {/* Glow radialny — pod wszystkim */}
       <div className={styles.radialGlow} aria-hidden />
 
+      {/* Wypełnienie między pierwszą a drugą obręczą (r 130 → 200) */}
+      <div className={styles.ringFillInner} aria-hidden />
+
       {/* ── Pulse rings ──
           Używamy wrappera dla pozycjonowania i osobnego motion.div dla animacji,
           żeby Framer Motion nie nadpisał CSS transform: translate(-50%, -50%). */}

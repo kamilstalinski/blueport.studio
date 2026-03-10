@@ -28,7 +28,28 @@
   z-index: 0;
 }
 
-/* ── Pulse rings ──
+/* Wypełnienie między pierwszą (r=130) a drugą (r=200) obręczą — pierścień wypełniony kolorem */
+.ringFillInner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 400px;
+  height: 400px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  /* wewnątrz r=130 przezroczyste, 130–200 wypełnienie, na zewnątrz przezroczyste */
+  background: radial-gradient(
+    circle at center,
+    transparent 130px,
+    color-mix(in srgb, var(--color-primary) 18%, transparent) 130px,
+    color-mix(in srgb, var(--color-primary) 14%, transparent) 200px,
+    transparent 200px
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ── Pulse rings (jaśniejsze) ──
    Wrapper centruje, motion.div animuje scale/opacity.
    Oddzielenie zapobiega nadpisaniu translate przez Framer Motion. */
 .pulseRingWrapper {
@@ -36,7 +57,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 1;
+  z-index: 2;
   pointer-events: none;
 }
 
@@ -44,10 +65,10 @@
   width: 100%;
   height: 100%;
   border-radius: 50%;
-  border: 1.5px solid color-mix(in srgb, var(--color-primary) 35%, transparent);
+  border: 2px solid color-mix(in srgb, var(--color-primary) 55%, transparent);
   box-shadow:
-    0 0 12px color-mix(in srgb, var(--color-primary) 15%, transparent),
-    inset 0 0 12px color-mix(in srgb, var(--color-primary) 6%, transparent);
+    0 0 16px color-mix(in srgb, var(--color-primary) 28%, transparent),
+    inset 0 0 16px color-mix(in srgb, var(--color-primary) 12%, transparent);
 }
 
 /* ── Orbit system ──
