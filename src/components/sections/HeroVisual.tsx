@@ -50,7 +50,8 @@ function getPosition(angle: number, radius: number): { x: number; y: number } {
   };
 }
 
-const ORBIT_DURATION = 60;
+/** Różne czasy obiegu dla każdej ikony (sekundy) — orbity w różnym tempie. */
+const ORBIT_DURATIONS = [42, 52, 58, 68, 76, 88] as const;
 
 export function HeroVisual(): React.ReactElement {
   const shouldReduceMotion = useReducedMotion();
@@ -122,42 +123,41 @@ export function HeroVisual(): React.ReactElement {
         </div>
       </div>
 
-      {/* ── Orbiting system ──
-          Zajmuje cały visualRoot (100% × 100%), obraca się względem swojego środka.
-          Framer Motion NIE używa tu translate, więc nie ma konfliktu z CSS. */}
-      <motion.div
-        className={styles.orbitSystem}
-        animate={noMotion ? undefined : { rotate: 360 }}
-        transition={
-          noMotion
-            ? { duration: 0 }
-            : { duration: ORBIT_DURATION, repeat: Infinity, ease: "linear" }
-        }
-        aria-hidden
-      >
-        {ORBIT_ITEMS.map((item) => {
-          const pos = getPosition(item.angle, item.radius);
-          return (
+      {/* Każda ikona w osobnej orbicie z własnym tempem (counter-rotate żeby ikona stała prosto) */}
+      {ORBIT_ITEMS.map((item, i) => {
+        const pos = getPosition(item.angle, item.radius);
+        const duration = ORBIT_DURATIONS[i];
+        return (
+          <motion.div
+            key={item.label}
+            className={styles.orbitSystem}
+            animate={noMotion ? undefined : { rotate: 360 }}
+            transition={
+              noMotion
+                ? { duration: 0 }
+                : { duration, repeat: Infinity, ease: "linear" }
+            }
+            aria-hidden
+          >
             <motion.div
-              key={item.label}
               className={styles.orbitIcon}
               style={{
                 left: `calc(50% + ${pos.x}px - 22px)`,
-                top:  `calc(50% + ${pos.y}px - 22px)`,
+                top: `calc(50% + ${pos.y}px - 22px)`,
               }}
               title={item.label}
               animate={noMotion ? undefined : { rotate: -360 }}
               transition={
                 noMotion
                   ? { duration: 0 }
-                  : { duration: ORBIT_DURATION, repeat: Infinity, ease: "linear" }
+                  : { duration, repeat: Infinity, ease: "linear" }
               }
             >
               <item.icon size={18} className="text-white/75" aria-hidden />
             </motion.div>
-          );
-        })}
-      </motion.div>
+          </motion.div>
+        );
+      })}
 
       {/* ── Logo centrum ── */}
       <div className={styles.logoCore} aria-hidden>
