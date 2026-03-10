@@ -28,7 +28,7 @@
   z-index: 0;
 }
 
-/* Wrapper wypełnienia — centruje, animacja na wewnętrznym motion.div */
+/* Wrapper wypełnienia — centruje, animacja na wewnętrznym motion.div; wewnątrz też bordery */
 .ringFillWrapper {
   position: absolute;
   top: 50%;
@@ -40,12 +40,11 @@
   pointer-events: none;
 }
 
-/* Wypełnienie między pierwszą (r=130) a drugą (r=200) obręczą — pierścień wypełniony kolorem, pulsuje */
+/* Wypełnienie pierścienia (r 130→200), pulsuje */
 .ringFillInner {
-  width: 100%;
-  height: 100%;
+  position: absolute;
+  inset: 0;
   border-radius: 50%;
-  /* wewnątrz r=130 przezroczyste, 130–200 wypełnienie, na zewnątrz przezroczyste */
   background: radial-gradient(
     circle at center,
     transparent 130px,
@@ -53,6 +52,28 @@
     color-mix(in srgb, var(--color-primary) 14%, transparent) 200px,
     transparent 200px
   );
+}
+
+/* Border zewnętrzny i wewnętrzny wypełnionego pierścienia — ten sam kolor co obręcze */
+.ringFillBorderOuter,
+.ringFillBorderInner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  border: 2px solid color-mix(in srgb, var(--color-primary) 55%, transparent);
+  box-shadow: 0 0 16px color-mix(in srgb, var(--color-primary) 28%, transparent);
+}
+
+.ringFillBorderOuter {
+  width: 400px;
+  height: 400px;
+}
+
+.ringFillBorderInner {
+  width: 260px;
+  height: 260px;
 }
 
 /* ── Pulse rings (jaśniejsze) ──

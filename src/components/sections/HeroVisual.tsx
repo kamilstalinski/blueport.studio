@@ -14,11 +14,8 @@ import type { LucideIcon } from "lucide-react";
 
 import styles from "./HeroVisual.module.css";
 
-/**
- * Promienie pierścieni w px (od centrum logo).
- * Ikony orbitują na promieniach 160–200 px, więc wychodzą poza logo (r=120).
- */
-const PULSE_RADII = [130, 200, 270, 360] as const;
+/** Tylko zewnętrzne obręcze (pierwsza i druga usunięte — zastąpione wypełnionym pierścieniem z borderem). */
+const PULSE_RADII = [270, 360] as const;
 
 interface OrbitItem {
   angle: number;
@@ -60,7 +57,7 @@ export function HeroVisual(): React.ReactElement {
       {/* Glow radialny — pod wszystkim */}
       <div className={styles.radialGlow} aria-hidden />
 
-      {/* Wypełnienie między pierwszą a drugą obręczą — pulsuje w tym samym tempie co obręcze (3.5s, scale + opacity) */}
+      {/* Wypełniony pierścień (r 130→200) z borderem wewnętrznym i zewnętrznym w kolorze obręczy; pulsuje */}
       <div className={styles.ringFillWrapper} aria-hidden>
         <motion.div
           className={styles.ringFillInner}
@@ -73,6 +70,8 @@ export function HeroVisual(): React.ReactElement {
               : { duration: 3.5, repeat: Infinity, ease: "easeInOut", delay: 0 }
           }
         />
+        <div className={styles.ringFillBorderOuter} aria-hidden />
+        <div className={styles.ringFillBorderInner} aria-hidden />
       </div>
 
       {/* ── Pulse rings ──
