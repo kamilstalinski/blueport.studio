@@ -114,19 +114,8 @@ export function HeroVisual(): React.ReactElement {
         ))}
       </svg>
 
-      {/* Etykieta „4+ lat doświadczenia” z linią łączącą do obręczy (styl Palma) */}
+      {/* Etykieta „4+ lat doświadczenia” */}
       <div className={styles.heroLabelWrapper} aria-hidden>
-        <svg className={styles.heroLabelLine} viewBox="0 0 100 100" preserveAspectRatio="none">
-          <line
-            x1="77"
-            y1="50"
-            x2="92"
-            y2="28"
-            stroke="var(--color-primary)"
-            strokeOpacity="0.4"
-            strokeWidth="0.8"
-          />
-        </svg>
         <div className={styles.heroLabel}>
           <span className={styles.heroLabelValue}>4+</span>
           <span className={styles.heroLabelText}>lat doświadczenia</span>
