@@ -40,40 +40,27 @@
   pointer-events: none;
 }
 
-/* Wypełnienie pierścienia (r 130→200), pulsuje */
+/* Wypełnienie pierścienia (r 130→200) z borderem wewnętrznym i zewnętrznym w kolorze obręczy; pulsuje */
 .ringFillInner {
   position: absolute;
   inset: 0;
   border-radius: 50%;
+  --ring-border: color-mix(in srgb, var(--color-primary) 55%, transparent);
   background: radial-gradient(
     circle at center,
-    transparent 130px,
+    transparent 0,
+    transparent 128px,
+    var(--ring-border) 128px,
+    var(--ring-border) 130px,
     color-mix(in srgb, var(--color-primary) 18%, transparent) 130px,
-    color-mix(in srgb, var(--color-primary) 14%, transparent) 200px,
+    color-mix(in srgb, var(--color-primary) 14%, transparent) 198px,
+    var(--ring-border) 198px,
+    var(--ring-border) 200px,
     transparent 200px
   );
-}
-
-/* Border zewnętrzny i wewnętrzny wypełnionego pierścienia — ten sam kolor co obręcze */
-.ringFillBorderOuter,
-.ringFillBorderInner {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  border-radius: 50%;
-  border: 2px solid color-mix(in srgb, var(--color-primary) 55%, transparent);
-  box-shadow: 0 0 16px color-mix(in srgb, var(--color-primary) 28%, transparent);
-}
-
-.ringFillBorderOuter {
-  width: 400px;
-  height: 400px;
-}
-
-.ringFillBorderInner {
-  width: 260px;
-  height: 260px;
+  box-shadow:
+    0 0 16px color-mix(in srgb, var(--color-primary) 28%, transparent),
+    inset 0 0 16px color-mix(in srgb, var(--color-primary) 28%, transparent);
 }
 
 /* ── Pulse rings (jaśniejsze) ──

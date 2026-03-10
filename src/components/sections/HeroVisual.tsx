@@ -70,8 +70,6 @@ export function HeroVisual(): React.ReactElement {
               : { duration: 3.5, repeat: Infinity, ease: "easeInOut", delay: 0 }
           }
         />
-        <div className={styles.ringFillBorderOuter} aria-hidden />
-        <div className={styles.ringFillBorderInner} aria-hidden />
       </div>
 
       {/* ── Pulse rings ──
