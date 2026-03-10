@@ -40,27 +40,11 @@
   pointer-events: none;
 }
 
-/* Wypełnienie pierścienia (r 130→200) z borderem — najjaśniejszy element (od wewnątrz) */
-.ringFillInner {
+/* Wypełnienie pierścienia — SVG dla ostrych obwódek bez pikselizacji */
+.ringFillSvg {
   position: absolute;
   inset: 0;
-  border-radius: 50%;
-  --ring-border: color-mix(in srgb, var(--color-primary) 62%, transparent);
-  background: radial-gradient(
-    circle at center,
-    transparent 0,
-    transparent 128px,
-    var(--ring-border) 128px,
-    var(--ring-border) 130px,
-    color-mix(in srgb, var(--color-primary) 22%, transparent) 130px,
-    color-mix(in srgb, var(--color-primary) 16%, transparent) 198px,
-    var(--ring-border) 198px,
-    var(--ring-border) 200px,
-    transparent 200px
-  );
-  box-shadow:
-    0 0 20px color-mix(in srgb, var(--color-primary) 35%, transparent),
-    inset 0 0 20px color-mix(in srgb, var(--color-primary) 32%, transparent);
+  filter: drop-shadow(0 0 20px color-mix(in srgb, var(--color-primary) 35%, transparent));
 }
 
 /* Obręcze — SVG dla anty-aliasowanych, ostrych krawędzi (bez pikselizacji) */

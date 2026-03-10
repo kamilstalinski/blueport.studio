@@ -61,9 +61,34 @@ export function HeroVisual(): React.ReactElement {
       {/* Glow radialny — pod wszystkim */}
       <div className={styles.radialGlow} aria-hidden />
 
-      {/* Wypełniony pierścień (r 130→200) z borderem — najjaśniejszy (bez animacji) */}
+      {/* Wypełniony pierścień (r 130→200) — SVG dla ostrych, anty-aliasowanych obwódek */}
       <div className={styles.ringFillWrapper} aria-hidden>
-        <div className={styles.ringFillInner} />
+        <svg
+          className={styles.ringFillSvg}
+          width="400"
+          height="400"
+          viewBox="0 0 400 400"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <defs>
+            {/*
+              Gradient offset = % promienia (200px):
+              64% = 128px, 65% = 130px, 99% = 198px, 100% = 200px
+            */}
+            <radialGradient id="ringFillGrad" cx="50%" cy="50%" r="50%">
+              <stop offset="64%" stopColor="var(--color-primary)" stopOpacity="0" />
+              <stop offset="65%" stopColor="var(--color-primary)" stopOpacity="0.22" />
+              <stop offset="99%" stopColor="var(--color-primary)" stopOpacity="0.16" />
+              <stop offset="100%" stopColor="var(--color-primary)" stopOpacity="0" />
+            </radialGradient>
+          </defs>
+          {/* Wypełnienie donut */}
+          <rect width="400" height="400" fill="url(#ringFillGrad)" />
+          {/* Wewnętrzna obwódka (r=129 = środek strefy 128–130) */}
+          <circle cx="200" cy="200" r="129" fill="none" stroke="var(--color-primary)" strokeOpacity="0.62" strokeWidth="2" />
+          {/* Zewnętrzna obwódka (r=199 = środek strefy 198–200) */}
+          <circle cx="200" cy="200" r="199" fill="none" stroke="var(--color-primary)" strokeOpacity="0.62" strokeWidth="2" />
+        </svg>
       </div>
 
       {/* Obręcze — jeden SVG z anty-aliasowanymi okręgami (bez pikselizacji) */}
