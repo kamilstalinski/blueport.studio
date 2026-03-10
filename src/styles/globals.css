@@ -2315,8 +2315,19 @@ body .contact-form-card:hover {
 }
 
 @media (max-width: 900px) {
+  .calc-shell {
+    overflow-x: hidden;
+    overflow-y: visible;
+  }
+
   .calc-main {
     grid-template-columns: 1fr;
+    height: auto;
+    overflow: visible;
+  }
+
+  .calc-step-viewport {
+    overflow: visible;
   }
 }
 
@@ -2396,6 +2407,8 @@ body .contact-form-card:hover {
     padding: 32px 24px;
     border-right: none;
     border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    height: auto;
+    overflow-y: visible;
   }
 }
 
@@ -2498,6 +2511,9 @@ body .contact-form-card:hover {
     border-left: none;
     border-top: 1px solid rgba(255, 255, 255, 0.06);
     padding: 32px 24px;
+    height: auto;
+    overflow-y: visible;
+    justify-content: flex-start;
   }
 }
 
