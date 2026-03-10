@@ -14,8 +14,12 @@ import type { LucideIcon } from "lucide-react";
 
 import styles from "./HeroVisual.module.css";
 
-/** Zewnętrzne obręcze — jasność maleje od 270 → 360 → 450 px. */
-const PULSE_RADII = [270, 360, 450] as const;
+/** Obręcze SVG: [promień, stroke-opacity] — jasność maleje od wewnętrznej do zewnętrznej. */
+const PULSE_RINGS: readonly [number, number][] = [
+  [270, 0.48],
+  [360, 0.30],
+  [450, 0.14],
+] as const;
 
 interface OrbitItem {
   angle: number;
@@ -62,23 +66,28 @@ export function HeroVisual(): React.ReactElement {
         <div className={styles.ringFillInner} />
       </div>
 
-      {/* Obręcze — jasność wyraźnie maleje od wewnętrznej do zewnętrznej */}
-      {PULSE_RADII.map((r, i) => (
-        <div
-          key={r}
-          className={
-            i === 0
-              ? styles.pulseRingWrapperInner
-              : i === 1
-                ? styles.pulseRingWrapperMiddle
-                : styles.pulseRingWrapperOuter
-          }
-          style={{ width: r * 2, height: r * 2 }}
-          aria-hidden
-        >
-          <div className={styles.pulseRing} />
-        </div>
-      ))}
+      {/* Obręcze — jeden SVG z anty-aliasowanymi okręgami (bez pikselizacji) */}
+      <svg
+        className={styles.ringsSvg}
+        width="900"
+        height="900"
+        viewBox="0 0 900 900"
+        xmlns="http://www.w3.org/2000/svg"
+        aria-hidden
+      >
+        {PULSE_RINGS.map(([r, opacity]) => (
+          <circle
+            key={r}
+            cx="450"
+            cy="450"
+            r={r}
+            fill="none"
+            stroke="var(--color-primary)"
+            strokeOpacity={opacity}
+            strokeWidth="1.5"
+          />
+        ))}
+      </svg>
 
       {/* ── Orbiting system ──
           Zajmuje cały visualRoot (100% × 100%), obraca się względem swojego środka.
