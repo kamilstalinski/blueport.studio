@@ -58,6 +58,46 @@
   overflow: visible;
 }
 
+/* Poziomy promień — najjaśniejszy na środku, wygasza się do koloru obręczy w stronę krawędzi */
+.rayWrapper {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.rayLine {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 900px;
+  height: 2px;
+  transform: translate(-50%, -50%);
+  background: linear-gradient(
+    to right,
+    color-mix(in srgb, var(--color-primary) 14%, transparent) 0%,
+    color-mix(in srgb, var(--color-primary) 30%, transparent) 25%,
+    color-mix(in srgb, var(--color-primary) 55%, transparent) 42%,
+    color-mix(in srgb, var(--color-primary) 88%, transparent) 50%,
+    color-mix(in srgb, var(--color-primary) 55%, transparent) 58%,
+    color-mix(in srgb, var(--color-primary) 30%, transparent) 75%,
+    color-mix(in srgb, var(--color-primary) 14%, transparent) 100%
+  );
+}
+
+/* Kółka na obręczach (na wzór Palma, kolor primary) — opacity z RAY_DOT_OPACITY */
+.rayDot {
+  position: absolute;
+  top: 50%;
+  width: 14px;
+  height: 14px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  border: 2px solid var(--color-primary);
+  background: color-mix(in srgb, var(--color-primary) 12%, transparent);
+  box-shadow: 0 0 8px color-mix(in srgb, var(--color-primary) 25%, transparent);
+}
+
 /* ── Orbit system ──
    Wypełnia cały visualRoot — obraca się względem swojego środka (50% 50%).
    NIE używamy tu translate, żeby Framer Motion nie miał konfliktu. */
