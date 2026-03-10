@@ -42,11 +42,12 @@ const ORBIT_ITEMS: OrbitItem[] = [
   { angle: 240, radius: 360, icon: Smartphone,    label: "Mobile first" },
 ];
 
+/** Pozycja na okręgu — zaokrąglona do int, żeby uniknąć hydration mismatch (Math.cos/sin różnice serwer vs klient). */
 function getPosition(angle: number, radius: number): { x: number; y: number } {
   const rad = (angle * Math.PI) / 180;
   return {
-    x: Math.cos(rad) * radius,
-    y: Math.sin(rad) * radius,
+    x: Math.round(Math.cos(rad) * radius),
+    y: Math.round(Math.sin(rad) * radius),
   };
 }
 
