@@ -67,22 +67,8 @@ export function HeroVisual(): React.ReactElement {
           xmlns="http://www.w3.org/2000/svg"
         >
           <defs>
-            <filter id="pulseRingGlowInner" x="-20%" y="-20%" width="140%" height="140%">
-              <feGaussianBlur in="SourceGraphic" stdDeviation="4" result="blur" />
-              <feMerge>
-                <feMergeNode in="blur" />
-                <feMergeNode in="SourceGraphic" />
-              </feMerge>
-            </filter>
-            <filter id="pulseRingGlowMiddle" x="-20%" y="-20%" width="140%" height="140%">
-              <feGaussianBlur in="SourceGraphic" stdDeviation="3" result="blur" />
-              <feMerge>
-                <feMergeNode in="blur" />
-                <feMergeNode in="SourceGraphic" />
-              </feMerge>
-            </filter>
-            <filter id="pulseRingGlowOuter" x="-20%" y="-20%" width="140%" height="140%">
-              <feGaussianBlur in="SourceGraphic" stdDeviation="2" result="blur" />
+            <filter id="pulseRingGlowInner" x="-15%" y="-15%" width="130%" height="130%">
+              <feGaussianBlur in="SourceGraphic" stdDeviation="0.8" result="blur" />
               <feMerge>
                 <feMergeNode in="blur" />
                 <feMergeNode in="SourceGraphic" />

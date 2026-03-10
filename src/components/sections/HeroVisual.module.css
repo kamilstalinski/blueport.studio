@@ -40,8 +40,8 @@
   pointer-events: none;
 }
 
-/* Wypełnienie pierścienia (r 130→200) z borderem — najjaśniejszy element (od wewnątrz).
-   Procenty + miękkie przejścia (bez pikselowych stopów) = gładkie krawędzie przy dowolnej skali. */
+/* Wypełnienie pierścienia (r 130→200) z borderem — najjaśniejszy element.
+   Procenty względem promienia 200px: 64%=128, 65%=130, 99%=198, 100%=200. */
 .ringFillInner {
   position: absolute;
   inset: 0;
@@ -50,14 +50,14 @@
   background: radial-gradient(
     circle at center,
     transparent 0%,
-    transparent 30%,
-    var(--ring-border) 31.2%,
-    var(--ring-border) 33%,
-    color-mix(in srgb, var(--color-primary) 22%, transparent) 33%,
-    color-mix(in srgb, var(--color-primary) 16%, transparent) 48.5%,
-    var(--ring-border) 49%,
-    var(--ring-border) 51%,
-    transparent 51.5%
+    transparent 63.5%,
+    var(--ring-border) 64%,
+    var(--ring-border) 65%,
+    color-mix(in srgb, var(--color-primary) 22%, transparent) 65%,
+    color-mix(in srgb, var(--color-primary) 16%, transparent) 99%,
+    var(--ring-border) 99%,
+    var(--ring-border) 100%,
+    transparent 100%
   );
   box-shadow:
     0 0 20px color-mix(in srgb, var(--color-primary) 35%, transparent),
@@ -83,28 +83,28 @@
   overflow: visible;
 }
 
+/* Pierwsza obręcza — cienka linia, delikatny glow */
 .pulseRingInner {
   fill: none;
   stroke: var(--color-primary);
   stroke-opacity: 0.48;
-  stroke-width: 2;
+  stroke-width: 1.5;
   filter: url(#pulseRingGlowInner);
 }
 
+/* Druga i trzecia — bez mocnego bluru, czytelna linia */
 .pulseRingMiddle {
   fill: none;
   stroke: var(--color-primary);
   stroke-opacity: 0.3;
-  stroke-width: 2;
-  filter: url(#pulseRingGlowMiddle);
+  stroke-width: 1.5;
 }
 
 .pulseRingOuter {
   fill: none;
   stroke: var(--color-primary);
   stroke-opacity: 0.14;
-  stroke-width: 2;
-  filter: url(#pulseRingGlowOuter);
+  stroke-width: 1.5;
 }
 
 /* ── Orbit system ──
