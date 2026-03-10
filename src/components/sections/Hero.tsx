@@ -203,7 +203,7 @@ export function Hero({ contentKey = "Home.hero" }: { contentKey?: HeroContentKey
             >
               {content.subtitle}
             </p>
-            <div className="flex flex-col sm:flex-row flex-nowrap items-stretch sm:items-center justify-start gap-3 mt-8 w-full">
+            <div className="flex flex-col sm:flex-row flex-nowrap items-stretch sm:items-center justify-center gap-3 mt-8 w-full">
               <CtaLink href={primaryHref} className="w-full sm:w-auto inline-flex shrink-0">
                 <button
                   type="button"
