@@ -40,8 +40,7 @@
   pointer-events: none;
 }
 
-/* Wypełnienie pierścienia (r 130→200) z borderem — najjaśniejszy element.
-   Procenty względem promienia 200px: 64%=128, 65%=130, 99%=198, 100%=200. */
+/* Wypełnienie pierścienia (r 130→200) z borderem — najjaśniejszy element (od wewnątrz) */
 .ringFillInner {
   position: absolute;
   inset: 0;
@@ -49,62 +48,61 @@
   --ring-border: color-mix(in srgb, var(--color-primary) 62%, transparent);
   background: radial-gradient(
     circle at center,
-    transparent 0%,
-    transparent 63.5%,
-    var(--ring-border) 64%,
-    var(--ring-border) 65%,
-    color-mix(in srgb, var(--color-primary) 22%, transparent) 65%,
-    color-mix(in srgb, var(--color-primary) 16%, transparent) 99%,
-    var(--ring-border) 99%,
-    var(--ring-border) 100%,
-    transparent 100%
+    transparent 0,
+    transparent 128px,
+    var(--ring-border) 128px,
+    var(--ring-border) 130px,
+    color-mix(in srgb, var(--color-primary) 22%, transparent) 130px,
+    color-mix(in srgb, var(--color-primary) 16%, transparent) 198px,
+    var(--ring-border) 198px,
+    var(--ring-border) 200px,
+    transparent 200px
   );
   box-shadow:
     0 0 20px color-mix(in srgb, var(--color-primary) 35%, transparent),
     inset 0 0 20px color-mix(in srgb, var(--color-primary) 32%, transparent);
 }
 
-/* Obręcze — jeden SVG (wektory) dla ostrych krawędzi na każdej rozdzielczości */
-.pulseRingsSvgWrapper {
+/* Obręcze — wrapper wspólny (centrowanie), jasność z modyfikatorów (mocne wygasanie) */
+.pulseRingWrapperInner,
+.pulseRingWrapperMiddle,
+.pulseRingWrapperOuter {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 900px;
-  height: 900px;
-  margin-left: -450px;
-  margin-top: -450px;
+  transform: translate(-50%, -50%);
   z-index: 2;
   pointer-events: none;
 }
 
-.pulseRingsSvg {
+.pulseRing {
   width: 100%;
   height: 100%;
-  overflow: visible;
+  border-radius: 50%;
 }
 
-/* Pierwsza obręcza — cienka linia, delikatny glow */
-.pulseRingInner {
-  fill: none;
-  stroke: var(--color-primary);
-  stroke-opacity: 0.48;
-  stroke-width: 1.5;
-  filter: url(#pulseRingGlowInner);
+/* Wewnętrzna obręcza (270px) — wyraźna, ale słabsza niż wypełniony pierścień */
+.pulseRingWrapperInner .pulseRing {
+  border: 2px solid color-mix(in srgb, var(--color-primary) 48%, transparent);
+  box-shadow:
+    0 0 14px color-mix(in srgb, var(--color-primary) 24%, transparent),
+    inset 0 0 14px color-mix(in srgb, var(--color-primary) 12%, transparent);
 }
 
-/* Druga i trzecia — bez mocnego bluru, czytelna linia */
-.pulseRingMiddle {
-  fill: none;
-  stroke: var(--color-primary);
-  stroke-opacity: 0.3;
-  stroke-width: 1.5;
+/* Środkowa obręcza (360px) — wyraźnie słabsza */
+.pulseRingWrapperMiddle .pulseRing {
+  border: 2px solid color-mix(in srgb, var(--color-primary) 30%, transparent);
+  box-shadow:
+    0 0 10px color-mix(in srgb, var(--color-primary) 14%, transparent),
+    inset 0 0 10px color-mix(in srgb, var(--color-primary) 6%, transparent);
 }
 
-.pulseRingOuter {
-  fill: none;
-  stroke: var(--color-primary);
-  stroke-opacity: 0.14;
-  stroke-width: 1.5;
+/* Zewnętrzna obręcza (450px) — ledwo widoczna (mocne wygasanie) */
+.pulseRingWrapperOuter .pulseRing {
+  border: 2px solid color-mix(in srgb, var(--color-primary) 14%, transparent);
+  box-shadow:
+    0 0 6px color-mix(in srgb, var(--color-primary) 8%, transparent),
+    inset 0 0 6px color-mix(in srgb, var(--color-primary) 4%, transparent);
 }
 
 /* ── Orbit system ──
@@ -151,4 +149,3 @@
     opacity: 0.7;
   }
 }
-
