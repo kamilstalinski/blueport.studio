@@ -60,8 +60,20 @@ export function HeroVisual(): React.ReactElement {
       {/* Glow radialny — pod wszystkim */}
       <div className={styles.radialGlow} aria-hidden />
 
-      {/* Wypełnienie między pierwszą a drugą obręczą (r 130 → 200) */}
-      <div className={styles.ringFillInner} aria-hidden />
+      {/* Wypełnienie między pierwszą a drugą obręczą — pulsuje w tym samym tempie co obręcze (3.5s, scale + opacity) */}
+      <div className={styles.ringFillWrapper} aria-hidden>
+        <motion.div
+          className={styles.ringFillInner}
+          animate={
+            noMotion ? undefined : { scale: [0.97, 1.02, 0.97], opacity: [0.85, 0.4, 0.85] }
+          }
+          transition={
+            noMotion
+              ? { duration: 0 }
+              : { duration: 3.5, repeat: Infinity, ease: "easeInOut", delay: 0 }
+          }
+        />
+      </div>
 
       {/* ── Pulse rings ──
           Używamy wrappera dla pozycjonowania i osobnego motion.div dla animacji,
