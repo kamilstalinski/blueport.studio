@@ -27,13 +27,18 @@ interface OrbitItem {
   label: string;
 }
 
+/**
+ * Po 2 ikony na każdej z 3 zewnętrznych obręczy (200, 270, 360 px).
+ * Ikony są rozstawione o 180° na jednej obręczy i przesunięte o 60° między obręczami
+ * → środek każdej ikony leży dokładnie na pierścieniu.
+ */
 const ORBIT_ITEMS: OrbitItem[] = [
   { angle: 30,  radius: 200, icon: Globe,        label: "Strony www" },
-  { angle: 90,  radius: 240, icon: ShoppingCart,  label: "Sklepy online" },
-  { angle: 160, radius: 195, icon: Code2,         label: "Next.js / React" },
-  { angle: 230, radius: 235, icon: Zap,           label: "Błyskawiczny load" },
-  { angle: 290, radius: 205, icon: Search,        label: "SEO on-page" },
-  { angle: 330, radius: 225, icon: Smartphone,    label: "Mobile first" },
+  { angle: 210, radius: 200, icon: ShoppingCart,  label: "Sklepy online" },
+  { angle: 120, radius: 270, icon: Code2,         label: "Next.js / React" },
+  { angle: 300, radius: 270, icon: Zap,           label: "Błyskawiczny load" },
+  { angle: 60,  radius: 360, icon: Search,        label: "SEO on-page" },
+  { angle: 240, radius: 360, icon: Smartphone,    label: "Mobile first" },
 ];
 
 function getPosition(angle: number, radius: number): { x: number; y: number } {
