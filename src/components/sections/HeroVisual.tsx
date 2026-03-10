@@ -57,42 +57,20 @@ export function HeroVisual(): React.ReactElement {
       {/* Glow radialny — pod wszystkim */}
       <div className={styles.radialGlow} aria-hidden />
 
-      {/* Wypełniony pierścień (r 130→200) z borderem wewnętrznym i zewnętrznym w kolorze obręczy; pulsuje */}
+      {/* Wypełniony pierścień (r 130→200) z borderem — najjaśniejszy (bez animacji) */}
       <div className={styles.ringFillWrapper} aria-hidden>
-        <motion.div
-          className={styles.ringFillInner}
-          animate={
-            noMotion ? undefined : { scale: [0.97, 1.02, 0.97], opacity: [0.85, 0.4, 0.85] }
-          }
-          transition={
-            noMotion
-              ? { duration: 0 }
-              : { duration: 3.5, repeat: Infinity, ease: "easeInOut", delay: 0 }
-          }
-        />
+        <div className={styles.ringFillInner} />
       </div>
 
-      {/* ── Pulse rings ──
-          Używamy wrappera dla pozycjonowania i osobnego motion.div dla animacji,
-          żeby Framer Motion nie nadpisał CSS transform: translate(-50%, -50%). */}
+      {/* Obręcze — jasność maleje od wewnętrznej do zewnętrznej (bez pulsowania) */}
       {PULSE_RADII.map((r, i) => (
         <div
           key={r}
-          className={styles.pulseRingWrapper}
+          className={i === 0 ? styles.pulseRingWrapperInner : styles.pulseRingWrapperOuter}
           style={{ width: r * 2, height: r * 2 }}
           aria-hidden
         >
-          <motion.div
-            className={styles.pulseRing}
-            animate={
-              noMotion ? undefined : { scale: [0.97, 1.02, 0.97], opacity: [0.8, 0.35, 0.8] }
-            }
-            transition={
-              noMotion
-                ? { duration: 0 }
-                : { duration: 3.5, repeat: Infinity, ease: "easeInOut", delay: i * 0.7 }
-            }
-          />
+          <div className={styles.pulseRing} />
         </div>
       ))}
 

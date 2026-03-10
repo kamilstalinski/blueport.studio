@@ -28,7 +28,7 @@
   z-index: 0;
 }
 
-/* Wrapper wypełnienia — centruje, animacja na wewnętrznym motion.div; wewnątrz też bordery */
+/* Wrapper wypełnienia */
 .ringFillWrapper {
   position: absolute;
   top: 50%;
@@ -40,7 +40,7 @@
   pointer-events: none;
 }
 
-/* Wypełnienie pierścienia (r 130→200) z borderem wewnętrznym i zewnętrznym w kolorze obręczy; pulsuje */
+/* Wypełnienie pierścienia (r 130→200) z borderem — najjaśniejsza obręcza (od wewnątrz) */
 .ringFillInner {
   position: absolute;
   inset: 0;
@@ -63,10 +63,9 @@
     inset 0 0 16px color-mix(in srgb, var(--color-primary) 28%, transparent);
 }
 
-/* ── Pulse rings (jaśniejsze) ──
-   Wrapper centruje, motion.div animuje scale/opacity.
-   Oddzielenie zapobiega nadpisaniu translate przez Framer Motion. */
-.pulseRingWrapper {
+/* Obręcze — wrapper wspólny (centrowanie), jasność z modyfikatorów */
+.pulseRingWrapperInner,
+.pulseRingWrapperOuter {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -79,10 +78,22 @@
   width: 100%;
   height: 100%;
   border-radius: 50%;
-  border: 2px solid color-mix(in srgb, var(--color-primary) 55%, transparent);
+}
+
+/* Wewnętrzna obręcza (270px) — średnia jasność */
+.pulseRingWrapperInner .pulseRing {
+  border: 2px solid color-mix(in srgb, var(--color-primary) 42%, transparent);
   box-shadow:
-    0 0 16px color-mix(in srgb, var(--color-primary) 28%, transparent),
-    inset 0 0 16px color-mix(in srgb, var(--color-primary) 12%, transparent);
+    0 0 14px color-mix(in srgb, var(--color-primary) 22%, transparent),
+    inset 0 0 14px color-mix(in srgb, var(--color-primary) 10%, transparent);
+}
+
+/* Zewnętrzna obręcza (360px) — najsłabsza jasność */
+.pulseRingWrapperOuter .pulseRing {
+  border: 2px solid color-mix(in srgb, var(--color-primary) 28%, transparent);
+  box-shadow:
+    0 0 10px color-mix(in srgb, var(--color-primary) 14%, transparent),
+    inset 0 0 10px color-mix(in srgb, var(--color-primary) 6%, transparent);
 }
 
 /* ── Orbit system ──
@@ -130,8 +141,3 @@
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .pulseRing {
-    animation: none !important;
-  }
-}
