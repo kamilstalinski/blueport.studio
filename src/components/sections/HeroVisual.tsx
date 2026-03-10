@@ -14,8 +14,8 @@ import type { LucideIcon } from "lucide-react";
 
 import styles from "./HeroVisual.module.css";
 
-/** Tylko zewnętrzne obręcze (pierwsza i druga usunięte — zastąpione wypełnionym pierścieniem z borderem). */
-const PULSE_RADII = [270, 360] as const;
+/** Zewnętrzne obręcze — jasność maleje od 270 → 360 → 450 px. */
+const PULSE_RADII = [270, 360, 450] as const;
 
 interface OrbitItem {
   angle: number;
@@ -62,11 +62,17 @@ export function HeroVisual(): React.ReactElement {
         <div className={styles.ringFillInner} />
       </div>
 
-      {/* Obręcze — jasność maleje od wewnętrznej do zewnętrznej (bez pulsowania) */}
+      {/* Obręcze — jasność wyraźnie maleje od wewnętrznej do zewnętrznej */}
       {PULSE_RADII.map((r, i) => (
         <div
           key={r}
-          className={i === 0 ? styles.pulseRingWrapperInner : styles.pulseRingWrapperOuter}
+          className={
+            i === 0
+              ? styles.pulseRingWrapperInner
+              : i === 1
+                ? styles.pulseRingWrapperMiddle
+                : styles.pulseRingWrapperOuter
+          }
           style={{ width: r * 2, height: r * 2 }}
           aria-hidden
         >
