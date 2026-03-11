@@ -14,11 +14,12 @@ import type { LucideIcon } from "lucide-react";
 
 import styles from "./HeroVisual.module.css";
 
-/**
- * Promienie pierścieni w px (od centrum logo).
- * Ikony orbitują na promieniach 160–200 px, więc wychodzą poza logo (r=120).
- */
-const PULSE_RADII = [130, 200, 270, 360] as const;
+/** Obręcze SVG: [promień, stroke-opacity] — jasność maleje od wewnętrznej do zewnętrznej. */
+const PULSE_RINGS: readonly [number, number][] = [
+  [270, 0.48],
+  [360, 0.30],
+  [450, 0.14],
+] as const;
 
 interface OrbitItem {
   angle: number;
@@ -27,24 +28,31 @@ interface OrbitItem {
   label: string;
 }
 
+/**
+ * Po 2 ikony na każdej z 3 zewnętrznych obręczy (200, 270, 360 px).
+ * Ikony są rozstawione o 180° na jednej obręczy i przesunięte o 60° między obręczami
+ * → środek każdej ikony leży dokładnie na pierścieniu.
+ */
 const ORBIT_ITEMS: OrbitItem[] = [
   { angle: 30,  radius: 200, icon: Globe,        label: "Strony www" },
-  { angle: 90,  radius: 240, icon: ShoppingCart,  label: "Sklepy online" },
-  { angle: 160, radius: 195, icon: Code2,         label: "Next.js / React" },
-  { angle: 230, radius: 235, icon: Zap,           label: "Błyskawiczny load" },
-  { angle: 290, radius: 205, icon: Search,        label: "SEO on-page" },
-  { angle: 330, radius: 225, icon: Smartphone,    label: "Mobile first" },
+  { angle: 210, radius: 200, icon: ShoppingCart,  label: "Sklepy online" },
+  { angle: 120, radius: 270, icon: Code2,         label: "Next.js / React" },
+  { angle: 300, radius: 270, icon: Zap,           label: "Błyskawiczny load" },
+  { angle: 60,  radius: 360, icon: Search,        label: "SEO on-page" },
+  { angle: 240, radius: 360, icon: Smartphone,    label: "Mobile first" },
 ];
 
+/** Pozycja na okręgu — zaokrąglona do int, żeby uniknąć hydration mismatch (Math.cos/sin różnice serwer vs klient). */
 function getPosition(angle: number, radius: number): { x: number; y: number } {
   const rad = (angle * Math.PI) / 180;
   return {
-    x: Math.cos(rad) * radius,
-    y: Math.sin(rad) * radius,
+    x: Math.round(Math.cos(rad) * radius),
+    y: Math.round(Math.sin(rad) * radius),
   };
 }
 
-const ORBIT_DURATION = 60;
+/** Różne czasy obiegu dla każdej ikony (sekundy) — orbity w różnym tempie. */
+const ORBIT_DURATIONS = [42, 52, 58, 68, 76, 88] as const;
 
 export function HeroVisual(): React.ReactElement {
   const shouldReduceMotion = useReducedMotion();
@@ -55,66 +63,102 @@ export function HeroVisual(): React.ReactElement {
       {/* Glow radialny — pod wszystkim */}
       <div className={styles.radialGlow} aria-hidden />
 
-      {/* ── Pulse rings ──
-          Używamy wrappera dla pozycjonowania i osobnego motion.div dla animacji,
-          żeby Framer Motion nie nadpisał CSS transform: translate(-50%, -50%). */}
-      {PULSE_RADII.map((r, i) => (
-        <div
-          key={r}
-          className={styles.pulseRingWrapper}
-          style={{ width: r * 2, height: r * 2 }}
-          aria-hidden
+      {/* Wypełniony pierścień (r 130→200) — SVG dla ostrych, anty-aliasowanych obwódek */}
+      <div className={styles.ringFillWrapper} aria-hidden>
+        <svg
+          className={styles.ringFillSvg}
+          width="400"
+          height="400"
+          viewBox="0 0 400 400"
+          xmlns="http://www.w3.org/2000/svg"
         >
+          <defs>
+            {/*
+              Gradient offset = % promienia (200px):
+              64% = 128px, 65% = 130px, 99% = 198px, 100% = 200px
+            */}
+            <radialGradient id="ringFillGrad" cx="50%" cy="50%" r="50%">
+              <stop offset="64%" stopColor="var(--color-primary)" stopOpacity="0" />
+              <stop offset="65%" stopColor="var(--color-primary)" stopOpacity="0.22" />
+              <stop offset="99%" stopColor="var(--color-primary)" stopOpacity="0.16" />
+              <stop offset="100%" stopColor="var(--color-primary)" stopOpacity="0" />
+            </radialGradient>
+          </defs>
+          {/* Wypełnienie donut */}
+          <rect width="400" height="400" fill="url(#ringFillGrad)" />
+          {/* Wewnętrzna obwódka (r=129 = środek strefy 128–130) */}
+          <circle cx="200" cy="200" r="129" fill="none" stroke="var(--color-primary)" strokeOpacity="0.62" strokeWidth="2" />
+          {/* Zewnętrzna obwódka (r=199 = środek strefy 198–200) */}
+          <circle cx="200" cy="200" r="199" fill="none" stroke="var(--color-primary)" strokeOpacity="0.62" strokeWidth="2" />
+        </svg>
+      </div>
+
+      {/* Obręcze — jeden SVG z anty-aliasowanymi okręgami (bez pikselizacji) */}
+      <svg
+        className={styles.ringsSvg}
+        width="900"
+        height="900"
+        viewBox="0 0 900 900"
+        xmlns="http://www.w3.org/2000/svg"
+        aria-hidden
+      >
+        {PULSE_RINGS.map(([r, opacity]) => (
+          <circle
+            key={r}
+            cx="450"
+            cy="450"
+            r={r}
+            fill="none"
+            stroke="var(--color-primary)"
+            strokeOpacity={opacity}
+            strokeWidth="1.5"
+          />
+        ))}
+      </svg>
+
+      {/* Etykieta „4+ lat doświadczenia” */}
+      <div className={styles.heroLabelWrapper} aria-hidden>
+        <div className={styles.heroLabel}>
+          <span className={styles.heroLabelValue}>4+</span>
+          <span className={styles.heroLabelText}>lat doświadczenia</span>
+        </div>
+      </div>
+
+      {/* Każda ikona w osobnej orbicie z własnym tempem (counter-rotate żeby ikona stała prosto) */}
+      {ORBIT_ITEMS.map((item, i) => {
+        const pos = getPosition(item.angle, item.radius);
+        const duration = ORBIT_DURATIONS[i];
+        return (
           <motion.div
-            className={styles.pulseRing}
-            animate={
-              noMotion ? undefined : { scale: [0.97, 1.02, 0.97], opacity: [0.8, 0.35, 0.8] }
-            }
+            key={item.label}
+            className={styles.orbitSystem}
+            animate={noMotion ? undefined : { rotate: 360 }}
             transition={
               noMotion
                 ? { duration: 0 }
-                : { duration: 3.5, repeat: Infinity, ease: "easeInOut", delay: i * 0.7 }
+                : { duration, repeat: Infinity, ease: "linear" }
             }
-          />
-        </div>
-      ))}
-
-      {/* ── Orbiting system ──
-          Zajmuje cały visualRoot (100% × 100%), obraca się względem swojego środka.
-          Framer Motion NIE używa tu translate, więc nie ma konfliktu z CSS. */}
-      <motion.div
-        className={styles.orbitSystem}
-        animate={noMotion ? undefined : { rotate: 360 }}
-        transition={
-          noMotion
-            ? { duration: 0 }
-            : { duration: ORBIT_DURATION, repeat: Infinity, ease: "linear" }
-        }
-        aria-hidden
-      >
-        {ORBIT_ITEMS.map((item) => {
-          const pos = getPosition(item.angle, item.radius);
-          return (
+            aria-hidden
+          >
             <motion.div
-              key={item.label}
               className={styles.orbitIcon}
               style={{
                 left: `calc(50% + ${pos.x}px - 22px)`,
-                top:  `calc(50% + ${pos.y}px - 22px)`,
+                top: `calc(50% + ${pos.y}px - 22px)`,
               }}
               title={item.label}
               animate={noMotion ? undefined : { rotate: -360 }}
               transition={
                 noMotion
                   ? { duration: 0 }
-                  : { duration: ORBIT_DURATION, repeat: Infinity, ease: "linear" }
+                  : { duration, repeat: Infinity, ease: "linear" }
               }
             >
               <item.icon size={18} className="text-white/75" aria-hidden />
             </motion.div>
-          );
-        })}
-      </motion.div>
+          </motion.div>
+        );
+      })}
 
       {/* ── Logo centrum ── */}
       <div className={styles.logoCore} aria-hidden>

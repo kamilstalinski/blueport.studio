@@ -203,7 +203,7 @@ export function Hero({ contentKey = "Home.hero" }: { contentKey?: HeroContentKey
             >
               {content.subtitle}
             </p>
-            <div className="flex flex-col sm:flex-row flex-nowrap items-stretch sm:items-center justify-start gap-3 mt-8 w-full">
+            <div className="flex flex-col sm:flex-row flex-nowrap items-stretch sm:items-center justify-center gap-3 mt-8 w-full">
               <CtaLink href={primaryHref} className="w-full sm:w-auto inline-flex shrink-0">
                 <button
                   type="button"
@@ -238,7 +238,7 @@ export function Hero({ contentKey = "Home.hero" }: { contentKey?: HeroContentKey
                       fontWeight: 600,
                       fontSize: "0.95rem",
                       padding: "14px 28px",
-                      border: "2px solid rgba(255,255,255,0.5)",
+                      boxShadow: "inset 0 0 0 2px rgba(255,255,255,0.5)",
                     }}
                   >
                     {content.ctaSecondary}
@@ -413,7 +413,7 @@ export function Hero({ contentKey = "Home.hero" }: { contentKey?: HeroContentKey
                       fontWeight: 600,
                       fontSize: "0.95rem",
                       padding: "14px 28px",
-                      border: "2px solid rgba(255,255,255,0.5)",
+                      boxShadow: "inset 0 0 0 2px rgba(255,255,255,0.5)",
                     }}
                   >
                     {content.ctaSecondary}
