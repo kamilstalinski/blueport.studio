@@ -19,11 +19,11 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       ghost:
         "text-primary hover:bg-primary-subtle hover:underline focus-visible:ring-primary",
       outline:
-        "border border-[var(--color-accent-active)] text-primary bg-transparent hover:bg-primary-subtle focus-visible:ring-primary",
+        "ring-1 ring-inset ring-[var(--color-accent-active)] text-primary bg-transparent hover:bg-primary-subtle focus-visible:ring-2 focus-visible:ring-primary",
       accent:
         "bg-primary text-primary-foreground font-semibold shadow-[0_0_20px_var(--color-primary-glow)] hover:bg-primary-hover hover:shadow-[0_0_24px_var(--color-primary-glow-hover)] active:scale-[0.99] focus-visible:ring-primary",
       secondary:
-        "border border-white/20 bg-transparent text-foreground backdrop-blur-sm hover:bg-white/15 hover:shadow-[0_0_20px_rgba(255,255,255,0.08)] focus-visible:ring-white/30",
+        "ring-1 ring-inset ring-white/20 bg-transparent text-foreground backdrop-blur-sm hover:bg-white/15 hover:shadow-[0_0_20px_rgba(255,255,255,0.08)] focus-visible:ring-2 focus-visible:ring-white/30",
     };
 
     return (
