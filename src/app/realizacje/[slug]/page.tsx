@@ -3,6 +3,7 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import type { ReactNode } from "react";
 import { Building2, AlertTriangle, Lightbulb, Code2, TrendingUp } from "lucide-react";
+import { cn } from "@/lib/utils";
 import { Section } from "@/components/ui/Section";
 import { Button } from "@/components/ui/Button";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
@@ -138,52 +139,47 @@ const CARD_META: Record<
     Icon: React.ComponentType<{ size?: number }>;
     color: string;
     cssVars: Record<string, string>;
+    cardClassName?: string;
   }
 > = {
   context: {
     label: "Kontekst biznesowy",
     Icon: Building2,
-    color: "rgba(255, 255, 255, 0.45)",
+    color: "var(--color-text-secondary)",
     cssVars: {},
   },
   challenge: {
     label: "Wyzwanie",
     Icon: AlertTriangle,
-    color: "rgba(255, 120, 100, 0.8)",
+    color: "var(--color-status-red)",
     cssVars: {
-      "--glass-bg": "rgba(255, 80, 60, 0.03)",
-      "--glass-border": "rgba(255, 100, 80, 0.2)",
-      "--glass-border-top": "rgba(255, 100, 80, 0.28)",
-      "--glass-bg-hover": "rgba(255, 80, 60, 0.07)",
-      "--glass-border-hover": "rgba(255, 100, 80, 0.32)",
-      "--glass-border-top-hover": "rgba(255, 100, 80, 0.42)",
+      "--glass-bg": "color-mix(in srgb, var(--color-status-red) 4%, transparent)",
+      "--glass-border": "color-mix(in srgb, var(--color-status-red) 22%, transparent)",
+      "--glass-border-top": "color-mix(in srgb, var(--color-status-red) 30%, transparent)",
+      "--glass-bg-hover": "color-mix(in srgb, var(--color-status-red) 8%, transparent)",
+      "--glass-border-hover": "color-mix(in srgb, var(--color-status-red) 34%, transparent)",
+      "--glass-border-top-hover": "color-mix(in srgb, var(--color-status-red) 44%, transparent)",
     },
   },
   strategy: {
     label: "Strategia",
     Icon: Lightbulb,
-    color: "rgba(120, 150, 255, 0.85)",
+    color: "var(--color-primary)",
     cssVars: {
-      "--glass-bg": "rgba(80, 120, 255, 0.03)",
-      "--glass-border": "rgba(100, 140, 255, 0.2)",
-      "--glass-border-top": "rgba(100, 140, 255, 0.28)",
-      "--glass-bg-hover": "rgba(80, 120, 255, 0.07)",
-      "--glass-border-hover": "rgba(100, 140, 255, 0.32)",
-      "--glass-border-top-hover": "rgba(100, 140, 255, 0.42)",
+      "--glass-bg": "var(--color-primary-subtle)",
+      "--glass-border": "var(--color-accent-border)",
+      "--glass-border-top": "color-mix(in srgb, var(--color-primary) 35%, transparent)",
+      "--glass-bg-hover": "color-mix(in srgb, var(--color-primary) 10%, transparent)",
+      "--glass-border-hover": "color-mix(in srgb, var(--color-primary) 38%, transparent)",
+      "--glass-border-top-hover": "color-mix(in srgb, var(--color-primary) 48%, transparent)",
     },
   },
   implementation: {
     label: "Wdrożenie",
     Icon: Code2,
-    color: "rgba(0, 229, 160, 0.8)",
-    cssVars: {
-      "--glass-bg": "rgba(0, 229, 160, 0.03)",
-      "--glass-border": "rgba(0, 229, 160, 0.2)",
-      "--glass-border-top": "rgba(0, 229, 160, 0.28)",
-      "--glass-bg-hover": "rgba(0, 229, 160, 0.06)",
-      "--glass-border-hover": "rgba(0, 229, 160, 0.3)",
-      "--glass-border-top-hover": "rgba(0, 229, 160, 0.4)",
-    },
+    color: "var(--color-primary)",
+    cssVars: {},
+    cardClassName: "cs-card-implementation",
   },
 } as const;
 
@@ -194,10 +190,13 @@ interface ContentCardProps {
 }
 
 function ContentCard({ variant, children, delay = 0 }: ContentCardProps) {
-  const { label, Icon, color, cssVars } = CARD_META[variant];
+  const { label, Icon, color, cssVars, cardClassName } = CARD_META[variant];
   return (
     <ScrollReveal delay={delay}>
-      <div className="glass-card card-padding h-full" style={cssVars as React.CSSProperties}>
+      <div
+        className={cn("glass-card card-padding h-full", cardClassName)}
+        style={Object.keys(cssVars).length > 0 ? (cssVars as React.CSSProperties) : undefined}
+      >
         <div className="cs-card-label" style={{ color }}>
           <Icon size={11} />
           <span>{label}</span>
@@ -262,8 +261,8 @@ export default async function CaseStudyPage({ params }: PageParamsSlug) {
         </div>
       </Section>
 
-      <Section tight>
-        <div className="flex flex-col gap-6">
+      <Section tight noWrapper>
+        <div className="container-narrow flex flex-col" style={{ gap: "var(--element-gap)" }}>
           {/* Tech stack tags */}
           <ScrollReveal delay={0.05}>
             <div className="flex flex-wrap gap-2">
@@ -278,7 +277,7 @@ export default async function CaseStudyPage({ params }: PageParamsSlug) {
           <div className="cs-divider" aria-hidden />
 
           {/* Kontekst + Wyzwanie */}
-          <div className="grid gap-6 md:grid-cols-2">
+          <div className="grid md:grid-cols-2" style={{ gap: "var(--grid-gap)" }}>
             <ContentCard variant="context" delay={0.1}>
               {study.context}
             </ContentCard>
@@ -288,7 +287,7 @@ export default async function CaseStudyPage({ params }: PageParamsSlug) {
           </div>
 
           {/* Strategia + Wdrożenie */}
-          <div className="grid gap-6 md:grid-cols-2">
+          <div className="grid md:grid-cols-2" style={{ gap: "var(--grid-gap)" }}>
             <ContentCard variant="strategy" delay={0.1}>
               {study.strategy}
             </ContentCard>
@@ -299,22 +298,10 @@ export default async function CaseStudyPage({ params }: PageParamsSlug) {
 
           <div className="cs-divider" aria-hidden />
 
-          {/* Wyniki — mint-featured card */}
+          {/* Wyniki — karta wyróżniona (primary) */}
           <ScrollReveal delay={0.3}>
-            <div
-              className="glass-card card-padding"
-              style={
-                {
-                  "--glass-bg": "rgba(0, 229, 160, 0.06)",
-                  "--glass-border": "rgba(0, 229, 160, 0.25)",
-                  "--glass-border-top": "rgba(0, 229, 160, 0.35)",
-                  "--glass-bg-hover": "rgba(0, 229, 160, 0.1)",
-                  "--glass-border-hover": "rgba(0, 229, 160, 0.35)",
-                  "--glass-border-top-hover": "rgba(0, 229, 160, 0.45)",
-                } as React.CSSProperties
-              }
-            >
-              <div className="cs-card-label" style={{ color: "#00e5a0" }}>
+            <div className="glass-card card-padding cs-card-results">
+              <div className="cs-card-label cs-card-label-primary">
                 <TrendingUp size={12} />
                 <span>Wyniki</span>
               </div>
@@ -325,7 +312,7 @@ export default async function CaseStudyPage({ params }: PageParamsSlug) {
           {/* Wnioski — blockquote z lewą ramką */}
           <ScrollReveal delay={0.4}>
             <div className="cs-card-wnioski">
-              <div className="cs-card-label" style={{ color: "rgba(0, 229, 160, 0.65)" }}>
+              <div className="cs-card-label cs-card-label-primary-muted">
                 <span>Wnioski</span>
               </div>
               <p className="cs-lessons-text">{study.lessons}</p>
@@ -335,8 +322,8 @@ export default async function CaseStudyPage({ params }: PageParamsSlug) {
       </Section>
 
       {/* CTA — primary (konwersja) pierwszy, ghost (nawigacja) drugi */}
-      <Section>
-        <div className="flex flex-col gap-4 sm:flex-row sm:items-center flex-wrap">
+      <Section noWrapper>
+        <div className="container-narrow flex flex-col gap-4 sm:flex-row sm:items-center flex-wrap">
           <Link href="/kontakt">
             <Button>Podobny projekt? Napisz do nas</Button>
           </Link>

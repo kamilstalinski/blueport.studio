@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Hero } from "@/components/sections/Hero";
 import { Section } from "@/components/ui/Section";
+import { Container } from "@/components/ui/Container";
 import { SpotlightCard } from "@/components/SpotlightCard";
 import { GlassCard } from "@/components/ui/GlassCard";
 import { DlaczegoMy } from "@/components/sections/DlaczegoMy";
@@ -63,7 +64,7 @@ export default function RealizacjePage() {
   return (
     <>
       <Hero contentKey="realizacje.hero" />
-      <div className="container">
+      <Container>
         <div className="stats-bar">
           <div className="stat-item">
             <span className="stat-num">47+</span>
@@ -80,14 +81,14 @@ export default function RealizacjePage() {
             <span className="stat-label">średni czas realizacji</span>
           </div>
         </div>
-      </div>
+      </Container>
       <Section id="realizacje-grid" topGradient>
-        <ul className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 items-stretch">
+        <ul className="grid sm:grid-cols-2 lg:grid-cols-3 items-stretch" style={{ gap: "var(--grid-gap)" }}>
           {caseStudies.map((study) => (
             <li key={study.slug} className="flex min-h-0">
-              <SpotlightCard className="custom-spotlight-card rounded-2xl h-full transition-all duration-300 flex flex-col min-w-0">
+              <SpotlightCard className="custom-spotlight-card rounded-card h-full transition-[var(--transition-card)] flex flex-col min-w-0">
                 <Link href={`/realizacje/${study.slug}`} className="group flex flex-col h-full min-h-0">
-                  <GlassCard className="glass-card card-subpage rounded-2xl overflow-hidden p-0 flex flex-col h-full min-h-0">
+                  <GlassCard className="glass-card card-subpage rounded-card overflow-hidden p-0 flex flex-col h-full min-h-0">
                     <div className="portfolio-img shrink-0" aria-hidden>
                       {study.image ? (
                         <Image
@@ -100,11 +101,11 @@ export default function RealizacjePage() {
                         <span className="img-placeholder">Podgląd wkrótce</span>
                       )}
                     </div>
-                    <div className="p-6 flex flex-col flex-1 min-h-0">
-                      <h2 className="text-lg font-semibold tracking-tight text-foreground group-hover:text-white/90">
+                    <div className="card-padding flex flex-col flex-1 min-h-0">
+                      <h2 className="heading-3 text-text-primary group-hover:text-text-primary/90">
                         {study.name}
                       </h2>
-                      <p className="mt-2 text-sm text-foreground/70 leading-relaxed flex-1 min-h-0">
+                      <p className="mt-2 text-body text-text-secondary leading-relaxed flex-1 min-h-0">
                         {study.description}
                       </p>
                       <span className="realizacje-card-btn mt-4 inline-block shrink-0 self-start">Zobacz więcej</span>

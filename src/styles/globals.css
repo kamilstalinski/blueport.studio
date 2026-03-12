@@ -639,8 +639,8 @@ body .process-step:hover {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #111827 0%, #1a2332 100%);
-  border-radius: 1rem 1rem 0 0; /* dopasowanie do rounded-2xl karty — zdjęcie nie wychodzi poza border */
+  background: linear-gradient(135deg, var(--color-bg) 0%, var(--color-surface) 100%);
+  border-radius: 1rem 1rem 0 0;
 }
 .portfolio-img img {
   object-fit: cover;
@@ -662,12 +662,12 @@ body .process-step:hover {
 /* Strona realizacje — przycisk "Zobacz więcej" w kartach */
 .realizacje-card-btn {
   background: transparent;
-  color: rgba(255, 255, 255, 0.55);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 6px;
+  color: var(--color-text-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
   font-size: 0.72rem;
-  padding: 8px 14px;
-  transition: all 0.2s;
+  padding: var(--inline-gap) 14px;
+  transition: var(--transition-card);
 }
 .realizacje-card-btn:hover {
   border-color: var(--color-accent-border);
@@ -679,31 +679,31 @@ body .process-step:hover {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 40px;
-  padding: 32px 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.07);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
-  margin-bottom: 64px;
+  gap: var(--space-5);
+  padding: var(--space-4) 0;
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+  margin-bottom: var(--space-8);
 }
 .stat-num {
   display: block;
   font-size: 1.8rem;
   font-weight: 800;
-  color: #fff;
+  color: var(--color-text-primary);
   line-height: 1;
   letter-spacing: -0.04em;
 }
 .stat-label {
   font-size: 0.65rem;
-  color: rgba(255, 255, 255, 0.35);
+  color: var(--color-text-secondary);
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  margin-top: 4px;
+  margin-top: var(--inline-gap);
 }
 .stat-divider {
   width: 1px;
   height: 36px;
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--color-border);
 }
 @media (max-width: 600px) {
   .stats-bar {
@@ -1197,18 +1197,18 @@ body .process-grid-2x2 .process-step-2x2:hover {
 }
 .tech-tag {
   font-size: 0.78rem;
-  padding: 8px 18px;
+  padding: var(--inline-gap) 18px;
   border-radius: 99px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  color: rgba(255, 255, 255, 0.6);
-  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-secondary);
+  background: var(--color-surface-alt);
   letter-spacing: 0.02em;
-  transition: all 0.2s;
+  transition: var(--transition-card);
 }
 .tech-tag:hover {
   border-color: var(--color-accent-border);
   color: var(--color-primary);
-  background: var(--color-accent-subtle);
+  background: var(--color-primary-subtle);
 }
 
 /* O-nas: Dla kogo — strzałki list */
@@ -2921,11 +2921,17 @@ body .cs-hero {
 .cs-card-label {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: var(--inline-gap);
   font-size: 0.6rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  margin-bottom: 12px;
+  margin-bottom: var(--card-gap);
+}
+.cs-card-label-primary {
+  color: var(--color-primary);
+}
+.cs-card-label-primary-muted {
+  color: var(--color-text-secondary);
 }
 
 /* Separator gradient — pozioma linia między sekcjami */
@@ -2934,8 +2940,8 @@ body .cs-hero {
   background: linear-gradient(
     90deg,
     transparent,
-    rgba(255, 255, 255, 0.08) 20%,
-    rgba(255, 255, 255, 0.08) 80%,
+    var(--color-border) 20%,
+    var(--color-border) 80%,
     transparent
   );
 }
@@ -2944,23 +2950,43 @@ body .cs-hero {
 .cs-results-text {
   font-size: clamp(1rem, 1.5vw, 1.15rem);
   font-weight: 600;
-  color: rgba(255, 255, 255, 0.92);
+  color: var(--color-text-primary);
   line-height: 1.6;
+}
+
+/* Karta Wyniki — glass w odcieniu primary */
+.cs-card-results {
+  --glass-bg: color-mix(in srgb, var(--color-primary) 8%, transparent);
+  --glass-border: color-mix(in srgb, var(--color-primary) 28%, transparent);
+  --glass-border-top: color-mix(in srgb, var(--color-primary) 38%, transparent);
+  --glass-bg-hover: color-mix(in srgb, var(--color-primary) 12%, transparent);
+  --glass-border-hover: color-mix(in srgb, var(--color-primary) 38%, transparent);
+  --glass-border-top-hover: color-mix(in srgb, var(--color-primary) 48%, transparent);
+}
+
+/* Karta Wdrożenie — glass w odcieniu primary */
+.cs-card-implementation {
+  --glass-bg: var(--color-primary-subtle);
+  --glass-border: var(--color-accent-border);
+  --glass-border-top: color-mix(in srgb, var(--color-primary) 32%, transparent);
+  --glass-bg-hover: color-mix(in srgb, var(--color-primary) 10%, transparent);
+  --glass-border-hover: color-mix(in srgb, var(--color-primary) 38%, transparent);
+  --glass-border-top-hover: color-mix(in srgb, var(--color-primary) 48%, transparent);
 }
 
 /* Wnioski — blockquote z lewą ramką */
 .cs-card-wnioski {
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  border-left: 3px solid #00e5a0;
+  background: var(--color-surface-alt);
+  border: 1px solid var(--color-border);
+  border-left: 3px solid var(--color-primary);
   border-radius: 0 12px 12px 0;
-  padding: 20px 28px;
+  padding: var(--space-3) var(--space-4);
 }
 
 /* Wnioski — tekst kursywą, wyciszony */
 .cs-lessons-text {
   font-style: italic;
-  color: rgba(255, 255, 255, 0.7);
+  color: var(--color-text-secondary);
   line-height: 1.7;
   font-size: 0.95rem;
 }
@@ -2974,10 +3000,10 @@ body .cs-hero {
 .cs-screenshot-chrome {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--inline-gap);
   padding: 9px 12px;
-  background: rgba(255, 255, 255, 0.03);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  background: var(--color-surface-alt);
+  border-bottom: 1px solid var(--color-border);
   flex-shrink: 0;
 }
 
@@ -2992,22 +3018,22 @@ body .cs-hero {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.14);
+  background: var(--color-border);
 }
 
 .cs-screenshot-url {
   flex: 1;
   font-size: 0.6rem;
-  color: rgba(255, 255, 255, 0.28);
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.07);
+  color: var(--color-text-secondary);
+  background: var(--color-surface-alt);
+  border: 1px solid var(--color-border);
   border-radius: 4px;
-  padding: 3px 8px;
+  padding: 3px var(--inline-gap);
   letter-spacing: 0.01em;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  font-family: var(--font-body, monospace);
+  font-family: var(--font-body), system-ui, sans-serif;
 }
 
 .cs-screenshot-img {
