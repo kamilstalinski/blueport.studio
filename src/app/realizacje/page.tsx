@@ -53,7 +53,7 @@ const caseStudies = [
     slug: "spavalnia",
     name: "SPAVALNIA",
     description:
-      "Strona dla producenta konstrukcji stalowych z Lublina. Sklep online + formularz zapytań dla projektów niestandardowych.",
+      "Sklep internetowy dla marki streetwearowej. Ciemny design oddający klimat marki, sprawna ścieżka zakupowa, integracja z WooCommerce.",
     image: "/spavalnia.png",
     domain: "spavalnia.pl",
   },

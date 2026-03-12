@@ -112,20 +112,20 @@ const CASE_STUDIES: Record<string, CaseStudy> = {
   spavalnia: {
     title: "SPAVALNIA",
     client: "SPAVALNIA",
-    industry: "Konstrukcje stalowe / e-commerce",
+    industry: "Moda / streetwear e-commerce",
     context:
-      "SPAVALNIA z Lublina produkuje ogrodzenia, bramy, furtki, schody i balustrady stalowe łączące nowoczesność z solidnym wykonaniem. Potrzebowali strony obsługującej dwie ścieżki klientów: e-commerce z gotowymi produktami i formularz dla projektów na wymiar.",
+      "SPAVALNIA to sklep internetowy z odzieżą streetwearową — ubrania i akcesoria dla osób ceniących miejski styl i autentyczną kulturę ulicy. Marka potrzebowała sklepu, który odda klimat streetwearu i sprawnie obsłuży sprzedaż online.",
     challenge:
-      "Obsługa dwóch segmentów klientów (gotowe produkty vs. realizacje niestandardowe) w jednej spójnej strukturze strony bez dezorientacji użytkownika.",
+      "Stworzenie sklepu e-commerce z charakterem — przekazanie estetyki streetwear przez design, przy zachowaniu prostej ścieżki zakupowej i wydajności na mobile.",
     strategy:
-      "Podwójne CTA — sklep online dla standardowych produktów i formularz zapytania dla niestandardowych zleceń, galeria realizacji jako dowód jakości wykonania.",
+      "Sklep oparty na WooCommerce z mocno skustomizowanym motywem oddającym klimat marki — ciemna kolorystyka, odważna typografia, minimalne tarcie w ścieżce zakupowej.",
     implementation:
-      "Next.js z integracją sklepu, system wycen i formularz zapytań dla projektów niestandardowych, galeria realizacji, responsywny design z naciskiem na Lublin i okolice.",
-    stack: "Wordpress, WooCommerce",
+      "WordPress z WooCommerce, dedykowany motyw dopasowany do identyfikacji wizualnej marki, integracja z systemem płatności, optymalizacja kart produktowych i koszyka pod konwersję.",
+    stack: "WordPress, WooCommerce",
     results:
-      "Wzrost sprzedaży przez kanał online, skuteczna segmentacja ruchu między gotowe produkty a realizacje niestandardowe, profesjonalna prezentacja oferty.",
+      "Spójna identyfikacja wizualna marki w kanale e-commerce, sprawna sprzedaż online, pozytywny odbiór projektu przez społeczność streetwearową.",
     lessons:
-      "Firmy produkcyjne z wieloma ścieżkami sprzedaży zyskują na jasnym podziale oferty — klient szybko trafia tam, gdzie potrzebuje, bez zbędnego tarcia.",
+      "W modzie streetwear design sklepu jest częścią produktu — klienci kupują nie tylko ubranie, ale też przynależność do estetyki marki.",
   },
 };
 
