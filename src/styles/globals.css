@@ -2987,3 +2987,66 @@ body .cs-hero {
   line-height: 1.7;
   font-size: 0.95rem;
 }
+
+/* Hero screenshot — browser mockup */
+.cs-hero-screenshot {
+  overflow: hidden;
+  /* glass-card handles border, background, shadow */
+}
+
+.cs-screenshot-chrome {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 12px;
+  background: rgba(255, 255, 255, 0.03);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  flex-shrink: 0;
+}
+
+.cs-screenshot-dots {
+  display: flex;
+  gap: 5px;
+  flex-shrink: 0;
+}
+
+.cs-screenshot-dots span {
+  display: block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.cs-screenshot-url {
+  flex: 1;
+  font-size: 0.6rem;
+  color: rgba(255, 255, 255, 0.28);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 4px;
+  padding: 3px 8px;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-family: var(--font-body, monospace);
+}
+
+.cs-screenshot-img {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+}
+
+.cs-screenshot-img img {
+  object-fit: cover;
+  object-position: top;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cs-hero-screenshot:hover .cs-screenshot-img img {
+  transform: translateY(-4%);
+}

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import type { ReactNode } from "react";
 import { Building2, AlertTriangle, Lightbulb, Code2, TrendingUp } from "lucide-react";
@@ -7,6 +8,15 @@ import { Button } from "@/components/ui/Button";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import type { CaseStudy } from "@/types";
 import type { PageParamsSlug } from "@/types";
+
+const CASE_META: Partial<Record<string, { image: string; domain: string }>> = {
+  dowytrenowania: { image: "/dowytrenowania.png", domain: "dowytrenowania.pl" },
+  abcmosty: { image: "/abc_mosty.png", domain: "abcmosty.pl" },
+  afterthesin: { image: "/after_the_sin.png", domain: "afterthesin.com" },
+  vilmart: { image: "/vilmart.png", domain: "vilmart.pl" },
+  dobreprecle: { image: "/dobre_precle.png", domain: "dobreprecle.pl" },
+  spavalnia: { image: "/spavalnia.png", domain: "spavalnia.pl" },
+};
 
 const CASE_STUDIES: Record<string, CaseStudy> = {
   dowytrenowania: {
@@ -21,7 +31,7 @@ const CASE_STUDIES: Record<string, CaseStudy> = {
       "Nowa strona z jasną prezentacją specjalizacji, sekcja 'z czym możesz do mnie przyjść' jako narzędzie edukacyjne i SEO, blog z poradami zdrowotnymi wzmacniający autorytet.",
     implementation:
       "Next.js, formularz rezerwacji wizyty, integracja z mediami społecznościowymi (Instagram, YouTube, Facebook), newsletter, optymalizacja pod lokalne SEO.",
-    stack: "Next.js, TypeScript, Tailwind, Vercel",
+    stack: "Wordpress, WooCommerce",
     results:
       "Wzrost ruchu organicznego na frazy lokalne, nowi pacjenci przez formularz online, aktywna baza subskrybentów newslettera.",
     lessons:
@@ -39,7 +49,7 @@ const CASE_STUDIES: Record<string, CaseStudy> = {
       "Elegancka wizytówka nawiązująca do natury — prezentacja oferty (krzewy ozdobne, trawy, choinki), historia rodzinnej firmy jako element budowania zaufania, galeria i dane kontaktowe.",
     implementation:
       "Statyczna strona z designem inspirowanym naturą, sekcje produktowe, galeria, responsywny layout, lokalne SEO pod Mosty i okolice.",
-    stack: "Next.js, TypeScript, Tailwind, Vercel",
+    stack: "Wordpress",
     results:
       "Profesjonalna obecność online, zwiększony ruch z wyszukiwarek lokalnych, nowe zapytania ofertowe od klientów B2B i indywidualnych.",
     lessons:
@@ -57,7 +67,7 @@ const CASE_STUDIES: Record<string, CaseStudy> = {
       "Minimalistyczny, atmosferyczny design z mocnymi efektami wizualnymi, sekcja nadchodzących koncertów z linkami do zakupu biletów, galeria i teledyski.",
     implementation:
       "Next.js, animowane elementy z Framer Motion, integracja z Facebook Events, sekcja wideo z YouTube, responsywny layout zoptymalizowany pod mobile.",
-    stack: "Next.js, Framer Motion, TypeScript, Tailwind, Vercel",
+    stack: "Wordpress",
     results:
       "Strona stała się głównym kanałem informacji dla fanów, wspiera bookingowych w procesie wyceny koncertów, wzmacnia wizerunek zespołu przed debiutem zagranicznym.",
     lessons:
@@ -75,7 +85,7 @@ const CASE_STUDIES: Record<string, CaseStudy> = {
       "Nowa strona z mocnym akcentem na usługi (dobór, montaż, serwis), sekcja referencji jako social proof, dedykowany formularz doboru urządzenia jako główne narzędzie leadowe.",
     implementation:
       "Next.js z formularzem doboru urządzenia, sekcja recenzji klientów, integracja ze sklepem internetowym sklepzfiltrami.pl, lokalne SEO pod Szczecin i okolice.",
-    stack: "Next.js, TypeScript, Tailwind, Vercel",
+    stack: "Wordpress",
     results:
       "Wzrost liczby zapytań przez formularz online, lepsze pozycje na frazy lokalne, profesjonalna prezentacja marki wzmacniająca zaufanie klientów.",
     lessons:
@@ -93,7 +103,7 @@ const CASE_STUDIES: Record<string, CaseStudy> = {
       "Prosta, apetyczna strona skupiona na menu, mapie lokalizacji i kanałach social media, z sekcją aktualności i transparentnym podejściem do informacji o alergenach.",
     implementation:
       "Next.js, dynamiczna sekcja lokalizacji, integracja z mediami społecznościowymi (Facebook, Instagram, TikTok, YouTube), sekcja alergenów, aktualności.",
-    stack: "Next.js, TypeScript, Tailwind, Vercel",
+    stack: "Next.js, TypeScript, Tailwind",
     results:
       "Spójna identyfikacja cyfrowa dla całej sieci, wzrost obserwujących w social media, łatwiejszy dostęp do informacji o lokalizacjach i ofercie dla klientów.",
     lessons:
@@ -111,60 +121,11 @@ const CASE_STUDIES: Record<string, CaseStudy> = {
       "Podwójne CTA — sklep online dla standardowych produktów i formularz zapytania dla niestandardowych zleceń, galeria realizacji jako dowód jakości wykonania.",
     implementation:
       "Next.js z integracją sklepu, system wycen i formularz zapytań dla projektów niestandardowych, galeria realizacji, responsywny design z naciskiem na Lublin i okolice.",
-    stack: "Next.js, TypeScript, Tailwind, Vercel, integracja z e-commerce",
+    stack: "Wordpress, WooCommerce",
     results:
       "Wzrost sprzedaży przez kanał online, skuteczna segmentacja ruchu między gotowe produkty a realizacje niestandardowe, profesjonalna prezentacja oferty.",
     lessons:
       "Firmy produkcyjne z wieloma ścieżkami sprzedaży zyskują na jasnym podziale oferty — klient szybko trafia tam, gdzie potrzebuje, bez zbędnego tarcia.",
-  },
-  "strona-firmowa-b2b": {
-    title: "Strona firmowa B2B",
-    client: "Firma B2B",
-    industry: "Usługi B2B",
-    context:
-      "Klient potrzebował odświeżenia wizytówki i poprawy widoczności w Google. Stara strona była wolna i nieprzystosowana do mobile.",
-    challenge: "Wolna, przestarzała strona, słabe pozycjonowanie, brak jasnego CTA pod leady.",
-    strategy:
-      "Audyt treści, nowa struktura informacji, wydajny stack, SEO on-page i Core Web Vitals jako priorytet.",
-    implementation:
-      "Next.js, statyczne strony z ISR, optymalizacja obrazów, semantyczny HTML, szybki hosting.",
-    stack: "Next.js, TypeScript, Tailwind, Vercel",
-    results:
-      "LCP < 2,5 s, wzrost ruchu organicznego o 40% w pół roku, formularz kontaktowy jako główne CTA.",
-    lessons:
-      "Nawet 'prosta' strona firmowa zyskuje na wydajności i jasnej strukturze — użytkownik i Google to doceniają.",
-  },
-  "sklep-ecommerce": {
-    title: "Sklep branżowy",
-    client: "Sklep branżowy",
-    industry: "E-commerce",
-    context:
-      "Sklep z jednej platformy migrowany na nowy stack. Niska konwersja, wolne ładowanie listingu i koszyka.",
-    challenge: "Niska konwersja, problemy z wydajnością koszyka i listingu, słabe Core Web Vitals.",
-    strategy:
-      "Headless e-commerce, optymalizacja ścieżki zakupowej, wydajność listingu i strony produktu.",
-    implementation:
-      "Next.js, headless CMS dla treści, integracja z systemem płatności i dostaw, optymalizacja obrazów i cache.",
-    stack: "Next.js, headless CMS, integracje API",
-    results:
-      "Konwersja +25%, Core Web Vitals w zieleni, krótszy czas do pierwszego interaktywnego (TTI).",
-    lessons:
-      "W e-commerce każda sekunda ładowania ma przełożenie na koszyk i konwersję — inwestycja w wydajność się zwraca.",
-  },
-  "landing-kampania": {
-    title: "Landing kampanii produktowej",
-    client: "Kampania produktowa",
-    industry: "Marketing",
-    context: "Potrzeba jednej strony pod kampanię z formularzem leadowym i śledzeniem konwersji.",
-    challenge: "Szybkie wdrożenie, integracja z ads, mierzalna konwersja.",
-    strategy:
-      "Minimalistyczny landing: nagłówek, korzyści, formularz, jeden CTA. UTM i eventy pod remarketing.",
-    implementation:
-      "Statyczna strona, formularz z walidacją, integracja z CRM/ads, optymalizacja pod mobile.",
-    stack: "Next.js, formularz + API, integracje analytics",
-    results: "Wdrożenie w 2 tygodnie, CTR formularza 12%, pełna ścieżka konwersji w analytics.",
-    lessons:
-      "Landing bez rozpraszaczy i z jednym celem konwersji działa lepiej niż wielosekcyjna 'wizytówka'.",
   },
 };
 
@@ -258,17 +219,47 @@ export default async function CaseStudyPage({ params }: PageParamsSlug) {
     .map((s) => s.trim())
     .filter(Boolean);
 
+  const meta = CASE_META[slug];
+
   return (
     <>
       {/* Hero — skrócony padding via .cs-hero */}
       <Section as="div" topGradient className="cs-hero">
-        <ScrollReveal>
-          <p className="section-eyebrow">Case Study</p>
-          <h1 className="font-heading text-h1 text-text-primary mt-3 max-w-3xl">{study.title}</h1>
-          <p className="mt-4 text-lead text-text-secondary">
-            {study.client} · {study.industry}
-          </p>
-        </ScrollReveal>
+        <div className="grid items-center gap-10 md:grid-cols-2 lg:grid-cols-[1.1fr_0.9fr]">
+          {/* Lewa kolumna — tekst */}
+          <ScrollReveal>
+            <p className="section-eyebrow">Case Study</p>
+            <h1 className="font-heading text-h1 text-text-primary mt-3">{study.title}</h1>
+            <p className="mt-4 text-lead text-text-secondary">
+              {study.client} · {study.industry}
+            </p>
+          </ScrollReveal>
+
+          {/* Prawa kolumna — screenshot w browser mockup */}
+          {meta && (
+            <ScrollReveal delay={0.2}>
+              <div className="glass-card cs-hero-screenshot">
+                <div className="cs-screenshot-chrome">
+                  <div className="cs-screenshot-dots" aria-hidden>
+                    <span />
+                    <span />
+                    <span />
+                  </div>
+                  <div className="cs-screenshot-url">{meta.domain}</div>
+                </div>
+                <div className="cs-screenshot-img">
+                  <Image
+                    src={meta.image}
+                    alt={`Podgląd strony ${study.title}`}
+                    fill
+                    sizes="(min-width: 1024px) 45vw, (min-width: 768px) 50vw, 90vw"
+                    className="object-cover object-top"
+                  />
+                </div>
+              </div>
+            </ScrollReveal>
+          )}
+        </div>
       </Section>
 
       <Section tight>
