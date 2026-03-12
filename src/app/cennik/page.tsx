@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Section } from "@/components/ui/Section";
 
 export default function CennikPage() {
@@ -10,35 +11,35 @@ export default function CennikPage() {
         Przejrzysta struktura cenowa bez ukrytych kosztów.
       </h1>
       <p className="mt-6 max-w-2xl text-lg text-muted-foreground">
-        Miejsce na opis przykładowych pakietów i widełek cenowych. Layout jest przygotowany pod
-        3–4 główne opcje, które możesz później uzupełnić konkretnymi kwotami i zakresem.
+        Poniżej widełki cenowe głównych pakietów. Dokładną wycenę pod Twoje potrzeby
+        sprawdzisz w <Link href="/kalkulator" className="text-primary hover:underline">kalkulatorze</Link> lub w sekcji <Link href="/oferta" className="text-primary hover:underline">Oferta</Link>.
       </p>
       <div className="mt-12 grid gap-6 md:grid-cols-3">
         <article className="rounded-2xl border border-border bg-surface-alt p-6">
           <h2 className="text-sm font-semibold tracking-tight text-foreground">
-            Pakiet startowy
+            Strona start (WordPress)
           </h2>
           <p className="mt-3 text-xs leading-relaxed text-muted-foreground">
-            Miejsce na opis podstawowego pakietu – np. prosta strona wizytówka z kilkoma
-            podstronami.
+            Prosta strona firmowa: do 5 podstron, CMS, formularz kontaktowy, responsywność.
+            Od 2 500 zł, realizacja od 7 dni roboczych.
           </p>
         </article>
         <article className="rounded-2xl border border-border bg-surface-alt p-6">
           <h2 className="text-sm font-semibold tracking-tight text-foreground">
-            Pakiet biznes
+            Strona Pro (WordPress)
           </h2>
           <p className="mt-3 text-xs leading-relaxed text-muted-foreground">
-            Placeholder na opis pakietu dla firm usługowych potrzebujących bardziej
-            rozbudowanej struktury strony.
+            Indywidualny projekt UI, do 10 podstron, lepsze SEO i animacje. Dla firm
+            usługowych. Od 3 900 zł, od 14 dni roboczych.
           </p>
         </article>
         <article className="rounded-2xl border border-border bg-surface-alt p-6">
           <h2 className="text-sm font-semibold tracking-tight text-foreground">
-            Pakiet e-commerce
+            Sklep online (WooCommerce)
           </h2>
           <p className="mt-3 text-xs leading-relaxed text-muted-foreground">
-            Sekcja pod ofertę sklepów internetowych – z informacją o liczbie produktów,
-            integracjach i wsparciu po wdrożeniu.
+            Sklep do ok. 30 produktów, płatności online, integracja z kurierami, panel
+            zamówień. Od 4 900 zł, od 21 dni roboczych. Wsparcie po wdrożeniu.
           </p>
         </article>
       </div>

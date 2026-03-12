@@ -5,8 +5,8 @@ import { IconBox } from "@/components/ui/IconBox";
 
 const SERVICES = [
   { emoji: "🌐" as const, title: "Strony firmowe (WordPress)", price: "2 500 – 5 000 zł", features: ["CMS", "SEO basic", "Mobile friendly", "3–10 podstron"] },
-  { emoji: "🛒" as const, title: "Sklepy internetowe", price: "4 000 – 9 000 zł", features: ["WooCommerce", "Płatności online", "Produkty", "Optymalizacja sprzedaży"] },
-  { emoji: "💻" as const, title: "Projekty dedykowane (Next.js)", price: "od 6 000 zł", features: ["Custom UI", "Wysoka wydajność", "Skalowalność", "Integracje"] },
+  { emoji: "🛒" as const, title: "Sklepy internetowe", price: "4 900 – 9 000 zł", features: ["WooCommerce", "Płatności online", "Produkty", "Optymalizacja sprzedaży"] },
+  { emoji: "💻" as const, title: "Projekty dedykowane (Next.js)", price: "od 6 500 zł", features: ["Custom UI", "Wysoka wydajność", "Skalowalność", "Integracje"] },
 ] as const;
 
 export function LandingServices() {

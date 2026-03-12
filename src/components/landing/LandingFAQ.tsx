@@ -9,7 +9,7 @@ const FAQ_ITEMS = [
   {
     question: "Ile trwa realizacja?",
     answer:
-      "Strona firmowa lub sklep do 20 produktów: zwykle 2–4 tygodnie. Większe projekty ustalamy indywidualnie po wycenie.",
+      "Strona firmowa lub sklep do 30 produktów: zwykle 2–4 tygodnie. Większe projekty ustalamy indywidualnie po wycenie.",
   },
   {
     question: "Czy podpisujemy umowę?",

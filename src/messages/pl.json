@@ -65,8 +65,8 @@
         "title": "Sklepy internetowe (WooCommerce)",
         "desc": "Sprzedawaj online bez skomplikowanych systemów.",
         "start": "Start",
-        "startDesc": "Do 20 produktów",
-        "startPrice": "4 000 – 5 500 zł",
+        "startDesc": "Do 30 produktów",
+        "startPrice": "4 900 – 5 500 zł",
         "pro": "PRO",
         "proDesc": "Rozbudowane funkcje i optymalizacja sprzedaży",
         "proPrice": "6 000 – 9 000 zł",
@@ -75,7 +75,7 @@
       "dedykowane": {
         "title": "Projekty dedykowane (Next.js)",
         "desc": "Dla firm, które potrzebują czegoś więcej niż standardowy CMS.",
-        "price": "Od 6 000 zł",
+        "price": "Od 6 500 zł",
         "cta": "Sprawdź wycenę"
       }
     },
@@ -183,8 +183,8 @@
     },
     "faq": {
       "title": "Najczęstsze pytania",
-      "price": { "q": "Ile kosztuje strona internetowa?", "a": "Proste strony firmowe zaczynają się od 2 500 zł. Sklepy internetowe od 4 000 zł. Dokładną wycenę sprawdzisz w kalkulatorze." },
-      "time": { "q": "Ile trwa realizacja?", "a": "Strona firmowa lub sklep do 20 produktów: zwykle 2–4 tygodnie. Większe projekty ustalamy indywidualnie po wycenie." },
+      "price": { "q": "Ile kosztuje strona internetowa?", "a": "Proste strony firmowe zaczynają się od 2 500 zł. Sklepy internetowe od 4 900 zł. Dokładną wycenę sprawdzisz w kalkulatorze." },
+      "time": { "q": "Ile trwa realizacja?", "a": "Strona firmowa lub sklep do 30 produktów: zwykle 2–4 tygodnie. Większe projekty ustalamy indywidualnie po wycenie." },
       "contract": { "q": "Czy podpisujemy umowę?", "a": "Tak. Przed rozpoczęciem prac podpisujemy umowę z jasno określonym zakresem, terminami i warunkami współpracy." },
       "hosting": { "q": "Czy pomagasz z hostingiem?", "a": "Tak. Możemy zarekomendować i skonfigurować hosting, a także przenieść gotową stronę na Twoją domenę." },
       "cms": { "q": "Czy mogę sam edytować stronę?", "a": "Tak. Strony oparte o WordPress mają panel CMS – możesz sam dodawać treści, zdjęcia i aktualizacje bez znajomości kodu." },
@@ -194,7 +194,7 @@
   "uslugi": {
     "faq": {
       "title": "Najczęstsze pytania",
-      "time": { "q": "Ile trwa realizacja?", "a": "Strona firmowa lub sklep do 20 produktów: zwykle 2–4 tygodnie. Większe projekty ustalamy indywidualnie po wycenie." },
+      "time": { "q": "Ile trwa realizacja?", "a": "Strona firmowa lub sklep do 30 produktów: zwykle 2–4 tygodnie. Większe projekty ustalamy indywidualnie po wycenie." },
       "contract": { "q": "Czy podpisujemy umowę?", "a": "Tak. Przed rozpoczęciem prac podpisujemy umowę z jasno określonym zakresem, terminami i warunkami współpracy." },
       "hosting": { "q": "Czy pomagasz z hostingiem?", "a": "Tak. Możemy zarekomendować i skonfigurować hosting, a także przenieść gotową stronę na Twoją domenę." },
       "cms": { "q": "Czy mogę edytować stronę?", "a": "Tak. Strony oparte o WordPress mają panel CMS – możesz sam dodawać treści, zdjęcia i aktualizacje bez znajomości kodu." },

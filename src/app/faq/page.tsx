@@ -3,15 +3,15 @@ import { Section } from "@/components/ui/Section";
 const questions = [
   {
     q: "Jak wygląda współpraca krok po kroku?",
-    a: "Tutaj możesz opisać proces – od pierwszej rozmowy, przez warsztaty, projekt, implementację, aż po wdrożenie i opiekę powdrożeniową."
+    a: "Wypełniasz kalkulator i określasz zakres. Kontaktujemy się, ustalamy szczegóły i finalną cenę. Realizujemy projekt i development strony. Na koniec publikacja, podpięcie domeny i szkolenie z obsługi. Całość zwykle trwa 1–2 tygodnie dla prostych projektów."
   },
   {
     q: "Ile trwa stworzenie nowej strony?",
-    a: "Miejsce na uśrednione przedziały czasowe – np. od 3 do 8 tygodni w zależności od złożoności projektu i dostępności treści."
+    a: "Prosta strona firmowa: od ok. 7 dni roboczych. Strona Pro lub sklep do 30 produktów: zwykle 2–4 tygodnie. Większe projekty ustalamy indywidualnie po wycenie. Dokładne terminy zobaczysz przy każdym pakiecie w kalkulatorze."
   },
   {
     q: "Czy pomagacie w przygotowaniu treści na stronę?",
-    a: "Tutaj możesz doprecyzować, czy oferujecie wsparcie w copywritingu, strukturze treści lub konsultacje z zespołem klienta."
+    a: "Tak. Oferujemy add-on „Profesjonalne teksty” – teksty dopasowane do Twojej branży i klientów. Możesz też przygotować treści samodzielnie; strony w WordPressie mają panel CMS do łatwej edycji."
   }
 ];
 
