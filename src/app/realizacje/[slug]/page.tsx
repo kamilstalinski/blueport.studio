@@ -30,7 +30,7 @@ const CASE_STUDIES: Record<string, CaseStudy> = {
     strategy:
       "Nowa strona z jasną prezentacją specjalizacji, sekcja 'z czym możesz do mnie przyjść' jako narzędzie edukacyjne i SEO, blog z poradami zdrowotnymi wzmacniający autorytet.",
     implementation:
-      "Next.js, formularz rezerwacji wizyty, integracja z mediami społecznościowymi (Instagram, YouTube, Facebook), newsletter, optymalizacja pod lokalne SEO.",
+      "WordPress z WooCommerce — formularz rezerwacji wizyty, integracja z mediami społecznościowymi (Instagram, YouTube, Facebook), newsletter, optymalizacja pod lokalne SEO.",
     stack: "Wordpress, WooCommerce",
     results:
       "Wzrost ruchu organicznego na frazy lokalne, nowi pacjenci przez formularz online, aktywna baza subskrybentów newslettera.",
@@ -48,7 +48,7 @@ const CASE_STUDIES: Record<string, CaseStudy> = {
     strategy:
       "Elegancka wizytówka nawiązująca do natury — prezentacja oferty (krzewy ozdobne, trawy, choinki), historia rodzinnej firmy jako element budowania zaufania, galeria i dane kontaktowe.",
     implementation:
-      "Statyczna strona z designem inspirowanym naturą, sekcje produktowe, galeria, responsywny layout, lokalne SEO pod Mosty i okolice.",
+      "WordPress z designem inspirowanym naturą, sekcje produktowe, galeria, responsywny layout, lokalne SEO pod Mosty i okolice.",
     stack: "Wordpress",
     results:
       "Profesjonalna obecność online, zwiększony ruch z wyszukiwarek lokalnych, nowe zapytania ofertowe od klientów B2B i indywidualnych.",
@@ -66,7 +66,7 @@ const CASE_STUDIES: Record<string, CaseStudy> = {
     strategy:
       "Minimalistyczny, atmosferyczny design z mocnymi efektami wizualnymi, sekcja nadchodzących koncertów z linkami do zakupu biletów, galeria i teledyski.",
     implementation:
-      "Next.js, animowane elementy z Framer Motion, integracja z Facebook Events, sekcja wideo z YouTube, responsywny layout zoptymalizowany pod mobile.",
+      "WordPress z atmosferycznym motywem, integracja z Facebook Events, sekcja wideo z YouTube, responsywny layout zoptymalizowany pod mobile.",
     stack: "Wordpress",
     results:
       "Strona stała się głównym kanałem informacji dla fanów, wspiera bookingowych w procesie wyceny koncertów, wzmacnia wizerunek zespołu przed debiutem zagranicznym.",
@@ -84,7 +84,7 @@ const CASE_STUDIES: Record<string, CaseStudy> = {
     strategy:
       "Nowa strona z mocnym akcentem na usługi (dobór, montaż, serwis), sekcja referencji jako social proof, dedykowany formularz doboru urządzenia jako główne narzędzie leadowe.",
     implementation:
-      "Next.js z formularzem doboru urządzenia, sekcja recenzji klientów, integracja ze sklepem internetowym sklepzfiltrami.pl, lokalne SEO pod Szczecin i okolice.",
+      "WordPress z formularzem doboru urządzenia, sekcja recenzji klientów, integracja ze sklepem internetowym sklepzfiltrami.pl, lokalne SEO pod Szczecin i okolice.",
     stack: "Wordpress",
     results:
       "Wzrost liczby zapytań przez formularz online, lepsze pozycje na frazy lokalne, profesjonalna prezentacja marki wzmacniająca zaufanie klientów.",
@@ -102,7 +102,7 @@ const CASE_STUDIES: Record<string, CaseStudy> = {
     strategy:
       "Prosta, apetyczna strona skupiona na menu, mapie lokalizacji i kanałach social media, z sekcją aktualności i transparentnym podejściem do informacji o alergenach.",
     implementation:
-      "Next.js, dynamiczna sekcja lokalizacji, integracja z mediami społecznościowymi (Facebook, Instagram, TikTok, YouTube), sekcja alergenów, aktualności.",
+      "Next.js z TypeScript i Tailwind — dynamiczna sekcja lokalizacji, integracja z mediami społecznościowymi (Facebook, Instagram, TikTok, YouTube), sekcja alergenów, aktualności.",
     stack: "Next.js, TypeScript, Tailwind",
     results:
       "Spójna identyfikacja cyfrowa dla całej sieci, wzrost obserwujących w social media, łatwiejszy dostęp do informacji o lokalizacjach i ofercie dla klientów.",

@@ -13,7 +13,7 @@ const caseStudies = [
     slug: "dowytrenowania",
     name: "Dowytrenowania - Wytrenuj Wymasuj",
     description:
-      "Strona dla magistra fizjoterapii i trenerki medycznej. Budowanie autorytetu, SEO lokalne, formularz rezerwacji.",
+      "Strona WordPress + WooCommerce dla magistra fizjoterapii i trenerki medycznej. Budowanie autorytetu, SEO lokalne, formularz rezerwacji.",
     image: "/dowytrenowania.png",
     domain: "dowytrenowania.pl",
   },
@@ -21,7 +21,7 @@ const caseStudies = [
     slug: "abcmosty",
     name: "ABC Mosty",
     description:
-      "Wizytówka rodzinnej szkółki drzew i krzewów ozdobnych z 30-letnim doświadczeniem. Nowa obecność online, wzrost zapytań B2B.",
+      "Wizytówka WordPress dla rodzinnej szkółki drzew i krzewów ozdobnych. Nowa obecność online, wzrost zapytań B2B.",
     image: "/abc_mosty.png",
     domain: "abcmosty.pl",
   },
@@ -29,7 +29,7 @@ const caseStudies = [
     slug: "afterthesin",
     name: "After the Sin",
     description:
-      "Strona dla poznańskiego zespołu dark wave. Klimatyczny design, kalendarz koncertów, integracja z teledyskami.",
+      "Strona WordPress dla poznańskiego zespołu dark wave. Klimatyczny design, kalendarz koncertów, integracja z teledyskami.",
     image: "/after_the_sin.png",
     domain: "afterthesin.com",
   },
@@ -37,7 +37,7 @@ const caseStudies = [
     slug: "vilmart",
     name: "Vilmart Water Service",
     description:
-      "Strona dla specjalisty od uzdatniania wody. Formularz doboru urządzenia jako główne narzędzie leadowe.",
+      "Strona WordPress dla specjalisty od uzdatniania wody. Formularz doboru urządzenia jako główne narzędzie leadowe.",
     image: "/vilmart.png",
     domain: "vilmart.pl",
   },
@@ -45,7 +45,7 @@ const caseStudies = [
     slug: "dobreprecle",
     name: "Dobre Precle",
     description:
-      "Strona dla sieci punktów z tradycyjnymi preclami. Menu, lokalizacje, integracja z social media.",
+      "Strona Next.js dla sieci punktów z tradycyjnymi preclami. Menu, lokalizacje, integracja z social media.",
     image: "/dobre_precle.png",
     domain: "dobreprecle.pl",
   },
