@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Hero } from "@/components/sections/Hero";
 import { Section } from "@/components/ui/Section";
 import { SpotlightCard } from "@/components/SpotlightCard";
@@ -8,9 +9,51 @@ import { KalkulatorSection } from "@/components/sections/KalkulatorSection";
 import { CTA } from "@/components/sections/CTA";
 
 const caseStudies = [
-  { slug: "strona-firmowa-b2b", name: "Strona firmowa B2B", description: "Nowy stack, SEO on-page, Core Web Vitals. Wzrost ruchu organicznego o 40%." },
-  { slug: "sklep-ecommerce", name: "Sklep branżowy", description: "Headless e-commerce, optymalizacja ścieżki zakupowej. Konwersja +25%." },
-  { slug: "landing-kampania", name: "Landing kampanii", description: "Landing z jednym CTA, integracja z ads i CRM. Wdrożenie w 2 tygodnie." },
+  {
+    slug: "dowytrenowania",
+    name: "DoWytrenowania.pl",
+    description: "Strona dla magistra fizjoterapii i trenerki medycznej. Budowanie autorytetu, SEO lokalne, formularz rezerwacji.",
+    image: "/dowytrenowania.png",
+    domain: "dowytrenowania.pl",
+  },
+  {
+    slug: "abcmosty",
+    name: "ABC Mosty",
+    description: "Wizytówka rodzinnej szkółki drzew i krzewów ozdobnych z 30-letnim doświadczeniem. Nowa obecność online, wzrost zapytań B2B.",
+    image: "/abc_mosty.png",
+    domain: "abcmosty.pl",
+  },
+  {
+    slug: "afterthesin",
+    name: "After the Sin",
+    description: "Strona dla poznańskiego zespołu dark wave. Klimatyczny design, kalendarz koncertów, integracja z teledyskami.",
+    image: "/after_the_sin.png",
+    domain: "afterthesin.com",
+  },
+  {
+    slug: "vilmart",
+    name: "Vilmart Water Service",
+    description: "Strona dla specjalisty od uzdatniania wody. Formularz doboru urządzenia jako główne narzędzie leadowe.",
+    image: "/vilmart.png",
+    domain: "vilmart.pl",
+  },
+  {
+    slug: "dobreprecle",
+    name: "Dobre Precle",
+    description: "Strona dla sieci punktów z tradycyjnymi preclami. Menu, lokalizacje, integracja z social media.",
+    image: "/dobre_precle.png",
+    domain: "dobreprecle.pl",
+  },
+  {
+    slug: "spavalnia",
+    name: "SPAVALNIA",
+    description: "Strona dla producenta konstrukcji stalowych z Lublina. Sklep online + formularz zapytań dla projektów niestandardowych.",
+    image: "/spavalnia.png",
+    domain: "spavalnia.pl",
+  },
+  { slug: "strona-firmowa-b2b", name: "Strona firmowa B2B", description: "Nowy stack, SEO on-page, Core Web Vitals. Wzrost ruchu organicznego o 40%.", image: null, domain: null },
+  { slug: "sklep-ecommerce", name: "Sklep branżowy", description: "Headless e-commerce, optymalizacja ścieżki zakupowej. Konwersja +25%.", image: null, domain: null },
+  { slug: "landing-kampania", name: "Landing kampanii", description: "Landing z jednym CTA, integracja z ads i CRM. Wdrożenie w 2 tygodnie.", image: null, domain: null },
 ];
 
 export default function RealizacjePage() {
@@ -45,7 +88,16 @@ export default function RealizacjePage() {
                 <Link href={`/realizacje/${study.slug}`} className="group block h-full">
                   <GlassCard className="glass-card card-subpage rounded-2xl p-0">
                     <div className="portfolio-img" aria-hidden>
-                      <span className="img-placeholder">Podgląd wkrótce</span>
+                      {study.image ? (
+                        <Image
+                          src={study.image}
+                          alt={study.name}
+                          fill
+                          sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                        />
+                      ) : (
+                        <span className="img-placeholder">Podgląd wkrótce</span>
+                      )}
                     </div>
                     <div className="p-6">
                       <h2 className="text-lg font-semibold tracking-tight text-foreground group-hover:text-white/90">
