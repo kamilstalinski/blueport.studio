@@ -641,6 +641,7 @@ body .process-step:hover {
   align-items: center;
   justify-content: center;
   background: linear-gradient(135deg, #111827 0%, #1a2332 100%);
+  border-radius: 1rem 1rem 0 0; /* dopasowanie do rounded-2xl karty — zdjęcie nie wychodzi poza border */
 }
 .portfolio-img img {
   object-fit: cover;

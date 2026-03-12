@@ -11,49 +11,52 @@ import { CTA } from "@/components/sections/CTA";
 const caseStudies = [
   {
     slug: "dowytrenowania",
-    name: "DoWytrenowania.pl",
-    description: "Strona dla magistra fizjoterapii i trenerki medycznej. Budowanie autorytetu, SEO lokalne, formularz rezerwacji.",
+    name: "Dowytrenowania - Wytrenuj Wymasuj",
+    description:
+      "Strona dla magistra fizjoterapii i trenerki medycznej. Budowanie autorytetu, SEO lokalne, formularz rezerwacji.",
     image: "/dowytrenowania.png",
     domain: "dowytrenowania.pl",
   },
   {
     slug: "abcmosty",
     name: "ABC Mosty",
-    description: "Wizytówka rodzinnej szkółki drzew i krzewów ozdobnych z 30-letnim doświadczeniem. Nowa obecność online, wzrost zapytań B2B.",
+    description:
+      "Wizytówka rodzinnej szkółki drzew i krzewów ozdobnych z 30-letnim doświadczeniem. Nowa obecność online, wzrost zapytań B2B.",
     image: "/abc_mosty.png",
     domain: "abcmosty.pl",
   },
   {
     slug: "afterthesin",
     name: "After the Sin",
-    description: "Strona dla poznańskiego zespołu dark wave. Klimatyczny design, kalendarz koncertów, integracja z teledyskami.",
+    description:
+      "Strona dla poznańskiego zespołu dark wave. Klimatyczny design, kalendarz koncertów, integracja z teledyskami.",
     image: "/after_the_sin.png",
     domain: "afterthesin.com",
   },
   {
     slug: "vilmart",
     name: "Vilmart Water Service",
-    description: "Strona dla specjalisty od uzdatniania wody. Formularz doboru urządzenia jako główne narzędzie leadowe.",
+    description:
+      "Strona dla specjalisty od uzdatniania wody. Formularz doboru urządzenia jako główne narzędzie leadowe.",
     image: "/vilmart.png",
     domain: "vilmart.pl",
   },
   {
     slug: "dobreprecle",
     name: "Dobre Precle",
-    description: "Strona dla sieci punktów z tradycyjnymi preclami. Menu, lokalizacje, integracja z social media.",
+    description:
+      "Strona dla sieci punktów z tradycyjnymi preclami. Menu, lokalizacje, integracja z social media.",
     image: "/dobre_precle.png",
     domain: "dobreprecle.pl",
   },
   {
     slug: "spavalnia",
     name: "SPAVALNIA",
-    description: "Strona dla producenta konstrukcji stalowych z Lublina. Sklep online + formularz zapytań dla projektów niestandardowych.",
+    description:
+      "Strona dla producenta konstrukcji stalowych z Lublina. Sklep online + formularz zapytań dla projektów niestandardowych.",
     image: "/spavalnia.png",
     domain: "spavalnia.pl",
   },
-  { slug: "strona-firmowa-b2b", name: "Strona firmowa B2B", description: "Nowy stack, SEO on-page, Core Web Vitals. Wzrost ruchu organicznego o 40%.", image: null, domain: null },
-  { slug: "sklep-ecommerce", name: "Sklep branżowy", description: "Headless e-commerce, optymalizacja ścieżki zakupowej. Konwersja +25%.", image: null, domain: null },
-  { slug: "landing-kampania", name: "Landing kampanii", description: "Landing z jednym CTA, integracja z ads i CRM. Wdrożenie w 2 tygodnie.", image: null, domain: null },
 ];
 
 export default function RealizacjePage() {
@@ -79,15 +82,13 @@ export default function RealizacjePage() {
         </div>
       </div>
       <Section id="realizacje-grid" topGradient>
-        <ul className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        <ul className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 items-stretch">
           {caseStudies.map((study) => (
-            <li key={study.slug}>
-              <SpotlightCard
-                className="custom-spotlight-card rounded-2xl h-full transition-all duration-300"
-              >
-                <Link href={`/realizacje/${study.slug}`} className="group block h-full">
-                  <GlassCard className="glass-card card-subpage rounded-2xl p-0">
-                    <div className="portfolio-img" aria-hidden>
+            <li key={study.slug} className="flex min-h-0">
+              <SpotlightCard className="custom-spotlight-card rounded-2xl h-full transition-all duration-300 flex flex-col min-w-0">
+                <Link href={`/realizacje/${study.slug}`} className="group flex flex-col h-full min-h-0">
+                  <GlassCard className="glass-card card-subpage rounded-2xl overflow-hidden p-0 flex flex-col h-full min-h-0">
+                    <div className="portfolio-img shrink-0" aria-hidden>
                       {study.image ? (
                         <Image
                           src={study.image}
@@ -99,14 +100,14 @@ export default function RealizacjePage() {
                         <span className="img-placeholder">Podgląd wkrótce</span>
                       )}
                     </div>
-                    <div className="p-6">
+                    <div className="p-6 flex flex-col flex-1 min-h-0">
                       <h2 className="text-lg font-semibold tracking-tight text-foreground group-hover:text-white/90">
                         {study.name}
                       </h2>
-                      <p className="mt-2 text-sm text-foreground/70 leading-relaxed">{study.description}</p>
-                      <span className="realizacje-card-btn mt-4 inline-block">
-                        Zobacz więcej
-                      </span>
+                      <p className="mt-2 text-sm text-foreground/70 leading-relaxed flex-1 min-h-0">
+                        {study.description}
+                      </p>
+                      <span className="realizacje-card-btn mt-4 inline-block shrink-0 self-start">Zobacz więcej</span>
                     </div>
                   </GlassCard>
                 </Link>
@@ -115,7 +116,11 @@ export default function RealizacjePage() {
           ))}
         </ul>
       </Section>
-      <DlaczegoMy contentKey="realizacjeEfekty" itemKeys={["fast", "leads", "seo", "conversion"]} cardVariant="subpage" />
+      <DlaczegoMy
+        contentKey="realizacjeEfekty"
+        itemKeys={["fast", "leads", "seo", "conversion"]}
+        cardVariant="subpage"
+      />
       <KalkulatorSection />
       <CTA />
     </>
