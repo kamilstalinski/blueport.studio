@@ -13,7 +13,7 @@ const caseStudies = [
     slug: "dowytrenowania",
     name: "Dowytrenowania - Wytrenuj Wymasuj",
     description:
-      "Strona WordPress + WooCommerce dla magistra fizjoterapii i trenerki medycznej. Budowanie autorytetu, SEO lokalne, formularz rezerwacji.",
+      "Strona WordPress + WooCommerce dla magistra fizjoterapii i trenerki medycznej. Sklep z poradnikami i kursami, budowanie autorytetu, SEO lokalne.",
     image: "/dowytrenowania.png",
     domain: "dowytrenowania.pl",
   },

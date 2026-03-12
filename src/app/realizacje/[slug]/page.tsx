@@ -24,16 +24,16 @@ const CASE_STUDIES: Record<string, CaseStudy> = {
     client: "Anna Olszewska",
     industry: "Fizjoterapia / zdrowie",
     context:
-      "Anna Olszewska — magister fizjoterapii, trenerka medyczna i szkoleniowiec w Profi Academy — potrzebowała strony, która zbuduje jej autorytet online i przyciągnie nowych pacjentów. Poprzednia wizytówka nie pozycjonowała się na lokalne frazy i nie budowała zaufania.",
+      "Anna Olszewska — magister fizjoterapii, trenerka medyczna i szkoleniowiec w Profi Academy — potrzebowała strony, która zbuduje jej autorytet online i da możliwość sprzedaży wiedzy. Poprzednia wizytówka nie pozycjonowała się na lokalne frazy i nie budowała zaufania.",
     challenge:
-      "Brak widoczności w Google na frazy z fizjoterapii i treningu medycznego, strona nieprzedstawiająca ekspertyzy specjalistki, brak kanału do pozyskiwania zapisów.",
+      "Brak widoczności w Google na frazy z fizjoterapii i treningu medycznego, strona nieprzedstawiająca ekspertyzy specjalistki, brak kanału do monetyzacji wiedzy (poradniki, kursy).",
     strategy:
-      "Nowa strona z jasną prezentacją specjalizacji, sekcja 'z czym możesz do mnie przyjść' jako narzędzie edukacyjne i SEO, blog z poradami zdrowotnymi wzmacniający autorytet.",
+      "Nowa strona z jasną prezentacją specjalizacji, sekcja 'z czym możesz do mnie przyjść' jako narzędzie edukacyjne i SEO, sklep z poradnikami i kursami online wzmacniający autorytet i generujący przychód.",
     implementation:
-      "WordPress z WooCommerce — formularz rezerwacji wizyty, integracja z mediami społecznościowymi (Instagram, YouTube, Facebook), newsletter, optymalizacja pod lokalne SEO.",
+      "WordPress z WooCommerce — sklep z poradnikami i kursami, integracja z mediami społecznościowymi (Instagram, YouTube, Facebook), newsletter, optymalizacja pod lokalne SEO.",
     stack: "Wordpress, WooCommerce",
     results:
-      "Wzrost ruchu organicznego na frazy lokalne, nowi pacjenci przez formularz online, aktywna baza subskrybentów newslettera.",
+      "Wzrost ruchu organicznego na frazy lokalne, sprzedaż poradników i kursów przez sklep online, aktywna baza subskrybentów newslettera.",
     lessons:
       "W branży medycznej zaufanie buduje treść — czytelna prezentacja specjalizacji i edukacja pacjentów przekłada się bezpośrednio na leady.",
   },
