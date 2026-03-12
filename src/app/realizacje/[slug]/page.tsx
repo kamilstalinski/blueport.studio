@@ -1,8 +1,8 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { ReactNode } from "react";
+import { Building2, AlertTriangle, Lightbulb, Code2, TrendingUp } from "lucide-react";
 import { Section } from "@/components/ui/Section";
-import { GlassCard } from "@/components/ui/GlassCard";
 import { Button } from "@/components/ui/Button";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import type { CaseStudy } from "@/types";
@@ -168,20 +168,81 @@ const CASE_STUDIES: Record<string, CaseStudy> = {
   },
 };
 
+type ContentCardVariant = "context" | "challenge" | "strategy" | "implementation";
+
+const CARD_META: Record<
+  ContentCardVariant,
+  {
+    label: string;
+    Icon: React.ComponentType<{ size?: number }>;
+    color: string;
+    cssVars: Record<string, string>;
+  }
+> = {
+  context: {
+    label: "Kontekst biznesowy",
+    Icon: Building2,
+    color: "rgba(255, 255, 255, 0.45)",
+    cssVars: {},
+  },
+  challenge: {
+    label: "Wyzwanie",
+    Icon: AlertTriangle,
+    color: "rgba(255, 120, 100, 0.8)",
+    cssVars: {
+      "--glass-bg": "rgba(255, 80, 60, 0.03)",
+      "--glass-border": "rgba(255, 100, 80, 0.2)",
+      "--glass-border-top": "rgba(255, 100, 80, 0.28)",
+      "--glass-bg-hover": "rgba(255, 80, 60, 0.07)",
+      "--glass-border-hover": "rgba(255, 100, 80, 0.32)",
+      "--glass-border-top-hover": "rgba(255, 100, 80, 0.42)",
+    },
+  },
+  strategy: {
+    label: "Strategia",
+    Icon: Lightbulb,
+    color: "rgba(120, 150, 255, 0.85)",
+    cssVars: {
+      "--glass-bg": "rgba(80, 120, 255, 0.03)",
+      "--glass-border": "rgba(100, 140, 255, 0.2)",
+      "--glass-border-top": "rgba(100, 140, 255, 0.28)",
+      "--glass-bg-hover": "rgba(80, 120, 255, 0.07)",
+      "--glass-border-hover": "rgba(100, 140, 255, 0.32)",
+      "--glass-border-top-hover": "rgba(100, 140, 255, 0.42)",
+    },
+  },
+  implementation: {
+    label: "Wdrożenie",
+    Icon: Code2,
+    color: "rgba(0, 229, 160, 0.8)",
+    cssVars: {
+      "--glass-bg": "rgba(0, 229, 160, 0.03)",
+      "--glass-border": "rgba(0, 229, 160, 0.2)",
+      "--glass-border-top": "rgba(0, 229, 160, 0.28)",
+      "--glass-bg-hover": "rgba(0, 229, 160, 0.06)",
+      "--glass-border-hover": "rgba(0, 229, 160, 0.3)",
+      "--glass-border-top-hover": "rgba(0, 229, 160, 0.4)",
+    },
+  },
+} as const;
+
 interface ContentCardProps {
-  label: string;
+  variant: ContentCardVariant;
   children: ReactNode;
   delay?: number;
-  featured?: boolean;
 }
 
-function ContentCard({ label, children, delay = 0, featured = false }: ContentCardProps) {
+function ContentCard({ variant, children, delay = 0 }: ContentCardProps) {
+  const { label, Icon, color, cssVars } = CARD_META[variant];
   return (
     <ScrollReveal delay={delay}>
-      <GlassCard className={`${featured ? "card-featured" : "glass-card"} card-padding h-full`}>
-        <p className="section-eyebrow">{label}</p>
-        <div className="mt-3">{children}</div>
-      </GlassCard>
+      <div className="glass-card card-padding h-full" style={cssVars as React.CSSProperties}>
+        <div className="cs-card-label" style={{ color }}>
+          <Icon size={11} />
+          <span>{label}</span>
+        </div>
+        <p className="text-body text-text-secondary leading-relaxed">{children}</p>
+      </div>
     </ScrollReveal>
   );
 }
@@ -199,7 +260,8 @@ export default async function CaseStudyPage({ params }: PageParamsSlug) {
 
   return (
     <>
-      <Section as="div" firstOnPage topGradient>
+      {/* Hero — skrócony padding via .cs-hero */}
+      <Section as="div" topGradient className="cs-hero">
         <ScrollReveal>
           <p className="section-eyebrow">Case Study</p>
           <h1 className="font-heading text-h1 text-text-primary mt-3 max-w-3xl">{study.title}</h1>
@@ -211,8 +273,9 @@ export default async function CaseStudyPage({ params }: PageParamsSlug) {
 
       <Section tight>
         <div className="flex flex-col gap-6">
+          {/* Tech stack tags */}
           <ScrollReveal delay={0.05}>
-            <div className="flex flex-wrap gap-3">
+            <div className="flex flex-wrap gap-2">
               {techItems.map((tech) => (
                 <span key={tech} className="tech-tag">
                   {tech}
@@ -221,48 +284,73 @@ export default async function CaseStudyPage({ params }: PageParamsSlug) {
             </div>
           </ScrollReveal>
 
+          <div className="cs-divider" aria-hidden />
+
+          {/* Kontekst + Wyzwanie */}
           <div className="grid gap-6 md:grid-cols-2">
-            <ContentCard label="Kontekst biznesowy" delay={0.08}>
-              <p className="text-body text-text-secondary leading-relaxed">{study.context}</p>
+            <ContentCard variant="context" delay={0.1}>
+              {study.context}
             </ContentCard>
-            <ContentCard label="Wyzwanie" delay={0.14}>
-              <p className="text-body text-text-secondary leading-relaxed">{study.challenge}</p>
+            <ContentCard variant="challenge" delay={0.2}>
+              {study.challenge}
             </ContentCard>
           </div>
 
+          {/* Strategia + Wdrożenie */}
           <div className="grid gap-6 md:grid-cols-2">
-            <ContentCard label="Strategia" delay={0.08}>
-              <p className="text-body text-text-secondary leading-relaxed">{study.strategy}</p>
+            <ContentCard variant="strategy" delay={0.1}>
+              {study.strategy}
             </ContentCard>
-            <ContentCard label="Wdrożenie" delay={0.14}>
-              <p className="text-body text-text-secondary leading-relaxed">
-                {study.implementation}
-              </p>
+            <ContentCard variant="implementation" delay={0.2}>
+              {study.implementation}
             </ContentCard>
           </div>
 
-          <ContentCard label="Wyniki" delay={0.08} featured>
-            <p className="text-lead text-text-primary leading-relaxed">{study.results}</p>
-          </ContentCard>
+          <div className="cs-divider" aria-hidden />
 
-          <ScrollReveal delay={0.08}>
-            <GlassCard className="glass-card card-padding">
-              <p className="section-eyebrow">Wnioski</p>
-              <p className="mt-3 border-l-2 border-primary pl-5 text-lead text-text-primary leading-relaxed">
-                {study.lessons}
-              </p>
-            </GlassCard>
+          {/* Wyniki — mint-featured card */}
+          <ScrollReveal delay={0.3}>
+            <div
+              className="glass-card card-padding"
+              style={
+                {
+                  "--glass-bg": "rgba(0, 229, 160, 0.06)",
+                  "--glass-border": "rgba(0, 229, 160, 0.25)",
+                  "--glass-border-top": "rgba(0, 229, 160, 0.35)",
+                  "--glass-bg-hover": "rgba(0, 229, 160, 0.1)",
+                  "--glass-border-hover": "rgba(0, 229, 160, 0.35)",
+                  "--glass-border-top-hover": "rgba(0, 229, 160, 0.45)",
+                } as React.CSSProperties
+              }
+            >
+              <div className="cs-card-label" style={{ color: "#00e5a0" }}>
+                <TrendingUp size={12} />
+                <span>Wyniki</span>
+              </div>
+              <p className="cs-results-text">{study.results}</p>
+            </div>
+          </ScrollReveal>
+
+          {/* Wnioski — blockquote z lewą ramką */}
+          <ScrollReveal delay={0.4}>
+            <div className="cs-card-wnioski">
+              <div className="cs-card-label" style={{ color: "rgba(0, 229, 160, 0.65)" }}>
+                <span>Wnioski</span>
+              </div>
+              <p className="cs-lessons-text">{study.lessons}</p>
+            </div>
           </ScrollReveal>
         </div>
       </Section>
 
+      {/* CTA — primary (konwersja) pierwszy, ghost (nawigacja) drugi */}
       <Section>
-        <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
-          <Link href="/realizacje">
-            <Button variant="secondary">Wszystkie realizacje</Button>
-          </Link>
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-center flex-wrap">
           <Link href="/kontakt">
             <Button>Podobny projekt? Napisz do nas</Button>
+          </Link>
+          <Link href="/realizacje">
+            <Button variant="ghost">← Wszystkie realizacje</Button>
           </Link>
         </div>
       </Section>

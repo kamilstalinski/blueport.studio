@@ -2929,3 +2929,61 @@ body .contact-form-card:hover {
   font-size: 1.4rem;
   margin-bottom: 16px;
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Case Study page — utilities
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* Hero — skrócony padding (navbar + max 80px zamiast 9rem) */
+body .cs-hero {
+  padding-top: calc(var(--navbar-height) + clamp(40px, 5vw, 80px));
+  padding-bottom: clamp(40px, 5vw, 64px);
+}
+
+/* Label karty z ikoną — flex row, uppercase, mniejszy od section-eyebrow */
+.cs-card-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.6rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+/* Separator gradient — pozioma linia między sekcjami */
+.cs-divider {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.08) 20%,
+    rgba(255, 255, 255, 0.08) 80%,
+    transparent
+  );
+}
+
+/* Wyniki — tekst wyróżniony wagą i jasnością */
+.cs-results-text {
+  font-size: clamp(1rem, 1.5vw, 1.15rem);
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.92);
+  line-height: 1.6;
+}
+
+/* Wnioski — blockquote z lewą ramką */
+.cs-card-wnioski {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-left: 3px solid #00e5a0;
+  border-radius: 0 12px 12px 0;
+  padding: 20px 28px;
+}
+
+/* Wnioski — tekst kursywą, wyciszony */
+.cs-lessons-text {
+  font-style: italic;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.7;
+  font-size: 0.95rem;
+}
