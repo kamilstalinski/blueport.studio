@@ -262,7 +262,7 @@ export default async function CaseStudyPage({ params }: PageParamsSlug) {
       </Section>
 
       <Section tight noWrapper>
-        <div className="container-narrow flex flex-col" style={{ gap: "var(--element-gap)" }}>
+        <div className="container flex flex-col" style={{ gap: "var(--element-gap)" }}>
           {/* Tech stack tags */}
           <ScrollReveal delay={0.05}>
             <div className="flex flex-wrap gap-2">
@@ -323,7 +323,7 @@ export default async function CaseStudyPage({ params }: PageParamsSlug) {
 
       {/* CTA — primary (konwersja) pierwszy, ghost (nawigacja) drugi */}
       <Section noWrapper>
-        <div className="container-narrow flex flex-col gap-4 sm:flex-row sm:items-center flex-wrap">
+        <div className="container flex flex-col gap-4 sm:flex-row sm:items-center flex-wrap">
           <Link href="/kontakt">
             <Button>Podobny projekt? Napisz do nas</Button>
           </Link>
