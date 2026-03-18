@@ -13,7 +13,7 @@ const TRUST_BULLETS = [
 
 export function LandingHero() {
   return (
-    <section className="bg-transparent section-padding">
+    <section className="bg-transparent pt-navbar-hero section-padding-bottom px-5 md:px-12">
       <Container noPadding>
         <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
           <div>

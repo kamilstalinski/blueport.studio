@@ -176,7 +176,7 @@ export function Hero({ contentKey = "Home.hero" }: { contentKey?: HeroContentKey
         />
         <Container
           variant="wide"
-          className="relative z-10 grid grid-cols-1 items-center justify-items-center text-center min-h-[55vh] md:min-h-[60vh] pt-[calc(var(--navbar-height)+2rem)] pb-16 pointer-events-none"
+          className="relative z-10 grid grid-cols-1 items-center justify-items-center text-center min-h-[55vh] md:min-h-[60vh] pt-[calc(var(--navbar-height)+4rem)] pb-16 pointer-events-none"
         >
           <div className="flex flex-col items-center max-w-2xl space-y-6 pointer-events-auto">
             {showStats && content.stats && (
@@ -312,7 +312,7 @@ export function Hero({ contentKey = "Home.hero" }: { contentKey?: HeroContentKey
       {/* Zawartość w kontenerze z design systemu (pointer-events-none, żeby mysz trafiała w ColorBends) */}
       <Container
         variant="wide"
-        className="relative z-10 flex flex-col justify-center min-h-[82vh] md:min-h-screen pt-[calc(var(--navbar-height)+2rem)] pb-16 md:pb-24 pointer-events-none"
+        className="relative z-10 flex flex-col justify-center min-h-[82vh] md:min-h-screen pt-[calc(var(--navbar-height)+4rem)] pb-16 md:pb-24 pointer-events-none"
       >
         {/* Left column — tekst; z-10 żeby karty były pod spodem */}
         <div className="relative z-10 flex flex-col justify-center max-w-[560px] w-full">

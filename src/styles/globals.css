@@ -1574,6 +1574,21 @@ body .surface-3 {
   }
 }
 
+/* Hero — większy odstęp od navbara niż .pt-navbar-first */
+.pt-navbar-hero {
+  padding-top: calc(var(--navbar-height) + 6.5rem);
+}
+@media (min-width: 768px) {
+  .pt-navbar-hero {
+    padding-top: calc(var(--navbar-height) + 9.5rem);
+  }
+}
+@media (min-width: 1024px) {
+  .pt-navbar-hero {
+    padding-top: calc(var(--navbar-height) + 10.5rem);
+  }
+}
+
 /* Nav glass — ten sam styl co karty glassmorphism (te same tokeny) */
 body .nav-glass {
   background: var(--glass-bg);
@@ -2934,9 +2949,9 @@ body .contact-form-card:hover {
    Case Study page — utilities
    ═══════════════════════════════════════════════════════════════════════════ */
 
-/* Hero — skrócony padding (navbar + max 80px zamiast 9rem) */
+/* Hero — skrócony padding (navbar + max 80px zamiast 9rem) + dodatkowy odstęp */
 body .cs-hero {
-  padding-top: calc(var(--navbar-height) + clamp(40px, 5vw, 80px));
+  padding-top: calc(var(--navbar-height) + clamp(40px, 5vw, 80px) + 1.5rem);
   padding-bottom: clamp(40px, 5vw, 64px);
 }
 

@@ -20,7 +20,7 @@ export function SubpageHero({
     <section
       className={cn(
         "relative text-center",
-        firstOnPage ? "pt-navbar-first section-padding-bottom" : "section-padding"
+        firstOnPage ? "pt-navbar-hero section-padding-bottom" : "section-padding"
       )}
       aria-labelledby="subpage-hero-title"
     >
