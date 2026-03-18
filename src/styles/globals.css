@@ -1842,6 +1842,8 @@ main {
   padding-inline: 0;
   overflow: hidden;
   text-align: center;
+  /* Anchor #kalkulator — przewijanie zostawia miejsce na navbar */
+  scroll-margin-top: calc(var(--navbar-height) + 1rem);
   background: transparent;
 }
 
