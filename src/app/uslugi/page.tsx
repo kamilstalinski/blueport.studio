@@ -6,6 +6,7 @@ import { Container } from "@/components/ui/Container";
 import { FAQSection } from "@/components/sections/FAQSection";
 import { KalkulatorSection } from "@/components/sections/KalkulatorSection";
 import { CTA } from "@/components/sections/CTA";
+import { PACKAGES } from "@/constants/pricing";
 
 export default function UslugiPage() {
   return (
@@ -23,47 +24,66 @@ export default function UslugiPage() {
             <thead>
               <tr>
                 <th>Funkcja</th>
-                <th>WordPress</th>
-                <th>WooCommerce</th>
-                <th>Next.js</th>
+                <th className="compare-table-package">
+                  Strona start
+                  <span className="compare-table-package-tech">WordPress</span>
+                </th>
+                <th className="compare-table-package">
+                  Strona Pro
+                  <span className="compare-table-package-tech">WordPress</span>
+                </th>
+                <th className="compare-table-package">
+                  Sklep online
+                  <span className="compare-table-package-tech">WooCommerce</span>
+                </th>
+                <th className="compare-table-package">
+                  Dedykowany
+                  <span className="compare-table-package-tech">Next.js / React</span>
+                </th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td>Czas realizacji</td>
-                <td>5-7 dni</td>
-                <td>7-14 dni</td>
-                <td>14-30 dni</td>
+                <td>Czas realizacji (orientacyjnie)</td>
+                <td>{PACKAGES["strona-start"].deliveryLabel}</td>
+                <td>{PACKAGES["strona-pro"].deliveryLabel}</td>
+                <td>{PACKAGES["sklep-online"].deliveryLabel}</td>
+                <td>{PACKAGES["projekt-dedykowany"].deliveryLabel}</td>
               </tr>
               <tr>
-                <td>CMS do edycji</td>
+                <td>CMS do edycji treści</td>
                 <td className="check">✓</td>
                 <td className="check">✓</td>
-                <td>Opcjonalnie</td>
+                <td className="check">✓</td>
+                <td>Opcjonalnie (headless CMS)</td>
               </tr>
               <tr>
-                <td>Sklep online</td>
+                <td>Sklep / e-commerce</td>
+                <td>—</td>
                 <td>—</td>
                 <td className="check">✓</td>
+                <td>Według zakresu (np. custom)</td>
+              </tr>
+              <tr>
+                <td>Projekt i logika na miarę</td>
+                <td>Szablon + personalizacja</td>
+                <td>Projekt indywidualny (WP)</td>
+                <td>Rozszerzenia Woo</td>
                 <td className="check">✓</td>
               </tr>
               <tr>
-                <td>Własna logika</td>
-                <td>—</td>
-                <td>Częściowo</td>
+                <td>SEO i widoczność</td>
+                <td>Podstawowa + analityka</td>
                 <td className="check">✓</td>
+                <td>Podstawowa (sklep)</td>
+                <td>Techniczna (performance)</td>
               </tr>
               <tr>
-                <td>SEO on-page</td>
-                <td className="check">✓</td>
-                <td className="check">✓</td>
-                <td className="check">✓</td>
-              </tr>
-              <tr>
-                <td>Wsparcie po</td>
+                <td>Wsparcie po wdrożeniu</td>
+                <td>14 dni</td>
                 <td>30 dni</td>
-                <td>30 dni</td>
-                <td>Indywidualnie</td>
+                <td>Ustalamy przy wycenie</td>
+                <td>Ustalamy przy wycenie</td>
               </tr>
             </tbody>
           </table>

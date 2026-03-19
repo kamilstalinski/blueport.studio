@@ -1486,6 +1486,23 @@ body .dla-kogo-grid .dla-kogo-card-yes:hover {
   color: rgba(255, 255, 255, 0.4);
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
+.compare-table th.compare-table-package {
+  text-transform: none;
+  letter-spacing: normal;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.85);
+  vertical-align: bottom;
+}
+.compare-table th.compare-table-package .compare-table-package-tech {
+  display: block;
+  margin-top: 4px;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.4);
+}
 .compare-table td {
   padding: 16px 18px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
