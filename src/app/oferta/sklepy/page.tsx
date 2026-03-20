@@ -1,4 +1,13 @@
+import type { Metadata } from "next";
 import { Section } from "@/components/ui/Section";
+
+export const metadata: Metadata = {
+  title: "Sklepy internetowe Szczecin — WooCommerce i Next.js",
+  description:
+    "Sklepy internetowe na WooCommerce i Next.js Commerce. Płatności, integracje kurierskie, panel zarządzania. Szczecin i cała Polska.",
+  alternates: { canonical: "https://blueport.studio/oferta/sklepy" },
+  openGraph: { url: "https://blueport.studio/oferta/sklepy" },
+};
 
 export default function OfertaSklepyPage() {
   return (

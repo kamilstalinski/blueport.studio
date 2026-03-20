@@ -1,8 +1,8 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { Hero } from "@/components/sections/Hero";
 import { Section } from "@/components/ui/Section";
-import { Container } from "@/components/ui/Container";
 import { SpotlightCard } from "@/components/SpotlightCard";
 import { GlassCard } from "@/components/ui/GlassCard";
 import { DlaczegoMy } from "@/components/sections/DlaczegoMy";
@@ -60,28 +60,18 @@ const caseStudies = [
   },
 ];
 
+export const metadata: Metadata = {
+  title: "Realizacje — Portfolio Blueport Studio",
+  description:
+    "Zobacz nasze realizacje — strony firmowe, sklepy internetowe i aplikacje webowe. Projekty dla firm z Szczecina i całej Polski.",
+  alternates: { canonical: "https://blueport.studio/realizacje" },
+  openGraph: { url: "https://blueport.studio/realizacje" },
+};
+
 export default function RealizacjePage() {
   return (
     <>
       <Hero contentKey="realizacje.hero" />
-      <Container>
-        <div className="stats-bar">
-          <div className="stat-item">
-            <span className="stat-num">47+</span>
-            <span className="stat-label">projektów</span>
-          </div>
-          <div className="stat-divider" aria-hidden />
-          <div className="stat-item">
-            <span className="stat-num">100%</span>
-            <span className="stat-label">zadowolonych klientów</span>
-          </div>
-          <div className="stat-divider" aria-hidden />
-          <div className="stat-item">
-            <span className="stat-num">1-2 tyg.</span>
-            <span className="stat-label">średni czas realizacji</span>
-          </div>
-        </div>
-      </Container>
       <Section id="realizacje-grid" topGradient>
         <ul className="grid sm:grid-cols-2 lg:grid-cols-3 items-stretch" style={{ gap: "var(--grid-gap)" }}>
           {caseStudies.map((study) => (

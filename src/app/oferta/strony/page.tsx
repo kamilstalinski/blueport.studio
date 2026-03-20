@@ -1,4 +1,13 @@
+import type { Metadata } from "next";
 import { Section } from "@/components/ui/Section";
+
+export const metadata: Metadata = {
+  title: "Strony internetowe Szczecin — WordPress i Next.js",
+  description:
+    "Profesjonalne strony firmowe w WordPress i Next.js. Szybkie, responsywne, zoptymalizowane pod SEO. Realizacje dla firm ze Szczecina i całej Polski.",
+  alternates: { canonical: "https://blueport.studio/oferta/strony" },
+  openGraph: { url: "https://blueport.studio/oferta/strony" },
+};
 
 export default function OfertaStronyPage() {
   return (

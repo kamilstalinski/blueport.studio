@@ -1,9 +1,18 @@
+import type { Metadata } from "next";
 import { Hero } from "@/components/sections/Hero";
 import { Section } from "@/components/ui/Section";
 import { SpotlightCard } from "@/components/SpotlightCard";
 import { GlassCard } from "@/components/ui/GlassCard";
 import { ProcesHome } from "@/components/sections/ProcesHome";
 import { CTA } from "@/components/sections/CTA";
+
+export const metadata: Metadata = {
+  title: "O nas — Kim jesteśmy",
+  description:
+    "Blueport Studio to studio webowe z Szczecina. Poznaj nas, nasze wartości i sposób pracy.",
+  alternates: { canonical: "https://blueport.studio/o-nas" },
+  openGraph: { url: "https://blueport.studio/o-nas" },
+};
 
 const PODEJSCIE = [
   { title: "Konkret zamiast chaosu", text: "Nie sprzedajemy marketingowych haseł. Projektujemy strony, które mają jasno określony cel." },

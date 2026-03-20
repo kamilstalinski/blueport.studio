@@ -122,6 +122,14 @@ export function HeroVisual(): React.ReactElement {
           <span className={styles.heroLabelValue}>4+</span>
           <span className={styles.heroLabelText}>lat doświadczenia</span>
         </div>
+        <div className={styles.heroLabelProjects}>
+          <span className={styles.heroLabelValue}>10+</span>
+          <span className={styles.heroLabelText}>zrealizowanych projektów</span>
+        </div>
+        <div className={styles.heroLabelTime}>
+          <span className={styles.heroLabelValue}>1–2 tyg.</span>
+          <span className={styles.heroLabelText}>średni czas realizacji</span>
+        </div>
       </div>
 
       {/* Each icon has its own orbit speed (counter-rotate keeps it upright) */}

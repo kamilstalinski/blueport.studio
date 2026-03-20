@@ -1,5 +1,14 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { Section } from "@/components/ui/Section";
+
+export const metadata: Metadata = {
+  title: "Cennik — Strony internetowe Szczecin",
+  description:
+    "Transparentne ceny bez ukrytych kosztów. Strony firmowe od 2 500 zł, sklepy od 4 500 zł. Sprawdź szczegółowy cennik Blueport Studio.",
+  alternates: { canonical: "https://blueport.studio/cennik" },
+  openGraph: { url: "https://blueport.studio/cennik" },
+};
 
 export default function CennikPage() {
   return (

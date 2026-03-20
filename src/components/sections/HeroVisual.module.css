@@ -79,6 +79,32 @@
   font-family: var(--font-body), system-ui, sans-serif;
 }
 
+.heroLabelProjects {
+  position: absolute;
+  left: 2%;
+  top: 44%;
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--color-surface) 90%, transparent);
+  border: 1px solid color-mix(in srgb, var(--color-primary) 20%, transparent);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+  font-family: var(--font-body), system-ui, sans-serif;
+}
+
+.heroLabelTime {
+  position: absolute;
+  right: 8%;
+  top: 60%;
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--color-surface) 90%, transparent);
+  border: 1px solid color-mix(in srgb, var(--color-primary) 20%, transparent);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+  font-family: var(--font-body), system-ui, sans-serif;
+}
+
 .heroLabelValue {
   display: block;
   font-size: 1.35rem;

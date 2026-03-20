@@ -675,52 +675,6 @@ body .process-step:hover {
   color: var(--color-primary);
 }
 
-/* Strona realizacje — stats bar pod hero */
-.stats-bar {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--space-5);
-  padding: var(--space-4) 0;
-  border-top: 1px solid var(--color-border);
-  border-bottom: 1px solid var(--color-border);
-  margin-bottom: var(--space-8);
-}
-.stat-num {
-  display: block;
-  font-size: 1.8rem;
-  font-weight: 800;
-  color: var(--color-text-primary);
-  line-height: 1;
-  letter-spacing: -0.04em;
-}
-.stat-label {
-  font-size: 0.65rem;
-  color: var(--color-text-secondary);
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  margin-top: var(--inline-gap);
-}
-.stat-divider {
-  width: 1px;
-  height: 36px;
-  background: var(--color-border);
-}
-@media (max-width: 600px) {
-  .stats-bar {
-    flex-direction: column;
-    gap: 20px;
-    align-items: center;
-  }
-  .stat-item {
-    text-align: center;
-  }
-  .stat-divider {
-    width: 40px;
-    height: 1px;
-  }
-}
-
 /* Effects section (case studies) — 2x2 grid, glass-style cards like the home page */
 .efekty-grid {
   display: grid;

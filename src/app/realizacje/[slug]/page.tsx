@@ -1,9 +1,11 @@
 import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { Building2, AlertTriangle, Lightbulb, Code2, TrendingUp } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { breadcrumbJsonLd, caseStudyJsonLd } from "@/lib/jsonLd";
 import { Section } from "@/components/ui/Section";
 import { Button } from "@/components/ui/Button";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
@@ -130,6 +132,60 @@ const CASE_STUDIES: Record<string, CaseStudy> = {
   },
 };
 
+const getCaseStudySeo = (slug: string) => {
+  const study = CASE_STUDIES[slug];
+  if (!study) return null;
+
+  const meta = CASE_META[slug];
+  const image = meta?.image ? `/og/og-realizacje-${slug}.png` : "/og/og-default.png";
+  const url = `https://blueport.studio/realizacje/${slug}`;
+
+  return {
+    title: `${study.title} — Realizacja Blueport Studio`,
+    description: study.context,
+    client: study.client,
+    url,
+    image,
+  };
+};
+
+export function generateStaticParams() {
+  return Object.keys(CASE_STUDIES).map((slug) => ({ slug }));
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string };
+}): Promise<Metadata> {
+  const seo = getCaseStudySeo(params.slug);
+
+  if (!seo) {
+    return {
+      title: "Realizacja — Blueport Studio",
+      alternates: { canonical: "https://blueport.studio/realizacje" },
+    };
+  }
+
+  return {
+    title: seo.title,
+    description: seo.description,
+    alternates: { canonical: seo.url },
+    openGraph: {
+      url: seo.url,
+      title: seo.title,
+      description: seo.description,
+      images: [{ url: seo.image, width: 1200, height: 630, alt: seo.title }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: seo.title,
+      description: seo.description,
+      images: [seo.image],
+    },
+  };
+}
+
 type ContentCardVariant = "context" | "challenge" | "strategy" | "implementation";
 
 const CARD_META: Record<
@@ -219,9 +275,38 @@ export default async function CaseStudyPage({ params }: PageParamsSlug) {
     .filter(Boolean);
 
   const meta = CASE_META[slug];
+  const seo = getCaseStudySeo(slug);
+
+  if (!seo) notFound();
+
+  const breadcrumbItems = [
+    { name: "Strona główna", url: "https://blueport.studio" },
+    { name: "Realizacje", url: "https://blueport.studio/realizacje" },
+    { name: study.title, url: seo.url },
+  ];
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbJsonLd(breadcrumbItems)),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            caseStudyJsonLd({
+              title: seo.title,
+              description: seo.description,
+              client: seo.client,
+              url: seo.url,
+              image: seo.image,
+            }),
+          ),
+        }}
+      />
       {/* Hero — reduced padding via .cs-hero */}
       <Section as="div" topGradient className="cs-hero">
         <div className="grid items-center gap-10 md:grid-cols-2 lg:grid-cols-[1.1fr_0.9fr]">

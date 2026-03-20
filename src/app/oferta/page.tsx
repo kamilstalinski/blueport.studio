@@ -1,4 +1,13 @@
+import type { Metadata } from "next";
 import { Section } from "@/components/ui/Section";
+
+export const metadata: Metadata = {
+  title: "Oferta — Pakiety i ceny",
+  description:
+    "Strony firmowe od 2 500 zł, sklepy internetowe od 4 500 zł. Sprawdź pełną ofertę Blueport Studio.",
+  alternates: { canonical: "https://blueport.studio/oferta" },
+  openGraph: { url: "https://blueport.studio/oferta" },
+};
 
 export default function OfertaPage() {
   return (
