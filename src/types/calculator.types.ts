@@ -25,7 +25,7 @@ export interface ContactData {
 
 export interface CalculatorState {
   step: number;
-  direction: number; // 1 = dalej, -1 = wstecz (dla animacji)
+  direction: number; // Direction: 1 = forward, -1 = backward (for animations)
   projectType: ProjectType;
   features: ProjectFeature[];
   timeline: Timeline;
@@ -41,5 +41,5 @@ export interface PriceSummary {
   featuresTotal: number;
   timelineMultiplier: number;
   total: number;
-  label: string; // "od X zł" lub "X – Y zł"
+  label: string; // "from X PLN" or "X – Y PLN"
 }

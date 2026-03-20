@@ -16,7 +16,7 @@ const ColorBends = dynamic(
   { ssr: false }
 );
 
-/** Kolory z globals.css (--color-primary, --color-accent-2); używane w ColorBends */
+/** Colors from globals.css (--color-primary, --color-accent-2); used in ColorBends */
 const HERO_BENDS_ACCENT_2 = "#00b8d9" as const;
 const HERO_BENDS_PRIMARY = "#3b82f6" as const;
 
@@ -136,7 +136,7 @@ export function Hero({ contentKey = "Home.hero" }: { contentKey?: HeroContentKey
   const showSecondary = isHome || !!content.ctaSecondary;
   const showStats = isHome ? true : !!content.stats;
 
-  /* Non-home hero: ten sam wizualnie co strona główna (ColorBends, overlay, gradient), jedna kolumna wyśrodkowana, bez kart */
+  /* Non-home hero: same visuals as the home page (ColorBends, overlay, gradient), centered single column */
   if (!isHome) {
     return (
       <section
@@ -274,7 +274,7 @@ export function Hero({ contentKey = "Home.hero" }: { contentKey?: HeroContentKey
       className="relative min-h-[82vh] md:min-h-screen overflow-hidden"
       style={{ background: "var(--color-hero-fade)" }}
     >
-      {/* 1. ColorBends — tło z design systemu (śledzenie myszy), opacity tylko na tło */}
+      {/* 1. ColorBends — design system background (mouse tracking); opacity only for the background */}
       <div className="absolute inset-0 z-0 opacity-90" aria-hidden>
         <ColorBends
           rotation={95}
@@ -291,7 +291,7 @@ export function Hero({ contentKey = "Home.hero" }: { contentKey?: HeroContentKey
           className="absolute inset-0 h-full w-full"
         />
       </div>
-      {/* 2. Overlay — przyciemnienie tła (mocniejsze na stronie głównej) */}
+      {/* 2. Overlay — darkens the background (stronger on the home page) */}
       <div className="pointer-events-none absolute inset-0 z-[1] bg-black/55" aria-hidden />
       {/* 3. Noise overlay */}
       <div
@@ -302,19 +302,19 @@ export function Hero({ contentKey = "Home.hero" }: { contentKey?: HeroContentKey
         }}
         aria-hidden
       />
-      {/* 4. Gradient na dole hero (z-[1] — poniżej treści z-10) */}
+      {/* 4. Hero bottom gradient (z-[1] — below z-10 content) */}
       <div
         className="pointer-events-none absolute inset-x-0 bottom-0 z-[1] h-72"
         style={{ background: `linear-gradient(to top, var(--color-hero-fade), transparent)` }}
         aria-hidden
       />
 
-      {/* Zawartość w kontenerze z design systemu (pointer-events-none, żeby mysz trafiała w ColorBends) */}
+      {/* Content in the design-system container (pointer-events-none so the mouse hits ColorBends) */}
       <Container
         variant="wide"
         className="relative z-10 flex flex-col justify-center min-h-[82vh] md:min-h-screen pt-[calc(var(--navbar-height)+4rem)] pb-16 md:pb-24 pointer-events-none"
       >
-        {/* Left column — tekst; z-10 żeby karty były pod spodem */}
+        {/* Left column — text (z-10 keeps cards underneath) */}
         <div className="relative z-10 flex flex-col justify-center max-w-[560px] w-full">
           <motion.div
             variants={v.staggerHero}
@@ -362,7 +362,7 @@ export function Hero({ contentKey = "Home.hero" }: { contentKey?: HeroContentKey
               )}
             </motion.h1>
 
-            {/* Subheadline — czyste fade */}
+            {/* Subheadline — fade-only (no movement) */}
             <motion.p
               variants={v.fadeIn}
               className="font-body body-lead mt-5 mb-9 max-w-[420px] leading-[1.7] text-muted-foreground"
@@ -471,7 +471,7 @@ export function Hero({ contentKey = "Home.hero" }: { contentKey?: HeroContentKey
           </motion.div>
         </div>
 
-        {/* Prawa sekcja — HeroVisual (pulse rings, logo, orbit, stat badges); z-1 pod lewą kolumną, overflow visible dla glow; na mobile w flow pod tekstem */}
+        {/* Right section — HeroVisual (pulse rings, logo, orbit, stat badges); z-1 under the left column; overflow-visible for the glow */}
         <div className="relative z-[1] overflow-visible w-full min-h-[340px] block pointer-events-none md:absolute md:right-8 md:top-1/2 md:-translate-y-1/2 md:w-[520px] md:h-[560px] md:min-h-0">
           <HeroVisual />
         </div>

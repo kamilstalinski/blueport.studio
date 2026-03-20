@@ -19,18 +19,18 @@
   --space-16: 128px;
 
   /* Semantic spacing */
-  --section-padding-y: var(--space-10); /* 80px — padding sekcji góra/dół */
-  --section-padding-x: var(--space-6);   /* 48px — padding sekcji lewo/prawo */
-  --card-padding: var(--space-4);         /* 32px — padding wewnątrz kart */
-  --card-padding-sm: var(--space-3);     /* 24px — karty na mobile */
-  --card-gap: var(--space-2);            /* 16px — gap między elementami w karcie */
-  --grid-gap: var(--space-3);           /* 24px — gap między kartami w gridzie */
-  --element-gap: var(--space-2);        /* 16px — gap między nagłówkiem a treścią */
-  --inline-gap: var(--space-1);         /* 8px  — gap wewnątrz elementu (ikona + tekst) */
+  --section-padding-y: var(--space-10); /* 80px — section padding top/bottom */
+  --section-padding-x: var(--space-6);   /* 48px — section padding left/right */
+  --card-padding: var(--space-4);         /* 32px — padding inside cards */
+  --card-padding-sm: var(--space-3);     /* 24px — cards on mobile */
+  --card-gap: var(--space-2);            /* 16px — gap between elements in a card */
+  --grid-gap: var(--space-3);           /* 24px — gap between cards in a grid */
+  --element-gap: var(--space-2);        /* 16px — gap between heading and content */
+  --inline-gap: var(--space-1);         /* 8px — gap inside an element (icon + text) */
 
   /* Card hover transition — glass cards, benefit cards, process steps */
   --transition-card: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease, background 0.2s ease, border-color 0.2s ease;
-  /* Przyciski — jednolity transition przy hover */
+  /* Buttons — consistent hover transition */
   --btn-transition: color 0.2s ease-out, background-color 0.2s ease-out, border-color 0.2s ease-out, box-shadow 0.2s ease-out, transform 0.2s ease-out;
   --btn-min-height: 48px;
   /* Minimum font size on desktop (readability) — 12px */
@@ -64,7 +64,7 @@
   .field-label {
     font-size: var(--min-font-size-desktop);
   }
-  /* Opinie — karty testimonials */
+  /* Testimonials — testimonial cards */
   .testimonial-author .author-avatar,
   .testimonial-author .author-company {
     font-size: var(--min-font-size-desktop);
@@ -93,7 +93,7 @@
   }
 }
 
-/* Section padding — stosować na każdej sekcji */
+/* Section padding — apply to every section */
 .section-padding {
   padding-block: var(--section-padding-y);
   padding-inline: var(--section-padding-x);
@@ -107,7 +107,7 @@
 
 /* ── Container System ── */
 
-/* NARROW — dla tekstu, FAQ, treści czytanych linearnie */
+/* NARROW — for text, FAQs, and linear content */
 .container-narrow {
   width: 100%;
   max-width: 720px;
@@ -115,7 +115,7 @@
   padding-inline: var(--section-padding-x, 48px);
 }
 
-/* DEFAULT — dla gridów kart, standardowych sekcji */
+/* DEFAULT — for card grids and standard sections */
 .container {
   width: 100%;
   max-width: 1200px;
@@ -123,7 +123,7 @@
   padding-inline: var(--section-padding-x, 48px);
 }
 
-/* WIDE — dla hero, dużych layoutów, footera */
+/* WIDE — for hero, large layouts, and the footer */
 .container-wide {
   width: 100%;
   max-width: 1400px;
@@ -131,7 +131,7 @@
   padding-inline: var(--section-padding-x, 48px);
 }
 
-/* Mobile — padding zmniejszony */
+/* Mobile — reduced padding */
 @media (max-width: 768px) {
   .container-narrow,
   .container,
@@ -140,7 +140,7 @@
   }
 }
 
-/* Sekcja — tło full-width; treść w kontenerach */
+/* Section — full-width background; content inside containers */
 section {
   position: relative;
 }
@@ -151,7 +151,7 @@ section .container-wide {
   z-index: 1;
 }
 
-/* Sekcja z dwoma kontenerami: tylko padding pionowy (inline z kontenerów) */
+/* Section with two containers: vertical padding only (inline with containers) */
 .section-padding-block {
   padding-block: var(--section-padding-y);
   padding-inline: 0;
@@ -162,7 +162,7 @@ section .container-wide {
   }
 }
 
-/* Wzorzec: nagłówek sekcji (narrow) + grid (container) */
+/* Pattern: section heading (narrow) + grid (container) */
 .section-intro {
   text-align: center;
   margin-bottom: 48px;
@@ -189,12 +189,12 @@ section .container-wide {
   line-height: 1.7;
 }
 
-/* Sekcja tematycznie bliska poprzedniej (mniejszy odstęp u góry) */
+/* Thematically related to the previous section (smaller top spacing) */
 .section-tight {
   padding-top: var(--space-6);
 }
 
-/* Tylko dół sekcji (np. SubpageHero z pt-navbar-first); inline przez Container */
+/* Bottom of section only (e.g., SubpageHero with pt-navbar-first); inline via Container */
 .section-padding-bottom {
   padding-bottom: var(--section-padding-y);
 }
@@ -204,7 +204,7 @@ section .container-wide {
   }
 }
 
-/* Card padding i gap — stosować na kartach */
+/* Card padding and gap — apply to cards */
 .card-padding {
   padding: var(--card-padding);
   gap: var(--card-gap);
@@ -231,7 +231,7 @@ section .container-wide {
 :root,
 .dark {
 
-  /* Blue palette (default) — pełny świat */
+  /* Blue palette (default) — full strength */
   --color-bg: #00020f;
   --color-surface: #050a1e;
   --color-surface-alt: #080d28;
@@ -272,7 +272,7 @@ section .container-wide {
   --glass-bg-dark-hover: rgba(5, 10, 30, 0.78);
   --glass-border-dark: rgba(255, 255, 255, 0.2);
 
-  /* Unified glass tokens (palette-driven) — wyższy kontrast względem tła */
+  /* Unified glass tokens (palette-driven) — higher contrast vs background */
   --glass-bg: rgba(59, 130, 246, 0.10);
   --glass-border: rgba(59, 130, 246, 0.22);
   --glass-border-top: rgba(59, 130, 246, 0.32);
@@ -283,14 +283,14 @@ section .container-wide {
 
   --navbar-height: 5rem;
 
-  /* Navbar glass — ten sam kolor i natężenie co karty (bez dodatkowego „świecenia”) */
+  /* Navbar glass — same color and intensity as cards (no extra glow) */
   --glass-nav-bg: rgba(59, 130, 246, 0.10);
   --glass-nav-bg-hover: rgba(59, 130, 246, 0.16);
   --glass-nav-border: rgba(59, 130, 246, 0.22);
   --glass-nav-border-hover: rgba(59, 130, 246, 0.28);
   --glass-nav-shadow: 0 4px 24px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(59, 130, 246, 0.12);
 
-  /* Jedno miejsce na blur glass — zmień tutaj; komponenty używają useGlassBlurStyle (inline) */
+  /* Single source of glass blur — update here; components use useGlassBlurStyle (inline) */
   --glass-blur: 28px;
   --glass-blur-sm: 22px;
   --glass-blur-lg: 32px;
@@ -302,7 +302,7 @@ section .container-wide {
   --glass-card-highlight: inset 0 1px 0 0 rgba(255, 255, 255, 0.28);
   --glass-card-hover-glow: 0 0 48px rgba(255, 255, 255, 0.06);
 
-  /* Gradient mesh — lewy blob ciemniejszy od prawego, oba wyraźnie widoczne */
+  /* Gradient mesh — left blob is darker than right; both are clearly visible */
   --color-gradient-mesh-1: #4a3880;
   --color-gradient-mesh-2: #00010a;
 
@@ -341,8 +341,8 @@ section .container-wide {
 }
 
 /* ══════════════════════════════════════
-   PALETA: BLUE (domyślna — :root)
-   Pełny świat w :root powyżej; poniżej tylko gdy data-accent="blue" jawnie.
+   PALETTE: BLUE (default — :root)
+   Full strength in :root above; below only when data-accent="blue" is explicitly set.
    ══════════════════════════════════════ */
 :root[data-accent="blue"],
 .dark[data-accent="blue"] {
@@ -576,11 +576,11 @@ section .container-wide {
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   Glassmorphism — dark UI (lekko jaśniejsze tło + blur + highlight + border)
+   Glassmorphism — dark UI (slightly lighter background + blur + highlight + border)
    ═══════════════════════════════════════════════════════════════════════════ */
 
-/* Glass card – tokeny z palety (tło, obramowanie, cień).
-   body zwiększa specificity nad warstwą utilities Tailwind (backdrop-filter). */
+/* Glass card – palette tokens (background, border, shadow).
+   body increases specificity over the Tailwind utilities layer (backdrop-filter). */
 body .glass-card,
 body .card,
 body [class*="glass-card"],
@@ -608,15 +608,15 @@ body .process-step:hover {
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35), inset 0 1px 0 var(--glass-border-top-hover);
 }
 
-/* Karty na podstronach — ten sam glass co na stronie głównej (nie nadpisuj tła) */
+/* Subpage cards — same glass as the home page (do not override the background) */
 .card-subpage {
-  /* Tło i obramowanie z .card / .benefit-card / .process-step / .glass-card — bez nadpisywania */
+  /* Background and border from .card / .benefit-card / .process-step / .glass-card — no overrides */
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 .card-subpage:hover {
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35), inset 0 1px 0 var(--glass-border-top-hover);
 }
-/* Karta kalkulatora: glass-card + card-subpage — jeden promień 16px, bez hover (tło, border, cień, uniesienie) */
+/* Calculator card: glass-card + card-subpage — one 16px radius, no hover (bg, border, shadow, lift) */
 .glass-card.card-subpage.calculator-card-inner {
   border-radius: 16px;
 }
@@ -660,7 +660,7 @@ body .process-step:hover {
   color: rgba(255, 255, 255, 0.2);
 }
 
-/* Strona realizacje — przycisk "Zobacz więcej" w kartach */
+/* Case Studies page — "See more" button in cards */
 .realizacje-card-btn {
   background: transparent;
   color: var(--color-text-secondary);
@@ -721,7 +721,7 @@ body .process-step:hover {
   }
 }
 
-/* Sekcja Efekty (realizacje) — grid 2x2, karty w stylu glass jak na stronie głównej */
+/* Effects section (case studies) — 2x2 grid, glass-style cards like the home page */
 .efekty-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -759,7 +759,7 @@ body .efekty-card:hover {
   font-size: 1.1rem;
 }
 
-/* Base glass card — tokeny z palety (każdy kafelek pod aktualny kolor) */
+/* Base glass card — palette tokens (each tile adapts to the active color) */
 body .card,
 body .package-card,
 body .process-card,
@@ -786,7 +786,7 @@ body .custom-spotlight-card:hover .process-card {
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35), inset 0 1px 0 var(--glass-border-top-hover);
 }
 
-/* Karty korzyści — mini glass (tokeny palety) */
+/* Benefit cards — mini glass (palette tokens) */
 body .benefit-card {
   background: var(--glass-bg);
   backdrop-filter: blur(var(--glass-blur-sm, 22px));
@@ -805,7 +805,7 @@ body .benefit-card:hover {
   box-shadow: 0 6px 28px rgba(0, 0, 0, 0.32), inset 0 1px 0 var(--glass-border-top-hover);
 }
 
-/* Karta "Najpopularniejsze" — wyróżniający border i glow dookoła */
+/* "Most popular" card — highlighted border and surrounding glow */
 body .card-featured,
 body .package-card--featured,
 body .card[data-featured="true"] {
@@ -835,7 +835,7 @@ body .oferta-package-featured:hover .card-featured {
     inset 0 2px 0 0 var(--glass-border-top-hover);
 }
 
-/* Sekcja pakietów — promowana karta: wyraźny border-top (wewnętrzna karta) */
+/* Packages section — featured card: clear top border (inner card) */
 body .oferta-package-featured .card-featured {
   border-top: 2px solid var(--glass-border-top-hover);
   box-shadow:
@@ -868,7 +868,7 @@ body .faq-item:focus-within {
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   Section Process — timeline grid z numerami (3 kolumny, ostatni rząd 2 wycentrowane)
+   Section Process — timeline grid with numbers (3 columns, last row with 2 centered)
    ═══════════════════════════════════════════════════════════════════════════ */
 .section-process .container-narrow {
   max-width: 42rem;
@@ -893,7 +893,7 @@ body .faq-item:focus-within {
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   Section Testimonials — opinie klientów (social proof)
+   Section Testimonials — customer testimonials (social proof)
    ═══════════════════════════════════════════════════════════════════════════ */
 .section-testimonials .section-testimonials-head {
   max-width: 42rem;
@@ -916,7 +916,7 @@ body .faq-item:focus-within {
   margin-top: 40px;
 }
 
-/* Karty opinii — delikatny glass (tokeny palety) */
+/* Testimonials cards — subtle glass (palette tokens) */
 body .testimonial-card {
   background: var(--glass-bg);
   backdrop-filter: blur(var(--glass-blur-sm, 22px));
@@ -1164,7 +1164,7 @@ body .process-card:hover {
   justify-self: stretch;
 }
 
-/* O-nas: 2x2 grid "Jak wygląda współpraca?" — glass jak na stronie głównej */
+/* About us: 2x2 grid "How collaboration works?" — same glass as the home page */
 .process-grid-2x2 {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -1233,7 +1233,7 @@ body .process-grid-2x2 .process-step-2x2:hover {
   background: var(--color-primary-subtle);
 }
 
-/* O-nas: Dla kogo — strzałki list */
+/* About us: "For whom" list arrows */
 .dla-kogo-arrow-yes {
   color: var(--color-primary);
 }
@@ -1269,7 +1269,7 @@ body .process-grid-2x2 .process-step-2x2:hover {
   }
 }
 
-/* SpotlightCard wrapper — hover na rodzicu (uniesienie + glow), żeby border wewnętrznej karty nie znikał */
+/* SpotlightCard wrapper — hover on the parent (lift + glow) so the inner card border stays visible */
 body .custom-spotlight-card {
   background: transparent;
   border: none;
@@ -1282,7 +1282,7 @@ body .custom-spotlight-card:hover {
   box-shadow: none;
   border: none;
 }
-/* Karta wewnątrz — tylko border/shadow, bez transform (żeby border nie znikał przy obcinaniu) */
+/* Inner card — border/shadow only, no transform (so the border doesn't disappear when clipped) */
 body .custom-spotlight-card:hover .card,
 body .custom-spotlight-card:hover .benefit-card,
 body .custom-spotlight-card:hover .process-card,
@@ -1291,7 +1291,7 @@ body .custom-spotlight-card:hover [class*="glass-card"] {
   transform: none;
 }
 
-/* Karty oferty – wyrównanie wysokości (depth w .card) */
+/* Offer cards — equal-height alignment (depth in .card) */
 .oferta-package-card {
   height: 100%;
   display: flex;
@@ -1301,12 +1301,12 @@ body .custom-spotlight-card:hover [class*="glass-card"] {
   flex: 1;
 }
 
-/* Layout root — overflow visible, żeby glow/cienie w sekcjach (np. karta „Najpopularniejsze”) nie były przycinane */
+/* Layout root — overflow: visible so glow/shadows in sections (e.g., the featured card) aren't clipped */
 .layout-root {
   overflow: visible;
 }
 
-/* Sekcja pakietów i rodzice — overflow visible */
+/* Packages section and parents — overflow visible */
 #oferta-pakiety.section-packages {
   overflow: visible;
 }
@@ -1319,7 +1319,7 @@ body .custom-spotlight-card:hover [class*="glass-card"] {
 .section-packages .grid > * {
   overflow: visible;
 }
-/* Wyróżniona karta w tej samej wysokości co reszta — bez dodatkowego paddingu komórki */
+/* Featured card matches the rest's height — no extra cell padding */
 
 @media (max-width: 768px) {
   .section-packages .grid {
@@ -1327,7 +1327,7 @@ body .custom-spotlight-card:hover [class*="glass-card"] {
     flex-direction: column;
     gap: var(--grid-gap);
   }
-  /* Na mobile: switcher (1), karta WordPress Start/Pro (2), Sklep (3), Dedykowany (4); puste komórki na końcu */
+  /* Mobile layout: switcher (1), WordPress Start/Pro card (2), Shop (3), Dedicated (4); empty cells at the end */
   .section-packages .grid > *:nth-child(1) { order: 1; }
   .section-packages .grid > *:nth-child(2) { order: 5; padding: 0; margin: 0; }
   .section-packages .grid > *:nth-child(3) { order: 6; }
@@ -1336,7 +1336,7 @@ body .custom-spotlight-card:hover [class*="glass-card"] {
   .section-packages .grid > *:nth-child(6) { order: 4; }
 }
 
-/* Środkowa karta (Najpopularniejsze) — glow w granicach karty, żeby parent (body/Lenis) nie przycinał rogów */
+/* Middle card ("Most popular") — glow stays within the card so the parent (body/Lenis) doesn't clip corners */
 .oferta-package-featured {
   box-shadow:
     0 0 0 1px rgba(255, 255, 255, 0.06),
@@ -1354,14 +1354,14 @@ body .custom-spotlight-card.oferta-package-featured:hover {
   border-top-color: var(--glass-border-top-hover);
 }
 
-/* Przyciski w kartach pakietów — jednakowy rozmiar (jak primary) */
+/* Buttons in package cards — consistent size (like primary) */
 body .section-packages .package-card-cta {
   min-height: 48px;
   padding: 12px 24px;
   box-sizing: border-box;
 }
 
-/* Wszystkie karty pakietów — przy hover: rozjaśnienie istniejącego borderu + glow, przycisk primary */
+/* All package cards — hover brightens the existing border + glow; primary button */
 body .custom-spotlight-card.oferta-package-card:hover {
   box-shadow:
     0 0 0 1px rgba(255, 255, 255, 0.08),
@@ -1392,7 +1392,7 @@ body .custom-spotlight-card.oferta-package-card:hover .package-card-cta:hover {
   box-shadow: 0 0 24px var(--color-primary-glow-hover) !important;
 }
 
-/* Sekcja Dla kogo – karty, hover podniesienie, blue glow only */
+/* "For whom" section — cards with lift on hover and blue glow only */
 .dla-kogo-card {
   transition: transform 0.25s ease, box-shadow 0.3s ease;
 }
@@ -1401,7 +1401,7 @@ body .custom-spotlight-card.oferta-package-card:hover .package-card-cta:hover {
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35), inset 0 1px 0 var(--glass-border-top-hover);
 }
 
-/* O-nas: karty "Dla kogo" — glass jak na stronie głównej */
+/* About us: "For whom" cards — same glass as the home page */
 body .dla-kogo-grid .dla-kogo-card-yes,
 body .dla-kogo-grid .dla-kogo-card-no {
   background: var(--glass-bg);
@@ -1437,7 +1437,7 @@ body .dla-kogo-grid .dla-kogo-card-yes:hover {
   z-index: -1;
 }
 
-/* Sekcja Dlaczego my – tło pod GlassIcons (glow max 0.06) */
+/* Why us section — background behind GlassIcons (max glow 0.06) */
 .dlaczego-my-section::before {
   content: "";
   position: absolute;
@@ -1447,7 +1447,7 @@ body .dla-kogo-grid .dla-kogo-card-yes:hover {
   z-index: -1;
 }
 
-/* Sekcje pakietów i korzyści — gradient za kartami (glassmorphism widoczny) */
+/* Packages and benefits sections — gradient behind cards (glassmorphism stays visible) */
 .section-packages,
 .section-benefits {
   position: relative;
@@ -1471,7 +1471,7 @@ body .dla-kogo-grid .dla-kogo-card-yes:hover {
   z-index: 1;
 }
 
-/* Tabela porównania pakietów (strona Usługi) */
+/* Package comparison table (Services page) */
 .compare-table {
   width: 100%;
   border-collapse: collapse;
@@ -1591,7 +1591,7 @@ body .surface-3 {
   }
 }
 
-/* Hero — większy odstęp od navbara niż .pt-navbar-first */
+/* Hero — larger gap from the navbar than .pt-navbar-first */
 .pt-navbar-hero {
   padding-top: calc(var(--navbar-height) + 6.5rem);
 }
@@ -1771,7 +1771,7 @@ body .nav-glass-btn:hover {
   background: radial-gradient(ellipse 80% 100% at 50% 0%, rgba(255, 255, 255, 0.06) 0%, transparent 70%);
   pointer-events: none;
 }
-/* Siatka na całą stronę (wyciągnięta z Hero) */
+/* Full-page grid (extracted from Hero) */
 .page-grid-overlay {
   position: fixed;
   inset: 0;
@@ -1784,7 +1784,7 @@ body .nav-glass-btn:hover {
   background-size: 60px 60px;
 }
 
-/* Base — html ma tło jako fallback; body przezroczysty, żeby gradient + kaflę z blur były widoczne */
+/* Base — html provides a background fallback; body is transparent so the gradient + blurred layer are visible */
 html {
   scroll-behavior: smooth;
   background-color: var(--color-bg);
@@ -1795,7 +1795,7 @@ html, body {
   transition: background-color 0.25s ease-out, color 0.25s ease-out;
 }
 body {
-  /* Przezroczyste: gradient (fixed -z-10) wypełnia tło, kaflę z backdrop-filter go rozmywają */
+  /* Transparent: gradient (fixed -z-10) fills the background; the backdrop-filter tile blurs it */
   background-color: transparent;
   color: var(--color-text-primary);
   font-family: var(--font-sans), system-ui, sans-serif;
@@ -1806,7 +1806,7 @@ main {
   min-height: 100vh;
 }
 
-/* Hero CTA — hierarchia przycisków (primary vs ghost, tokeny palety) */
+/* Hero CTA — button hierarchy (primary vs ghost, palette tokens) */
 #hero .hero-cta-primary,
 #hero .hero-cta-ghost {
   min-height: var(--btn-min-height);
@@ -1851,7 +1851,7 @@ main {
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   Sekcja CTA „Sprawdź koszt w 60 sekund” — timer, tło
+   CTA Section — "Check the cost in 60 seconds" (timer + background)
    ═══════════════════════════════════════════════════════════════════════════ */
 .cta-section {
   position: relative;
@@ -1864,7 +1864,7 @@ main {
   background: transparent;
 }
 
-/* Tło: glow blob */
+/* Background: glow blob */
 .cta-section .cta-bg-blob {
   position: absolute;
   width: 500px;
@@ -2968,13 +2968,13 @@ body .contact-form-card:hover {
    Case Study page — utilities
    ═══════════════════════════════════════════════════════════════════════════ */
 
-/* Hero — skrócony padding (navbar + max 80px zamiast 9rem) + dodatkowy odstęp */
+/* Hero — reduced padding (navbar + max 80px instead of 9rem) + extra spacing */
 body .cs-hero {
   padding-top: calc(var(--navbar-height) + clamp(40px, 5vw, 80px) + 1.5rem);
   padding-bottom: clamp(40px, 5vw, 64px);
 }
 
-/* Label karty z ikoną — flex row, uppercase, mniejszy od section-eyebrow */
+/* Icon card label — flex row, uppercase, smaller than section eyebrow */
 .cs-card-label {
   display: flex;
   align-items: center;
@@ -2991,7 +2991,7 @@ body .cs-hero {
   color: var(--color-text-secondary);
 }
 
-/* Separator gradient — pozioma linia między sekcjami */
+/* Separator gradient — horizontal line between sections */
 .cs-divider {
   height: 1px;
   background: linear-gradient(
@@ -3003,7 +3003,7 @@ body .cs-hero {
   );
 }
 
-/* Wyniki — tekst wyróżniony wagą i jasnością */
+/* Results — emphasized text weight and clarity */
 .cs-results-text {
   font-size: clamp(1rem, 1.5vw, 1.15rem);
   font-weight: 600;
@@ -3021,7 +3021,7 @@ body .cs-hero {
   --glass-border-top-hover: color-mix(in srgb, var(--color-primary) 48%, transparent);
 }
 
-/* Karta Wdrożenie — glass w odcieniu primary */
+/* Implementation card — primary-tinted glass */
 .cs-card-implementation {
   --glass-bg: var(--color-primary-subtle);
   --glass-border: var(--color-accent-border);
@@ -3031,7 +3031,7 @@ body .cs-hero {
   --glass-border-top-hover: color-mix(in srgb, var(--color-primary) 48%, transparent);
 }
 
-/* Wnioski — blockquote z lewą ramką */
+/* Lessons learned — blockquote with a left border */
 .cs-card-wnioski {
   background: var(--color-surface-alt);
   border: 1px solid var(--color-border);
@@ -3040,7 +3040,7 @@ body .cs-hero {
   padding: var(--space-3) var(--space-4);
 }
 
-/* Wnioski — tekst kursywą, wyciszony */
+/* Lessons learned — italic muted text */
 .cs-lessons-text {
   font-style: italic;
   color: var(--color-text-secondary);

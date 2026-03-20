@@ -10,7 +10,7 @@ function getCssVar(name: string): string {
   return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
 }
 
-/** Fallbacki na SSR / przed hydracją (zgodne z globals.css) */
+/** SSR and pre-hydration fallbacks (aligned with globals.css) */
 const FALLBACK = {
   color1: "#4a3880",
   color2: "#03031C",
@@ -54,7 +54,7 @@ export function GlobalGradientBackground() {
       }}
       aria-hidden
     >
-      {/* Rozszerzenie powyżej i poniżej viewportu — subtelny parallax przy scrollu */}
+      {/* Extension above and below the viewport — subtle scroll parallax */}
       <motion.div
         style={{
           position: "absolute",

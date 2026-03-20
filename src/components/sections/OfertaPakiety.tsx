@@ -17,7 +17,7 @@ import type { OfertaPakietyProps } from "@/types";
 import { PACKAGES } from "@/constants/pricing";
 import type { PackageId } from "@/constants/pricing";
 
-/** W sekcji pakiety: jedna karta WordPress ze switchem START/PRO + pozostałe pakiety */
+/** Packages section: one WordPress card with a START/PRO switch, plus the remaining packages */
 const SECTION_PACKAGE_ORDER: (PackageId | "wordpress-merge")[] = [
   "wordpress-merge",
   "sklep-online",
@@ -130,7 +130,7 @@ export function OfertaPakiety({ topGradient = true, cardVariant = "default" }: O
           className="grid grid-cols-1 md:grid-cols-3 items-stretch"
           style={{ gap: "var(--grid-gap)" }}
         >
-          {/* Rząd 1: switcher tylko nad pierwszą kartą, pozostałe komórki puste — nie psuć layoutu */}
+          {/* Row 1: switcher only above the first card; other cells stay empty to preserve the layout */}
           <div className="flex items-center justify-center col-span-1">
             <div
               className="flex items-center gap-3"
@@ -198,7 +198,7 @@ export function OfertaPakiety({ topGradient = true, cardVariant = "default" }: O
           <div className="hidden md:block min-h-0" aria-hidden />
           <div className="hidden md:block min-h-0" aria-hidden />
 
-          {/* Rząd 2: trzy karty w jednym rzędzie, ta sama wysokość */}
+          {/* Row 2: three cards in one row, with the same height */}
           {SECTION_PACKAGE_ORDER.map((item, index) => {
             if (item === "wordpress-merge") {
               const pkg = PACKAGES[wordPressVariant];

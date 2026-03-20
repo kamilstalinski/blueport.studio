@@ -127,7 +127,7 @@ export function KalkulatorSection() {
       className="cta-section"
       aria-labelledby="cta-heading"
     >
-      {/* Tło: glow blob */}
+      {/* Background: glow blob */}
       <div className="cta-bg-blob" aria-hidden />
 
       <div className="cta-content container-narrow">

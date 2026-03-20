@@ -75,7 +75,7 @@ export interface GrainientProps {
   color2?: string;
   color3?: string;
   className?: string;
-  /** Debounce resize (ms) — ogranicza migotanie przy scrollu (np. chowający się navbar Chrome). */
+  /** Debounce resize (ms) — reduces flicker during scroll (e.g., Chrome navbar hide/show). */
   resizeDebounceMs?: number;
 }
 

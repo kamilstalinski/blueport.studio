@@ -24,7 +24,7 @@ export function CalculatorProgressBar({
       aria-valuemax={TOTAL_STEPS}
       aria-label={`Krok ${currentStep} z ${TOTAL_STEPS}`}
     >
-      {/* Pasek postępu na całą szerokość */}
+      {/* Progress bar spans the full width */}
       <div className="mb-6 h-1 w-full overflow-hidden rounded-none bg-white/15">
         <motion.div
           className="h-full rounded-none bg-primary"
@@ -33,7 +33,7 @@ export function CalculatorProgressBar({
         />
       </div>
 
-      {/* Kroki 1–6 wyśrodkowane; linie łączące zawsze widoczne */}
+      {/* Steps 1–6 are centered; connector lines are always visible */}
       <div className="flex justify-center overflow-x-auto px-1">
         <div className="flex items-center min-w-0">
           {Array.from({ length: TOTAL_STEPS }, (_, i) => {

@@ -28,7 +28,7 @@
   z-index: 0;
 }
 
-/* Wrapper wypełnienia */
+/* Fill wrapper */
 .ringFillWrapper {
   position: absolute;
   top: 50%;
@@ -40,14 +40,14 @@
   pointer-events: none;
 }
 
-/* Wypełnienie pierścienia — SVG dla ostrych obwódek bez pikselizacji */
+/* Ring fill — SVG for crisp, non-pixelated strokes */
 .ringFillSvg {
   position: absolute;
   inset: 0;
   filter: drop-shadow(0 0 20px color-mix(in srgb, var(--color-primary) 35%, transparent));
 }
 
-/* Obręcze — SVG dla anty-aliasowanych, ostrych krawędzi (bez pikselizacji) */
+/* Rings — SVG for anti-aliased, sharp edges (no pixelation) */
 .ringsSvg {
   position: absolute;
   top: 50%;
@@ -58,7 +58,7 @@
   overflow: visible;
 }
 
-/* Etykieta „4+ lat doświadczenia” + linia do obręczy (styl Palma) */
+/* "4+ years of experience" label + ring connector line (Palm style) */
 .heroLabelWrapper {
   position: absolute;
   inset: 0;
@@ -97,8 +97,8 @@
 }
 
 /* ── Orbit system ──
-   Wypełnia cały visualRoot — obraca się względem swojego środka (50% 50%).
-   NIE używamy tu translate, żeby Framer Motion nie miał konfliktu. */
+   Fills the whole visualRoot — rotates around its center (50% 50%).
+   We avoid using translate here to prevent conflicts with Framer Motion. */
 .orbitSystem {
   position: absolute;
   inset: 0;
@@ -118,7 +118,7 @@
   position: absolute;
 }
 
-/* ── Logo centrum (bez obręczy) ── */
+/* ── Center logo (no rings) ── */
 .logoCore {
   position: absolute;
   top: 50%;

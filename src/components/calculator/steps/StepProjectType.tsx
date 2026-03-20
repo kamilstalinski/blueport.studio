@@ -162,7 +162,7 @@ export function StepProjectType({ value, onChange }: StepProjectTypeProps) {
         role="group"
         aria-label="Rodzaj projektu"
       >
-        {/* Card: Sklep (ze switchem w środku) */}
+        {/* Card: Shop (with a switch inside) */}
         <div
           role="button"
           tabIndex={0}
@@ -190,7 +190,7 @@ export function StepProjectType({ value, onChange }: StepProjectTypeProps) {
           />
         </div>
 
-        {/* Card: Strona firmowa (ze switchem w środku) — najbardziej promowana */}
+        {/* Card: Business site (with a switch inside) — the most featured */}
         <div
           role="button"
           tabIndex={0}

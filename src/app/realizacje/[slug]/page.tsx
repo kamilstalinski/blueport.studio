@@ -222,10 +222,10 @@ export default async function CaseStudyPage({ params }: PageParamsSlug) {
 
   return (
     <>
-      {/* Hero — skrócony padding via .cs-hero */}
+      {/* Hero — reduced padding via .cs-hero */}
       <Section as="div" topGradient className="cs-hero">
         <div className="grid items-center gap-10 md:grid-cols-2 lg:grid-cols-[1.1fr_0.9fr]">
-          {/* Lewa kolumna — tekst */}
+          {/* Left column — text */}
           <ScrollReveal>
             <p className="section-eyebrow">Case Study</p>
             <h1 className="font-heading text-h1 text-text-primary mt-3">{study.title}</h1>
@@ -234,7 +234,7 @@ export default async function CaseStudyPage({ params }: PageParamsSlug) {
             </p>
           </ScrollReveal>
 
-          {/* Prawa kolumna — screenshot w browser mockup */}
+          {/* Right column — screenshot inside the browser mockup */}
           {meta && (
             <ScrollReveal delay={0.2}>
               <div className="glass-card cs-hero-screenshot">
@@ -276,7 +276,7 @@ export default async function CaseStudyPage({ params }: PageParamsSlug) {
 
           <div className="cs-divider" aria-hidden />
 
-          {/* Kontekst + Wyzwanie */}
+          {/* Context + challenge */}
           <div className="grid md:grid-cols-2" style={{ gap: "var(--grid-gap)" }}>
             <ContentCard variant="context" delay={0.1}>
               {study.context}
@@ -286,7 +286,7 @@ export default async function CaseStudyPage({ params }: PageParamsSlug) {
             </ContentCard>
           </div>
 
-          {/* Strategia + Wdrożenie */}
+          {/* Strategy + implementation */}
           <div className="grid md:grid-cols-2" style={{ gap: "var(--grid-gap)" }}>
             <ContentCard variant="strategy" delay={0.1}>
               {study.strategy}
@@ -298,7 +298,7 @@ export default async function CaseStudyPage({ params }: PageParamsSlug) {
 
           <div className="cs-divider" aria-hidden />
 
-          {/* Wyniki — karta wyróżniona (primary) */}
+          {/* Results — featured card (primary) */}
           <ScrollReveal delay={0.3}>
             <div className="glass-card card-padding cs-card-results">
               <div className="cs-card-label cs-card-label-primary">
@@ -309,7 +309,7 @@ export default async function CaseStudyPage({ params }: PageParamsSlug) {
             </div>
           </ScrollReveal>
 
-          {/* Wnioski — blockquote z lewą ramką */}
+          {/* Lessons learned — left-bordered blockquote */}
           <ScrollReveal delay={0.4}>
             <div className="cs-card-wnioski">
               <div className="cs-card-label cs-card-label-primary-muted">
@@ -321,7 +321,7 @@ export default async function CaseStudyPage({ params }: PageParamsSlug) {
         </div>
       </Section>
 
-      {/* CTA — primary (konwersja) pierwszy, ghost (nawigacja) drugi */}
+      {/* CTA — primary (conversion) first, ghost (navigation) second */}
       <Section noWrapper>
         <div className="container flex flex-col gap-4 sm:flex-row sm:items-center flex-wrap">
           <Link href="/kontakt">

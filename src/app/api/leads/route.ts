@@ -7,19 +7,8 @@ import { LOGO_BASE64 } from "@/lib/emailAssets";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-/** Domena do assetów w mailach — zawsze publiczny URL (nie localhost), żeby logo się ładowało. */
-const EMAIL_ASSETS_BASE =
-  process.env.EMAIL_LOGO_BASE_URL ?? process.env.NEXT_PUBLIC_SITE_URL ?? "https://blueport.studio";
-
-/** Logo w mailach: PNG ma lepsze wsparcie (Gmail, Outlook). SVG: ustaw EMAIL_LOGO_URL na pełny URL do PNG. */
-function getEmailLogoUrl(): string {
-  if (process.env.EMAIL_LOGO_URL) return process.env.EMAIL_LOGO_URL;
-  return EMAIL_ASSETS_BASE + "/logov3.svg";
-}
-
-/** Design system — kolory i spacing dla szablonów email (inline, bez CSS variables). */
+/** Design system — colors and spacing for email templates (inline, no CSS variables) */
 const EMAIL_DS = {
-  baseUrl: EMAIL_ASSETS_BASE,
   bg: "#00020f",
   surface: "#050a1e",
   surfaceAlt: "#080d28",
@@ -73,7 +62,7 @@ export async function POST(request: NextRequest) {
       breakdown: { label: string; price: number }[];
     } = body;
 
-    // Walidacja
+    // Validation
     if (!name || !email || !packageId) {
       return NextResponse.json({ error: "Brakuje wymaganych pól" }, { status: 400 });
     }
@@ -83,7 +72,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Nieprawidłowy format email" }, { status: 400 });
     }
 
-    // Zapis do Supabase
+    // Save lead to Supabase
     const { data: lead, error: dbError } = await supabase
       .from("leads")
       .insert({
@@ -111,7 +100,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Błąd zapisu" }, { status: 500 });
     }
 
-    // Mail do klienta
+    // Send email to the client
     await resend.emails.send({
       from: process.env.RESEND_FROM!,
       to: email,
@@ -126,7 +115,7 @@ export async function POST(request: NextRequest) {
       }),
     });
 
-    // Powiadomienie dla Ciebie
+    // Send notification email
     await resend.emails.send({
       from: process.env.RESEND_FROM!,
       to: process.env.NOTIFICATION_EMAIL!,
@@ -178,7 +167,7 @@ function formatPriority(priority?: string): string {
   return priority ? (labels[priority] ?? priority) : "—";
 }
 
-// ─── Mail do klienta ──────────────────────────────────────
+// ─── Client Email ───────────────────────────────────────
 
 function clientEmailHtml(data: {
   name: string;
@@ -189,7 +178,6 @@ function clientEmailHtml(data: {
   breakdown: { label: string; price: number }[];
 }): string {
   const d = EMAIL_DS;
-  const logoUrl = getEmailLogoUrl();
   const notifEmail = process.env.NOTIFICATION_EMAIL ?? "";
 
   const breakdownRows = data.breakdown
@@ -343,7 +331,7 @@ function clientEmailHtml(data: {
   ].join("");
 }
 
-// ─── Powiadomienie dla Ciebie ─────────────────────────────
+// ─── Notification Email ─────────────────────────────────
 
 function notificationEmailHtml(data: {
   name: string;
@@ -359,7 +347,6 @@ function notificationEmailHtml(data: {
   qualificationTags: string[];
 }): string {
   const d = EMAIL_DS;
-  const logoUrl = getEmailLogoUrl();
 
   const tags =
     data.qualificationTags
