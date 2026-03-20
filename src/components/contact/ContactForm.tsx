@@ -48,7 +48,7 @@ export function ContactForm() {
 
   if (formState.status === "success") {
     return (
-      <div className="step--success" role="status" aria-live="polite">
+      <div className="step step--success" role="status" aria-live="polite">
         <div className="success-icon" aria-hidden="true">
           ✓
         </div>
