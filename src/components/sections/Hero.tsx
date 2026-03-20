@@ -430,44 +430,6 @@ export function Hero({ contentKey = "Home.hero" }: { contentKey?: HeroContentKey
               </span>
             </motion.div>
 
-            {/* Social proof */}
-            <motion.div
-              variants={v.fadeUp}
-              className="social-proof font-body flex flex-col md:flex-row items-center gap-3 md:gap-5 mt-6 md:mt-8 flex-nowrap justify-center md:justify-start overflow-visible"
-            >
-              <div className="sp-item shrink-0 flex flex-col items-center md:items-start text-center md:text-left">
-                <strong className="block text-[0.8rem] md:text-[0.95rem] font-bold text-white font-heading">
-                  47+
-                </strong>
-                <span className="body-small text-[0.6rem] md:text-[0.75rem] text-white/40 uppercase tracking-widest">
-                  zrealizowanych projektów
-                </span>
-              </div>
-              <div
-                className="sp-divider w-8 md:w-px h-px md:h-8 bg-white/10 shrink-0"
-                aria-hidden
-              />
-              <div className="sp-item shrink-0 flex flex-col items-center md:items-start text-center md:text-left">
-                <strong className="block text-[0.8rem] md:text-[0.95rem] font-bold text-white font-heading">
-                  1–2 tyg.
-                </strong>
-                <span className="body-small text-[0.6rem] md:text-[0.75rem] text-white/40 uppercase tracking-widest">
-                  średni czas realizacji
-                </span>
-              </div>
-              <div
-                className="sp-divider w-8 md:w-px h-px md:h-8 bg-white/10 shrink-0"
-                aria-hidden
-              />
-              <div className="sp-item shrink-0 flex flex-col items-center md:items-start text-center md:text-left">
-                <strong className="block text-[0.8rem] md:text-[0.95rem] font-bold text-white font-heading">
-                  5.0 ★
-                </strong>
-                <span className="body-small text-[0.6rem] md:text-[0.75rem] text-white/40 uppercase tracking-widest">
-                  średnia ocena klientów
-                </span>
-              </div>
-            </motion.div>
           </motion.div>
         </div>
 
