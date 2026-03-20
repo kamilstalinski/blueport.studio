@@ -248,7 +248,7 @@ function clientEmailHtml(data: {
       ';font-family:Inter,system-ui,sans-serif;">',
     '<div style="' + wrapperStyle + '">',
     '<div style="' + headerStyle + '">',
-    '<img src="https://blueport.studio/images/logo-email.png" alt="BluePort Studio" width="70" height="70" style="display:block;width:70px;height:70px;object-fit:contain;margin:0 auto;" />',
+    '<img src="https://blueport.studio/images/logo-email.png" alt="Blueport Studio" width="70" height="70" style="display:block;width:70px;height:70px;object-fit:contain;margin:0 auto;" />',
     '<p style="margin:' +
       d.space[2] +
       " 0 0;color:" +
@@ -323,7 +323,7 @@ function clientEmailHtml(data: {
       footerStyle +
       '"><p style="margin:0;font-size:12px;color:' +
       d.muted +
-      ';text-align:center;">BluePort Studio · Szczecin · Wiadomość wysłana automatycznie</p></div>',
+      ';text-align:center;">Blueport Studio · Szczecin · Wiadomość wysłana automatycznie</p></div>',
     "</div></body></html>",
   ].join("");
 }
@@ -411,7 +411,7 @@ function notificationEmailHtml(data: {
       ';font-family:Inter,system-ui,sans-serif;">',
     '<div style="' + wrapperStyle + '">',
     '<div style="' + headerStyle + '">',
-    '<img src="https://blueport.studio/images/logo-email.png" alt="BluePort Studio" width="70" height="70" style="display:block;width:70px;height:70px;object-fit:contain;margin:0 auto;" />',
+    '<img src="https://blueport.studio/images/logo-email.png" alt="Blueport Studio" width="70" height="70" style="display:block;width:70px;height:70px;object-fit:contain;margin:0 auto;" />',
     '<div><h1 style="margin:0;color:' +
       d.textPrimary +
       ';font-size:18px;font-weight:600;">Nowy lead z kalkulatora</h1>',
@@ -454,7 +454,7 @@ function notificationEmailHtml(data: {
       d.space[3] +
       ';"><a href="mailto:' +
       data.email +
-      '?subject=Twoja wycena — BluePort Studio" style="display:inline-block;background:' +
+      '?subject=Twoja wycena — Blueport Studio" style="display:inline-block;background:' +
       d.primary +
       ";color:" +
       d.textPrimary +

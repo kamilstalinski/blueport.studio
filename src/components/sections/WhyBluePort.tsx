@@ -18,7 +18,7 @@ export function WhyBluePort() {
   return (
     <Section id="dlaczego-blueport">
       <h2 className="text-4xl md:text-5xl font-semibold tracking-tight text-white mb-4">
-        Dlaczego BluePort?
+        Dlaczego Blueport?
       </h2>
       <p className="body-lead text-white/70 leading-relaxed max-w-2xl mb-12">
         Nie jesteśmy agencją z 10 handlowcami. Jesteśmy partnerem technologicznym dla małych firm.

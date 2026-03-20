@@ -4,7 +4,9 @@ export const metadata: Metadata = {
   title: "Bezpłatna wycena — Blueport Studio",
   description:
     "Sprawdź koszt swojej strony w 60 sekund. Bez zobowiązań.",
-  robots: { index: false },
+  alternates: { canonical: "https://blueport.studio/wycena" },
+  openGraph: { url: "https://blueport.studio/wycena" },
+  robots: { index: true, follow: false },
 };
 
 export default function WycenaLayout({

@@ -41,7 +41,7 @@ export function Footer() {
               />
             </Link>
             <p className="max-w-xs text-sm leading-relaxed text-white/90">
-              BluePort Studio — nowoczesne strony i sklepy online dla małych firm. Lokalnie.
+              Blueport Studio — nowoczesne strony i sklepy online dla małych firm. Lokalnie.
               Konkretnie. Z jasną wyceną.
             </p>
           </div>
@@ -81,7 +81,7 @@ export function Footer() {
 
         <div className="mt-16 flex flex-col gap-4 border-t border-white/10 pt-8 md:flex-row md:items-center md:justify-between">
           <p className="text-xs text-white/70">
-            © {new Date().getFullYear()} BluePort Studio. Wszelkie prawa zastrzeżone.
+            © {new Date().getFullYear()} Blueport Studio. Wszelkie prawa zastrzeżone.
           </p>
           <a
             href="mailto:kontakt@blueport.studio"

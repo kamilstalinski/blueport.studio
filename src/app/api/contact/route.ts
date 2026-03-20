@@ -175,7 +175,7 @@ function ownerEmailHtml(data: ContactFormData, projectLabel: string): string {
   <body style="margin:0;padding:0;background:${d.bg};font-family:Inter,system-ui,sans-serif;">
     <div style="${wrapperStyle}">
       <div style="${headerStyle}">
-        <img src="https://blueport.studio/images/logo-email.png" alt="BluePort Studio" width="70" height="70" style="display:block;width:70px;height:70px;object-fit:contain;" />
+        <img src="https://blueport.studio/images/logo-email.png" alt="Blueport Studio" width="70" height="70" style="display:block;width:70px;height:70px;object-fit:contain;" />
         <div>
           <p style="margin:0;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:${d.textSecondary};">
             BLUEPORT STUDIO
@@ -235,7 +235,7 @@ function ownerEmailHtml(data: ContactFormData, projectLabel: string): string {
 
       <div style="${footerStyle}">
         <p style="margin:0;font-size:12px;color:${d.muted};text-align:center;">
-          BluePort Studio · blueport.studio
+          Blueport Studio · blueport.studio
         </p>
       </div>
 
@@ -293,7 +293,7 @@ function clientEmailHtml(data: ContactFormData): string {
   <body style="margin:0;padding:0;background:${d.bg};font-family:Inter,system-ui,sans-serif;">
     <div style="${wrapperStyle}">
       <div style="${headerStyle}">
-        <img src="https://blueport.studio/images/logo-email.png" alt="BluePort Studio" width="70" height="70" style="display:block;width:70px;height:70px;object-fit:contain;margin:0 auto 12px auto;" />
+        <img src="https://blueport.studio/images/logo-email.png" alt="Blueport Studio" width="70" height="70" style="display:block;width:70px;height:70px;object-fit:contain;margin:0 auto 12px auto;" />
         <p style="margin:0;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:${d.textSecondary};">
           BLUEPORT STUDIO
         </p>
