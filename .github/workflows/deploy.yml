@@ -45,6 +45,7 @@ jobs:
           envs: NEXT_PUBLIC_SUPABASE_URL,SUPABASE_SERVICE_ROLE_KEY,RESEND_API_KEY,RESEND_FROM,NOTIFICATION_EMAIL
           script: |
             cd ~/blueport.studio
+            git checkout next-env.d.ts || true
             git pull origin prod
             npm ci
             npm run build
