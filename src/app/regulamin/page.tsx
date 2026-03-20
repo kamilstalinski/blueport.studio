@@ -10,12 +10,13 @@ export const metadata: Metadata = {
 export default function RegulaminPage() {
   return (
     <Section as="div" firstOnPage>
-      <h1 className="text-3xl font-semibold tracking-tight text-foreground md:text-4xl">
-        Regulamin
-      </h1>
-      <p className="mt-6 text-muted-foreground">https://blueport.studio | Obowiązuje od: 20 marca 2026</p>
+      <div className="container-narrow">
+        <h1 className="text-3xl font-semibold tracking-tight text-foreground md:text-4xl">
+          Regulamin
+        </h1>
+        <p className="mt-6 text-muted-foreground">https://blueport.studio | Obowiązuje od: 20 marca 2026</p>
 
-      <div className="mt-10 container-narrow space-y-10 text-muted-foreground">
+        <div className="mt-10 space-y-10 text-muted-foreground">
         <section>
           <h2 className="text-lg font-semibold text-foreground">§1. Definicje</h2>
           <p className="mt-4 leading-relaxed">
@@ -232,6 +233,7 @@ export default function RegulaminPage() {
             E-mail: kontakt@blueport.studio | Strona: https://blueport.studio
           </p>
         </section>
+        </div>
       </div>
     </Section>
   );

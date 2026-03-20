@@ -10,14 +10,15 @@ export const metadata: Metadata = {
 export default function PolitykaPrywatnosciPage() {
   return (
     <Section as="div" firstOnPage>
-      <h1 className="text-3xl font-semibold tracking-tight text-foreground md:text-4xl">
-        Polityka prywatności
-      </h1>
-      <p className="mt-6 text-muted-foreground">
-        https://blueport.studio | Obowiązuje od: 20 marca 2026
-      </p>
+      <div className="container-narrow">
+        <h1 className="text-3xl font-semibold tracking-tight text-foreground md:text-4xl">
+          Polityka prywatności
+        </h1>
+        <p className="mt-6 text-muted-foreground">
+          https://blueport.studio | Obowiązuje od: 20 marca 2026
+        </p>
 
-      <div className="mt-10 container-narrow space-y-10 text-muted-foreground">
+        <div className="mt-10 space-y-10 text-muted-foreground">
         <section>
           <h2 className="text-lg font-semibold text-foreground">§1. Administrator danych osobowych</h2>
           <p className="mt-4 leading-relaxed">
@@ -185,6 +186,7 @@ export default function PolitykaPrywatnosciPage() {
             Panoramiczna 5/6, 71-447 Szczecin, NIP: 5252788177, REGON: 383198229
           </p>
         </section>
+        </div>
       </div>
     </Section>
   );
