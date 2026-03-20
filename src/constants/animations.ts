@@ -1,28 +1,28 @@
 // ─── Easings ───────────────────────────────────────────────────
 export const ease = {
-  // Sprężysty — do wejść elementów, kart, modali
+  // Springy — for element, card, and modal entrances
   spring: [0.16, 1, 0.3, 1],
-  // Płynny out — do menu, dropdownów
+  // Smooth out — for menu and dropdown exits
   smooth: [0.25, 0.46, 0.45, 0.94],
-  // Ostry in — do zamknięć, wyjść
+  // Sharp in — for close and exit transitions
   sharp: [0.4, 0, 0.2, 1],
-  // Delikatny — do opacity, kolorów
+  // Gentle — for opacity and color transitions
   gentle: [0.4, 0, 0.6, 1],
 } as const;
 
-// ─── Duracje ───────────────────────────────────────────────────
+// ─── Durations ─────────────────────────────────────────────────
 export const duration = {
-  instant: 0.1, // feedback na klik
-  fast: 0.2, // hover stany
-  base: 0.35, // większość UI
-  slow: 0.5, // wejścia sekcji
-  hero: 0.8, // hero, page transitions
+  instant: 0.1, // click feedback
+  fast: 0.2, // hover states
+  base: 0.35, // most UI transitions
+  slow: 0.5, // section entrances
+  hero: 0.8, // hero and page transitions
 } as const;
 
-// ─── Warianty wielokrotnego użytku ─────────────────────────────
-// FILOZOFIA: mały ruch, wolne pojawienie, dużo opacity — zero "wyskakiwania"
+// ─── Reusable Variants ────────────────────────────────────────
+// Philosophy: small motion, slow reveal, and opacity-first — no "popping"
 export const variants = {
-  // Główny wariant wejścia — ledwo widoczny ruch, dominuje opacity
+  // Main entrance — barely noticeable motion, opacity does the work
   fadeUp: {
     hidden: { opacity: 0, y: 10 },
     visible: {
@@ -37,7 +37,7 @@ export const variants = {
     },
   },
 
-  // Czyste fade — zero ruchu, tylko opacity
+  // Pure fade — no movement, opacity only
   fadeIn: {
     hidden: { opacity: 0 },
     visible: {
@@ -50,7 +50,7 @@ export const variants = {
     },
   },
 
-  // Karty — minimalne scale, dominuje opacity
+  // Cards — minimal scale with opacity-led emphasis
   scaleIn: {
     hidden: { opacity: 0, scale: 0.98, y: 8 },
     visible: {
@@ -66,7 +66,7 @@ export const variants = {
     },
   },
 
-  // Slide z lewej — tylko dla drawer/sidebar
+  // Slide from left — intended for drawers and sidebars only
   slideRight: {
     hidden: { opacity: 0, x: -16 },
     visible: {
@@ -81,7 +81,7 @@ export const variants = {
     },
   },
 
-  // Stagger — wolniejszy stagger = elegantszy
+  // Stagger — slower stagger reads as more polished
   stagger: {
     hidden: {},
     visible: {
@@ -92,7 +92,7 @@ export const variants = {
     },
   },
 
-  // Hero stagger — każdy element wchodzi spokojnie
+  // Hero stagger — elements enter smoothly
   staggerHero: {
     hidden: {},
     visible: {
@@ -104,7 +104,7 @@ export const variants = {
   },
 } as const;
 
-// ─── Spring configs — wytłumione, bez odbicia ──────────────────
+// ─── Spring configs ────────────────────────────────────────────
 export const springs = {
   smooth: {
     type: "spring" as const,

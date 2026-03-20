@@ -86,7 +86,7 @@ export const PACKAGES = {
   },
 } as const;
 
-/** Add-on groups: 1=Widoczność, 2=Sprzedaż (sklep), 3=Automatyzacja, 4=Skalowanie (Next.js). */
+/** Add-on groups: 1=Visibility, 2=Sales (shop), 3=Automation, 4=Scaling (Next.js) */
 export const FEATURES = {
   "seo-advanced": {
     id: "seo-advanced",
