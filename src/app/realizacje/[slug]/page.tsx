@@ -335,9 +335,11 @@ export default async function CaseStudyPage({ params }: PageParamsSlug) {
                   <Image
                     src={meta.image}
                     alt={`Podgląd strony ${study.title}`}
-                    fill
+                    width={800}
+                    height={500}
                     sizes="(min-width: 1024px) 45vw, (min-width: 768px) 50vw, 90vw"
                     className="object-cover object-top"
+                    loading="lazy"
                   />
                 </div>
               </div>

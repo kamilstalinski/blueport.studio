@@ -332,9 +332,8 @@ export function Hero({ contentKey = "Home.hero" }: { contentKey?: HeroContentKey
               {content.stats}
             </m.div>
 
-            {/* H1 */}
-            <m.h1
-              variants={v.fadeUp}
+            {/* H1 (LCP): renderowany od razu bez initial/variants, żeby nie ukrywać największego elementu */}
+            <h1
               className="font-heading text-white font-extrabold leading-[1.08] tracking-tight max-w-[560px] text-[clamp(2rem,8vw,2.8rem)] md:text-[clamp(2.6rem,5.5vw,4rem)]"
               style={{ letterSpacing: "-0.03em" }}
             >
@@ -360,7 +359,7 @@ export function Hero({ contentKey = "Home.hero" }: { contentKey?: HeroContentKey
                   {titleHighlight}
                 </span>
               )}
-            </m.h1>
+            </h1>
 
             {/* Subheadline — fade-only (no movement) */}
             <m.p

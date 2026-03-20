@@ -170,7 +170,7 @@ export function HeroVisual(): React.ReactElement {
 
       {/* ── Center logo ── */}
       <div className={styles.logoCore} aria-hidden>
-        <Image src="/circle-logo.svg" alt="" width={200} height={200} />
+        <Image src="/circle-logo.svg" alt="" width={200} height={200} priority />
       </div>
     </div>
   );

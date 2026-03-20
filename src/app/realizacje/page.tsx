@@ -84,8 +84,10 @@ export default function RealizacjePage() {
                         <Image
                           src={study.image}
                           alt={study.name}
-                          fill
+                          width={800}
+                          height={500}
                           sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                          loading="lazy"
                         />
                       ) : (
                         <span className="img-placeholder">Podgląd wkrótce</span>

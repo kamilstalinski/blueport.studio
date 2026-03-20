@@ -106,6 +106,12 @@ export default function RootLayout({ children }: RootLayoutProps) {
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd()) }}
         />
+        <link
+          rel="preload"
+          href="/circle-logo.svg"
+          as="image"
+          type="image/svg+xml"
+        />
         <ThemeInitScript />
       </head>
       <body className="font-body min-h-screen bg-transparent text-text-primary antialiased transition-[background-color,color] duration-250 ease-out">
