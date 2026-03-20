@@ -1,7 +1,6 @@
 import { Resend } from "resend";
 import { NextResponse } from "next/server";
 import type { ContactFormData } from "@/types/contact.types";
-import { LOGO_BASE64 } from "@/lib/emailAssets";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -35,31 +34,18 @@ export async function POST(request: Request) {
   try {
     const body = (await request.json()) as Partial<ContactFormData>;
 
-    if (
-      !body?.name ||
-      !body?.email ||
-      !body?.message ||
-      !body?.projectType
-    ) {
-      return NextResponse.json(
-        { error: "Brakuje wymaganych pól" },
-        { status: 400 }
-      );
+    if (!body?.name || !body?.email || !body?.message || !body?.projectType) {
+      return NextResponse.json({ error: "Brakuje wymaganych pól" }, { status: 400 });
     }
 
     if (!isValidEmail(body.email)) {
-      return NextResponse.json(
-        { error: "Nieprawidłowy format email" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "Nieprawidłowy format email" }, { status: 400 });
     }
 
     const contactData = body as ContactFormData;
-    const projectLabel =
-      PROJECT_TYPE_LABELS[contactData.projectType] ?? contactData.projectType;
+    const projectLabel = PROJECT_TYPE_LABELS[contactData.projectType] ?? contactData.projectType;
 
-    const ownerEmail =
-      process.env.OWNER_EMAIL ?? process.env.NOTIFICATION_EMAIL;
+    const ownerEmail = process.env.OWNER_EMAIL ?? process.env.NOTIFICATION_EMAIL;
     const resendFrom = process.env.RESEND_FROM;
 
     if (!ownerEmail || !resendFrom) {
@@ -74,29 +60,21 @@ export async function POST(request: Request) {
       sendClientConfirmation(contactData, resendFrom),
     ]);
 
-    const ownerRejected =
-      ownerResult.status === "rejected" ? ownerResult.reason : null;
-    const clientRejected =
-      clientResult.status === "rejected" ? clientResult.reason : null;
+    const ownerRejected = ownerResult.status === "rejected" ? ownerResult.reason : null;
+    const clientRejected = clientResult.status === "rejected" ? clientResult.reason : null;
 
     if (ownerRejected || clientRejected) {
       console.error("Contact email error:", {
         owner: ownerRejected,
         client: clientRejected,
       });
-      return NextResponse.json(
-        { error: "Błąd wysyłki wiadomości" },
-        { status: 500 }
-      );
+      return NextResponse.json({ error: "Błąd wysyłki wiadomości" }, { status: 500 });
     }
 
     return NextResponse.json({ success: true }, { status: 200 });
   } catch (error) {
     console.error("Contact API error:", error);
-    return NextResponse.json(
-      { error: "Błąd serwera" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Błąd serwera" }, { status: 500 });
   }
 }
 
@@ -119,10 +97,7 @@ async function sendOwnerNotification(
   });
 }
 
-async function sendClientConfirmation(
-  data: ContactFormData,
-  resendFrom: string
-): Promise<void> {
+async function sendClientConfirmation(data: ContactFormData, resendFrom: string): Promise<void> {
   await resend.emails.send({
     from: resendFrom,
     to: data.email,
@@ -200,7 +175,7 @@ function ownerEmailHtml(data: ContactFormData, projectLabel: string): string {
   <body style="margin:0;padding:0;background:${d.bg};font-family:Inter,system-ui,sans-serif;">
     <div style="${wrapperStyle}">
       <div style="${headerStyle}">
-        <img src="${LOGO_BASE64}" alt="BluePort Studio" width="70" height="70" style="display:block;width:70px;height:70px;object-fit:contain;" />
+        <img src="https://blueport.studio/images/logo-email.png" alt="BluePort Studio" width="70" height="70" style="display:block;width:70px;height:70px;object-fit:contain;" />
         <div>
           <p style="margin:0;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:${d.textSecondary};">
             BLUEPORT STUDIO
@@ -318,7 +293,7 @@ function clientEmailHtml(data: ContactFormData): string {
   <body style="margin:0;padding:0;background:${d.bg};font-family:Inter,system-ui,sans-serif;">
     <div style="${wrapperStyle}">
       <div style="${headerStyle}">
-        <img src="${LOGO_BASE64}" alt="BluePort Studio" width="70" height="70" style="display:block;width:70px;height:70px;object-fit:contain;margin:0 auto 12px auto;" />
+        <img src="https://blueport.studio/images/logo-email.png" alt="BluePort Studio" width="70" height="70" style="display:block;width:70px;height:70px;object-fit:contain;margin:0 auto 12px auto;" />
         <p style="margin:0;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:${d.textSecondary};">
           BLUEPORT STUDIO
         </p>
@@ -362,4 +337,3 @@ function clientEmailHtml(data: ContactFormData): string {
   </html>
   `;
 }
-
