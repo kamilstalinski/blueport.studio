@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect, useCallback } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import type { useCalculator } from "@/hooks/useCalculator";
 import { PACKAGES } from "@/constants/pricing";
 import type { PackageId } from "@/constants/pricing";
@@ -43,7 +43,7 @@ export function Step1Type({ calculator }: { calculator: CalculatorProps }) {
       <div className="step-options">
         {OPTIONS.map((opt) => (
           <div key={opt.id} className="option-card-wrapper" ref={openDropdownId === opt.id ? dropdownRef : undefined}>
-            <motion.div
+            <m.div
               role="button"
               tabIndex={0}
               onClick={() => setProjectType(opt.id)}
@@ -78,10 +78,10 @@ export function Step1Type({ calculator }: { calculator: CalculatorProps }) {
                   ▼
                 </span>
               </button>
-            </motion.div>
+            </m.div>
             <AnimatePresence>
               {openDropdownId === opt.id && (
-                <motion.div
+                <m.div
                   className="option-dropdown"
                   role="dialog"
                   aria-label="Zawartość pakietu"
@@ -96,7 +96,7 @@ export function Step1Type({ calculator }: { calculator: CalculatorProps }) {
                       <li key={i}>{item}</li>
                     ))}
                   </ul>
-                </motion.div>
+                </m.div>
               )}
             </AnimatePresence>
           </div>

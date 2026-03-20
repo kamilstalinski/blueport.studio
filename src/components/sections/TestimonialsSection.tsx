@@ -1,12 +1,11 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { Section } from "@/components/ui/Section";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
-import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { useMotionSafe } from "@/hooks/useMotionSafe";
 import { springs } from "@/constants/animations";
 import { useGlassBlurStyle } from "@/lib/useGlassBlurStyle";
+import { m } from "framer-motion";
 
 const TESTIMONIALS = [
   {
@@ -31,7 +30,6 @@ const TESTIMONIALS = [
 
 export function TestimonialsSection() {
   const glassBlurSm = useGlassBlurStyle("sm");
-  const { ref, animate } = useScrollAnimation();
   const { variants: v } = useMotionSafe();
 
   return (
@@ -43,15 +41,15 @@ export function TestimonialsSection() {
         </h2>
       </ScrollReveal>
 
-      <motion.div
-        ref={ref}
+      <m.div
         variants={v.stagger}
         initial="hidden"
-        animate={animate}
+        whileInView="visible"
+        viewport={{ once: true, margin: "-50px" }}
         className="testimonials-grid"
       >
         {TESTIMONIALS.map((item, index) => (
-          <motion.div
+          <m.div
             key={index}
             variants={v.scaleIn}
             whileHover={{ y: -3, transition: springs.smooth }}
@@ -72,9 +70,9 @@ export function TestimonialsSection() {
                 <div className="author-company">{item.authorCompany}</div>
               </div>
             </div>
-          </motion.div>
+          </m.div>
         ))}
-      </motion.div>
+      </m.div>
     </Section>
   );
 }

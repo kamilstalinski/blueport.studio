@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { AnimatePresence, m, useReducedMotion } from "framer-motion";
 import type { useCalculator } from "@/hooks/useCalculator";
 import { ease } from "@/constants/animations";
 import { CalculatorProgress } from "./CalculatorProgress";
@@ -85,7 +85,7 @@ export function CalculatorLeft({ calculator }: { calculator: CalculatorProps }) 
 
       <div className="calc-step-viewport">
         <AnimatePresence custom={state.direction} mode="wait">
-          <motion.div
+          <m.div
             key={state.step}
             custom={state.direction}
             variants={slideVariants}
@@ -95,23 +95,23 @@ export function CalculatorLeft({ calculator }: { calculator: CalculatorProps }) 
             className="calc-step-content"
           >
             <StepComponent calculator={calculator} />
-          </motion.div>
+          </m.div>
         </AnimatePresence>
       </div>
 
       <div className="calc-nav">
         {state.step > 0 && (
-          <motion.button
+          <m.button
             type="button"
             onClick={goPrev}
             whileTap={{ scale: 0.97 }}
             className="calc-btn calc-btn--ghost"
           >
             ← Wróć
-          </motion.button>
+          </m.button>
         )}
 
-        <motion.button
+        <m.button
           type="button"
           onClick={isLastStep ? handleSubmit : goNext}
           disabled={!canGoNext || state.isSubmitting || state.isSubmitted}
@@ -127,7 +127,7 @@ export function CalculatorLeft({ calculator }: { calculator: CalculatorProps }) 
               : isLastStep
                 ? "Wyślij zapytanie →"
                 : "Dalej →"}
-        </motion.button>
+        </m.button>
       </div>
     </div>
   );

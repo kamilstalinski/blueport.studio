@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { springs } from "@/constants/animations";
 import type { ButtonProps, ButtonVariant } from "@/types";
@@ -27,7 +27,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     };
 
     return (
-      <motion.button
+      <m.button
         ref={ref}
         whileHover={{
           y: variant === "primary" || variant === "accent" ? -3 : -2,

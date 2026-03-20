@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import type { useCalculator } from "@/hooks/useCalculator";
 import type { BudgetRange } from "@/types/calculator.types";
 import { cn } from "@/lib/utils";
@@ -24,7 +24,7 @@ export function Step4Budget({ calculator }: { calculator: CalculatorProps }) {
 
       <div className="step-options step-options--2col">
         {OPTIONS.map((opt) => (
-          <motion.button
+          <m.button
             key={opt.id}
             type="button"
             onClick={() => setBudget(opt.id)}
@@ -32,7 +32,7 @@ export function Step4Budget({ calculator }: { calculator: CalculatorProps }) {
             className={cn("option-card", state.budget === opt.id && "selected")}
           >
             <div className="option-title">{opt.label}</div>
-          </motion.button>
+          </m.button>
         ))}
       </div>
     </div>

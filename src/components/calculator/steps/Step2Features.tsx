@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo } from "react";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import type { useCalculator } from "@/hooks/useCalculator";
 import { FEATURES, getFeaturesForPackage } from "@/constants/pricing";
 import type { FeatureId, PackageId } from "@/constants/pricing";
@@ -33,7 +33,7 @@ export function Step2Features({ calculator }: { calculator: CalculatorProps }) {
         {featureOptions.map((f) => {
           const isSelected = state.features.includes(f.id);
           return (
-            <motion.button
+            <m.button
               key={f.id}
               type="button"
               onClick={() => toggleFeature(f.id)}
@@ -48,7 +48,7 @@ export function Step2Features({ calculator }: { calculator: CalculatorProps }) {
                 <span className="feature-desc">{f.desc}</span>
               </div>
               <span className="feature-price">{f.price}</span>
-            </motion.button>
+            </m.button>
           );
         })}
       </div>

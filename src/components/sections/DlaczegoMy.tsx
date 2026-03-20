@@ -1,11 +1,10 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { IconBox } from "@/components/ui/IconBox";
 import { Section } from "@/components/ui/Section";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { SpotlightCard } from "@/components/SpotlightCard";
-import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { useMotionSafe } from "@/hooks/useMotionSafe";
 import { springs } from "@/constants/animations";
 import { useGlassBlurStyle } from "@/lib/useGlassBlurStyle";
@@ -63,7 +62,6 @@ const TEXTS: Record<string, { title: string; subtitle: string; items: Record<str
 
 export function DlaczegoMy({ contentKey = "Home.dlaczegoMy", itemKeys, cardVariant = "default" }: DlaczegoMyProps) {
   const glassBlurStyle = useGlassBlurStyle();
-  const { ref, animate } = useScrollAnimation();
   const { variants: v } = useMotionSafe();
   const keys = (itemKeys ?? DEFAULT_KEYS) as string[];
   const content = TEXTS[contentKey];
@@ -81,18 +79,18 @@ export function DlaczegoMy({ contentKey = "Home.dlaczegoMy", itemKeys, cardVaria
 
       <div className="container">
         {contentKey === "realizacjeEfekty" ? (
-          <motion.div
-            ref={ref}
+          <m.div
             variants={v.stagger}
             initial="hidden"
-            animate={animate}
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px" }}
             className="efekty-grid mt-14"
             role="list"
           >
             {keys.map((key) => {
               const emoji = EMOJI_MAP[key] ?? "💳";
               return (
-                <motion.div
+                <m.div
                   key={key}
                   variants={v.scaleIn}
                   whileHover={{ y: -3, transition: springs.smooth }}
@@ -107,16 +105,16 @@ export function DlaczegoMy({ contentKey = "Home.dlaczegoMy", itemKeys, cardVaria
                   <p className="text-white/60 body-small mt-1">
                     {content.itemsDesc[key] ?? ""}
                   </p>
-                </motion.div>
+                </m.div>
               );
             })}
-          </motion.div>
+          </m.div>
         ) : (
-          <motion.div
-            ref={ref}
+          <m.div
             variants={v.stagger}
             initial="hidden"
-            animate={animate}
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px" }}
             className="flex flex-col sm:grid sm:grid-cols-[1fr_auto_1fr_auto_1fr] items-stretch sm:mx-auto mt-14"
             style={{ gap: "var(--grid-gap)" }}
             role="list"
@@ -124,7 +122,7 @@ export function DlaczegoMy({ contentKey = "Home.dlaczegoMy", itemKeys, cardVaria
             {keys.flatMap((key, index) => {
               const emoji = EMOJI_MAP[key] ?? "💳";
               const card = (
-                <motion.div
+                <m.div
                   key={key}
                   variants={v.scaleIn}
                   whileHover={{ y: -3, transition: springs.smooth }}
@@ -154,7 +152,7 @@ export function DlaczegoMy({ contentKey = "Home.dlaczegoMy", itemKeys, cardVaria
                     </div>
                   </div>
                 </SpotlightCard>
-                </motion.div>
+                </m.div>
               );
               if (index === 0) return [card];
               return [
@@ -168,7 +166,7 @@ export function DlaczegoMy({ contentKey = "Home.dlaczegoMy", itemKeys, cardVaria
                 card,
               ];
             })}
-          </motion.div>
+          </m.div>
         )}
       </div>
     </Section>

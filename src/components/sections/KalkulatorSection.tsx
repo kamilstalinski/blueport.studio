@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRef, useEffect, useCallback } from "react";
-import { motion, useInView, useMotionValue, useTransform, animate } from "framer-motion";
+import { m, useInView, useMotionValue, useTransform, animate } from "framer-motion";
 import { ease } from "@/constants/animations";
 
 const TOTAL = 60;
@@ -131,10 +131,11 @@ export function KalkulatorSection() {
       <div className="cta-bg-blob" aria-hidden />
 
       <div className="cta-content container-narrow">
-        <motion.div
+        <m.div
           className="timer-wrap"
           initial={{ opacity: 0, scale: 0.75 }}
-          animate={isInView ? { opacity: 1, scale: 1 } : {}}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.6, ease: ease.spring }}
         >
           <div className="timer-ring-container">
@@ -168,13 +169,13 @@ export function KalkulatorSection() {
               />
             </svg>
             <div className="timer-center">
-              <motion.span className="timer-number" id="timerNumber">
+              <m.span className="timer-number" id="timerNumber">
                 {rounded}
-              </motion.span>
+              </m.span>
               <span className="timer-unit">sek</span>
             </div>
           </div>
-        </motion.div>
+        </m.div>
 
         <h2 id="cta-heading" className="cta-heading">
           {beforeHighlight}{" "}

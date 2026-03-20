@@ -22,17 +22,58 @@ export type UseMotionSafeReturn = {
 export function useMotionSafe(): UseMotionSafeReturn {
   const shouldReduce = useReducedMotion();
 
-  if (shouldReduce) {
+  const isSlowConnection =
+    typeof navigator !== "undefined" &&
+    "connection" in navigator &&
+    (() => {
+      type ConnectionInfo = {
+        effectiveType?: string;
+        saveData?: boolean;
+      };
+
+      const connection = (
+        navigator as Navigator & { connection?: ConnectionInfo | undefined }
+      ).connection;
+
+      const effectiveType = connection?.effectiveType;
+      const saveData = connection?.saveData === true;
+
+      const is2g =
+        effectiveType === "2g" ||
+        effectiveType === "slow-2g" ||
+        effectiveType === "3g";
+
+      return is2g || saveData;
+    })();
+
+  if (shouldReduce || isSlowConnection) {
+    const reducedStagger = {
+      hidden: {},
+      visible: {
+        transition: {
+          staggerChildren: 0,
+          delayChildren: 0,
+        },
+      },
+    };
+
     return {
       variants: {
         fadeUp: { hidden: { opacity: 0 }, visible: { opacity: 1 } },
         fadeIn: { hidden: { opacity: 0 }, visible: { opacity: 1 } },
         scaleIn: { hidden: { opacity: 0 }, visible: { opacity: 1 } },
-        stagger: variants.stagger,
-        staggerHero: variants.staggerHero,
+        stagger: reducedStagger,
+        staggerHero: reducedStagger,
         slideRight: { hidden: { opacity: 0 }, visible: { opacity: 1 } },
       },
-      duration: { ...duration, slow: 0.2, hero: 0.3 },
+      duration: {
+        ...duration,
+        instant: 0,
+        fast: 0,
+        base: 0,
+        slow: 0,
+        hero: 0,
+      },
       ease,
     };
   }

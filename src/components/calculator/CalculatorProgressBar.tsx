@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { duration, ease } from "@/constants/animations";
 import { cn } from "@/lib/utils";
 import type { CalculatorProgressBarProps, StepIndex } from "@/types";
@@ -26,7 +26,7 @@ export function CalculatorProgressBar({
     >
       {/* Progress bar spans the full width */}
       <div className="mb-6 h-1 w-full overflow-hidden rounded-none bg-white/15">
-        <motion.div
+        <m.div
           className="h-full rounded-none bg-primary"
           animate={{ width: `${progressPercent}%` }}
           transition={{ duration: duration.slow, ease: ease.spring }}

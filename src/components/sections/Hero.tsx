@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import dynamic from "next/dynamic";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 
 import { Container } from "@/components/ui/Container";
 import { HeroVisual } from "@/components/sections/HeroVisual";
@@ -316,24 +316,24 @@ export function Hero({ contentKey = "Home.hero" }: { contentKey?: HeroContentKey
       >
         {/* Left column — text (z-10 keeps cards underneath) */}
         <div className="relative z-10 flex flex-col justify-center max-w-[560px] w-full">
-          <motion.div
+          <m.div
             variants={v.staggerHero}
             initial="hidden"
             animate="visible"
             className="flex flex-col justify-center max-w-[560px] w-full"
           >
             {/* Badge */}
-            <motion.div
+            <m.div
               variants={v.fadeIn}
               className="hero-badge font-body inline-flex items-center gap-2 w-fit mb-6 rounded-full py-1.5 px-3.5 text-[0.72rem] md:text-[0.75rem] text-white/70 border border-white/20"
               style={{ background: "var(--color-hero-badge-bg)" }}
             >
               <span className="badge-dot w-[7px] h-[7px] rounded-full shrink-0" aria-hidden />
               {content.stats}
-            </motion.div>
+            </m.div>
 
             {/* H1 */}
-            <motion.h1
+            <m.h1
               variants={v.fadeUp}
               className="font-heading text-white font-extrabold leading-[1.08] tracking-tight max-w-[560px] text-[clamp(2rem,8vw,2.8rem)] md:text-[clamp(2.6rem,5.5vw,4rem)]"
               style={{ letterSpacing: "-0.03em" }}
@@ -360,10 +360,10 @@ export function Hero({ contentKey = "Home.hero" }: { contentKey?: HeroContentKey
                   {titleHighlight}
                 </span>
               )}
-            </motion.h1>
+            </m.h1>
 
             {/* Subheadline — fade-only (no movement) */}
-            <motion.p
+            <m.p
               variants={v.fadeIn}
               className="font-body body-lead mt-5 mb-9 max-w-[420px] leading-[1.7] text-muted-foreground"
               style={{
@@ -372,10 +372,10 @@ export function Hero({ contentKey = "Home.hero" }: { contentKey?: HeroContentKey
               }}
             >
               {content.subtitle}
-            </motion.p>
+            </m.p>
 
             {/* CTAs */}
-            <motion.div
+            <m.div
               variants={v.fadeUp}
               className="flex flex-col sm:flex-row flex-nowrap items-stretch sm:items-center justify-start gap-3 w-full pointer-events-auto mt-8"
             >
@@ -428,9 +428,9 @@ export function Hero({ contentKey = "Home.hero" }: { contentKey?: HeroContentKey
                   </button>
                 </CtaLink>
               </span>
-            </motion.div>
+            </m.div>
 
-          </motion.div>
+          </m.div>
         </div>
 
         {/* Right section — HeroVisual (pulse rings, logo, orbit, stat badges); z-1 under the left column; overflow-visible for the glow */}

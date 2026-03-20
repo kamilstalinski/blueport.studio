@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { motion, useReducedMotion } from "framer-motion";
+import { m, useReducedMotion } from "framer-motion";
 import {
   Globe,
   ShoppingCart,
@@ -137,7 +137,7 @@ export function HeroVisual(): React.ReactElement {
         const pos = getPosition(item.angle, item.radius);
         const duration = ORBIT_DURATIONS[i];
         return (
-          <motion.div
+          <m.div
             key={item.label}
             className={styles.orbitSystem}
             animate={noMotion ? undefined : { rotate: 360 }}
@@ -148,7 +148,7 @@ export function HeroVisual(): React.ReactElement {
             }
             aria-hidden
           >
-            <motion.div
+            <m.div
               className={styles.orbitIcon}
               style={{
                 left: `calc(50% + ${pos.x}px - 22px)`,
@@ -163,8 +163,8 @@ export function HeroVisual(): React.ReactElement {
               }
             >
               <item.icon size={18} className="text-white/75" aria-hidden />
-            </motion.div>
-          </motion.div>
+            </m.div>
+          </m.div>
         );
       })}
 

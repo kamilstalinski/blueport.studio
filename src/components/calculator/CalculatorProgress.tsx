@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { ease } from "@/constants/animations";
 
@@ -18,7 +18,7 @@ export function CalculatorProgress({
   return (
     <div className="calc-progress">
       <div className="calc-progress-track">
-        <motion.div
+        <m.div
           className="calc-progress-fill"
           animate={{ width: `${((current + 1) / total) * 100}%` }}
           transition={{ duration: 0.5, ease: ease.smooth }}
@@ -35,7 +35,7 @@ export function CalculatorProgress({
               i === current && "active"
             )}
           >
-            <motion.div
+            <m.div
               className="calc-step-dot"
               animate={{
                 background:
@@ -45,7 +45,7 @@ export function CalculatorProgress({
               transition={{ duration: 0.3 }}
             >
               {i < current ? "✓" : i + 1}
-            </motion.div>
+            </m.div>
             <span className="calc-step-label">{label}</span>
           </div>
         ))}

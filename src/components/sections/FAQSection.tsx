@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import { Section } from "@/components/ui/Section";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { ease } from "@/constants/animations";
@@ -39,7 +39,7 @@ export function FAQSection({ faqKeys }: FAQSectionProps) {
               className={cn("faq-item", isOpen && "open")}
               style={glassBlurSm}
             >
-              <motion.button
+              <m.button
                 type="button"
                 onClick={() => setOpenKey(isOpen ? null : key)}
                 className={cn(
@@ -62,7 +62,7 @@ export function FAQSection({ faqKeys }: FAQSectionProps) {
                 >
                   {item.q}
                 </span>
-                <motion.span
+                <m.span
                   animate={{ rotate: isOpen ? 180 : 0 }}
                   transition={{ duration: 0.25, ease: ease.spring }}
                   className={cn(
@@ -71,8 +71,8 @@ export function FAQSection({ faqKeys }: FAQSectionProps) {
                   aria-hidden
                 >
                   ▼
-                </motion.span>
-              </motion.button>
+                </m.span>
+              </m.button>
               <div
                 id={`faq-answer-${key}`}
                 role="region"
@@ -82,7 +82,7 @@ export function FAQSection({ faqKeys }: FAQSectionProps) {
               >
                 <AnimatePresence initial={false}>
                   {isOpen && (
-                    <motion.div
+                    <m.div
                       key="content"
                       initial={{ height: 0, opacity: 0 }}
                       animate={{
@@ -105,7 +105,7 @@ export function FAQSection({ faqKeys }: FAQSectionProps) {
                       <p className="text-white/70 leading-relaxed" style={{ paddingInline: "var(--card-padding)", paddingTop: "var(--space-2)", paddingBottom: "var(--space-3)" }}>
                         {item.a}
                       </p>
-                    </motion.div>
+                    </m.div>
                   )}
                 </AnimatePresence>
               </div>

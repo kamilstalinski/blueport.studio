@@ -2,13 +2,12 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { IconBox } from "@/components/ui/IconBox";
 import { Section } from "@/components/ui/Section";
 import { Button } from "@/components/ui/Button";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { SpotlightCard } from "@/components/SpotlightCard";
-import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { useMotionSafe } from "@/hooks/useMotionSafe";
 import { springs } from "@/constants/animations";
 import { cn } from "@/lib/utils";
@@ -35,7 +34,6 @@ type WordPressVariant = "strona-start" | "strona-pro";
 
 export function OfertaPakiety({ topGradient = true, cardVariant = "default" }: OfertaPakietyProps) {
   const glassBlurStyle = useGlassBlurStyle();
-  const { ref, animate } = useScrollAnimation();
   const { variants: v } = useMotionSafe();
   const [wordPressVariant, setWordPressVariant] = useState<WordPressVariant>("strona-pro");
 
@@ -46,8 +44,8 @@ export function OfertaPakiety({ topGradient = true, cardVariant = "default" }: O
     const cta = "Sprawdź wycenę";
 
     return (
-      <motion.div key={packageId} variants={v.scaleIn} className="h-full min-h-0">
-        <motion.div
+      <m.div key={packageId} variants={v.scaleIn} className="h-full min-h-0">
+        <m.div
           className="h-full"
           whileHover={{ y: -3, transition: springs.smooth }}
           whileTap={{ scale: 0.992, transition: springs.stiff }}
@@ -108,8 +106,8 @@ export function OfertaPakiety({ topGradient = true, cardVariant = "default" }: O
               </div>
             </article>
           </SpotlightCard>
-        </motion.div>
-      </motion.div>
+        </m.div>
+      </m.div>
     );
   };
 
@@ -122,11 +120,11 @@ export function OfertaPakiety({ topGradient = true, cardVariant = "default" }: O
       </ScrollReveal>
 
       <div className="container relative z-10">
-        <motion.div
-          ref={ref}
+        <m.div
           variants={v.stagger}
           initial="hidden"
-          animate={animate}
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
           className="grid grid-cols-1 md:grid-cols-3 items-stretch"
           style={{ gap: "var(--grid-gap)" }}
         >
@@ -208,8 +206,8 @@ export function OfertaPakiety({ topGradient = true, cardVariant = "default" }: O
               const cta = "Sprawdź wycenę";
 
               return (
-                <motion.div key="wordpress-merge" variants={v.scaleIn} className="h-full min-h-0">
-                  <motion.div
+                <m.div key="wordpress-merge" variants={v.scaleIn} className="h-full min-h-0">
+                  <m.div
                     className="h-full"
                     whileHover={{ y: -3, transition: springs.smooth }}
                     whileTap={{ scale: 0.992, transition: springs.stiff }}
@@ -271,13 +269,13 @@ export function OfertaPakiety({ topGradient = true, cardVariant = "default" }: O
                         </div>
                       </article>
                     </SpotlightCard>
-                  </motion.div>
-                </motion.div>
+                  </m.div>
+                </m.div>
               );
             }
             return renderPackageCard(item, index);
           })}
-        </motion.div>
+        </m.div>
 
         <p className="body-small text-white/50 mt-10 text-center">
           Nie wiesz, który pakiet wybrać?{" "}

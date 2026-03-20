@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { m, useScroll, useTransform } from "framer-motion";
 import { Grainient } from "@/components/Grainient";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 
@@ -55,7 +55,7 @@ export function GlobalGradientBackground() {
       aria-hidden
     >
       {/* Extension above and below the viewport — subtle scroll parallax */}
-      <motion.div
+      <m.div
         style={{
           position: "absolute",
           top: "-20vh",
@@ -93,7 +93,7 @@ export function GlobalGradientBackground() {
           className="absolute inset-0 h-full w-full"
           resizeDebounceMs={120}
         />
-      </motion.div>
+      </m.div>
     </div>
   );
 }

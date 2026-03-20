@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 import { ThemeInitScript } from "@/app/theme-script";
 import { ConditionalChrome } from "@/components/layout/ConditionalChrome";
 import { SmoothScroll } from "@/components/providers/SmoothScroll";
+import { LazyMotionProvider } from "@/components/providers/LazyMotionProvider";
 import { GlobalGradientBackground } from "@/components/effects/GlobalGradientBackground";
 import { localBusinessJsonLd, websiteJsonLd } from "@/lib/jsonLd";
 import type { RootLayoutProps } from "@/types";
@@ -116,11 +117,13 @@ export default function RootLayout({ children }: RootLayoutProps) {
           Przejdź do treści
         </a>
         <SpeedInsights />
-        <GlobalGradientBackground />
-        <div className="page-grid-overlay" aria-hidden />
-        <SmoothScroll>
-          <ConditionalChrome>{children}</ConditionalChrome>
-        </SmoothScroll>
+        <LazyMotionProvider>
+          <GlobalGradientBackground />
+          <div className="page-grid-overlay" aria-hidden />
+          <SmoothScroll>
+            <ConditionalChrome>{children}</ConditionalChrome>
+          </SmoothScroll>
+        </LazyMotionProvider>
       </body>
     </html>
   );

@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import type { useCalculator } from "@/hooks/useCalculator";
 
 type CalculatorProps = ReturnType<typeof useCalculator>;
@@ -10,7 +10,7 @@ export function Step5Contact({ calculator }: { calculator: CalculatorProps }) {
 
   if (state.isSubmitted) {
     return (
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: 8 }}
         animate={{ opacity: 1, y: 0 }}
         className="step step--success"
@@ -20,7 +20,7 @@ export function Step5Contact({ calculator }: { calculator: CalculatorProps }) {
         <p className="step-desc">
           Odpiszemy na <strong>{state.contact.email}</strong> w ciągu 24h.
         </p>
-      </motion.div>
+      </m.div>
     );
   }
 
