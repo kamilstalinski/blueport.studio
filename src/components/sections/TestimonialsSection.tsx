@@ -9,9 +9,24 @@ import { springs } from "@/constants/animations";
 import { useGlassBlurStyle } from "@/lib/useGlassBlurStyle";
 
 const TESTIMONIALS = [
-  { text: "Strona gotowa w 10 dni, wszystko zgodnie z ustaleniami. Ruch z Google wzrósł 3x w ciągu miesiąca.", authorName: "Marek Kowalski", authorCompany: "Usługi hydrauliczne, Szczecin", initials: "MK" },
-  { text: "Profesjonalna obsługa od A do Z. Sklep działa bez zarzutu, klienci chwalą prostotę zamawiania.", authorName: "Anna Nowak", authorCompany: "Sklep z rękodziełem, Poznań", initials: "AN" },
-  { text: "W końcu mam stronę, z której jestem zadowolona. Szybki kontakt, konkretna wycena i termin dotrzymany w 100%.", authorName: "Katarzyna Wiśniewska", authorCompany: "Pracownia florystyczna, Gdańsk", initials: "KW" },
+  {
+    text: "Strona gotowa w 10 dni, wszystko zgodnie z ustaleniami. Ruch z Google wzrósł 3x w ciągu miesiąca.",
+    authorName: "Kamil Głogowski",
+    authorCompany: "Vilmart Water Services, Szczecin",
+    initials: "KG",
+  },
+  {
+    text: "Profesjonalna obsługa od A do Z. Sklep działa bez zarzutu, klienci chwalą prostotę zamawiania.",
+    authorName: "Sebastian Stoczyński",
+    authorCompany: "Dobre Precle, Wrocław",
+    initials: "AN",
+  },
+  {
+    text: "W końcu mam stronę, z której jestem zadowolona. Szybki kontakt, konkretna wycena i termin dotrzymany w 100%.",
+    authorName: "Katarzyna Wiśniewska",
+    authorCompany: "Pracownia florystyczna, Gdańsk",
+    initials: "KW",
+  },
 ];
 
 export function TestimonialsSection() {
@@ -22,12 +37,9 @@ export function TestimonialsSection() {
   return (
     <Section id="opinie" className="section-testimonials">
       <ScrollReveal variant="fadeUp" className="section-testimonials-head">
-        <p className="section-testimonials-eyebrow">
-          Opinie
-        </p>
+        <p className="section-testimonials-eyebrow">Opinie</p>
         <h2 className="heading-2 text-white mt-0">
-          Co mówią{" "}
-          <span className="text-primary">nasi klienci.</span>
+          Co mówią <span className="text-primary">nasi klienci.</span>
         </h2>
       </ScrollReveal>
 
