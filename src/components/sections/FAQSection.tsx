@@ -7,12 +7,17 @@ import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { ease } from "@/constants/animations";
 import { cn } from "@/lib/utils";
 import { useGlassBlurStyle } from "@/lib/useGlassBlurStyle";
-import type { FAQSectionProps } from "@/types";
 import { DEFAULT_FAQ_KEYS, FAQ_ITEMS } from "@/constants/faq";
+import type { FAQKey } from "@/constants/faq";
+import type { FAQSectionProps } from "@/types";
+
+function isFAQKey(key: string): key is FAQKey {
+  return key in FAQ_ITEMS;
+}
 
 export function FAQSection({ faqKeys }: FAQSectionProps) {
-  const keys = (faqKeys ?? DEFAULT_FAQ_KEYS) as readonly string[];
-  const [openKey, setOpenKey] = useState<string | null>(keys[0] ?? null);
+  const keys = Array.from(faqKeys ?? DEFAULT_FAQ_KEYS).filter(isFAQKey);
+  const [openKey, setOpenKey] = useState<FAQKey | null>(keys[0] ?? null);
   const glassBlurSm = useGlassBlurStyle("sm");
 
   return (
