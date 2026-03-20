@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint src --ext .ts,.tsx",
-    "format": "prettier --write \"src/**/*.{ts,tsx,json,css,md}\""
+    "format": "prettier --write \"src/**/*.{ts,tsx,json,css,md}\"",
+    "deploy": "git checkout prod && git merge main && git push origin prod; git checkout main"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",

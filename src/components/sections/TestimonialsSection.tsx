@@ -17,15 +17,15 @@ const TESTIMONIALS = [
   },
   {
     text: "Profesjonalna obsługa od A do Z. Sklep działa bez zarzutu, klienci chwalą prostotę zamawiania.",
-    authorName: "Sebastian Stoczyński",
-    authorCompany: "Dobre Precle, Wrocław",
-    initials: "AN",
+    authorName: "Igor Romanowski",
+    authorCompany: "SPAVALNIA, Warszawa",
+    initials: "IR",
   },
   {
-    text: "W końcu mam stronę, z której jestem zadowolona. Szybki kontakt, konkretna wycena i termin dotrzymany w 100%.",
-    authorName: "Katarzyna Wiśniewska",
-    authorCompany: "Pracownia florystyczna, Gdańsk",
-    initials: "KW",
+    text: "W końcu mam stronę, z której jestem zadowolony. Szybki kontakt, konkretna wycena i termin dotrzymany w 100%.",
+    authorName: "Andrzej Szymko",
+    authorCompany: "After The Sin, Poznań",
+    initials: "AS",
   },
 ];
 
