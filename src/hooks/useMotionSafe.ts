@@ -6,13 +6,23 @@ type SimpleVariant = {
   visible: { opacity: number };
 };
 
+type StaggerVariant = {
+  hidden: {};
+  visible: {
+    transition: {
+      staggerChildren: number;
+      delayChildren: number;
+    };
+  };
+};
+
 export type UseMotionSafeReturn = {
   variants: typeof variants | {
     fadeUp: SimpleVariant;
     fadeIn: SimpleVariant;
     scaleIn: SimpleVariant;
-    stagger: (typeof variants)["stagger"];
-    staggerHero: (typeof variants)["staggerHero"];
+    stagger: StaggerVariant;
+    staggerHero: StaggerVariant;
     slideRight: SimpleVariant;
   };
   duration: Record<keyof typeof duration, number>;
