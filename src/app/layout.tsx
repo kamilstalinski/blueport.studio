@@ -9,7 +9,6 @@ import { LazyMotionProvider } from "@/components/providers/LazyMotionProvider";
 import { GlobalGradientBackground } from "@/components/effects/GlobalGradientBackground";
 import { localBusinessJsonLd, websiteJsonLd } from "@/lib/jsonLd";
 import type { RootLayoutProps } from "@/types";
-import { SpeedInsights } from "@vercel/speed-insights/next";
 
 export const inter = Inter({
   subsets: ["latin", "latin-ext"],
@@ -116,7 +115,6 @@ export default function RootLayout({ children }: RootLayoutProps) {
         >
           Przejdź do treści
         </a>
-        <SpeedInsights />
         <LazyMotionProvider>
           <GlobalGradientBackground />
           <div className="page-grid-overlay" aria-hidden />
