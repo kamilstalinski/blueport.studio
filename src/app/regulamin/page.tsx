@@ -1,4 +1,11 @@
+import type { Metadata } from "next";
 import { Section } from "@/components/ui/Section";
+
+export const metadata: Metadata = {
+  title: "Regulamin",
+  alternates: { canonical: "https://blueport.studio/regulamin" },
+  robots: { index: false, follow: false },
+};
 
 export default function RegulaminPage() {
   return (

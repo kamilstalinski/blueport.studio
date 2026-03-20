@@ -1,9 +1,18 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { Hero } from "@/components/sections/Hero";
 import { Section } from "@/components/ui/Section";
 import { GlassCard } from "@/components/ui/GlassCard";
 import { CTA } from "@/components/sections/CTA";
 import { ContactForm } from "@/components/contact/ContactForm";
+
+export const metadata: Metadata = {
+  title: "Kontakt — Blueport Studio Szczecin",
+  description:
+    "Skontaktuj się z nami. Studio webowe Szczecin — odpiszemy w ciągu 24h. Bezpłatna konsultacja i wycena projektu.",
+  alternates: { canonical: "https://blueport.studio/kontakt" },
+  openGraph: { url: "https://blueport.studio/kontakt" },
+};
 
 export default function KontaktPage() {
   return (

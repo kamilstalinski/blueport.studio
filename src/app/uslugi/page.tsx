@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { Hero } from "@/components/sections/Hero";
 import { OfertaPakiety } from "@/components/sections/OfertaPakiety";
@@ -7,6 +8,14 @@ import { FAQSection } from "@/components/sections/FAQSection";
 import { KalkulatorSection } from "@/components/sections/KalkulatorSection";
 import { CTA } from "@/components/sections/CTA";
 import { PACKAGES } from "@/constants/pricing";
+
+export const metadata: Metadata = {
+  title: "Usługi — Strony i sklepy internetowe",
+  description:
+    "Tworzymy strony firmowe, sklepy WooCommerce i aplikacje webowe w Next.js. Sprawdź co możemy dla Ciebie zrobić.",
+  alternates: { canonical: "https://blueport.studio/uslugi" },
+  openGraph: { url: "https://blueport.studio/uslugi" },
+};
 
 export default function UslugiPage() {
   return (

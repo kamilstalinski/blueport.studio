@@ -6,6 +6,7 @@ import { ThemeInitScript } from "@/app/theme-script";
 import { ConditionalChrome } from "@/components/layout/ConditionalChrome";
 import { SmoothScroll } from "@/components/providers/SmoothScroll";
 import { GlobalGradientBackground } from "@/components/effects/GlobalGradientBackground";
+import { localBusinessJsonLd, websiteJsonLd } from "@/lib/jsonLd";
 import type { RootLayoutProps } from "@/types";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
@@ -32,35 +33,60 @@ export const metadata: Metadata = {
     template: "%s | Blueport Studio",
   },
   description:
-    "Tworzymy nowoczesne strony internetowe i sklepy w Next.js. Szczecin i cała Polska. Bezpłatna wycena online.",
+    "Studio webowe z Szczecina. Tworzymy strony internetowe i sklepy online w Next.js i WordPress. Szybkie, nowoczesne, zoptymalizowane pod SEO. Bezpłatna wycena online.",
   keywords: [
     "strony internetowe Szczecin",
+    "studio webowe Szczecin",
+    "tworzenie stron internetowych Szczecin",
     "agencja webowa Szczecin",
-    "Next.js",
+    "sklepy internetowe Szczecin",
+    "Next.js Szczecin",
     "WordPress Szczecin",
+    "strony internetowe",
+    "web development Polska",
   ],
+  authors: [{ name: "Kamil", url: "https://blueport.studio" }],
+  creator: "Blueport Studio",
+  publisher: "Blueport Studio",
   openGraph: {
     type: "website",
     locale: "pl_PL",
     url: "https://blueport.studio",
     siteName: "Blueport Studio",
     title: "Blueport Studio — Strony internetowe Szczecin",
-    description: "Nowoczesne strony w Next.js. Wycena online w 60 sekund.",
-    images: [{ url: "/og-image.png", width: 1200, height: 630 }],
+    description:
+      "Studio webowe z Szczecina. Strony i sklepy w Next.js i WordPress. Wycena online w 60 sekund.",
+    images: [
+      {
+        url: "/og/og-default.png",
+        width: 1200,
+        height: 630,
+        alt: "Blueport Studio — Studio webowe Szczecin",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Blueport Studio",
-    description: "Strony internetowe Szczecin — Next.js, WordPress",
-    images: ["/og-image.png"],
+    title: "Blueport Studio — Strony internetowe Szczecin",
+    description: "Studio webowe z Szczecina. Strony i sklepy w Next.js i WordPress.",
+    images: ["/og/og-default.png"],
   },
   robots: {
     index: true,
     follow: true,
-    googleBot: { index: true, follow: true },
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
   },
   icons: {
     icon: "/circle-logo.svg",
+  },
+  alternates: {
+    canonical: "https://blueport.studio",
   },
 };
 
@@ -72,6 +98,14 @@ export default function RootLayout({ children }: RootLayoutProps) {
       suppressHydrationWarning
     >
       <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessJsonLd()) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd()) }}
+        />
         <ThemeInitScript />
       </head>
       <body className="font-body min-h-screen bg-transparent text-text-primary antialiased transition-[background-color,color] duration-250 ease-out">

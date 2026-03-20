@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { Hero } from "@/components/sections/Hero";
@@ -59,6 +60,14 @@ const caseStudies = [
     domain: "spavalnia.pl",
   },
 ];
+
+export const metadata: Metadata = {
+  title: "Realizacje — Portfolio Blueport Studio",
+  description:
+    "Zobacz nasze realizacje — strony firmowe, sklepy internetowe i aplikacje webowe. Projekty dla firm z Szczecina i całej Polski.",
+  alternates: { canonical: "https://blueport.studio/realizacje" },
+  openGraph: { url: "https://blueport.studio/realizacje" },
+};
 
 export default function RealizacjePage() {
   return (

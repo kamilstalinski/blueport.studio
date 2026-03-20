@@ -1,4 +1,11 @@
+import type { Metadata } from "next";
 import { Section } from "@/components/ui/Section";
+
+export const metadata: Metadata = {
+  title: "Polityka prywatności",
+  alternates: { canonical: "https://blueport.studio/polityka-prywatnosci" },
+  robots: { index: false, follow: false },
+};
 
 export default function PolitykaPrywatnosciPage() {
   return (
