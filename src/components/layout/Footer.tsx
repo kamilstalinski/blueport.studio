@@ -58,6 +58,7 @@ export function Footer() {
           <span>© {new Date().getFullYear()} Blueport Studio</span>
           <span className="foot-legal">
             <Link href="/polityka-prywatnosci">Polityka prywatności</Link>
+            <span aria-hidden="true">·</span>
             <Link href="/regulamin">Regulamin</Link>
           </span>
         </div>

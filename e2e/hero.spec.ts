@@ -1,3 +1,4 @@
+import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
 
 test("home hero carries the Budowa copy, CTAs and the crane quay", async ({ page }) => {
@@ -77,4 +78,17 @@ test.describe("reduced motion Budowa", () => {
     await expect(page.locator("section#hero .bd-pane")).toHaveAttribute("data-stage", "3", { timeout: 1500 });
     await expect(page.locator("section#hero .bw.in")).toHaveCount(16);
   });
+});
+
+test("home hero, navbar and footer have no axe violations", async ({ page }) => {
+  await page.goto("/");
+  await expect(page.locator("section#hero .bd-pane")).toHaveAttribute("data-stage", "3", { timeout: 6000 });
+
+  const results = await new AxeBuilder({ page })
+    .include("header.nav")
+    .include("section#hero")
+    .include("footer#site-footer")
+    .analyze();
+
+  expect(results.violations).toEqual([]);
 });
