@@ -59,8 +59,10 @@ export function HeroBuildFrame() {
   const site = HERO_WORK[cycle.site];
   const isLive = cycle.stage === 3;
 
+  /* No entrance animation on the frame: with the h1 sliding too, Chrome dropped both as LCP
+     candidates in about half of the page loads. The build sequence is the frame's entrance. */
   return (
-    <div className="rise lag1">
+    <div>
       <div className="frame bd-frame">
         <div className="chrome">
           <PixelIcon name="lock" />
