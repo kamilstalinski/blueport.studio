@@ -67,6 +67,15 @@ export function HeroBuildFrame() {
           <span>{isLive ? site.domain : PLACEHOLDER_DOMAIN}</span>
         </div>
         <div className="bd-pane" data-stage={cycle.stage}>
+          <Image
+            className="bd-shot"
+            src={site.image}
+            alt="Przykładowa realizacja"
+            fill
+            sizes="(max-width: 1000px) 100vw, 560px"
+            priority={cycle.site === 0}
+          />
+          <div className="bd-cover" aria-hidden="true" />
           <svg className="bd-wire" viewBox="0 0 400 330" shapeRendering="crispEdges" aria-hidden="true">
             {STRUCTURE.map((wire, index) => (
               <rect
@@ -89,14 +98,6 @@ export function HeroBuildFrame() {
               />
             ))}
           </svg>
-          <Image
-            className="bd-shot"
-            src={site.image}
-            alt={`Strona ${site.name}`}
-            fill
-            sizes="(max-width: 1000px) 100vw, 560px"
-            priority={cycle.site === 0}
-          />
         </div>
       </div>
       <ol className="bd-steps" data-keep-out aria-hidden="true">

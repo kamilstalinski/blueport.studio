@@ -3,7 +3,7 @@ import { ButtonLink } from "@/components/ui/ButtonLink";
 export function HeroCopy() {
   return (
     <div>
-      <h1 className="d1 rise" data-keep-out>
+      <h1 className="d1 rise-slide" data-keep-out>
         Strony internetowe, które sprzedają.
       </h1>
       <p className="lede rise lag1" data-keep-out>

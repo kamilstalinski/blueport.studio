@@ -288,9 +288,12 @@ body {
   min-height: min(72vh, 660px);
 }
 .rise { animation: kafel-rise .6s var(--ease-out) both; }
+/* slide only, no fade: the h1 stays visible from the first frame so it can be the LCP element */
+.rise-slide { animation: kafel-rise-slide .6s var(--ease-out) both; }
 .lag1 { animation-delay: .07s; }
 .lag2 { animation-delay: .14s; }
 @keyframes kafel-rise { from { opacity: 0; transform: translateY(16px); } }
+@keyframes kafel-rise-slide { from { transform: translateY(16px); } }
 
 /* ── Cranes on an accent quay beam. Cells are 0.4% of the width: 128×59 cranes + a 5-cell beam. */
 .hero-cranes { position: absolute; right: 0; bottom: 1.39vw; z-index: 0; display: block; width: 35.56%; height: auto; pointer-events: none; }
@@ -307,7 +310,7 @@ body {
   .hero-cta .btn { flex: 1 1 auto; justify-content: center; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .rise { animation: none; }
+  .rise, .rise-slide { animation: none; }
 }
 
 /* ── Kursor field: behind copy and cranes, above the paper ─────────── */
@@ -338,19 +341,27 @@ body {
 }
 
 /* ── Budowa: grid, layout, content, then the real site ─────────────── */
-.bd-pane { position: relative; aspect-ratio: 400 / 330; background: var(--paper-2); }
+/* Layers, bottom to top: screenshot, cover, dot grid, wires. The screenshot paints unclipped from the
+   first frame (so it can be the LCP image); the opaque cover hides it until stage 3 wipes the
+   cover, grid and wires away top to bottom. */
+.bd-pane { position: relative; isolation: isolate; aspect-ratio: 400 / 330; background: var(--paper-2); }
 .bd-pane::before {
   content: "";
   position: absolute;
   inset: 0;
+  z-index: 2;
   background: var(--line-strong);
   opacity: .9;
   -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3E%3Crect width='2' height='2'/%3E%3C/svg%3E") 0 0 / 16px 16px;
   mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3E%3Crect width='2' height='2'/%3E%3C/svg%3E") 0 0 / 16px 16px;
   transition: opacity .4s var(--ease-out);
 }
-.bd-pane[data-stage="3"]::before { opacity: 0; }
-.bd-wire { position: absolute; inset: 0; width: 100%; height: 100%; }
+.bd-wire { position: absolute; inset: 0; z-index: 3; width: 100%; height: 100%; }
+.bd-cover { position: absolute; inset: 0; z-index: 1; background: var(--paper-2); }
+.bd-cover, .bd-wire { clip-path: inset(0 0 0 0); }
+.bd-pane[data-stage="3"]::before { opacity: 0; clip-path: inset(100% 0 0 0); transition: opacity .4s var(--ease-out), clip-path .7s var(--ease-in-out); }
+.bd-pane[data-stage="3"] .bd-cover,
+.bd-pane[data-stage="3"] .bd-wire { clip-path: inset(100% 0 0 0); transition: clip-path .7s var(--ease-in-out); }
 .bw {
   fill: none;
   stroke: var(--line-strong);
@@ -365,8 +376,7 @@ body {
 .bw-bar { fill: var(--ink-3); stroke: none; }
 .bw-dim { fill: var(--line-strong); }
 .bw-cta { fill: var(--cobalt); stroke: none; }
-.bd-shot { object-fit: cover; object-position: top; clip-path: inset(0 0 100% 0); }
-.bd-pane[data-stage="3"] .bd-shot { clip-path: inset(0 0 0 0); transition: clip-path .7s var(--ease-in-out); }
+.bd-shot { z-index: 0; object-fit: cover; object-position: top; }
 .bd-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 16px 0 0; padding: 0; list-style: none; }
 .bd-steps li { display: flex; align-items: center; gap: 8px; color: var(--ink-3); font-size: .86rem; font-weight: 600; transition: color .25s var(--ease-out); }
 .bd-steps li svg { color: var(--line-strong); transition: color .25s var(--ease-out); }
@@ -377,5 +387,6 @@ body {
   .bd-steps { grid-template-columns: repeat(2, 1fr); }
 }
 @media (prefers-reduced-motion: reduce) {
-  .bw, .bd-steps li, .bd-steps li svg, .bd-pane::before, .bd-pane[data-stage="3"] .bd-shot { transition: none; }
+  .bw, .bd-steps li, .bd-steps li svg, .bd-pane::before, .bd-pane[data-stage="3"]::before,
+  .bd-pane[data-stage="3"] .bd-cover, .bd-pane[data-stage="3"] .bd-wire { transition: none; }
 }
