@@ -108,3 +108,58 @@ body {
   body { font-size: 16px; }
   .shell { padding-inline: 20px; }
 }
+
+/* ── Brand ──────────────────────────────────────────────────────────── */
+.brand {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  --logo-ink: var(--ink);
+  --logo-sub: var(--ink-2);
+  --logo-t1: var(--cobalt);
+  --logo-t2: var(--logo-deep);
+}
+.brand-logo { display: inline-flex; align-items: center; gap: 9px; }
+.brand-logo svg { display: block; flex: 0 0 auto; }
+.logo-ink { fill: var(--logo-ink); }
+.logo-sub { fill: var(--logo-sub); }
+.logo-t1 { fill: var(--logo-t1); }
+.logo-t2 { fill: var(--logo-t2); }
+
+.px-ico { display: inline-flex; vertical-align: -.12em; line-height: 0; }
+.px-ico svg, .px-tile { display: block; }
+
+/* ── Buttons: square, 2px, brand fill carries the stepped Kafel corner ─ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: .55em;
+  padding: 13px 22px;
+  border: 2px solid transparent;
+  border-radius: 0;
+  font-family: inherit;
+  font-size: .975rem;
+  font-weight: 600;
+  letter-spacing: -.01em;
+  white-space: nowrap;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color .16s ease, border-color .16s ease, color .16s ease, transform .14s var(--ease-out);
+}
+.btn:active { transform: scale(.97); }
+.btn .px-ico { transition: transform .22s var(--ease-out); }
+@media (hover: hover) and (pointer: fine) {
+  .btn:hover .px-ico { transform: translateX(3px); }
+}
+.btn-primary {
+  background: var(--cobalt);
+  color: var(--on-cobalt);
+  clip-path: polygon(0 0, calc(100% - 8px) 0, calc(100% - 8px) 4px, calc(100% - 4px) 4px, calc(100% - 4px) 8px, 100% 8px, 100% 100%, 0 100%);
+}
+.btn-primary:hover { background: var(--cobalt-deep); }
+.btn-secondary { background: var(--paper); color: var(--ink); border-color: var(--line-strong); }
+.btn-secondary:hover { background: var(--paper-2); border-color: var(--ink); }
+
+@media (prefers-reduced-motion: reduce) {
+  .btn, .btn .px-ico { transition: none; }
+}
