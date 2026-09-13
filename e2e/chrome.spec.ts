@@ -36,3 +36,25 @@ test.describe("navbar on mobile", () => {
     await expect(links).toBeHidden();
   });
 });
+
+test("footer links every section and the legal pages", async ({ page }) => {
+  await page.goto("/");
+  const footer = page.getByRole("contentinfo");
+
+  for (const [name, href] of [
+    ["Usługi", "/uslugi"],
+    ["Cennik", "/cennik"],
+    ["Kalkulator wyceny", "/kalkulator"],
+    ["Realizacje", "/realizacje"],
+    ["Proces", "/proces"],
+    ["O nas", "/o-nas"],
+    ["Kontakt", "/kontakt"],
+    ["FAQ", "/faq"],
+    ["Polityka prywatności", "/polityka-prywatnosci"],
+    ["Regulamin", "/regulamin"],
+  ] as const) {
+    await expect(footer.getByRole("link", { name, exact: true })).toHaveAttribute("href", href);
+  }
+  await expect(footer.getByRole("link", { name: "kontakt@blueport.studio" })).toHaveAttribute("href", "mailto:kontakt@blueport.studio");
+  await expect(footer).toContainText(`© ${new Date().getFullYear()} Blueport Studio`);
+});
