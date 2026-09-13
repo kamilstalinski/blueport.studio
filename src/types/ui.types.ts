@@ -77,7 +77,6 @@ export interface SmoothScrollProps {
 }
 
 export type HeroContentKey =
-  | "Home.hero"
   | "uslugi.hero"
   | "realizacje.hero"
   | "proces.hero"

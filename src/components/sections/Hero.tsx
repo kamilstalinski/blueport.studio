@@ -21,7 +21,7 @@ const HERO_NOISE_SVG = `data:image/svg+xml,${encodeURIComponent(
 )}`;
 
 const HERO_TEXTS: Record<
-  Exclude<HeroContentKey, "Home.hero">,
+  HeroContentKey,
   {
     title: string;
     subtitle: string;
@@ -111,7 +111,7 @@ function CtaLink({
   );
 }
 
-export function Hero({ contentKey }: { contentKey: Exclude<HeroContentKey, "Home.hero"> }) {
+export function Hero({ contentKey }: { contentKey: HeroContentKey }) {
   const content = HERO_TEXTS[contentKey];
   const heroBendsColors = [HERO_BENDS_PRIMARY, HERO_BENDS_ACCENT_2];
 
