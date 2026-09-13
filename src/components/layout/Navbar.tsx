@@ -22,6 +22,7 @@ export function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const listRef = useRef<HTMLUListElement>(null);
   const markRef = useRef<HTMLLIElement>(null);
+  const burgerRef = useRef<HTMLButtonElement>(null);
 
   /* the square under the links: follows the hovered link, rests on the current one */
   const placeMark = useCallback((target: HTMLElement | null) => {
@@ -51,7 +52,10 @@ export function Navbar() {
   useEffect(() => {
     if (!isMenuOpen) return;
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setIsMenuOpen(false);
+      if (event.key !== "Escape") return;
+      setIsMenuOpen(false);
+      /* the links are about to be hidden: hand focus back to the control that opened them */
+      burgerRef.current?.focus();
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
@@ -106,6 +110,7 @@ export function Navbar() {
             Sprawdź koszt
           </ButtonLink>
           <button
+            ref={burgerRef}
             type="button"
             className="nav-burger"
             aria-expanded={isMenuOpen}

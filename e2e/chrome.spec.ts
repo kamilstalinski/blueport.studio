@@ -32,8 +32,10 @@ test.describe("navbar on mobile", () => {
     await expect(links).toBeVisible();
     await expect(page.getByRole("button", { name: "Zamknij menu" })).toHaveAttribute("aria-expanded", "true");
 
+    await links.getByRole("link", { name: "Cennik" }).focus();
     await page.keyboard.press("Escape");
     await expect(links).toBeHidden();
+    await expect(page.getByRole("button", { name: "Otwórz menu" })).toBeFocused();
   });
 });
 
