@@ -28,20 +28,42 @@ const paintedPixels = (page: import("@playwright/test").Page) =>
     return painted;
   });
 
+/* Alpha of one 16px trail cell (TRAIL_CELL in src/lib/hero/cursorTrail.ts), sampled at its centre. */
+const cellAlpha = (page: import("@playwright/test").Page, cellX: number, cellY: number) =>
+  page.evaluate(
+    ([x, y]) => {
+      const canvas = document.querySelector<HTMLCanvasElement>("section#hero canvas.hero-cursor");
+      const context = canvas?.getContext("2d");
+      if (!canvas || !context || canvas.width === 0) return -1;
+      const dpr = canvas.width / canvas.getBoundingClientRect().width;
+      return context.getImageData(Math.floor((x * 16 + 8) * dpr), Math.floor((y * 16 + 8) * dpr), 1, 1).data[3];
+    },
+    [cellX, cellY],
+  );
+
 test.describe("Kursor field", () => {
   test.skip(({ isMobile }) => isMobile, "pointer trail is a desktop interaction");
 
-  test("paints accent cells where the pointer moves outside the copy", async ({ page }) => {
+  test("paints the accent cell under the pointer and leaves cells off the path blank", async ({ page }) => {
+    /* a fixed random pins every ambient cell to the bottom-right corner and suppresses pointer neighbours */
+    await page.addInitScript(() => {
+      Math.random = () => 0.999;
+    });
     await page.goto("/");
     const hero = page.locator("section#hero");
+    await expect.poll(() => cellAlpha(page, 0, 0)).toBeGreaterThanOrEqual(0);
     const box = await hero.boundingBox();
     if (!box) throw new Error("hero has no box");
 
-    const y = box.y + box.height - 40;
-    await page.mouse.move(box.x + 40, y);
-    for (let step = 1; step <= 12; step++) await page.mouse.move(box.x + 40 + step * 20, y);
+    const y = box.height - 40;
+    const lastX = 40 + 12 * 20;
+    await page.mouse.move(box.x + 40, box.y + y);
+    for (let step = 1; step <= 12; step++) await page.mouse.move(box.x + 40 + step * 20, box.y + y);
 
-    await expect.poll(() => paintedPixels(page)).toBeGreaterThan(0);
+    const cellX = Math.floor(lastX / 16);
+    const cellY = Math.floor(y / 16);
+    await expect.poll(() => cellAlpha(page, cellX, cellY), { timeout: 1000 }).toBeGreaterThan(0);
+    expect(await cellAlpha(page, cellX, cellY - 8)).toBe(0);
   });
 });
 
