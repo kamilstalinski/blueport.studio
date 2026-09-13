@@ -57,3 +57,24 @@ test.describe("reduced motion", () => {
     expect(await paintedPixels(page)).toBe(0);
   });
 });
+
+test("Budowa builds the page and reveals a real client site", async ({ page }) => {
+  await page.goto("/");
+  const pane = page.locator("section#hero .bd-pane");
+  const chrome = page.locator("section#hero .bd-frame .chrome");
+
+  await expect(chrome).toContainText("nowa-strona.pl");
+  await expect(pane).toHaveAttribute("data-stage", "3", { timeout: 6000 });
+  await expect(chrome).toContainText("dobreprecle.pl");
+  await expect(page.locator("section#hero .bd-steps li.on")).toHaveCount(4);
+});
+
+test.describe("reduced motion Budowa", () => {
+  test.use({ contextOptions: { reducedMotion: "reduce" } });
+
+  test("shows the finished site straight away", async ({ page }) => {
+    await page.goto("/");
+    await expect(page.locator("section#hero .bd-pane")).toHaveAttribute("data-stage", "3", { timeout: 1500 });
+    await expect(page.locator("section#hero .bw.in")).toHaveCount(16);
+  });
+});

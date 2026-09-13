@@ -22,3 +22,9 @@ export type TrailRect = { left: number; top: number; right: number; bottom: numb
 export type TrailGrid = { cols: number; rows: number; blocked: Uint8Array };
 
 export type TrailCell = { x: number; y: number; life: number; accent: boolean };
+
+export type BuildStage = 0 | 1 | 2 | 3;
+
+export type BuildFrame = { at: number; stage: BuildStage; wiresOn: number; barsOn: number };
+
+export type BuildCycle = BuildFrame & { site: number };

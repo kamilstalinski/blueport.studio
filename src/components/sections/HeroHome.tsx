@@ -1,3 +1,4 @@
+import { HeroBuildFrame } from "@/components/sections/HeroBuildFrame";
 import { HeroCopy } from "@/components/sections/HeroCopy";
 import { HeroCranes } from "@/components/sections/HeroCranes";
 import { HeroCursorField } from "@/components/sections/HeroCursorField";
@@ -9,6 +10,7 @@ export function HeroHome() {
       <HeroCranes />
       <div className="shell bd-grid">
         <HeroCopy />
+        <HeroBuildFrame />
       </div>
     </section>
   );
