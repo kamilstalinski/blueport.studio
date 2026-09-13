@@ -16,3 +16,9 @@ export type ModularMark = { cols: number; rows: number; modules: readonly MarkMo
 export type MarkRect = { x: number; y: number; width: number; height: number; tone: MarkTone };
 
 export type CraneRun = { x: number; y: number; w: number };
+
+export type TrailRect = { left: number; top: number; right: number; bottom: number };
+
+export type TrailGrid = { cols: number; rows: number; blocked: Uint8Array };
+
+export type TrailCell = { x: number; y: number; life: number; accent: boolean };

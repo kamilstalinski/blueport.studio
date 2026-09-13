@@ -15,3 +15,45 @@ test("home hero carries the Budowa copy, CTAs and the crane quay", async ({ page
   expect(Math.round((quayBox?.y ?? 0) + (quayBox?.height ?? 0))).toBe(Math.round((heroBox?.y ?? 0) + (heroBox?.height ?? 0)));
   await expect(hero.locator("svg.hero-cranes")).toBeVisible();
 });
+
+const paintedPixels = (page: import("@playwright/test").Page) =>
+  page.evaluate(() => {
+    const canvas = document.querySelector<HTMLCanvasElement>("section#hero canvas.hero-cursor");
+    const context = canvas?.getContext("2d");
+    if (!canvas || !context || canvas.width === 0) return 0;
+    const data = context.getImageData(0, 0, canvas.width, canvas.height).data;
+    let painted = 0;
+    for (let i = 3; i < data.length; i += 4) if (data[i] > 0) painted++;
+    return painted;
+  });
+
+test.describe("Kursor field", () => {
+  test.skip(({ isMobile }) => isMobile, "pointer trail is a desktop interaction");
+
+  test("paints accent cells where the pointer moves outside the copy", async ({ page }) => {
+    await page.goto("/");
+    const hero = page.locator("section#hero");
+    const box = await hero.boundingBox();
+    if (!box) throw new Error("hero has no box");
+
+    const y = box.y + box.height - 40;
+    await page.mouse.move(box.x + 40, y);
+    for (let step = 1; step <= 12; step++) await page.mouse.move(box.x + 40 + step * 20, y);
+
+    await expect.poll(() => paintedPixels(page)).toBeGreaterThan(0);
+  });
+});
+
+test.describe("reduced motion", () => {
+  test.use({ contextOptions: { reducedMotion: "reduce" } });
+
+  test("keeps the Kursor field blank", async ({ page }) => {
+    await page.goto("/");
+    const box = await page.locator("section#hero").boundingBox();
+    if (!box) throw new Error("hero has no box");
+    await page.mouse.move(box.x + 60, box.y + box.height - 40);
+    await page.mouse.move(box.x + 200, box.y + box.height - 40);
+    await page.waitForTimeout(400);
+    expect(await paintedPixels(page)).toBe(0);
+  });
+});
