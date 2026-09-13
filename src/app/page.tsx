@@ -1,4 +1,4 @@
-import { Hero } from "@/components/sections/Hero";
+import { HeroHome } from "@/components/sections/HeroHome";
 import dynamic from "next/dynamic";
 
 const ProblemRozwiazanie = dynamic(
@@ -37,7 +37,7 @@ const CTA = dynamic(
 export default function HomePage() {
   return (
     <>
-      <Hero />
+      <HeroHome />
       <ProblemRozwiazanie />
       <DlaczegoMy />
       <OfertaPakiety topGradient={false} />

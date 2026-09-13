@@ -269,3 +269,38 @@ body {
 
 @media (max-width: 1000px) { .foot-grid { grid-template-columns: 1fr 1fr; gap: 32px; } }
 @media (max-width: 760px) { .foot-grid { grid-template-columns: 1fr; } }
+
+/* ── Home hero shell ────────────────────────────────────────────────── */
+.hero { position: relative; overflow: hidden; padding-top: clamp(32px, 3.4vw, 46px); padding-bottom: clamp(56px, 6vw, 84px); }
+.hero > .shell { position: relative; z-index: 1; }
+.hero .lede { margin-top: 18px; }
+.hero-cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+.bd-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, .95fr);
+  gap: clamp(32px, 4vw, 64px);
+  align-items: center;
+  min-height: min(72vh, 660px);
+}
+.rise { animation: kafel-rise .6s var(--ease-out) both; }
+.lag1 { animation-delay: .07s; }
+.lag2 { animation-delay: .14s; }
+@keyframes kafel-rise { from { opacity: 0; transform: translateY(16px); } }
+
+/* ── Cranes on an accent quay beam. Cells are 0.4% of the width: 128×59 cranes + a 5-cell beam. */
+.hero-cranes { position: absolute; right: 0; bottom: 1.39vw; z-index: 0; display: block; width: 35.56%; height: auto; pointer-events: none; }
+.hero-cranes path { fill: color-mix(in srgb, var(--deco) 40%, var(--paper)); }
+.hero-quay { position: absolute; left: 0; right: 0; bottom: 0; z-index: 0; height: 1.39vw; background: var(--cobalt); pointer-events: none; }
+
+@media (max-width: 1000px) {
+  .bd-grid { grid-template-columns: 1fr; min-height: 0; }
+}
+@media (max-width: 760px) {
+  .hero { padding-bottom: calc(38.2vw + 24px); }
+  .hero-cranes { width: 76.4%; bottom: 2.99vw; }
+  .hero-quay { height: 2.99vw; }
+  .hero-cta .btn { flex: 1 1 auto; justify-content: center; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .rise { animation: none; }
+}

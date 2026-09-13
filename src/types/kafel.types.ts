@@ -14,3 +14,5 @@ export type MarkModule = { x: number; y: number; w: number; h: number; tone: Mar
 export type ModularMark = { cols: number; rows: number; modules: readonly MarkModule[] };
 
 export type MarkRect = { x: number; y: number; width: number; height: number; tone: MarkTone };
+
+export type CraneRun = { x: number; y: number; w: number };
