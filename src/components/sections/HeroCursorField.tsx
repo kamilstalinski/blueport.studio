@@ -75,6 +75,7 @@ export function HeroCursorField() {
     };
 
     const handlePointerMove = (event: PointerEvent) => {
+      if (event.pointerType !== "mouse") return;
       const bounds = hero.getBoundingClientRect();
       cells = addPointer(cells, grid, event.clientX - bounds.left, event.clientY - bounds.top, Math.random);
     };
