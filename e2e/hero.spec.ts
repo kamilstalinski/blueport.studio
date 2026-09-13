@@ -51,7 +51,11 @@ test.describe("Kursor field", () => {
     });
     await page.goto("/");
     const hero = page.locator("section#hero");
-    await expect.poll(() => cellAlpha(page, 0, 0)).toBeGreaterThanOrEqual(0);
+    /* hydrated: the field has measured the hero (an unmeasured canvas keeps its default 300px width) */
+    await page.waitForFunction(() => {
+      const canvas = document.querySelector<HTMLCanvasElement>("section#hero canvas.hero-cursor");
+      return !!canvas && canvas.width > 300;
+    });
     const box = await hero.boundingBox();
     if (!box) throw new Error("hero has no box");
 
@@ -81,13 +85,17 @@ test.describe("reduced motion", () => {
   });
 });
 
+/* the Budowa timeline reaches stage 3 at 3760ms after hydration (src/lib/hero/buildTimeline.ts) */
+const STAGE_3_TIMEOUT_MS = 8000;
+
 test("Budowa builds the page and reveals a real client site", async ({ page }) => {
   await page.goto("/");
   const pane = page.locator("section#hero .bd-pane");
   const chrome = page.locator("section#hero .bd-frame .chrome");
 
   await expect(chrome).toContainText("nowa-strona.pl");
-  await expect(pane).toHaveAttribute("data-stage", "3", { timeout: 6000 });
+  await page.waitForLoadState("networkidle");
+  await expect(pane).toHaveAttribute("data-stage", "3", { timeout: STAGE_3_TIMEOUT_MS });
   await expect(chrome).toContainText("dobreprecle.pl");
   await expect(page.locator("section#hero .bd-steps li.on")).toHaveCount(4);
 });
@@ -97,6 +105,7 @@ test.describe("reduced motion Budowa", () => {
 
   test("shows the finished site straight away", async ({ page }) => {
     await page.goto("/");
+    await page.waitForLoadState("networkidle");
     await expect(page.locator("section#hero .bd-pane")).toHaveAttribute("data-stage", "3", { timeout: 1500 });
     await expect(page.locator("section#hero .bw.in")).toHaveCount(16);
   });
@@ -104,7 +113,8 @@ test.describe("reduced motion Budowa", () => {
 
 test("home hero, navbar and footer have no axe violations", async ({ page }) => {
   await page.goto("/");
-  await expect(page.locator("section#hero .bd-pane")).toHaveAttribute("data-stage", "3", { timeout: 6000 });
+  await page.waitForLoadState("networkidle");
+  await expect(page.locator("section#hero .bd-pane")).toHaveAttribute("data-stage", "3", { timeout: STAGE_3_TIMEOUT_MS });
 
   const results = await new AxeBuilder({ page })
     .include("header.nav")
