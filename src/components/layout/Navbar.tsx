@@ -59,6 +59,7 @@ export function Navbar() {
 
   const handleLinkEnter = useCallback(
     (event: React.PointerEvent<HTMLAnchorElement>) => {
+      if (event.pointerType !== "mouse") return;
       listRef.current?.classList.add("preview");
       placeMark(event.currentTarget);
     },
