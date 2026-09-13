@@ -1,29 +1,28 @@
 import type { Metadata } from "next";
 import "@/styles/globals.css";
-import { Inter, Space_Grotesk } from "next/font/google";
+import "@/styles/kafel.css";
+import { Bricolage_Grotesque, Schibsted_Grotesk } from "next/font/google";
 import { cn } from "@/lib/utils";
-import { ThemeInitScript } from "@/app/theme-script";
 import { ConditionalChrome } from "@/components/layout/ConditionalChrome";
 import { SmoothScroll } from "@/components/providers/SmoothScroll";
 import { LazyMotionProvider } from "@/components/providers/LazyMotionProvider";
-import { GlobalGradientBackground } from "@/components/effects/GlobalGradientBackground";
 import { localBusinessJsonLd, websiteJsonLd } from "@/lib/jsonLd";
 import type { RootLayoutProps } from "@/types";
 
-export const inter = Inter({
+export const schibstedGrotesk = Schibsted_Grotesk({
   subsets: ["latin", "latin-ext"],
   display: "swap",
   preload: true,
   variable: "--font-body",
-  weight: ["400", "500", "600"],
+  weight: ["400", "500", "600", "700"],
 });
 
-export const spaceGrotesk = Space_Grotesk({
+export const bricolageGrotesque = Bricolage_Grotesque({
   subsets: ["latin", "latin-ext"],
   display: "swap",
   preload: true,
   variable: "--font-heading",
-  weight: ["400", "500", "600", "700"],
+  axes: ["opsz"],
 });
 
 export const metadata: Metadata = {
@@ -82,9 +81,6 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
-  icons: {
-    icon: "/circle-logo.svg",
-  },
   alternates: {
     canonical: "https://blueport.studio",
   },
@@ -94,7 +90,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html
       lang="pl"
-      className={cn(inter.variable, spaceGrotesk.variable)}
+      className={cn(schibstedGrotesk.variable, bricolageGrotesque.variable, "dark")}
       suppressHydrationWarning
     >
       <head>
@@ -106,24 +102,15 @@ export default function RootLayout({ children }: RootLayoutProps) {
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd()) }}
         />
-        <link
-          rel="preload"
-          href="/circle-logo.svg"
-          as="image"
-          type="image/svg+xml"
-        />
-        <ThemeInitScript />
       </head>
-      <body className="font-body min-h-screen bg-transparent text-text-primary antialiased transition-[background-color,color] duration-250 ease-out">
+      <body className="font-body min-h-screen antialiased">
         <a
           href="#main-content"
-          className="skip-link fixed left-4 top-0 z-[9999] -translate-y-full rounded-b-lg bg-primary px-4 py-2.5 font-heading text-sm font-bold text-[var(--color-on-primary)] shadow-lg transition-transform focus:translate-y-0 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-bg"
+          className="skip-link fixed left-4 top-0 z-[9999] -translate-y-full bg-primary px-4 py-2.5 font-heading text-sm font-bold text-[var(--color-on-primary)] transition-transform focus:translate-y-0 focus:outline-none"
         >
           Przejdź do treści
         </a>
         <LazyMotionProvider>
-          <GlobalGradientBackground />
-          <div className="page-grid-overlay" aria-hidden />
           <SmoothScroll>
             <ConditionalChrome>{children}</ConditionalChrome>
           </SmoothScroll>

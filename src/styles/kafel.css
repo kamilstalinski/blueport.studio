@@ -1,0 +1,110 @@
+/* ═══ KAFEL ═══════════════════════════════════════════════════════════
+   Design system from public/_redesign/index.html, palette Boja, dark.
+   Loaded after globals.css.                                            */
+
+/* ── Tokens ─────────────────────────────────────────────────────────── */
+:root {
+  --paper: #08192A; --paper-2: #0D2236;
+  --ink: #F3F6F9; --ink-2: #A9BDCC; --ink-3: #7D93A5;
+  --line: #173450; --line-strong: #244664;
+  --deep: #04101C; --on-deep: #F3F6F9; --on-deep-2: #93A9BC;
+  --deep-line: rgba(255, 255, 255, .11);
+  --cobalt: #FF6A2B; --cobalt-deep: #FF8A55; --cobalt-ink: #FF7E45; --cobalt-wash: #2A1E1A;
+  --on-cobalt: #1A0A02; --on-cobalt-2: #532009; --lift: #FF6A2B;
+  --danger: #FF9AA2; --nav-bg: rgba(8, 25, 42, .88); --logo-deep: #C2410C;
+  /* hero decoration tint (cranes) */
+  --deco: var(--cobalt);
+  --px-lift: color-mix(in srgb, var(--ink) 9%, transparent);
+  --ease-out: cubic-bezier(.23, 1, .32, 1);
+  --ease-in-out: cubic-bezier(.77, 0, .175, 1);
+  --shell: 1240px;
+  color-scheme: dark;
+}
+
+/* ── Legacy bridge: pages not yet redesigned read --color-* tokens.
+      html.dark outranks the .dark blocks in globals.css.              */
+html.dark {
+  --color-bg: var(--paper);
+  --color-surface: var(--paper-2);
+  --color-surface-alt: var(--paper-2);
+  --color-border: var(--line);
+  --color-text-primary: var(--ink);
+  --color-text-secondary: var(--ink-2);
+  --color-primary: var(--cobalt);
+  --color-primary-hover: var(--cobalt-deep);
+  --color-primary-subtle: var(--cobalt-wash);
+  --color-on-primary: var(--on-cobalt);
+  --color-accent: var(--cobalt);
+  --color-accent-hover: var(--cobalt-deep);
+  --color-accent-active: var(--cobalt);
+  --color-accent-subtle: var(--cobalt-wash);
+  --color-accent-border: var(--line-strong);
+  --color-accent-glow: transparent;
+  --color-primary-glow: transparent;
+  --color-primary-glow-hover: transparent;
+  --color-cta-ring-glow: var(--cobalt);
+  --color-accent-2: var(--cobalt);
+  --color-accent-2-subtle: var(--cobalt-wash);
+  --color-accent-orange: var(--cobalt);
+  --color-accent-orange-hover: var(--cobalt-deep);
+  --color-accent-orange-subtle: var(--cobalt-wash);
+  --glass-bg: var(--paper-2);
+  --glass-border: var(--line-strong);
+  --glass-border-top: var(--line-strong);
+  --glass-shadow: none;
+  --glass-bg-hover: var(--paper-2);
+  --glass-border-hover: var(--cobalt);
+  --glass-border-top-hover: var(--cobalt);
+  --glass-nav-bg: var(--nav-bg);
+  --glass-nav-bg-hover: var(--nav-bg);
+  --glass-nav-border: var(--line);
+  --glass-nav-border-hover: var(--line-strong);
+  --glass-nav-shadow: none;
+  --glass-bg-dark: var(--paper-2);
+  --glass-border-dark: var(--line-strong);
+  --glow-left: transparent;
+  --glow-right: transparent;
+  --color-gradient-mesh-1: var(--paper);
+  --color-gradient-mesh-2: var(--paper);
+  --color-hero-fade: var(--paper);
+  --color-footer-from: var(--deep);
+  --color-footer-via: var(--deep);
+  --color-footer-to: var(--deep);
+  --section-tone-primary: var(--paper);
+  --section-tone-lighter: var(--paper-2);
+  --section-tone-deepest: var(--deep);
+  --color-ring-offset: var(--paper);
+  --color-section-gray: var(--paper-2);
+  /* the navbar is sticky and in flow now, so legacy offsets collapse */
+  --navbar-height: 0px;
+}
+
+/* ── Base ───────────────────────────────────────────────────────────── */
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body), system-ui, sans-serif;
+  font-size: 17px;
+  line-height: 1.6;
+}
+::selection { background: var(--cobalt); color: var(--on-cobalt); }
+:focus-visible { outline: 2px solid var(--cobalt); outline-offset: 3px; border-radius: 0; }
+
+.shell { width: 100%; max-width: var(--shell); margin-inline: auto; padding-inline: 28px; }
+
+.d1 {
+  margin: 0;
+  font-family: var(--font-heading), var(--font-body), sans-serif;
+  font-size: clamp(2.5rem, 5.1vw, 4.4rem);
+  font-weight: 700;
+  line-height: 1.04;
+  letter-spacing: -.03em;
+  text-wrap: balance;
+}
+.lede { font-size: clamp(1.05rem, 1.35vw, 1.2rem); line-height: 1.55; color: var(--ink-2); max-width: 52ch; }
+
+@media (max-width: 760px) {
+  body { font-size: 16px; }
+  .shell { padding-inline: 20px; }
+}
