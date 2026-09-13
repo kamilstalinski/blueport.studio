@@ -163,3 +163,79 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .btn, .btn .px-ico { transition: none; }
 }
+
+/* ── Navbar: "Pasek", one full-bleed ribbon ─────────────────────────── */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--nav-bg);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--line);
+}
+.nav-in { height: 68px; display: flex; align-items: center; gap: 32px; }
+.nav-right { display: flex; align-items: center; gap: 32px; margin-left: auto; }
+.nav-links { position: relative; display: flex; gap: 26px; margin: 0; padding: 0; list-style: none; }
+.nav-links a {
+  position: relative;
+  padding: 6px 0;
+  color: var(--ink-2);
+  font-size: .95rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: color .16s var(--ease-out);
+}
+.nav-links a:hover { color: var(--ink); }
+.nav-links a[aria-current="page"] { color: var(--ink); font-weight: 600; }
+.nav-mark {
+  position: absolute;
+  bottom: -15px;
+  left: 0;
+  width: 7px;
+  height: 7px;
+  background: var(--cobalt);
+  opacity: var(--o, 0);
+  transform: translateX(var(--x, 0)) scale(calc(.4 + var(--s, 0) * .6));
+  transition: transform .28s var(--ease-out), opacity .2s var(--ease-out);
+  pointer-events: none;
+}
+.nav-links.preview .nav-mark { opacity: .45; }
+.nav-sep { flex: 0 0 auto; width: 6px; height: 6px; margin-inline: -14px; background: var(--line-strong); }
+.nav-burger {
+  display: none;
+  width: 40px;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: 2px solid var(--line-strong);
+  color: var(--ink);
+  cursor: pointer;
+}
+
+@media (max-width: 760px) {
+  .nav-right { gap: 10px; }
+  .nav-links {
+    display: none;
+    position: fixed;
+    top: 80px;
+    left: 12px;
+    right: 12px;
+    z-index: 60;
+    flex-direction: column;
+    gap: 0;
+    padding: 6px 18px;
+    background: var(--paper);
+    border: 2px solid var(--line);
+  }
+  .nav-links.open { display: flex; }
+  .nav-links li { display: block; width: 100%; }
+  .nav-links a { display: block; width: 100%; padding: 14px 0; font-size: 1rem; border-bottom: 1px solid var(--line); }
+  .nav-links li:last-child a { border-bottom: 0; }
+  .nav-links .nav-mark, .nav-sep, .nav-cta { display: none; }
+  .nav-burger { display: inline-flex; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-mark { transition: opacity .2s linear; }
+}

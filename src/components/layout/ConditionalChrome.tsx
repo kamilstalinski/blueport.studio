@@ -22,14 +22,12 @@ export function ConditionalChrome({ children }: { children: React.ReactNode }) {
 
   return (
     <>
+      <Navbar />
       <div className="layout-root relative flex min-h-screen flex-col">
         <main id="main-content" className="flex-1 min-h-full">
           {children}
         </main>
         <Footer />
-      </div>
-      <div className="fixed left-0 right-0 top-0 z-30 isolate">
-        <Navbar />
       </div>
       <ScrollToTop />
     </>
