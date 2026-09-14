@@ -203,3 +203,17 @@ test.describe("kontakt form", () => {
     await expect(page.getByRole("button", { name: "Wyślij zapytanie" })).toBeEnabled();
   });
 });
+
+test("o nas keeps the story, approach, technologies and audience", async ({ page }) => {
+  await page.goto("/o-nas");
+
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Tworzymy strony, które sprzedają. Bez chaosu.");
+  for (const heading of ["Po co powstał Blueport?", "Jak pracujemy?", "Technologia dopasowana do celu", "Dla kogo jesteśmy", "Dla kogo nie jesteśmy", "Pracujemy lokalnie i zdalnie"]) {
+    await expect(page.getByRole("heading", { name: heading })).toBeVisible();
+  }
+  await expect(page.locator(".about-cards article")).toHaveCount(3);
+  await expect(page.getByRole("link", { name: "Zobacz pełny proces" })).toHaveAttribute("href", "/proces");
+  await expect(page.locator("main section.cta-band")).toHaveCount(1);
+
+  await expectNoAxeViolations(page);
+});

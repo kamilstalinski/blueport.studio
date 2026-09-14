@@ -1,6 +1,7 @@
 import { existsSync } from "node:fs";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
+import { ABOUT_APPROACH, ABOUT_FOR, ABOUT_NOT_FOR, ABOUT_STORY, ABOUT_TECHS } from "@/constants/about";
 import { CASE_STUDIES, isWorkSlug } from "@/constants/caseStudies";
 import { HOME_TIERS, PACKAGES, PRICE_TABLE_HEADS, PRICE_TABLE_ROWS } from "@/constants/pricing";
 import { PROCESS_STEPS, TALLY } from "@/constants/process";
@@ -92,5 +93,15 @@ describe("CASE_STUDIES", () => {
   it("recognises only known slugs", () => {
     expect(isWorkSlug("vilmart")).toBe(true);
     expect(isWorkSlug("nie-ma")).toBe(false);
+  });
+});
+
+describe("ABOUT copy", () => {
+  it("keeps the legacy O nas content", () => {
+    expect(ABOUT_STORY).toHaveLength(3);
+    expect(ABOUT_APPROACH.map((item) => item.title)).toEqual(["Konkret zamiast chaosu", "Jasna wycena", "Małe studio = pełna odpowiedzialność"]);
+    expect(ABOUT_TECHS).toEqual(["WordPress", "WooCommerce", "Next.js"]);
+    expect(ABOUT_FOR).toHaveLength(4);
+    expect(ABOUT_NOT_FOR).toHaveLength(3);
   });
 });
