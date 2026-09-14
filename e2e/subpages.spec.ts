@@ -46,3 +46,34 @@ test("realizacje shows all six sites as scrolling frames and ends with the CTA b
 
   await expectNoAxeViolations(page);
 });
+
+test("a case study opens with the spec header and screenshot, then the full story", async ({ page }) => {
+  await page.goto("/realizacje/vilmart");
+
+  await expect(page.getByRole("link", { name: "Wszystkie realizacje" })).toHaveAttribute("href", "/realizacje");
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Vilmart Water Service");
+  await expect(page.locator(".page-head .lede")).toHaveText("Strona WordPress dla specjalisty od uzdatniania wody. Formularz doboru urządzenia jako główne narzędzie leadowe.");
+  await expect(page.locator(".page-head .meta")).toHaveText("vilmart.pl");
+  await expect(page.locator(".cs-shot img")).toHaveAttribute("alt", "Strona Vilmart Water Service");
+
+  for (const label of ["Kontekst biznesowy", "Wyzwanie", "Strategia", "Wdrożenie", "Wyniki", "Wnioski"]) {
+    await expect(page.getByRole("heading", { level: 2, name: label })).toBeVisible();
+  }
+  await expect(page.locator(".cs-facts")).toContainText("Klient");
+  await expect(page.locator("main section.cta-band")).toHaveCount(1);
+
+  const jsonLd = await page.locator('script[type="application/ld+json"]').allTextContents();
+  expect(jsonLd.some((text) => text.includes('"BreadcrumbList"'))).toBe(true);
+
+  await expectNoAxeViolations(page);
+});
+
+test("case study metadata uses the study title", async ({ page }) => {
+  await page.goto("/realizacje/abcmosty");
+  await expect(page).toHaveTitle(/ABC Mosty — Realizacja Blueport Studio/);
+});
+
+test("an unknown case study is a 404", async ({ page }) => {
+  const response = await page.goto("/realizacje/nie-ma-takiej");
+  expect(response?.status()).toBe(404);
+});

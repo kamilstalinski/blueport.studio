@@ -1,6 +1,7 @@
 import { existsSync } from "node:fs";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
+import { CASE_STUDIES, isWorkSlug } from "@/constants/caseStudies";
 import { HOME_TIERS, PACKAGES } from "@/constants/pricing";
 import { PROCESS_STEPS, TALLY } from "@/constants/process";
 import { TESTIMONIALS } from "@/constants/testimonials";
@@ -63,5 +64,21 @@ describe("TESTIMONIALS", () => {
       expect(slugs).toContain(testimonial.slug);
       expect(inPublic(testimonial.thumb)).toBe(true);
     }
+  });
+});
+
+describe("CASE_STUDIES", () => {
+  it("has one complete narrative per client site", () => {
+    expect(Object.keys(CASE_STUDIES).sort()).toEqual(WORK_SITES.map((site) => site.slug).sort());
+    for (const study of Object.values(CASE_STUDIES)) {
+      for (const field of [study.title, study.client, study.industry, study.context, study.challenge, study.strategy, study.implementation, study.stack, study.results, study.lessons]) {
+        expect(field.trim().length).toBeGreaterThan(0);
+      }
+    }
+  });
+
+  it("recognises only known slugs", () => {
+    expect(isWorkSlug("vilmart")).toBe(true);
+    expect(isWorkSlug("nie-ma")).toBe(false);
   });
 });
