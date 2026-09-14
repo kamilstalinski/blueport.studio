@@ -58,8 +58,12 @@ jobs:
         run: npm ci
       - name: Build
         run: npm run build
-      - name: Playwright
-        run: npx playwright test
+      - name: Playwright (funkcjonalne)
+        run: npx playwright test --project=desktop --project=mobile
+      - name: Playwright (wizualne)
+        # --workers=1: running these concurrently lets Chromium's renderer processes contend for
+        # CPU, which shows up as font hinting/antialiasing jitter and fails the pixel baselines.
+        run: npx playwright test --project=visual-desktop --project=visual-mobile --workers=1
       - name: Raport Playwright
         if: failure()
         uses: actions/upload-artifact@v4
