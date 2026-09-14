@@ -3,6 +3,8 @@ name: Test & Deploy
 on:
   push:
     branches: [main, prod]
+  pull_request:
+    branches: [main]
 
 jobs:
   test:
@@ -22,6 +24,8 @@ jobs:
         run: npx tsc --noEmit
       - name: Lint
         run: npm run lint
+      - name: Testy jednostkowe
+        run: npm test
       - name: Build testowy
         run: npm run build
         env:
@@ -30,10 +34,46 @@ jobs:
           RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
           RESEND_FROM: ${{ secrets.RESEND_FROM }}
           NOTIFICATION_EMAIL: ${{ secrets.NOTIFICATION_EMAIL }}
+
+  e2e:
+    name: Testy e2e i wizualne
+    runs-on: ubuntu-latest
+    # Keep the tag equal to the pinned @playwright/test version: baselines are rendered in this image.
+    container:
+      image: mcr.microsoft.com/playwright:v1.63.0-noble
+      options: --ipc=host
+    env:
+      CI: "true"
+      PW_SERVER: prod
+      PW_PORT: "3100"
+      NEXT_PUBLIC_SUPABASE_URL: http://localhost:54321
+      SUPABASE_SERVICE_ROLE_KEY: ci-dummy
+      RESEND_API_KEY: re_ci_dummy
+      RESEND_FROM: Blueport <ci@example.com>
+      NOTIFICATION_EMAIL: ci@example.com
+    steps:
+      - name: Checkout kodu
+        uses: actions/checkout@v4
+      - name: Instalacja zaleznosci
+        run: npm ci
+      - name: Build
+        run: npm run build
+      - name: Playwright
+        run: npx playwright test
+      - name: Raport Playwright
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: |
+            playwright-report/
+            test-results/
+          retention-days: 7
+
   deploy:
     name: Deploy na Hetzner
     runs-on: ubuntu-latest
-    needs: test
+    needs: [test, e2e]
     if: github.ref == 'refs/heads/prod'
     steps:
       - name: Deploy przez SSH

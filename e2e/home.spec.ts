@@ -219,7 +219,6 @@ test("the home page follows the spec's section order and nothing else", async ({
 
 test("the whole home page has no axe violations once every section is revealed", async ({ page }) => {
   await page.goto("/");
-  await page.waitForLoadState("networkidle");
   /* visit every visible reveal: tall sections reveal block by block, and some frames are hidden on small screens */
   for (const block of await page.locator("main .reveal:visible").all()) {
     await block.scrollIntoViewIfNeeded();
