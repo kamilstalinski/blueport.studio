@@ -2,8 +2,19 @@ import { expect, test } from "@playwright/test";
 
 const ROUTES = ["/", "/realizacje", "/realizacje/vilmart", "/cennik", "/proces", "/kontakt", "/o-nas", "/faq", "/kalkulator", "/wycena", "/polityka-prywatnosci", "/regulamin"];
 
-/* Dev builds print the full hydration warning; production builds throw minified React errors 418/423/425. */
-const HYDRATION_ERROR = /hydrat|Minified React error #(418|423|425)/i;
+/*
+ * Dev builds print the full hydration warning; production builds throw minified React errors.
+ * Verified against the installed react-dom 19.2.4 (node_modules/react-dom/cjs/react-dom-client.production.js):
+ * #418 text/HTML mismatch, #419 Suspense-boundary hydration mismatch, #422/#423 recoverable hydration
+ * error inside/outside a boundary, #424 root attribute mismatch. (#425 does not exist in this version;
+ * #519/#520 are internal control-flow signals that are never surfaced to the page.)
+ * In both dev and prod, React/Next report these through `window.reportError`, which Playwright surfaces
+ * as a `pageerror` (see node_modules/next/dist/client/react-client-callbacks/on-recoverable-error.js) -
+ * the `pageerror` listener below already catches every case unconditionally. The console listener stays
+ * as a defense-in-depth fallback for browsers without `window.reportError`, where Next logs via
+ * `console.error` instead.
+ */
+const HYDRATION_ERROR = /hydrat|Minified React error #(418|419|422|423|424)/i;
 
 for (const route of ROUTES) {
   test(`${route} renders without page or hydration errors`, async ({ page }) => {
