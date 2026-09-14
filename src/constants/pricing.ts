@@ -275,6 +275,57 @@ export type PackageId = keyof typeof PACKAGES;
 export type FeatureId = keyof typeof FEATURES;
 export type TimelineId = keyof typeof TIMELINE_MULTIPLIERS;
 
+/** Home page pricing cards: short display copy; price, technology and delivery come from PACKAGES. */
+export const HOME_TIERS = [
+  {
+    packageId: "strona-start",
+    name: "Strona start",
+    featured: false,
+    tag: null,
+    features: [
+      "Gotowy układ dopasowany do Twojej branży",
+      "Do 5 podstron",
+      "Formularz kontaktowy",
+      "Wersja na telefony i tablety",
+      "14 dni wsparcia po starcie",
+    ],
+  },
+  {
+    packageId: "strona-pro",
+    name: "Strona Pro",
+    featured: true,
+    tag: "Najczęściej wybierany",
+    features: [
+      "Indywidualny projekt, bez szablonu",
+      "Do 10 podstron",
+      "Struktura sekcji pisana pod konwersję",
+      "Optymalizacja pod Google",
+      "30 dni wsparcia po wdrożeniu",
+    ],
+  },
+  {
+    packageId: "sklep-online",
+    name: "Sklep online",
+    featured: false,
+    tag: null,
+    features: [
+      "Do 30 produktów na start",
+      "Płatności online i szybkie przelewy",
+      "Integracja z kurierami",
+      "Panel obsługi zamówień",
+      "Podstawowa optymalizacja SEO",
+    ],
+  },
+] as const satisfies readonly {
+  packageId: PackageId;
+  name: string;
+  featured: boolean;
+  tag: string | null;
+  features: readonly string[];
+}[];
+
+export type HomeTier = (typeof HOME_TIERS)[number];
+
 const MIN_PRICE = 2500;
 const MAX_PRICE = 28000;
 

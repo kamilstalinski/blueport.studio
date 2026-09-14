@@ -51,34 +51,6 @@ export interface GlassCardProps {
 
 export type InputProps = React.InputHTMLAttributes<HTMLInputElement>;
 
-export interface GrainientProps {
-  timeSpeed?: number;
-  colorBalance?: number;
-  warpStrength?: number;
-  warpFrequency?: number;
-  warpSpeed?: number;
-  warpAmplitude?: number;
-  blendAngle?: number;
-  blendSoftness?: number;
-  rotationAmount?: number;
-  noiseScale?: number;
-  grainAmount?: number;
-  grainScale?: number;
-  grainAnimated?: boolean;
-  contrast?: number;
-  gamma?: number;
-  saturation?: number;
-  centerX?: number;
-  centerY?: number;
-  zoom?: number;
-  color1?: string;
-  color2?: string;
-  color3?: string;
-  className?: string;
-  /** Debounce resize (ms) — reduces flicker during scroll (e.g., Chrome navbar hide/show). */
-  resizeDebounceMs?: number;
-}
-
 export interface SpotlightCardProps extends React.PropsWithChildren {
   className?: string;
   spotlightColor?: string;
@@ -105,7 +77,6 @@ export interface SmoothScrollProps {
 }
 
 export type HeroContentKey =
-  | "Home.hero"
   | "uslugi.hero"
   | "realizacje.hero"
   | "proces.hero"

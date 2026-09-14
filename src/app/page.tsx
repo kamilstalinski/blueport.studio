@@ -1,51 +1,45 @@
-import { Hero } from "@/components/sections/Hero";
 import dynamic from "next/dynamic";
 
-const ProblemRozwiazanie = dynamic(
-  () => import("@/components/sections/ProblemRozwiazanie").then((m) => m.ProblemRozwiazanie),
+import { DomainMarquee } from "@/components/sections/home/DomainMarquee";
+import { HeroHome } from "@/components/sections/HeroHome";
+
+const WorkWall = dynamic(
+  () => import("@/components/sections/home/WorkWall").then((m) => m.WorkWall),
   { ssr: true }
 );
-const DlaczegoMy = dynamic(
-  () => import("@/components/sections/DlaczegoMy").then((m) => m.DlaczegoMy),
+const PlanSection = dynamic(
+  () => import("@/components/sections/home/PlanSection").then((m) => m.PlanSection),
   { ssr: true }
 );
-const OfertaPakiety = dynamic(
-  () => import("@/components/sections/OfertaPakiety").then((m) => m.OfertaPakiety),
+const HomePricing = dynamic(
+  () => import("@/components/sections/home/HomePricing").then((m) => m.HomePricing),
   { ssr: true }
 );
-const TestimonialsSection = dynamic(
-  () => import("@/components/sections/TestimonialsSection").then((m) => m.TestimonialsSection),
+const ProcessSection = dynamic(
+  () => import("@/components/sections/home/ProcessSection").then((m) => m.ProcessSection),
   { ssr: true }
 );
-const KalkulatorSection = dynamic(
-  () => import("@/components/sections/KalkulatorSection").then((m) => m.KalkulatorSection),
+const QuotesSection = dynamic(
+  () => import("@/components/sections/home/QuotesSection").then((m) => m.QuotesSection),
   { ssr: true }
 );
-const ProcesHome = dynamic(
-  () => import("@/components/sections/ProcesHome").then((m) => m.ProcesHome),
-  { ssr: true }
-);
-const FAQSection = dynamic(
-  () => import("@/components/sections/FAQSection").then((m) => m.FAQSection),
-  { ssr: true }
-);
-const CTA = dynamic(
-  () => import("@/components/sections/CTA").then((m) => m.CTA),
+const CtaBand = dynamic(
+  () => import("@/components/sections/home/CtaBand").then((m) => m.CtaBand),
   { ssr: true }
 );
 
 export default function HomePage() {
   return (
     <>
-      <Hero />
-      <ProblemRozwiazanie />
-      <DlaczegoMy />
-      <OfertaPakiety topGradient={false} />
-      <TestimonialsSection />
-      <KalkulatorSection />
-      <ProcesHome />
-      <FAQSection />
-      <CTA />
+      <HeroHome />
+      <DomainMarquee />
+      <hr className="rule" />
+      <WorkWall />
+      <PlanSection />
+      <HomePricing />
+      <ProcessSection />
+      <QuotesSection />
+      <CtaBand />
     </>
   );
 }
