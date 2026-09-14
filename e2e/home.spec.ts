@@ -117,3 +117,49 @@ test("pricing shows three packages from the price list and the dedicated project
   await expect(dedicated.getByRole("link", { name: "Umów konsultację" })).toHaveAttribute("href", "/kontakt");
   await expect(section.locator(".px-deco--stairs")).toHaveAttribute("aria-hidden", "true");
 });
+
+const processSection = (page: import("@playwright/test").Page) =>
+  page.locator("section", { has: page.getByRole("heading", { name: "Jak to wygląda od zapytania do startu." }) });
+
+test("the process lists five steps and lights them as they are reached", async ({ page }) => {
+  await page.goto("/");
+  const section = processSection(page);
+  await section.scrollIntoViewIfNeeded();
+
+  const steps = section.locator(".step");
+  await expect(steps.locator("h3")).toHaveText([
+    "Wypełniasz kalkulator",
+    "Doprecyzowujemy",
+    "Projekt i wdrożenie",
+    "Testy i poprawki",
+    "Publikacja i szkolenie",
+  ]);
+  await expect(steps.locator(".when")).toHaveText(["Dzień 0", "Dzień 1", "Dzień 2-10", "Przed startem", "Start"]);
+  await expect(steps.first()).toHaveAttribute("data-in", "");
+  await expect(section.locator(".px-deco--progress")).toHaveAttribute("aria-hidden", "true");
+});
+
+test("the tally counts up to its figures", async ({ page }) => {
+  await page.goto("/");
+  const tally = processSection(page).locator("dl.tally");
+  await tally.scrollIntoViewIfNeeded();
+
+  await expect(tally.locator("dt .sr-only")).toHaveText(["10+", "1-2", "24 h"]);
+  await expect(tally.locator("dd")).toHaveText([
+    "wdrożeń dla małych firm w całej Polsce",
+    "tygodnie od akceptacji projektu do publikacji",
+    "maksymalny czas odpowiedzi w dni robocze",
+  ]);
+  await expect.poll(() => tally.locator("dt svg").first().getAttribute("viewBox")).toBe("0 0 17 7");
+});
+
+test.describe("reduced motion process", () => {
+  test.use({ contextOptions: { reducedMotion: "reduce" } });
+
+  test("shows final figures without counting", async ({ page }) => {
+    await page.goto("/");
+    const tally = processSection(page).locator("dl.tally");
+    await tally.scrollIntoViewIfNeeded();
+    await expect(tally.locator("dt svg").nth(2)).toHaveAttribute("viewBox", "0 0 20 7");
+  });
+});

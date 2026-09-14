@@ -27,8 +27,8 @@ const KalkulatorSection = dynamic(
   () => import("@/components/sections/KalkulatorSection").then((m) => m.KalkulatorSection),
   { ssr: true }
 );
-const ProcesHome = dynamic(
-  () => import("@/components/sections/ProcesHome").then((m) => m.ProcesHome),
+const ProcessSection = dynamic(
+  () => import("@/components/sections/home/ProcessSection").then((m) => m.ProcessSection),
   { ssr: true }
 );
 const FAQSection = dynamic(
@@ -52,7 +52,7 @@ export default function HomePage() {
       <HomePricing />
       <TestimonialsSection />
       <KalkulatorSection />
-      <ProcesHome />
+      <ProcessSection />
       <FAQSection />
       <CTA />
     </>
