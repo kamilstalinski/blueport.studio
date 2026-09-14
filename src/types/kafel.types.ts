@@ -30,3 +30,7 @@ export type BuildFrame = { at: number; stage: BuildStage; wiresOn: number; barsO
 export type BuildCycle = BuildFrame & { site: number };
 
 export type NumberCells = { ink: Cell[]; accent: Cell[]; width: number; height: number };
+
+export type FramePan = { shift: number; seconds: number };
+
+export type FieldPixel = { d: string; tone: "a" | "b" | "c"; twinkleDelay: number | null };

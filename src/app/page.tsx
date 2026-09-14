@@ -3,6 +3,10 @@ import dynamic from "next/dynamic";
 import { DomainMarquee } from "@/components/sections/home/DomainMarquee";
 import { HeroHome } from "@/components/sections/HeroHome";
 
+const WorkWall = dynamic(
+  () => import("@/components/sections/home/WorkWall").then((m) => m.WorkWall),
+  { ssr: true }
+);
 const ProblemRozwiazanie = dynamic(
   () => import("@/components/sections/ProblemRozwiazanie").then((m) => m.ProblemRozwiazanie),
   { ssr: true }
@@ -42,6 +46,7 @@ export default function HomePage() {
       <HeroHome />
       <DomainMarquee />
       <hr className="rule" />
+      <WorkWall />
       <ProblemRozwiazanie />
       <DlaczegoMy />
       <OfertaPakiety topGradient={false} />

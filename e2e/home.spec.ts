@@ -20,3 +20,53 @@ test.describe("reduced motion marquee", () => {
     expect(await page.locator(".marq-track").evaluate((el) => getComputedStyle(el).animationName)).toBe("none");
   });
 });
+
+const workWall = (page: import("@playwright/test").Page) =>
+  page.locator("section", { has: page.getByRole("heading", { name: "Trzy kolejne, które możemy pokazać." }) });
+
+test("the work wall links three client sites and reveals on scroll", async ({ page }) => {
+  await page.goto("/");
+  const section = workWall(page);
+  await section.scrollIntoViewIfNeeded();
+
+  const frames = section.locator("a.frame");
+  await expect(frames).toHaveCount(3);
+  await expect(frames.nth(0)).toHaveAttribute("href", "/realizacje/dowytrenowania");
+  await expect(frames.nth(1)).toHaveAttribute("href", "/realizacje/abcmosty");
+  await expect(frames.nth(2)).toHaveAttribute("href", "/realizacje/afterthesin");
+  await expect(section.getByRole("link", { name: "Wszystkie realizacje" })).toHaveAttribute("href", "/realizacje");
+  await expect(section.locator(".reveal").first()).toHaveAttribute("data-in", "");
+});
+
+test("the soft pixel field never covers the section heading", async ({ page }) => {
+  await page.goto("/");
+  const section = workWall(page);
+  await section.scrollIntoViewIfNeeded();
+  await expect.poll(() => section.locator("svg.px-field path").count()).toBeGreaterThan(0);
+
+  const hits = await section.evaluate((root) => {
+    const heading = root.querySelector("h2")?.getBoundingClientRect();
+    if (!heading) return -1;
+    return [...root.querySelectorAll("svg.px-field path")].filter((path) => {
+      const box = path.getBoundingClientRect();
+      return box.right > heading.left && box.left < heading.right && box.bottom > heading.top && box.top < heading.bottom;
+    }).length;
+  });
+  expect(hits).toBe(0);
+});
+
+test.describe("full-page preview on hover", () => {
+  test.skip(({ isMobile }) => isMobile, "hover scrolling is a fine-pointer interaction");
+
+  test("scrolls the client's page inside the frame", async ({ page }) => {
+    await page.goto("/");
+    const frame = workWall(page).locator("a.frame").first();
+    await frame.scrollIntoViewIfNeeded();
+    await expect.poll(() => frame.evaluate((el) => parseFloat(getComputedStyle(el).getPropertyValue("--shift")))).toBeLessThan(0);
+
+    await frame.hover();
+    await expect
+      .poll(() => frame.locator(".pane img").evaluate((img) => new DOMMatrix(getComputedStyle(img).transform).m42))
+      .toBeLessThan(-20);
+  });
+});

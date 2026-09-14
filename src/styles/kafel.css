@@ -480,3 +480,57 @@ body {
   .reveal { opacity: 1; transform: none; transition: none; }
   .marq-track { animation: none; }
 }
+
+/* ── Soft pixel field ───────────────────────────────────────────────── */
+.px-field { position: absolute; inset: 0; z-index: 0; width: 100%; height: 100%; pointer-events: none; }
+.px-field .hp-a { fill: var(--line-strong); }
+.px-field .hp-b { fill: var(--line-strong); opacity: .5; }
+.px-field .hp-c { fill: var(--cobalt); opacity: .5; }
+.px-field .tw { animation: kafel-twinkle 4.8s steps(1, end) infinite; }
+@keyframes kafel-twinkle { 0%, 70% { opacity: .15; } 71%, 86% { opacity: 1; } 87%, 100% { opacity: .15; } }
+
+/* ── Work wall: client sites in windows ─────────────────────────────── */
+.wall-head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 24px; margin-bottom: 40px; }
+.wall-head h2 { max-width: 21ch; }
+.wall { display: grid; grid-template-columns: repeat(3, 1fr); align-items: start; gap: 22px; }
+.wall > :nth-child(2) { margin-top: 24px; }
+.wall > :nth-child(3) { margin-top: 11px; }
+
+a.frame {
+  text-decoration: none;
+  transition: transform .22s var(--ease-out), box-shadow .22s var(--ease-out), border-color .18s ease;
+}
+a.frame:focus-visible { transform: translate(-3px, -3px); border-color: var(--cobalt); box-shadow: 9px 9px 0 color-mix(in srgb, var(--cobalt) 30%, transparent); }
+@media (hover: hover) and (pointer: fine) {
+  a.frame:hover { transform: translate(-3px, -3px); border-color: var(--cobalt); box-shadow: 9px 9px 0 color-mix(in srgb, var(--cobalt) 30%, transparent); }
+  a.frame:hover .chrome::after { display: none; }
+}
+.chrome .live { margin-left: auto; color: var(--ink-3); font-size: .7rem; font-weight: 700; opacity: 0; transition: opacity .2s var(--ease-out); }
+a.frame:hover .chrome .live { opacity: 1; }
+.pane { position: relative; overflow: hidden; aspect-ratio: 4 / 3.9; background: var(--paper-2); }
+.pane img { display: block; width: 100%; height: auto; transform: translateY(0); transition: transform .85s var(--ease-out); will-change: transform; }
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  a.frame:hover .pane img, a.frame:focus-visible .pane img {
+    transform: translateY(var(--shift, 0));
+    transition-duration: var(--dur, 10s);
+    transition-timing-function: linear;
+  }
+}
+.frame-foot { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding: 13px 15px 14px; border-top: 2px solid var(--line-strong); }
+.frame-foot .nm { color: var(--ink); font-family: var(--font-heading), sans-serif; font-size: 1.04rem; font-weight: 700; letter-spacing: -.024em; }
+.frame-foot .go { color: var(--cobalt-ink); font-size: .84rem; font-weight: 600; white-space: nowrap; }
+
+@media (max-width: 1000px) {
+  .wall { grid-template-columns: 1fr 1fr; gap: 16px; }
+  .wall > :nth-child(2) { margin-top: 0; }
+  .wall > :nth-child(3) { display: none; }
+}
+@media (max-width: 760px) {
+  .wall { grid-template-columns: 1fr; }
+  .wall > :nth-child(2) { display: none; }
+  .pane { aspect-ratio: 4 / 3.6; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .px-field .tw { animation: none; }
+  a.frame, .pane img { transition: none; }
+}
