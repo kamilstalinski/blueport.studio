@@ -19,8 +19,8 @@ const HomePricing = dynamic(
   () => import("@/components/sections/home/HomePricing").then((m) => m.HomePricing),
   { ssr: true }
 );
-const TestimonialsSection = dynamic(
-  () => import("@/components/sections/TestimonialsSection").then((m) => m.TestimonialsSection),
+const QuotesSection = dynamic(
+  () => import("@/components/sections/home/QuotesSection").then((m) => m.QuotesSection),
   { ssr: true }
 );
 const KalkulatorSection = dynamic(
@@ -50,7 +50,7 @@ export default function HomePage() {
       <PlanSection />
       <DlaczegoMy />
       <HomePricing />
-      <TestimonialsSection />
+      <QuotesSection />
       <KalkulatorSection />
       <ProcessSection />
       <FAQSection />

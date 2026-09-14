@@ -163,3 +163,21 @@ test.describe("reduced motion process", () => {
     await expect(tally.locator("dt svg").nth(2)).toHaveAttribute("viewBox", "0 0 20 7");
   });
 });
+
+test("testimonials quote three clients next to their sites", async ({ page }) => {
+  await page.goto("/");
+  const section = page.locator("section", { has: page.getByRole("heading", { name: "Co mówią klienci." }) });
+  await section.scrollIntoViewIfNeeded();
+
+  const quotes = section.locator("figure");
+  await expect(quotes).toHaveCount(3);
+  await expect(quotes.locator("blockquote")).toHaveText([
+    "„Strona gotowa w 10 dni, wszystko zgodnie z ustaleniami. Ruch z Google wzrósł 3x w ciągu miesiąca.”",
+    "„Profesjonalna obsługa od A do Z. Sklep działa bez zarzutu, klienci chwalą prostotę zamawiania.”",
+    "„W końcu mam stronę, z której jestem zadowolony. Szybki kontakt, konkretna wycena i termin dotrzymany w 100%.”",
+  ]);
+  await expect(quotes.locator(".who")).toHaveText(["Kamil Głogowski", "Igor Romanowski", "Andrzej Szymko"]);
+  await expect(section.getByRole("link", { name: "Realizacja Vilmart Water Service" })).toHaveAttribute("href", "/realizacje/vilmart");
+  await expect(section.getByRole("img", { name: "Ocena 5 na 5" })).toHaveCount(3);
+  await expect(section.locator(".px-deco--bubbles svg")).toHaveCount(2);
+});
