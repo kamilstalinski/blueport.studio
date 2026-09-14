@@ -64,11 +64,6 @@
   .field-label {
     font-size: var(--min-font-size-desktop);
   }
-  /* Testimonials — testimonial cards */
-  .testimonial-author .author-avatar,
-  .testimonial-author .author-company {
-    font-size: var(--min-font-size-desktop);
-  }
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
@@ -361,7 +356,6 @@ body .card,
 body [class*="glass-card"],
 body .benefit-card,
 body .process-step,
-body .testimonial-card,
 body .faq-item {
   background: var(--glass-bg);
   backdrop-filter: blur(var(--glass-blur, 28px));
@@ -491,8 +485,7 @@ body .efekty-card:hover {
 /* Base glass card — palette tokens (each tile adapts to the active color) */
 body .card,
 body .package-card,
-body .process-card,
-body .testimonial-card {
+body .process-card {
   background: var(--glass-bg);
   backdrop-filter: blur(var(--glass-blur, 28px));
   -webkit-backdrop-filter: blur(var(--glass-blur, 28px));
@@ -505,7 +498,6 @@ body .testimonial-card {
 body .card:hover,
 body .package-card:hover,
 body .process-card:hover,
-body .testimonial-card:hover,
 body .custom-spotlight-card:hover .card,
 body .custom-spotlight-card:hover .benefit-card,
 body .custom-spotlight-card:hover .process-card {
@@ -619,107 +611,6 @@ body .faq-item:focus-within {
   color: rgba(255, 255, 255, 0.6);
   margin-top: 0.5rem;
   line-height: 1.5;
-}
-
-/* ═══════════════════════════════════════════════════════════════════════════
-   Section Testimonials — customer testimonials (social proof)
-   ═══════════════════════════════════════════════════════════════════════════ */
-.section-testimonials .section-testimonials-head {
-  max-width: 42rem;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.section-testimonials .section-testimonials-eyebrow {
-  font-size: 0.875rem;
-  font-weight: 500;
-  color: rgba(255, 255, 255, 0.5);
-  letter-spacing: 0.02em;
-  margin-bottom: 0.5rem;
-}
-
-.testimonials-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-  margin-top: 40px;
-}
-
-/* Testimonials cards — subtle glass (palette tokens) */
-body .testimonial-card {
-  background: var(--glass-bg);
-  backdrop-filter: blur(var(--glass-blur-sm, 22px));
-  -webkit-backdrop-filter: blur(var(--glass-blur-sm, 22px));
-  border: 1px solid var(--glass-border);
-  border-top: 1px solid var(--glass-border-top);
-  border-radius: 12px;
-  padding: 28px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  box-shadow: var(--glass-shadow);
-  transition: var(--transition-card);
-}
-body .testimonial-card:hover {
-  background: var(--glass-bg-hover);
-  border-color: var(--glass-border-hover);
-  border-top-color: var(--glass-border-top-hover);
-  transform: translateY(-4px);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35), inset 0 1px 0 var(--glass-border-top-hover);
-}
-
-.testimonial-stars {
-  color: var(--color-primary);
-  font-size: 0.85rem;
-  letter-spacing: 2px;
-}
-
-.testimonial-text {
-  font-size: 0.82rem;
-  color: rgba(255, 255, 255, 0.7);
-  line-height: 1.7;
-  flex: 1;
-}
-
-.testimonial-author {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding-top: 16px;
-  border-top: 1px solid rgba(255, 255, 255, 0.07);
-}
-
-.testimonial-author .author-avatar {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background: var(--color-accent-subtle);
-  border: 1px solid var(--color-accent-border);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.65rem;
-  color: var(--color-primary);
-  font-weight: 600;
-  flex-shrink: 0;
-}
-
-.testimonial-author .author-name {
-  font-size: 0.78rem;
-  color: #ffffff;
-  font-weight: 500;
-}
-
-.testimonial-author .author-company {
-  font-size: 0.65rem;
-  color: rgba(255, 255, 255, 0.35);
-  margin-top: 2px;
-}
-
-@media (max-width: 768px) {
-  .testimonials-grid {
-    grid-template-columns: 1fr;
-  }
 }
 
 .process-grid {
@@ -1268,7 +1159,6 @@ body .floating-card {
   .benefit-card,
   .process-card,
   .process-step,
-  .testimonial-card,
   .faq-item,
   .hero-card,
   .floating-card,

@@ -11,28 +11,16 @@ const PlanSection = dynamic(
   () => import("@/components/sections/home/PlanSection").then((m) => m.PlanSection),
   { ssr: true }
 );
-const DlaczegoMy = dynamic(
-  () => import("@/components/sections/DlaczegoMy").then((m) => m.DlaczegoMy),
-  { ssr: true }
-);
 const HomePricing = dynamic(
   () => import("@/components/sections/home/HomePricing").then((m) => m.HomePricing),
-  { ssr: true }
-);
-const QuotesSection = dynamic(
-  () => import("@/components/sections/home/QuotesSection").then((m) => m.QuotesSection),
-  { ssr: true }
-);
-const KalkulatorSection = dynamic(
-  () => import("@/components/sections/KalkulatorSection").then((m) => m.KalkulatorSection),
   { ssr: true }
 );
 const ProcessSection = dynamic(
   () => import("@/components/sections/home/ProcessSection").then((m) => m.ProcessSection),
   { ssr: true }
 );
-const FAQSection = dynamic(
-  () => import("@/components/sections/FAQSection").then((m) => m.FAQSection),
+const QuotesSection = dynamic(
+  () => import("@/components/sections/home/QuotesSection").then((m) => m.QuotesSection),
   { ssr: true }
 );
 const CtaBand = dynamic(
@@ -48,12 +36,9 @@ export default function HomePage() {
       <hr className="rule" />
       <WorkWall />
       <PlanSection />
-      <DlaczegoMy />
       <HomePricing />
-      <QuotesSection />
-      <KalkulatorSection />
       <ProcessSection />
-      <FAQSection />
+      <QuotesSection />
       <CtaBand />
     </>
   );

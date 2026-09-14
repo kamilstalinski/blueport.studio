@@ -1,3 +1,4 @@
+import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
 
 const DOMAINS = ["dobreprecle.pl", "spavalnia.pl", "vilmart.pl", "dowytrenowania.pl", "abcmosty.pl", "afterthesin.com"];
@@ -201,4 +202,33 @@ test("the footer stands on a brick floor", async ({ page }) => {
   await floor.scrollIntoViewIfNeeded();
   await expect(floor).toHaveAttribute("aria-hidden", "true");
   await expect(floor.locator("svg.deco-floor rect")).toHaveCount(1);
+});
+
+test("the home page follows the spec's section order and nothing else", async ({ page }) => {
+  await page.goto("/");
+  await expect(page.locator("main h2")).toHaveText([
+    "Trzy kolejne, które możemy pokazać.",
+    "Większość stron dla małych firm powstaje bez planu. Potem nie sprzedaje.",
+    "Trzy pakiety. Cena znana przed startem.",
+    "Jak to wygląda od zapytania do startu.",
+    "Co mówią klienci.",
+    "Sprawdź, ile kosztuje Twoja strona.",
+  ]);
+  await expect(page.locator("#kalkulator")).toHaveCount(0);
+});
+
+test("the whole home page has no axe violations once every section is revealed", async ({ page }) => {
+  await page.goto("/");
+  await page.waitForLoadState("networkidle");
+  /* visit every visible reveal: tall sections reveal block by block, and some frames are hidden on small screens */
+  for (const block of await page.locator("main .reveal:visible").all()) {
+    await block.scrollIntoViewIfNeeded();
+  }
+  await expect(page.locator("main .reveal:visible:not([data-in])")).toHaveCount(0);
+  /* data-in only starts the .07s-staggered .5s/.6s entrance transition (max .21s delay + .6s
+     duration = .81s); wait it out so axe measures resting opacity, not a still-fading blend. */
+  await page.waitForTimeout(900);
+
+  const results = await new AxeBuilder({ page }).analyze();
+  expect(results.violations).toEqual([]);
 });
