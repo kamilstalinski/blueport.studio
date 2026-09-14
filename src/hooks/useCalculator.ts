@@ -7,7 +7,6 @@ import type {
   PriceSummary,
   ProjectFeature,
   ProjectType,
-  Timeline,
   BudgetRange,
 } from "@/types/calculator.types";
 import {
