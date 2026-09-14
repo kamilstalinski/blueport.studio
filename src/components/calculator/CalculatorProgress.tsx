@@ -3,6 +3,7 @@
 import { m } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { PixelIcon } from "@/components/brand/PixelIcon";
+import { ease } from "@/constants/animations";
 
 type CalculatorProgressProps = {
   current: number;
@@ -21,7 +22,7 @@ export function CalculatorProgress({
         <m.div
           className="calc-progress-fill"
           animate={{ width: `${((current + 1) / total) * 100}%` }}
-          transition={{ duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
+          transition={{ duration: 0.5, ease: ease.out }}
         />
       </div>
 

@@ -5,7 +5,6 @@ import { notFound } from "next/navigation";
 import { CaseStudyStory } from "@/components/pages/CaseStudyStory";
 import { PageHead } from "@/components/pages/PageHead";
 import { CtaBand } from "@/components/sections/home/CtaBand";
-import { InView } from "@/components/ui/InView";
 import { CASE_STUDIES, isWorkSlug } from "@/constants/caseStudies";
 import { WORK_SITES } from "@/constants/work";
 import { breadcrumbJsonLd, caseStudyJsonLd } from "@/lib/jsonLd";
@@ -86,11 +85,9 @@ export default async function CaseStudyPage({ params }: PageParamsSlug) {
       <PageHead title={site.name} titleWidth="20ch" lede={site.desc} meta={site.domain} back={{ href: "/realizacje", label: "Wszystkie realizacje" }} />
       <section className="page-body" aria-label="Zrzut strony">
         <div className="shell">
-          <InView className="reveal">
-            <div className="shot chamfer cs-shot">
-              <Image src={site.image} alt={`Strona ${site.name}`} width={1200} height={825} sizes="(max-width: 1240px) 100vw, 1184px" priority />
-            </div>
-          </InView>
+          <div className="shot chamfer cs-shot">
+            <Image src={site.image} alt={`Strona ${site.name}`} width={1200} height={825} sizes="(max-width: 1240px) 100vw, 1184px" priority />
+          </div>
         </div>
       </section>
       <CaseStudyStory study={study} />

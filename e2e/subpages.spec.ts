@@ -79,6 +79,10 @@ test("realizacje shows all six sites as scrolling frames and ends with the CTA b
   await expect(frames).toHaveCount(6);
   await expect(frames.nth(0)).toHaveAttribute("href", "/realizacje/dobreprecle");
   await expect(frames.nth(5)).toHaveAttribute("href", "/realizacje/afterthesin");
+  // Unlike the home teaser, /realizacje shows all six sites at every viewport (desktop and mobile projects both).
+  for (let i = 0; i < 6; i++) {
+    await expect(frames.nth(i)).toBeVisible();
+  }
   await expect(page.locator("main .wall")).toHaveCount(2);
   await expect(page.locator("main section.cta-band")).toHaveCount(1);
   await expect(page.getByText("Efekty")).toHaveCount(0);
@@ -216,6 +220,13 @@ test.describe("kontakt form", () => {
     await expect(page.getByText("Napisz choć jedno zdanie o projekcie.")).toBeVisible();
     await expect(page.getByLabel("Imię")).toBeFocused();
     await expect(page.getByLabel("Imię")).toHaveAttribute("aria-invalid", "true");
+
+    // The focused invalid field must look visibly focused, not just red like the other invalid fields.
+    const focusedBorder = await page.getByLabel("Imię").evaluate((el) => getComputedStyle(el).borderColor);
+    const unfocusedInvalidBorder = await page.getByLabel("Adres e-mail").evaluate((el) => getComputedStyle(el).borderColor);
+    expect(focusedBorder).not.toBe(unfocusedInvalidBorder);
+
+    await expectNoAxeViolations(page);
 
     await page.getByLabel("Imię").fill("Anna");
     await expect(page.getByText("Podaj imię, żebyśmy wiedzieli jak się zwracać.")).toHaveCount(0);
@@ -387,12 +398,20 @@ for (const route of KAFEL_ROUTES) {
     await page.goto(route);
     await settle(page);
     await expect(page.locator(".glass-card, .custom-spotlight-card, .heading-2, .cs-card-label")).toHaveCount(0);
-    // The calculator's step slide briefly overhangs the viewport on mobile; measure the layout at rest.
-    await expect
-      .poll(() => page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth))
-      .toBe(true);
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth)).toBe(true);
   });
 }
+
+test("kalkulator step slide never overflows horizontally on mobile", async ({ page, isMobile }) => {
+  test.skip(!isMobile, "mobile-only: exercises the step-slide entrance that used to overhang the viewport");
+  await page.goto("/kalkulator");
+  await settle(page);
+
+  await page.getByRole("button", { name: /Strona start/ }).first().click();
+  await page.getByRole("button", { name: "Dalej" }).click();
+  // Measure right away, mid-transition, before the framer entrance settles.
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth)).toBe(true);
+});
 
 test("every subpage has exactly one h1", async ({ page }) => {
   for (const route of KAFEL_ROUTES) {

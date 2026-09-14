@@ -29,6 +29,15 @@
 
 /* ── Realizacje (spec: second wall margin-top 26px) ── */
 .work-walls + .work-walls { margin-top: 26px; }
+/* /realizacje shows all six client sites at every width (kafel.css .wall hides
+   nth-child(3)/(2) for the home teaser only); match specificity to win the cascade. */
+@media (max-width: 1000px) {
+  .work-walls > :nth-child(3) { display: block; margin-top: 0; }
+}
+@media (max-width: 760px) {
+  .work-walls > :nth-child(2) { display: block; margin-top: 0; }
+  .work-walls > :nth-child(3) { display: block; margin-top: 0; }
+}
 
 /* ── Case study ── */
 .cs-shot { aspect-ratio: 16 / 11; }
@@ -69,7 +78,7 @@
 .ptable .rowname span { display: block; font-weight: 400; font-size: .86rem; color: var(--ink-2); margin-top: 3px; max-width: 38ch; }
 .ptable .amt { font-family: var(--font-heading), sans-serif; font-weight: 700; font-size: 1.15rem; letter-spacing: -.03em; white-space: nowrap; }
 .ptable td.yes { color: var(--cobalt-ink); }
-.ptable td.no { color: var(--line-strong); }
+.ptable td.no { color: var(--ink-3); }
 
 /* ── Kontakt (spec FORM + SYSTEM ALIGNMENT controls) ── */
 .contact-grid { display: grid; grid-template-columns: 1.15fr 1fr; gap: clamp(36px, 5vw, 72px); align-items: start; }
@@ -93,6 +102,7 @@
 .field input:hover, .field select:hover, .field textarea:hover { border-color: var(--ink-3); }
 .field input:focus, .field select:focus, .field textarea:focus { outline: none; border-color: var(--cobalt); box-shadow: 4px 4px 0 var(--cobalt-wash); }
 .field.invalid input, .field.invalid textarea { border-color: var(--danger); }
+.field.invalid :is(input, textarea):focus { border-color: var(--cobalt); box-shadow: 4px 4px 0 var(--cobalt-wash); }
 .err { display: flex; align-items: center; gap: 6px; margin: 0; font-size: .85rem; font-weight: 500; color: var(--danger); }
 .form .contact-submit { justify-content: center; }
 .form .contact-submit[aria-disabled="true"] { cursor: progress; }

@@ -102,21 +102,19 @@ export function CalculatorLeft({ calculator }: { calculator: CalculatorProps }) 
 
       <div className="calc-nav">
         {state.step > 0 && (
-          <m.button
+          <button
             type="button"
             onClick={goPrev}
-            whileTap={{ scale: 0.97 }}
             className="calc-btn calc-btn--ghost"
           >
             <PixelIcon name="arrow-left" /> Wróć
-          </m.button>
+          </button>
         )}
 
-        <m.button
+        <button
           type="button"
           onClick={isLastStep ? handleSubmit : goNext}
           disabled={!canGoNext || state.isSubmitting || state.isSubmitted}
-          whileTap={canGoNext && !state.isSubmitted ? { scale: 0.975 } : {}}
           className="calc-btn calc-btn--primary calc-btn--next"
         >
           {state.isSubmitted && isLastStep ? (
@@ -134,7 +132,7 @@ export function CalculatorLeft({ calculator }: { calculator: CalculatorProps }) 
               Dalej <PixelIcon name="arrow-right" />
             </>
           )}
-        </m.button>
+        </button>
       </div>
     </div>
   );
