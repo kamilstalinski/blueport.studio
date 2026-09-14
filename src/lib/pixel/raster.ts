@@ -1,5 +1,5 @@
-import { PX_DIGITS, PX_GLYPHS, type GlyphChar, type TileDigit } from "@/lib/pixel/glyphs";
-import type { Cell, StackCells } from "@/types";
+import { PX_DIGITS, PX_GLYPHS, type GlyphChar, type NumberChar, type TileDigit } from "@/lib/pixel/glyphs";
+import type { Cell, NumberCells, StackCells } from "@/types";
 
 const INK = "X";
 const GAP = 1;
@@ -8,6 +8,7 @@ const ROWS_WITHOUT_DESCENDER = 7;
 const STACK_LINE_OFFSET = 10;
 const STACK_HEIGHT = 17;
 const TILE_SIZE = 9;
+const NUMBER_HEIGHT = 7;
 const TILE_DIGIT_OFFSET = { x: 2, y: 1 } as const;
 const TILE_CORNER = new Set(["7,0", "8,0", "8,1"]);
 
@@ -79,4 +80,23 @@ export function tileRows(digit: TileDigit): string[] {
       return TILE_CORNER.has(key) || knocked.has(key) ? "." : INK;
     }).join(""),
   );
+}
+
+function isNumberChar(char: string): char is NumberChar {
+  return Object.hasOwn(PX_DIGITS, char);
+}
+
+/** Pixel numerals: digits go to the ink layer, symbols (+, -, h) to the accent layer. */
+export function numberCells(text: string): NumberCells {
+  const ink: Cell[] = [];
+  const accent: Cell[] = [];
+  let col = 0;
+  for (const char of text) {
+    if (!isNumberChar(char)) throw new Error(`No pixel numeral for "${char}"`);
+    const rows = PX_DIGITS[char];
+    const layer = /[0-9]/.test(char) ? ink : accent;
+    layer.push(...rowsToCells(rows, col, 0));
+    col += rows[0].length + GAP;
+  }
+  return { ink, accent, width: Math.max(0, col - GAP), height: NUMBER_HEIGHT };
 }

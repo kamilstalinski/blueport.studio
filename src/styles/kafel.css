@@ -390,3 +390,8 @@ body {
   .bw, .bd-steps li, .bd-steps li svg, .bd-pane::before, .bd-pane[data-stage="3"]::before,
   .bd-pane[data-stage="3"] .bd-cover, .bd-pane[data-stage="3"] .bd-wire { transition: none; }
 }
+
+/* ── Pixel numerals ─────────────────────────────────────────────────── */
+.px-num { display: block; }
+.px-num .n-ink { fill: var(--ink); }
+.px-num .n-acc { fill: var(--cobalt); }

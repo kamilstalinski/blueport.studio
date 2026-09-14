@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { cellsToPath, rowsToCells, stackCells, tileRows, wordCells } from "@/lib/pixel/raster";
+import { cellsToPath, numberCells, rowsToCells, stackCells, tileRows, wordCells } from "@/lib/pixel/raster";
 
 describe("rowsToCells", () => {
   it("returns inked cells shifted by the offset", () => {
@@ -46,5 +46,24 @@ describe("tileRows", () => {
     expect(rows).toHaveLength(9);
     expect(rows[0]).toBe("XXXXXXX..");
     expect(rows[1]).toBe("XXXX.XXX.");
+  });
+});
+
+describe("numberCells", () => {
+  it("draws digits in ink and symbols in the accent layer", () => {
+    const cells = numberCells("10+");
+    expect(cells.width).toBe(17);
+    expect(cells.height).toBe(7);
+    expect(Math.max(...cells.ink.map(([x]) => x))).toBeLessThanOrEqual(10);
+    expect(Math.min(...cells.accent.map(([x]) => x))).toBe(12);
+    expect(Math.max(...cells.accent.map(([x]) => x))).toBe(16);
+  });
+
+  it("keeps the space as an empty two-column gap", () => {
+    expect(numberCells("24 h").width).toBe(20);
+  });
+
+  it("rejects a character without a numeral", () => {
+    expect(() => numberCells("x")).toThrow('No pixel numeral for "x"');
   });
 });

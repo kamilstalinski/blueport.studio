@@ -17,15 +17,30 @@ export const PX_ICONS = {
   "arrow-right": ["...X...", "....X..", ".....X.", "XXXXXXX", ".....X.", "....X..", "...X..."],
   lock: ["..XXX..", ".X...X.", ".X...X.", "XXXXXXX", "XXX.XXX", "XXX.XXX", "XXXXXXX"],
   list: [".........", "XXXXXXXXX", ".........", ".........", "XXXXXXXXX", ".........", ".........", "XXXXXXXXX", "........."],
+  check: [".......", "......X", ".....XX", "X...XX.", "XX.XX..", ".XXX...", "..X...."],
+  star: ["...X...", "..XXX..", "XXXXXXX", ".XXXXX.", "..XXX..", ".XX.XX.", "XX...XX"],
 } as const;
 
 export const PX_DIGITS = {
+  "0": [".XXX.", "X...X", "X..XX", "X.X.X", "XX..X", "X...X", ".XXX."],
   "1": ["..X..", ".XX..", "..X..", "..X..", "..X..", "..X..", ".XXX."],
   "2": [".XXX.", "X...X", "....X", "...X.", "..X..", ".X...", "XXXXX"],
   "3": ["XXXX.", "....X", "....X", ".XXX.", "....X", "....X", "XXXX."],
   "4": ["...X.", "..XX.", ".X.X.", "X..X.", "XXXXX", "...X.", "...X."],
+  "5": ["XXXXX", "X....", "XXXX.", "....X", "....X", "X...X", ".XXX."],
+  "6": [".XXX.", "X....", "X....", "XXXX.", "X...X", "X...X", ".XXX."],
+  "7": ["XXXXX", "....X", "...X.", "..X..", ".X...", ".X...", ".X..."],
+  "8": [".XXX.", "X...X", "X...X", ".XXX.", "X...X", "X...X", ".XXX."],
+  "9": [".XXX.", "X...X", "X...X", ".XXXX", "....X", "....X", ".XXX."],
+  "+": [".....", "..X..", "..X..", "XXXXX", "..X..", "..X..", "....."],
+  "-": ["....", "....", "....", "XXXX", "....", "....", "...."],
+  h: ["X....", "X....", "XXXX.", "X...X", "X...X", "X...X", "X...X"],
+  " ": ["..", "..", "..", "..", "..", "..", ".."],
 } as const;
+
+export const TILE_DIGITS = ["1", "2", "3", "4", "5"] as const;
 
 export type GlyphChar = keyof typeof PX_GLYPHS;
 export type PixelIconName = keyof typeof PX_ICONS;
-export type TileDigit = keyof typeof PX_DIGITS;
+export type TileDigit = (typeof TILE_DIGITS)[number];
+export type NumberChar = keyof typeof PX_DIGITS;
