@@ -225,9 +225,17 @@ test("the whole home page has no axe violations once every section is revealed",
     await block.scrollIntoViewIfNeeded();
   }
   await expect(page.locator("main .reveal:visible:not([data-in])")).toHaveCount(0);
-  /* data-in only starts the .07s-staggered .5s/.6s entrance transition (max .21s delay + .6s
-     duration = .81s); wait it out so axe measures resting opacity, not a still-fading blend. */
-  await page.waitForTimeout(900);
+  /* data-in only starts each block's staggered .5s/.6s entrance transition; wait for every
+     visible reveal to actually reach its rest state (opacity 1, transform none) so axe measures
+     the settled colors instead of a still-fading blend. */
+  await page.waitForFunction(() =>
+    [...document.querySelectorAll("main .reveal")]
+      .filter((el) => el.checkVisibility())
+      .every((el) => {
+        const style = getComputedStyle(el);
+        return style.opacity === "1" && style.transform === "none";
+      })
+  );
 
   const results = await new AxeBuilder({ page }).analyze();
   expect(results.violations).toEqual([]);
