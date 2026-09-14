@@ -10,6 +10,32 @@ async function settle(page: Page) {
     const wrap = document.querySelector("main")?.firstElementChild as HTMLElement | null;
     return !wrap || getComputedStyle(wrap).opacity === "1";
   });
+  // The calculator route has no site chrome: its <main class="calc-main"> sits inside
+  // .calc-shell, which the template.tsx fade wrapper wraps from the outside. The check
+  // above only inspects main's own first child, so it never covers that outer fade.
+  // Wait for the .calc-shell ancestor chain itself to have settled at opacity 1.
+  await page.waitForFunction(() => {
+    let el = document.querySelector(".calc-shell") as HTMLElement | null;
+    if (!el) return true;
+    while (el) {
+      if (getComputedStyle(el).opacity !== "1") return false;
+      el = el.parentElement;
+    }
+    return true;
+  });
+  // The calculator also runs its own framer-motion transitions inside .calc-shell (the step
+  // slide, the success-step entrance, the package dropdown), independent of the page fade
+  // above. Wait for those to finish too, or axe can catch inline opacity mid-transition and
+  // report a false color-contrast violation.
+  await page.waitForFunction(() => {
+    const shell = document.querySelector(".calc-shell");
+    if (!shell) return true;
+    return document.getAnimations().every((anim) => {
+      const target = (anim.effect as KeyframeEffect | null)?.target;
+      if (!target || !shell.contains(target)) return true;
+      return anim.playState === "finished" || anim.playState === "idle";
+    });
+  });
   for (const block of await page.locator("main .reveal:visible").all()) {
     await block.scrollIntoViewIfNeeded();
   }
@@ -256,3 +282,60 @@ for (const [route, title, sections] of [
     await expectNoAxeViolations(page);
   });
 }
+
+test.describe("calculator", () => {
+  test("walks the four steps and sends the lead", async ({ page }) => {
+    let lead: Record<string, unknown> | null = null;
+    await page.route("**/api/leads", async (route) => {
+      lead = route.request().postDataJSON();
+      await route.fulfill({ json: { success: true, id: "test-lead" } });
+    });
+    await page.goto("/kalkulator");
+
+    await expect(page.locator(".calc-blob")).toHaveCount(0);
+    await expect(page.locator(".calc-header .brand-logo")).toHaveCount(1);
+    expect(await page.locator(".calc-shell").evaluate((el) => getComputedStyle(el).backgroundColor)).toBe("rgb(8, 25, 42)");
+
+    await page.getByRole("button", { name: /Strona start/ }).first().click();
+    expect(await page.locator(".option-card.selected").evaluate((el) => getComputedStyle(el).borderRadius)).toBe("0px");
+    await expect(page.locator(".calc-price")).not.toHaveText("Wybierz opcje");
+    await page.getByRole("button", { name: "Dalej" }).click();
+
+    await expect(page.getByRole("heading", { name: "Dodatkowe funkcje" })).toBeVisible();
+    await page.getByRole("button", { name: "Dalej" }).click();
+
+    await expect(page.getByRole("heading", { name: "Orientacyjny budżet" })).toBeVisible();
+    await page.getByRole("button", { name: "Do 3 000 zł" }).click();
+    await page.getByRole("button", { name: "Dalej" }).click();
+
+    await page.getByLabel("Imię i nazwisko *").fill("Jan Kowalski");
+    await page.getByLabel("Email *").fill("jan@firma.pl");
+    await page.getByRole("button", { name: "Wyślij zapytanie" }).click();
+
+    await expect(page.getByRole("heading", { name: "Zapytanie wysłane!" })).toBeVisible();
+    await expect(page.getByRole("button", { name: "Wysłano" })).toBeDisabled();
+    expect(lead).toMatchObject({ name: "Jan Kowalski", email: "jan@firma.pl", packageId: "strona-start" });
+
+    await expectNoAxeViolations(page);
+  });
+
+  test("step one has no nested interactive controls and opens the package details", async ({ page }) => {
+    await page.goto("/kalkulator");
+
+    const card = page.locator(".option-card").first();
+    await expect(card.locator("button")).toHaveCount(2);
+    await expect(card.locator("[role=button]")).toHaveCount(0);
+
+    await card.getByRole("button", { name: "Więcej" }).click();
+    await expect(page.getByRole("dialog", { name: "Zawartość pakietu" })).toBeVisible();
+    await expect(card.getByRole("button", { name: /Strona start/ })).toHaveAttribute("aria-pressed", "false");
+
+    await expectNoAxeViolations(page);
+  });
+
+  test("keeps /wycena on the same calculator", async ({ page }) => {
+    await page.goto("/wycena");
+    await expect(page.getByRole("heading", { name: "Czego potrzebujesz?" })).toBeVisible();
+    await expect(page.locator(".calc-shell")).toHaveCount(1);
+  });
+});

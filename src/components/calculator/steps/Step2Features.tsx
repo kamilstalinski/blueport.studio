@@ -6,6 +6,7 @@ import type { useCalculator } from "@/hooks/useCalculator";
 import { FEATURES, getFeaturesForPackage } from "@/constants/pricing";
 import type { FeatureId, PackageId } from "@/constants/pricing";
 import { cn } from "@/lib/utils";
+import { PixelIcon } from "@/components/brand/PixelIcon";
 
 type CalculatorProps = ReturnType<typeof useCalculator>;
 
@@ -41,7 +42,7 @@ export function Step2Features({ calculator }: { calculator: CalculatorProps }) {
               className={cn("feature-row", isSelected && "selected")}
             >
               <div className="feature-check">
-                {isSelected ? "✓" : ""}
+                {isSelected && <PixelIcon name="check" />}
               </div>
               <div className="feature-info">
                 <span className="feature-label">{f.label}</span>
