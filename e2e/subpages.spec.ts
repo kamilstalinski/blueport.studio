@@ -98,6 +98,27 @@ test("cennik shows the tiers, the comparison table from the price list and the C
   await expectNoAxeViolations(page);
 });
 
+test("faq is a keyboard-friendly accordion with JSON-LD", async ({ page }) => {
+  await page.goto("/faq");
+
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Najczęściej zadawane pytania");
+  const rows = page.locator("details.faq-row");
+  await expect(rows).toHaveCount(6);
+  await expect(rows.first().locator("summary")).toHaveText("Ile kosztuje strona internetowa?");
+  await expect(rows.first()).not.toHaveAttribute("open", "");
+
+  await rows.first().locator("summary").focus();
+  await page.keyboard.press("Enter");
+  await expect(rows.first()).toHaveAttribute("open", "");
+  await expect(rows.first().getByText("Proste strony firmowe zaczynają się od 2 500 zł.", { exact: false })).toBeVisible();
+
+  const jsonLd = await page.locator('script[type="application/ld+json"]').allTextContents();
+  expect(jsonLd.some((text) => text.includes('"FAQPage"'))).toBe(true);
+  await expect(page.locator("main section.cta-band")).toHaveCount(1);
+
+  await expectNoAxeViolations(page);
+});
+
 for (const legacy of ["/uslugi", "/oferta", "/oferta/strony", "/oferta/sklepy"]) {
   test(`${legacy} redirects permanently to /cennik`, async ({ request }) => {
     const response = await request.get(legacy, { maxRedirects: 0 });
