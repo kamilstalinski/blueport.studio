@@ -170,3 +170,19 @@
   .about-split, .about-fit { grid-template-columns: 1fr; }
   .about-cards { grid-template-columns: 1fr; }
 }
+
+/* ── Proces ── */
+.process-detail { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--line); }
+.process-detail > li { border-bottom: 1px solid var(--line); }
+.process-detail-row { display: grid; grid-template-columns: auto minmax(0, 1.3fr) minmax(0, 1fr); gap: clamp(20px, 3vw, 44px); align-items: start; padding: clamp(24px, 3vw, 36px) 0; }
+.process-detail .when { margin: 0 0 6px; font-size: .82rem; font-weight: 700; color: var(--cobalt-ink); }
+.process-detail .d3 { margin: 0; }
+.process-detail .body { margin: 10px 0 0; }
+.process-detail-row ul { display: grid; gap: 10px; margin: 4px 0 0; padding: 0; list-style: none; }
+.process-detail-row li { display: flex; align-items: center; gap: 10px; color: var(--ink-2); }
+.process-detail-row li .px-ico { color: var(--cobalt-ink); }
+.process-total { margin: 24px 0 0; }
+@media (max-width: 1000px) {
+  .process-detail-row { grid-template-columns: auto minmax(0, 1fr); }
+  .process-detail-row ul { grid-column: 2; }
+}

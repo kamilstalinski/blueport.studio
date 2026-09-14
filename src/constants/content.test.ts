@@ -4,7 +4,7 @@ import { describe, expect, it } from "vitest";
 import { ABOUT_APPROACH, ABOUT_FOR, ABOUT_NOT_FOR, ABOUT_STORY, ABOUT_TECHS } from "@/constants/about";
 import { CASE_STUDIES, isWorkSlug } from "@/constants/caseStudies";
 import { HOME_TIERS, PACKAGES, PRICE_TABLE_HEADS, PRICE_TABLE_ROWS } from "@/constants/pricing";
-import { PROCESS_STEPS, TALLY } from "@/constants/process";
+import { PROCESS_DETAILS, PROCESS_STEPS, TALLY } from "@/constants/process";
 import { TESTIMONIALS } from "@/constants/testimonials";
 import { HERO_WORK, WORK_SITES } from "@/constants/work";
 
@@ -54,6 +54,14 @@ describe("PROCESS_STEPS and TALLY", () => {
   it("numbers five steps and three figures", () => {
     expect(PROCESS_STEPS.map((step) => step.digit)).toEqual(["1", "2", "3", "4", "5"]);
     expect(TALLY.map((item) => `${item.prefix}${item.count}${item.suffix}`)).toEqual(["10+", "1-2", "24 h"]);
+  });
+});
+
+describe("PROCESS_DETAILS", () => {
+  it("adds three legacy bullets to each of the five steps", () => {
+    expect(PROCESS_DETAILS).toHaveLength(PROCESS_STEPS.length);
+    expect(PROCESS_DETAILS[0]).toEqual(["wybierasz typ strony", "określasz funkcje", "otrzymujesz szacunkowy koszt"]);
+    expect(PROCESS_DETAILS[4]).toEqual(["konfiguracja serwera", "podpięcie domeny", "szkolenie z obsługi"]);
   });
 });
 

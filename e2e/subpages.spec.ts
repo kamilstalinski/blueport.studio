@@ -119,6 +119,21 @@ test("faq is a keyboard-friendly accordion with JSON-LD", async ({ page }) => {
   await expectNoAxeViolations(page);
 });
 
+test("proces expands the five home steps", async ({ page }) => {
+  await page.goto("/proces");
+
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Proces współpracy");
+  const steps = page.locator("ol.process-detail > li");
+  await expect(steps).toHaveCount(5);
+  await expect(steps.nth(0).getByRole("heading", { level: 2 })).toHaveText("Wypełniasz kalkulator");
+  await expect(steps.nth(0)).toContainText("Dzień 0");
+  await expect(steps.nth(0).locator("li")).toHaveText(["wybierasz typ strony", "określasz funkcje", "otrzymujesz szacunkowy koszt"]);
+  await expect(page.getByText("Całość zwykle trwa 1–2 tygodnie.")).toBeVisible();
+  await expect(page.locator("main section.cta-band")).toHaveCount(1);
+
+  await expectNoAxeViolations(page);
+});
+
 for (const legacy of ["/uslugi", "/oferta", "/oferta/strony", "/oferta/sklepy"]) {
   test(`${legacy} redirects permanently to /cennik`, async ({ request }) => {
     const response = await request.get(legacy, { maxRedirects: 0 });

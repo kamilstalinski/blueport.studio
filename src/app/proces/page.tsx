@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
-import { Hero } from "@/components/sections/Hero";
-import { ProcesIntro } from "@/components/sections/ProcesIntro";
-import { ProcesVerticalTimeline } from "@/components/sections/ProcesVerticalTimeline";
-import { CTA } from "@/components/sections/CTA";
+
+import { PageHead } from "@/components/pages/PageHead";
+import { ProcessDetail } from "@/components/pages/ProcessDetail";
+import { CtaBand } from "@/components/sections/home/CtaBand";
+import { InView } from "@/components/ui/InView";
 
 export const metadata: Metadata = {
   title: "Proces współpracy — Jak działamy",
@@ -15,10 +16,20 @@ export const metadata: Metadata = {
 export default function ProcesPage() {
   return (
     <>
-      <Hero contentKey="proces.hero" />
-      <ProcesIntro />
-      <ProcesVerticalTimeline cardVariant="subpage" />
-      <CTA />
+      <PageHead
+        title="Proces współpracy"
+        titleWidth="20ch"
+        lede="Współpraca z nami jest uporządkowana i przewidywalna. Każdy etap ma jasny cel, zakres i termin realizacji."
+      />
+      <section className="page-body" aria-label="Etapy współpracy">
+        <div className="shell">
+          <ProcessDetail />
+          <InView className="reveal">
+            <p className="meta process-total">Całość zwykle trwa 1–2 tygodnie.</p>
+          </InView>
+        </div>
+      </section>
+      <CtaBand />
     </>
   );
 }
