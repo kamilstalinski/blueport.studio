@@ -35,8 +35,8 @@ const FAQSection = dynamic(
   () => import("@/components/sections/FAQSection").then((m) => m.FAQSection),
   { ssr: true }
 );
-const CTA = dynamic(
-  () => import("@/components/sections/CTA").then((m) => m.CTA),
+const CtaBand = dynamic(
+  () => import("@/components/sections/home/CtaBand").then((m) => m.CtaBand),
   { ssr: true }
 );
 
@@ -54,7 +54,7 @@ export default function HomePage() {
       <KalkulatorSection />
       <ProcessSection />
       <FAQSection />
-      <CTA />
+      <CtaBand />
     </>
   );
 }

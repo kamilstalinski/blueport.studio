@@ -181,3 +181,24 @@ test("testimonials quote three clients next to their sites", async ({ page }) =>
   await expect(section.getByRole("img", { name: "Ocena 5 na 5" })).toHaveCount(3);
   await expect(section.locator(".px-deco--bubbles svg")).toHaveCount(2);
 });
+
+test("the CTA band closes the page with the calculator and consultation links", async ({ page }) => {
+  await page.goto("/");
+  const band = page.locator("section.cta-band");
+  await band.scrollIntoViewIfNeeded();
+
+  await expect(band.getByRole("heading", { level: 2 })).toHaveText("Sprawdź, ile kosztuje Twoja strona.");
+  await expect(band.getByText("Wybierasz zakres, dostajesz widełki. 60 sekund, bez rejestracji i bez zobowiązań.")).toBeVisible();
+  await expect(band.getByRole("link", { name: "Sprawdź koszt" })).toHaveAttribute("href", "/kalkulator");
+  await expect(band.getByRole("link", { name: "Umów konsultację" })).toHaveAttribute("href", "/kontakt");
+  await expect(band.locator(".deco-plus")).toHaveCount(4);
+  await expect(band.locator(".px-deco--plus")).toHaveAttribute("data-in", "");
+});
+
+test("the footer stands on a brick floor", async ({ page }) => {
+  await page.goto("/");
+  const floor = page.locator("footer#site-footer .px-deco--floor");
+  await floor.scrollIntoViewIfNeeded();
+  await expect(floor).toHaveAttribute("aria-hidden", "true");
+  await expect(floor.locator("svg.deco-floor rect")).toHaveCount(1);
+});

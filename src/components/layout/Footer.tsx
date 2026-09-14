@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { BrandLogo } from "@/components/brand/BrandLogo";
+import { DecoFloor } from "@/components/deco/DecoFloor";
 
 const FOOTER_COLUMNS = [
   {
@@ -24,7 +25,10 @@ const FOOTER_COLUMNS = [
 
 export function Footer() {
   return (
-    <footer id="site-footer" className="foot">
+    <footer id="site-footer" className="foot px-host">
+      <div className="px-deco px-deco--floor" aria-hidden="true">
+        <DecoFloor />
+      </div>
       <div className="shell">
         <div className="foot-grid">
           <div>
