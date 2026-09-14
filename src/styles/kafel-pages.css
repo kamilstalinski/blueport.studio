@@ -53,3 +53,20 @@
   .cs-facts > div + div { padding-left: 0; border-left: 0; border-top: 1px solid var(--line); }
   .cs-story { grid-template-columns: 1fr; }
 }
+
+/* ── Cennik (spec PRICE TABLE + SYSTEM ALIGNMENT banded rows) ── */
+.price-tiers { padding-bottom: clamp(52px, 6vw, 80px); }
+.price-table-title { margin: 0 0 28px; max-width: 24ch; }
+.price-note { margin: 20px 0 0; }
+.tablewrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.ptable { width: 100%; min-width: 640px; border-collapse: collapse; margin-top: 8px; }
+.ptable th, .ptable td { text-align: left; padding: 17px 18px; font-size: .95rem; vertical-align: middle; }
+.ptable thead th { font-family: var(--font-heading), sans-serif; font-size: 1rem; font-weight: 700; letter-spacing: -.02em; border-bottom: 2px solid var(--ink); padding-bottom: 14px; }
+.ptable thead th:first-child { width: 38%; }
+.ptable tbody tr:nth-child(odd) { background: var(--paper); }
+.ptable tbody tr:hover { background: var(--cobalt-wash); }
+.ptable .rowname { font-weight: 600; color: var(--ink); }
+.ptable .rowname span { display: block; font-weight: 400; font-size: .86rem; color: var(--ink-2); margin-top: 3px; max-width: 38ch; }
+.ptable .amt { font-family: var(--font-heading), sans-serif; font-weight: 700; font-size: 1.15rem; letter-spacing: -.03em; white-space: nowrap; }
+.ptable td.yes { color: var(--cobalt-ink); }
+.ptable td.no { color: var(--line-strong); }

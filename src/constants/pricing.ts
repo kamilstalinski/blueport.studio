@@ -326,6 +326,23 @@ export const HOME_TIERS = [
 
 export type HomeTier = (typeof HOME_TIERS)[number];
 
+/** Cennik comparison table. Price and delivery rows are built from PACKAGES; these are the rows after them (spec). */
+export const PRICE_TABLE_HEADS = [
+  { packageId: "strona-start", label: "Start" },
+  { packageId: "strona-pro", label: "Pro" },
+  { packageId: "sklep-online", label: "Sklep" },
+] as const satisfies readonly { packageId: PackageId; label: string }[];
+
+export type PriceCell = string | boolean;
+
+export const PRICE_TABLE_ROWS = [
+  { name: "Liczba podstron", note: null, cells: ["do 5", "do 10", "do 10 + sklep"] },
+  { name: "Indywidualny projekt", note: "Bez gotowego szablonu.", cells: [false, true, true] },
+  { name: "Płatności online", note: "Karta i szybkie przelewy.", cells: [false, false, true] },
+  { name: "Optymalizacja pod Google", note: null, cells: ["podstawowa", true, "podstawowa"] },
+  { name: "Wsparcie po starcie", note: null, cells: ["14 dni", "30 dni", "30 dni"] },
+] as const satisfies readonly { name: string; note: string | null; cells: readonly [PriceCell, PriceCell, PriceCell] }[];
+
 const MIN_PRICE = 2500;
 const MAX_PRICE = 28000;
 

@@ -77,3 +77,23 @@ test("an unknown case study is a 404", async ({ page }) => {
   const response = await page.goto("/realizacje/nie-ma-takiej");
   expect(response?.status()).toBe(404);
 });
+
+test("cennik shows the tiers, the comparison table from the price list and the CTA band", async ({ page }) => {
+  await page.goto("/cennik");
+
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Ceny, które widzisz przed podpisaniem umowy.");
+  await expect(page.locator(".page-head .lede").getByRole("link", { name: "kalkulatorze" })).toHaveAttribute("href", "/kalkulator");
+  await expect(page.locator("main article.tier")).toHaveCount(3);
+
+  const table = page.getByRole("table");
+  await expect(table.getByRole("columnheader")).toHaveText(["Zakres", "Start", "Pro", "Sklep"]);
+  await expect(table.getByRole("row").nth(1)).toContainText("2 500 zł");
+  await expect(table.getByRole("row").nth(1)).toContainText("4 900 zł");
+  await expect(table.getByRole("row").nth(2)).toContainText("od 14 dni roboczych");
+  await expect(table.getByRole("row").nth(4).getByRole("img", { name: "Nie" })).toHaveCount(1);
+  await expect(table.getByRole("row").nth(4).getByRole("img", { name: "Tak" })).toHaveCount(2);
+  await expect(page.getByText("Ceny netto. Hosting i domena rozliczane bezpośrednio u dostawcy, bez naszej marży.")).toBeVisible();
+  await expect(page.locator("main section.cta-band")).toHaveCount(1);
+
+  await expectNoAxeViolations(page);
+});

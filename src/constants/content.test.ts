@@ -2,7 +2,7 @@ import { existsSync } from "node:fs";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 import { CASE_STUDIES, isWorkSlug } from "@/constants/caseStudies";
-import { HOME_TIERS, PACKAGES } from "@/constants/pricing";
+import { HOME_TIERS, PACKAGES, PRICE_TABLE_HEADS, PRICE_TABLE_ROWS } from "@/constants/pricing";
 import { PROCESS_STEPS, TALLY } from "@/constants/process";
 import { TESTIMONIALS } from "@/constants/testimonials";
 import { HERO_WORK, WORK_SITES } from "@/constants/work";
@@ -64,6 +64,18 @@ describe("TESTIMONIALS", () => {
       expect(slugs).toContain(testimonial.slug);
       expect(inPublic(testimonial.thumb)).toBe(true);
     }
+  });
+});
+
+describe("price table", () => {
+  it("compares the three home tiers in the spec's column order", () => {
+    expect(PRICE_TABLE_HEADS.map((head) => head.label)).toEqual(["Start", "Pro", "Sklep"]);
+    expect(PRICE_TABLE_HEADS.map((head) => head.packageId)).toEqual(HOME_TIERS.map((tier) => tier.packageId));
+  });
+
+  it("lists the spec rows after price and delivery", () => {
+    expect(PRICE_TABLE_ROWS.map((row) => row.name)).toEqual(["Liczba podstron", "Indywidualny projekt", "Płatności online", "Optymalizacja pod Google", "Wsparcie po starcie"]);
+    expect(PRICE_TABLE_ROWS[1]).toEqual({ name: "Indywidualny projekt", note: "Bez gotowego szablonu.", cells: [false, true, true] });
   });
 });
 
