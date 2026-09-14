@@ -22,6 +22,17 @@ describe("WORK_SITES", () => {
       expect(site.page.height).toBeGreaterThan(2000);
     }
   });
+
+  it("carries the spec's one-sentence description for every site", () => {
+    expect(WORK_SITES.map((site) => site.desc)).toEqual([
+      "Strona Next.js dla sieci punktów z tradycyjnymi preclami. Menu, lokalizacje, integracja z social media.",
+      "Sklep internetowy dla marki streetwearowej. Ciemny design oddający klimat marki, sprawna ścieżka zakupowa, integracja z WooCommerce.",
+      "Strona WordPress dla specjalisty od uzdatniania wody. Formularz doboru urządzenia jako główne narzędzie leadowe.",
+      "Strona WordPress + WooCommerce dla magistra fizjoterapii i trenerki medycznej. Sklep z poradnikami i kursami, SEO lokalne.",
+      "Wizytówka WordPress dla rodzinnej szkółki drzew i krzewów ozdobnych. Nowa obecność online, wzrost zapytań B2B.",
+      "Strona WordPress dla poznańskiego zespołu dark wave. Klimatyczny design, kalendarz koncertów, integracja z teledyskami.",
+    ]);
+  });
 });
 
 describe("HOME_TIERS", () => {

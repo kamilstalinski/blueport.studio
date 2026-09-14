@@ -29,3 +29,20 @@ test("the subpage stylesheets are loaded", async ({ page }) => {
   expect(sheets).toContain(".page-head");
   expect(sheets).toContain("kafel-px-blink");
 });
+
+test("realizacje shows all six sites as scrolling frames and ends with the CTA band", async ({ page }) => {
+  await page.goto("/realizacje");
+
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Dziesięć wdrożeń. Sześć, które możemy pokazać.");
+  await expect(page.locator(".page-head .lede")).toHaveText("Najedź kursorem na dowolną, żeby przewinąć ją w całości. Bez wchodzenia na stronę klienta.");
+
+  const frames = page.locator("main a.frame");
+  await expect(frames).toHaveCount(6);
+  await expect(frames.nth(0)).toHaveAttribute("href", "/realizacje/dobreprecle");
+  await expect(frames.nth(5)).toHaveAttribute("href", "/realizacje/afterthesin");
+  await expect(page.locator("main .wall")).toHaveCount(2);
+  await expect(page.locator("main section.cta-band")).toHaveCount(1);
+  await expect(page.getByText("Efekty")).toHaveCount(0);
+
+  await expectNoAxeViolations(page);
+});

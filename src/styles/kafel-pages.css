@@ -26,3 +26,6 @@
 @media (prefers-reduced-motion: reduce) {
   .px-load i { animation: none; opacity: .7; }
 }
+
+/* ── Realizacje (spec: second wall margin-top 26px) ── */
+.work-walls + .work-walls { margin-top: 26px; }
