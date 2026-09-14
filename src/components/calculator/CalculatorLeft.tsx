@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import { AnimatePresence, m, useReducedMotion } from "framer-motion";
 import type { useCalculator } from "@/hooks/useCalculator";
 import { ease } from "@/constants/animations";
+import { PixelIcon } from "@/components/brand/PixelIcon";
 import { CalculatorProgress } from "./CalculatorProgress";
 import { Step1Type } from "./steps/Step1Type";
 import { Step2Features } from "./steps/Step2Features";
@@ -75,8 +76,8 @@ export function CalculatorLeft({ calculator }: { calculator: CalculatorProps }) 
   };
 
   return (
-    <div ref={scrollContainerRef} className="calc-left" style={{ position: "relative" }}>
-      <div ref={topRef} aria-hidden className="absolute top-0 left-0 w-px h-px pointer-events-none" />
+    <div ref={scrollContainerRef} className="calc-left">
+      <div ref={topRef} aria-hidden className="calc-top" />
       <CalculatorProgress
         current={state.step}
         total={totalSteps}
@@ -101,33 +102,37 @@ export function CalculatorLeft({ calculator }: { calculator: CalculatorProps }) 
 
       <div className="calc-nav">
         {state.step > 0 && (
-          <m.button
+          <button
             type="button"
             onClick={goPrev}
-            whileTap={{ scale: 0.97 }}
             className="calc-btn calc-btn--ghost"
           >
-            ← Wróć
-          </m.button>
+            <PixelIcon name="arrow-left" /> Wróć
+          </button>
         )}
 
-        <m.button
+        <button
           type="button"
           onClick={isLastStep ? handleSubmit : goNext}
           disabled={!canGoNext || state.isSubmitting || state.isSubmitted}
-          whileHover={canGoNext && !state.isSubmitted ? { scale: 1.025 } : {}}
-          whileTap={canGoNext && !state.isSubmitted ? { scale: 0.975 } : {}}
-          className="calc-btn calc-btn--primary"
-          style={{ marginLeft: "auto" }}
+          className="calc-btn calc-btn--primary calc-btn--next"
         >
-          {state.isSubmitted && isLastStep
-            ? "Wysłano ✓"
-            : state.isSubmitting
-              ? "Wysyłam..."
-              : isLastStep
-                ? "Wyślij zapytanie →"
-                : "Dalej →"}
-        </m.button>
+          {state.isSubmitted && isLastStep ? (
+            <>
+              Wysłano <PixelIcon name="check" />
+            </>
+          ) : state.isSubmitting ? (
+            "Wysyłam..."
+          ) : isLastStep ? (
+            <>
+              Wyślij zapytanie <PixelIcon name="arrow-right" />
+            </>
+          ) : (
+            <>
+              Dalej <PixelIcon name="arrow-right" />
+            </>
+          )}
+        </button>
       </div>
     </div>
   );

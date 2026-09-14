@@ -2,6 +2,7 @@
 
 import { m } from "framer-motion";
 import { cn } from "@/lib/utils";
+import { PixelIcon } from "@/components/brand/PixelIcon";
 import { ease } from "@/constants/animations";
 
 type CalculatorProgressProps = {
@@ -21,7 +22,7 @@ export function CalculatorProgress({
         <m.div
           className="calc-progress-fill"
           animate={{ width: `${((current + 1) / total) * 100}%` }}
-          transition={{ duration: 0.5, ease: ease.smooth }}
+          transition={{ duration: 0.5, ease: ease.out }}
         />
       </div>
 
@@ -35,17 +36,9 @@ export function CalculatorProgress({
               i === current && "active"
             )}
           >
-            <m.div
-              className="calc-step-dot"
-              animate={{
-                background:
-                  i <= current ? "var(--color-primary)" : "rgba(255,255,255,0.1)",
-                scale: i === current ? 1.15 : 1,
-              }}
-              transition={{ duration: 0.3 }}
-            >
-              {i < current ? "✓" : i + 1}
-            </m.div>
+            <div className="calc-step-dot">
+              {i < current ? <PixelIcon name="check" /> : i + 1}
+            </div>
             <span className="calc-step-label">{label}</span>
           </div>
         ))}

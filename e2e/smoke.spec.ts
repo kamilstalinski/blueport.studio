@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 
-const ROUTES = ["/", "/realizacje", "/cennik", "/proces", "/kontakt", "/uslugi", "/o-nas", "/faq", "/kalkulator"];
+const ROUTES = ["/", "/realizacje", "/realizacje/vilmart", "/cennik", "/proces", "/kontakt", "/o-nas", "/faq", "/kalkulator", "/wycena", "/polityka-prywatnosci", "/regulamin"];
 
 for (const route of ROUTES) {
   test(`${route} renders without page errors`, async ({ page }) => {

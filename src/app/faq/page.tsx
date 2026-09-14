@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
-import { Section } from "@/components/ui/Section";
-import { FAQSection } from "@/components/sections/FAQSection";
-import { faqJsonLd } from "@/lib/jsonLd";
+
+import { FaqList } from "@/components/pages/FaqList";
+import { PageHead } from "@/components/pages/PageHead";
+import { CtaBand } from "@/components/sections/home/CtaBand";
+import { InView } from "@/components/ui/InView";
 import { FAQ_ITEMS } from "@/constants/faq";
+import { faqJsonLd } from "@/lib/jsonLd";
 
 const ALL_FAQ_KEYS = ["price", "time", "contract", "hosting", "cms", "support"] as const;
 
@@ -14,32 +17,21 @@ export const metadata: Metadata = {
   openGraph: { url: "https://blueport.studio/faq" },
 };
 
-const faqItemsForJsonLd = ALL_FAQ_KEYS.map((key) => {
-  const item = FAQ_ITEMS[key];
-  return { question: item.q, answer: item.a };
-});
+const faqItemsForJsonLd = ALL_FAQ_KEYS.map((key) => ({ question: FAQ_ITEMS[key].q, answer: FAQ_ITEMS[key].a }));
 
 export default function FAQPage() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(faqJsonLd(faqItemsForJsonLd)),
-        }}
-      />
-      <Section firstOnPage>
-        <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-          FAQ
-        </p>
-        <h1 className="max-w-3xl text-3xl font-semibold leading-tight tracking-tight text-foreground md:text-4xl lg:text-5xl">
-          Najczęściej zadawane pytania
-        </h1>
-        <p className="mt-6 max-w-2xl text-lg text-muted-foreground">
-          Odpowiedzi na pytania, które klienci zadają przed rozpoczęciem współpracy.
-        </p>
-      </Section>
-      <FAQSection faqKeys={[...ALL_FAQ_KEYS]} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd(faqItemsForJsonLd)) }} />
+      <PageHead title="Najczęściej zadawane pytania" titleWidth="20ch" lede="Odpowiedzi na pytania, które klienci zadają przed rozpoczęciem współpracy." />
+      <section className="page-body" aria-label="Pytania i odpowiedzi">
+        <div className="shell">
+          <InView className="reveal">
+            <FaqList keys={ALL_FAQ_KEYS} />
+          </InView>
+        </div>
+      </section>
+      <CtaBand />
     </>
   );
 }

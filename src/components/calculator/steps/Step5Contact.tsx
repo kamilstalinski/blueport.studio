@@ -2,6 +2,7 @@
 
 import { m } from "framer-motion";
 import type { useCalculator } from "@/hooks/useCalculator";
+import { PixelIcon } from "@/components/brand/PixelIcon";
 
 type CalculatorProps = ReturnType<typeof useCalculator>;
 
@@ -15,7 +16,9 @@ export function Step5Contact({ calculator }: { calculator: CalculatorProps }) {
         animate={{ opacity: 1, y: 0 }}
         className="step step--success"
       >
-        <div className="success-icon">✓</div>
+        <div className="success-icon" aria-hidden="true">
+          <PixelIcon name="done" scale={4} />
+        </div>
         <h2 className="step-title">Zapytanie wysłane!</h2>
         <p className="step-desc">
           Odpiszemy na <strong>{state.contact.email}</strong> w ciągu 24h.

@@ -3,9 +3,10 @@ const nextConfig = {
   reactStrictMode: true,
   async redirects() {
     return [
-      { source: "/oferta", destination: "/uslugi", permanent: true },
-      { source: "/oferta/strony", destination: "/uslugi#strony-biznesowe", permanent: true },
-      { source: "/oferta/sklepy", destination: "/uslugi#sklepy-internetowe", permanent: true },
+      { source: "/uslugi", destination: "/cennik", permanent: true },
+      { source: "/oferta", destination: "/cennik", permanent: true },
+      { source: "/oferta/strony", destination: "/cennik", permanent: true },
+      { source: "/oferta/sklepy", destination: "/cennik", permanent: true },
     ];
   },
 };

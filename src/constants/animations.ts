@@ -8,6 +8,8 @@ export const ease = {
   sharp: [0.4, 0, 0.2, 1],
   // Gentle — for opacity and color transitions
   gentle: [0.4, 0, 0.6, 1],
+  // Out — matches --ease-out, for progress fills and other UI-chrome motion
+  out: [0.23, 1, 0.32, 1],
 } as const;
 
 // ─── Durations ─────────────────────────────────────────────────

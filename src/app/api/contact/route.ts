@@ -1,14 +1,12 @@
 import { Resend } from "resend";
 import { NextResponse } from "next/server";
 import type { ContactFormData } from "@/types/contact.types";
+import { CONTACT_TOPICS, type ContactTopic } from "@/constants/contact";
+import { isContactTopic } from "@/lib/contactValidation";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-const PROJECT_TYPE_LABELS: Record<ContactFormData["projectType"], string> = {
-  wordpress: "Strona WordPress",
-  nextjs: "Aplikacja / Next.js",
-  other: "Inne / nie wiem jeszcze",
-};
+const TOPIC_LABELS: Record<ContactTopic, string> = Object.fromEntries(CONTACT_TOPICS.map((topic) => [topic.value, topic.label])) as Record<ContactTopic, string>;
 
 /**
  * Email design system (inline styles only).
@@ -34,7 +32,7 @@ export async function POST(request: Request) {
   try {
     const body = (await request.json()) as Partial<ContactFormData>;
 
-    if (!body?.name || !body?.email || !body?.message || !body?.projectType) {
+    if (!body?.name || !body?.email || !body?.message || !body?.topic || !isContactTopic(body.topic)) {
       return NextResponse.json({ error: "Brakuje wymaganych pól" }, { status: 400 });
     }
 
@@ -43,7 +41,7 @@ export async function POST(request: Request) {
     }
 
     const contactData = body as ContactFormData;
-    const projectLabel = PROJECT_TYPE_LABELS[contactData.projectType] ?? contactData.projectType;
+    const projectLabel = TOPIC_LABELS[contactData.topic];
 
     const ownerEmail = process.env.OWNER_EMAIL ?? process.env.NOTIFICATION_EMAIL;
     const resendFrom = process.env.RESEND_FROM;

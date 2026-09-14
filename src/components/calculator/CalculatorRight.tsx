@@ -41,7 +41,7 @@ export function CalculatorRight({ calculator }: { calculator: CalculatorProps })
 
       {hasAnyChoice && (
         <div className="calc-summary">
-          <p className="calc-summary-label">{"// Twoja wycena"}</p>
+          <p className="calc-summary-label">Twoja wycena</p>
 
           <m.div
             key={priceSummary.label}

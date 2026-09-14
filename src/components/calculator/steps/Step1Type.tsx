@@ -6,6 +6,7 @@ import type { useCalculator } from "@/hooks/useCalculator";
 import { PACKAGES } from "@/constants/pricing";
 import type { PackageId } from "@/constants/pricing";
 import { cn } from "@/lib/utils";
+import { PixelIcon } from "@/components/brand/PixelIcon";
 
 type CalculatorProps = ReturnType<typeof useCalculator>;
 
@@ -43,42 +44,32 @@ export function Step1Type({ calculator }: { calculator: CalculatorProps }) {
       <div className="step-options">
         {OPTIONS.map((opt) => (
           <div key={opt.id} className="option-card-wrapper" ref={openDropdownId === opt.id ? dropdownRef : undefined}>
-            <m.div
-              role="button"
-              tabIndex={0}
-              onClick={() => setProjectType(opt.id)}
-              onKeyDown={(e) => {
-                if (e.key === "Enter" || e.key === " ") {
-                  e.preventDefault();
-                  setProjectType(opt.id);
-                }
-              }}
-              whileTap={{ scale: 0.99 }}
-              className={cn("option-card", state.projectType === opt.id && "selected")}
-              aria-pressed={state.projectType === opt.id}
-            >
+            <div className={cn("option-card", state.projectType === opt.id && "selected")}>
               {opt.tag && <span className="option-tag">{opt.tag}</span>}
-              <div className="option-card-main">
-                <div className="option-title">{opt.title}</div>
-                <div className="option-desc">{opt.desc}</div>
-                <div className="option-price">{opt.price}</div>
-              </div>
+              <m.button
+                type="button"
+                className="option-card-main"
+                onClick={() => setProjectType(opt.id)}
+                whileTap={{ scale: 0.99 }}
+                aria-pressed={state.projectType === opt.id}
+              >
+                <span className="option-title">{opt.title}</span>
+                <span className="option-desc">{opt.desc}</span>
+                <span className="option-price">{opt.price}</span>
+              </m.button>
               <button
                 type="button"
                 className="option-more-btn"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setOpenDropdownId((prev) => (prev === opt.id ? null : opt.id));
-                }}
+                onClick={() => setOpenDropdownId((prev) => (prev === opt.id ? null : opt.id))}
                 aria-expanded={openDropdownId === opt.id}
                 aria-haspopup="true"
               >
                 Więcej
                 <span className="option-more-chevron" aria-hidden>
-                  ▼
+                  <PixelIcon name="plus" />
                 </span>
               </button>
-            </m.div>
+            </div>
             <AnimatePresence>
               {openDropdownId === opt.id && (
                 <m.div

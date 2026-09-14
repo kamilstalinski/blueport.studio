@@ -25,7 +25,5 @@ export const FAQ_ITEMS = {
   },
 } as const;
 
-export const DEFAULT_FAQ_KEYS = ["price", "time", "contract", "hosting", "cms"] as const;
-
 export type FAQKey = keyof typeof FAQ_ITEMS;
 

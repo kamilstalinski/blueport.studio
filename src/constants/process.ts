@@ -8,6 +8,15 @@ export const PROCESS_STEPS = [
   { digit: "5", when: "Start", title: "Publikacja i szkolenie", text: "Konfiguracja serwera, podpięcie domeny i szkolenie z obsługi. Strona jest Twoja." },
 ] as const satisfies readonly { digit: TileDigit; when: string; title: string; text: string }[];
 
+/** What happens inside each step, in PROCESS_STEPS order. Bullets moved unchanged from the legacy /proces timeline. */
+export const PROCESS_DETAILS = [
+  ["wybierasz typ strony", "określasz funkcje", "otrzymujesz szacunkowy koszt"],
+  ["omawiamy potrzeby", "doprecyzowujemy funkcjonalności", "ustalamy harmonogram"],
+  ["projekt UI", "implementacja", "optymalizacja szybkości"],
+  ["testy mobilne", "optymalizacja SEO", "akceptacja finalnej wersji"],
+  ["konfiguracja serwera", "podpięcie domeny", "szkolenie z obsługi"],
+] as const satisfies readonly (readonly [string, string, string])[];
+
 export const TALLY = [
   { count: 10, prefix: "", suffix: "+", label: "wdrożeń dla małych firm w całej Polsce" },
   { count: 2, prefix: "1-", suffix: "", label: "tygodnie od akceptacji projektu do publikacji" },

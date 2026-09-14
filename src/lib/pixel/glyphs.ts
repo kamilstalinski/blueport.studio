@@ -19,6 +19,11 @@ export const PX_ICONS = {
   list: [".........", "XXXXXXXXX", ".........", ".........", "XXXXXXXXX", ".........", ".........", "XXXXXXXXX", "........."],
   check: [".......", "......X", ".....XX", "X...XX.", "XX.XX..", ".XXX...", "..X...."],
   star: ["...X...", "..XXX..", "XXXXXXX", ".XXXXX.", "..XXX..", ".XX.XX.", "XX...XX"],
+  "arrow-left": ["...X...", "..X....", ".X.....", "XXXXXXX", ".X.....", "..X....", "...X..."],
+  minus: [".......", ".......", ".......", ".XXXXX.", ".......", ".......", "......."],
+  plus: [".......", "...X...", "...X...", ".XXXXX.", "...X...", "...X...", "......."],
+  warning: ["XXXXXXX", "XXX.XXX", "XXX.XXX", "XXX.XXX", "XXXXXXX", "XXX.XXX", "XXXXXXX"],
+  done: ["XXXXXXX", "XXXXXX.", "XXXXX.X", "X.XX.XX", "XX..XXX", "XXX.XXX", "XXXXXXX"],
 } as const;
 
 export const PX_DIGITS = {

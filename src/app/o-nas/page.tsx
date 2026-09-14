@@ -1,122 +1,134 @@
 import type { Metadata } from "next";
-import { Hero } from "@/components/sections/Hero";
-import { Section } from "@/components/ui/Section";
-import { SpotlightCard } from "@/components/SpotlightCard";
-import { GlassCard } from "@/components/ui/GlassCard";
-import { ProcesHome } from "@/components/sections/ProcesHome";
-import { CTA } from "@/components/sections/CTA";
+
+import { PixelIcon } from "@/components/brand/PixelIcon";
+import { PageHead } from "@/components/pages/PageHead";
+import { CtaBand } from "@/components/sections/home/CtaBand";
+import { ButtonLink } from "@/components/ui/ButtonLink";
+import { InView } from "@/components/ui/InView";
+import { ABOUT_APPROACH, ABOUT_FOR, ABOUT_NOT_FOR, ABOUT_STORY, ABOUT_TECHS } from "@/constants/about";
 
 export const metadata: Metadata = {
   title: "O nas — Kim jesteśmy",
-  description:
-    "Blueport Studio to studio webowe z Szczecina. Poznaj nas, nasze wartości i sposób pracy.",
+  description: "Blueport Studio to studio webowe z Szczecina. Poznaj nas, nasze wartości i sposób pracy.",
   alternates: { canonical: "https://blueport.studio/o-nas" },
   openGraph: { url: "https://blueport.studio/o-nas" },
 };
 
-const PODEJSCIE = [
-  { title: "Konkret zamiast chaosu", text: "Nie sprzedajemy marketingowych haseł. Projektujemy strony, które mają jasno określony cel." },
-  { title: "Jasna wycena", text: "Znasz koszt przed startem. Bez ukrytych opłat i niespodzianek." },
-  { title: "Małe studio = pełna odpowiedzialność", text: "Masz bezpośredni kontakt i realną osobę odpowiedzialną za projekt." },
-];
-
-const TECHS = ["WordPress", "WooCommerce", "Next.js"];
-
-const DLA_KOGO_YES = ["Mikro i małe firmy", "Firmy usługowe", "Lokalne biznesy", "Sklepy wchodzące online"];
-const DLA_KOGO_NO = ["Duże korporacje", "Projekty enterprise", "Agencje szukające podwykonawcy do masowej produkcji"];
+const CARD_LAGS = [0, 1, 2] as const;
 
 export default function ONasPage() {
   return (
     <>
-      <Hero contentKey="oNas.hero" />
+      <PageHead
+        title="Tworzymy strony, które sprzedają. Bez chaosu."
+        titleWidth="20ch"
+        lede="Blueport to małe studio z konkretnym podejściem. Jasna wycena. Jasny proces. Realne efekty."
+      />
 
-      <Section id="dlaczego-blueport" topGradient>
-        <div className="grid gap-8 md:grid-cols-2 md:gap-20 md:items-start">
-          <h2 className="heading-2 text-white">Po co powstał Blueport?</h2>
-          <div className="space-y-6 text-white/80 leading-[1.75] max-w-none">
-            <p>Większość małych firm ma stronę, która nie działa. Jest przestarzała, wolna albo po prostu nie sprzedaje.</p>
-            <p>Blueport powstał po to, żeby to zmienić.</p>
-            <p>Tworzymy strony, które są proste, szybkie i nastawione na efekt biznesowy — nie na efekt wizualny dla samego efektu.</p>
+      <section className="page-body" aria-labelledby="about-story-title">
+        <div className="shell about-split">
+          <InView className="reveal">
+            <h2 id="about-story-title" className="d2">
+              Po co powstał Blueport?
+            </h2>
+          </InView>
+          <InView className="reveal about-story" lag={1}>
+            {ABOUT_STORY.map((paragraph) => (
+              <p key={paragraph} className="body">
+                {paragraph}
+              </p>
+            ))}
+          </InView>
+        </div>
+      </section>
+
+      <section className="sec band" aria-labelledby="about-approach-title">
+        <div className="shell">
+          <InView className="reveal about-head">
+            <h2 id="about-approach-title" className="d2">
+              Jak pracujemy?
+            </h2>
+            <ButtonLink href="/proces" variant="secondary" withArrow>
+              Zobacz pełny proces
+            </ButtonLink>
+          </InView>
+          <div className="about-cards">
+            {ABOUT_APPROACH.map((item, index) => (
+              <InView key={item.title} className="reveal" lag={CARD_LAGS[index]}>
+                <article className="about-card">
+                  <h3 className="d3">{item.title}</h3>
+                  <p className="body">{item.text}</p>
+                </article>
+              </InView>
+            ))}
           </div>
         </div>
-      </Section>
+      </section>
 
-      <Section id="jak-pracujemy">
-        <h2 className="heading-2 text-white text-center">Jak pracujemy?</h2>
-        <div className="mt-12 grid gap-8 grid-cols-1 md:grid-cols-3">
-          {PODEJSCIE.map((item, i) => (
-            <SpotlightCard
-              key={i}
-              className="custom-spotlight-card rounded-2xl h-full"
-            >
-              <GlassCard className="glass-card card-subpage rounded-2xl p-8 h-full flex flex-col">
-                <h3 className="heading-3 text-white">{item.title}</h3>
-                <p className="mt-3 text-white/70 leading-relaxed flex-1">
-                  {item.text}
-                </p>
-              </GlassCard>
-            </SpotlightCard>
-          ))}
-        </div>
-      </Section>
-
-      <ProcesHome contentKey="oNas.proces" stepCount={4} cardVariant="subpage" />
-
-      <Section id="technologie">
-        <h2 className="heading-2 text-white text-center">Technologia dopasowana do celu</h2>
-        <p className="mt-6 mx-auto max-w-2xl text-center text-white/80 leading-relaxed">
-          Nie przywiązujemy się do jednej technologii. Dobieramy rozwiązanie do potrzeb biznesowych — od WordPressa, przez WooCommerce, po dedykowane projekty w Next.js.
-        </p>
-        <div className="tech-tags mt-6 flex flex-wrap justify-center gap-3">
-          {TECHS.map((tech) => (
-            <span key={tech} className="tech-tag">
-              {tech}
-            </span>
-          ))}
-        </div>
-      </Section>
-
-      <Section id="dla-kogo">
-        <div className="dla-kogo-grid mx-auto grid max-w-[960px] gap-8 md:grid-cols-2">
-          <GlassCard className="dla-kogo-card-yes rounded-2xl border border-[var(--color-accent-border)] bg-primary-subtle p-8">
-            <h3 className="mb-4 text-[0.95rem] font-bold text-primary">Dla kogo jesteśmy</h3>
-            <ul className="dla-kogo-list-yes mt-6 space-y-3">
-              {DLA_KOGO_YES.map((item, i) => (
-                <li key={i} className="flex items-center gap-2 text-white/80">
-                  <span className="dla-kogo-arrow-yes shrink-0" aria-hidden>→</span>
-                  {item}
-                </li>
+      <section className="sec" aria-labelledby="about-tech-title">
+        <div className="shell about-split">
+          <InView className="reveal">
+            <h2 id="about-tech-title" className="d2">
+              Technologia dopasowana do celu
+            </h2>
+          </InView>
+          <InView className="reveal" lag={1}>
+            <p className="body">
+              Nie przywiązujemy się do jednej technologii. Dobieramy rozwiązanie do potrzeb biznesowych — od WordPressa, przez WooCommerce, po dedykowane projekty w Next.js.
+            </p>
+            <ul className="stack-tags about-techs">
+              {ABOUT_TECHS.map((tech) => (
+                <li key={tech}>{tech}</li>
               ))}
             </ul>
-          </GlassCard>
-          <GlassCard className="dla-kogo-card-no rounded-2xl border border-white/[0.07] bg-white/[0.02] p-8">
-            <h3 className="mb-4 text-[0.95rem] font-bold text-white/60">Dla kogo nie jesteśmy</h3>
-            <ul className="dla-kogo-list-no mt-6 space-y-3">
-              {DLA_KOGO_NO.map((item, i) => (
-                <li key={i} className="flex items-center gap-2 text-white/80">
-                  <span className="dla-kogo-arrow-no shrink-0" aria-hidden>→</span>
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </GlassCard>
+          </InView>
         </div>
-      </Section>
+      </section>
 
-      <Section id="lokalnosc" className="text-center">
-        <div className="mx-auto max-w-2xl">
-          <h2 className="heading-2 text-white">Pracujemy lokalnie i zdalnie</h2>
-          <p className="mt-6 text-white/80 leading-relaxed">
-            Jesteśmy ze Szczecina, ale realizujemy projekty w całej Polsce. Spotkanie? Online lub na żywo.
-          </p>
-          <div className="location-tags mt-4 flex flex-wrap justify-center gap-4 text-[0.75rem] text-white/40">
-            <span>📍 Szczecin</span>
-            <span>🌐 Cała Polska</span>
-          </div>
+      <section className="sec band" aria-label="Dla kogo">
+        <div className="shell about-fit">
+          <InView className="reveal">
+            <div className="about-fit-col about-fit-yes">
+              <h2 className="d3">Dla kogo jesteśmy</h2>
+              <ul>
+                {ABOUT_FOR.map((item) => (
+                  <li key={item}>
+                    <PixelIcon name="check" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </InView>
+          <InView className="reveal" lag={1}>
+            <div className="about-fit-col about-fit-no">
+              <h2 className="d3">Dla kogo nie jesteśmy</h2>
+              <ul>
+                {ABOUT_NOT_FOR.map((item) => (
+                  <li key={item}>
+                    <PixelIcon name="minus" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </InView>
         </div>
-      </Section>
+      </section>
 
-      <CTA contentKey="oNas.cta" />
+      <section className="sec" aria-labelledby="about-local-title">
+        <div className="shell">
+          <InView className="reveal about-local">
+            <h2 id="about-local-title" className="d2">
+              Pracujemy lokalnie i zdalnie
+            </h2>
+            <p className="body">Jesteśmy ze Szczecina, ale realizujemy projekty w całej Polsce. Spotkanie? Online lub na żywo.</p>
+            <p className="meta">Szczecin · Cała Polska</p>
+          </InView>
+        </div>
+      </section>
+
+      <CtaBand />
     </>
   );
 }

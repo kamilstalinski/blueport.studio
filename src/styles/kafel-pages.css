@@ -1,0 +1,211 @@
+/* ═══ KAFEL SUBPAGES ══════════════════════════════════════════════════
+   Realizacje, case studies, cennik, kontakt, FAQ, O nas, proces, legal.
+   Loaded after kafel.css.                                              */
+
+/* ── Page head (spec: padding clamp(48px,6vw,76px) 0 clamp(38px,4.5vw,54px)) ── */
+.page-head { padding: clamp(48px, 6vw, 76px) 0 clamp(38px, 4.5vw, 54px); }
+.page-head .lede { margin: 22px 0 0; }
+.page-back { display: inline-flex; align-items: center; gap: 8px; }
+.page-title-gap { margin-top: 22px; }
+.page-meta { margin: 10px 0 0; }
+.page-body { padding-bottom: clamp(72px, 8vw, 110px); }
+
+/* ── Shared text and surfaces ── */
+.meta { font-size: .875rem; color: var(--ink-3); line-height: 1.45; }
+.shot { position: relative; overflow: hidden; background: var(--paper-2); border: 2px solid var(--line-strong); border-radius: 0; box-shadow: 6px 6px 0 var(--px-lift); }
+.shot img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top center; }
+.chamfer { clip-path: polygon(0 0, calc(100% - 24px) 0, calc(100% - 24px) 12px, calc(100% - 12px) 12px, calc(100% - 12px) 24px, 100% 24px, 100% 100%, 0 100%); }
+.px-note { background: var(--cobalt-wash); border-radius: 0; clip-path: polygon(0 0, calc(100% - 12px) 0, calc(100% - 12px) 6px, calc(100% - 6px) 6px, calc(100% - 6px) 12px, 100% 12px, 100% 100%, 0 100%); }
+
+/* loader: the only stepped animation here (a blink) */
+.px-load { display: inline-flex; gap: 3px; align-items: center; }
+.px-load i { width: 6px; height: 6px; background: currentColor; opacity: .25; animation: kafel-px-blink .9s steps(1, end) infinite; }
+.px-load i:nth-child(2) { animation-delay: .3s; }
+.px-load i:nth-child(3) { animation-delay: .6s; }
+@keyframes kafel-px-blink { 0%, 100% { opacity: .25; } 33% { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) {
+  .px-load i { animation: none; opacity: .7; }
+}
+
+/* ── Realizacje (spec: second wall margin-top 26px) ── */
+.work-walls + .work-walls { margin-top: 26px; }
+/* /realizacje shows all six client sites at every width (kafel.css .wall hides
+   nth-child(3)/(2) for the home teaser only); match specificity to win the cascade. */
+@media (max-width: 1000px) {
+  .work-walls > :nth-child(3) { display: block; margin-top: 0; }
+}
+@media (max-width: 760px) {
+  .work-walls > :nth-child(2) { display: block; margin-top: 0; }
+  .work-walls > :nth-child(3) { display: block; margin-top: 0; }
+}
+
+/* ── Case study ── */
+.cs-shot { aspect-ratio: 16 / 11; }
+.cs-facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin: 0 0 clamp(36px, 4vw, 52px); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.cs-facts > div { padding: 18px 20px 18px 0; }
+.cs-facts > div + div { padding-left: 20px; border-left: 1px solid var(--line); }
+.cs-facts dt { font-size: .82rem; font-weight: 600; color: var(--ink-3); margin-bottom: 4px; }
+.cs-facts dd { margin: 0; font-size: 1.02rem; font-weight: 500; }
+.stack-tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 2px 0 0; padding: 0; list-style: none; }
+.stack-tags li { padding: 3px 10px; border: 2px solid var(--line-strong); font-size: .86rem; font-weight: 600; }
+.cs-story { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(28px, 3.5vw, 48px) clamp(36px, 5vw, 72px); }
+.cs-block { padding-top: 18px; border-top: 2px solid var(--line-strong); }
+.cs-label { margin: 0 0 10px; font-family: var(--font-body), sans-serif; font-size: .82rem; font-weight: 700; letter-spacing: .01em; color: var(--cobalt-ink); }
+.cs-block .body { margin: 0; }
+.cs-results { margin-top: clamp(40px, 5vw, 64px); padding: clamp(24px, 3vw, 36px); }
+.cs-results .body { margin: 10px 0 0; color: var(--ink); }
+.cs-lessons { margin: clamp(32px, 4vw, 48px) 0 0; padding-left: 22px; border-left: 2px solid var(--cobalt); }
+.cs-lessons blockquote { margin: 0; }
+.cs-lessons p { margin: 0; max-width: 60ch; font-size: 1.08rem; line-height: 1.6; color: var(--ink-2); }
+@media (max-width: 760px) {
+  .cs-facts { grid-template-columns: 1fr; }
+  .cs-facts > div + div { padding-left: 0; border-left: 0; border-top: 1px solid var(--line); }
+  .cs-story { grid-template-columns: 1fr; }
+}
+
+/* ── Cennik (spec PRICE TABLE + SYSTEM ALIGNMENT banded rows) ── */
+.price-tiers { padding-bottom: clamp(52px, 6vw, 80px); }
+.price-table-title { margin: 0 0 28px; max-width: 24ch; }
+.price-note { margin: 20px 0 0; }
+.tablewrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.ptable { width: 100%; min-width: 640px; border-collapse: collapse; margin-top: 8px; }
+.ptable th, .ptable td { text-align: left; padding: 17px 18px; font-size: .95rem; vertical-align: middle; }
+.ptable thead th { font-family: var(--font-heading), sans-serif; font-size: 1rem; font-weight: 700; letter-spacing: -.02em; border-bottom: 2px solid var(--ink); padding-bottom: 14px; }
+.ptable thead th:first-child { width: 38%; }
+.ptable tbody tr:nth-child(odd) { background: var(--paper); }
+.ptable tbody tr:hover { background: var(--cobalt-wash); }
+.ptable .rowname { font-weight: 600; color: var(--ink); }
+.ptable .rowname span { display: block; font-weight: 400; font-size: .86rem; color: var(--ink-2); margin-top: 3px; max-width: 38ch; }
+.ptable .amt { font-family: var(--font-heading), sans-serif; font-weight: 700; font-size: 1.15rem; letter-spacing: -.03em; white-space: nowrap; }
+.ptable td.yes { color: var(--cobalt-ink); }
+.ptable td.no { color: var(--ink-3); }
+
+/* ── Kontakt (spec FORM + SYSTEM ALIGNMENT controls) ── */
+.contact-grid { display: grid; grid-template-columns: 1.15fr 1fr; gap: clamp(36px, 5vw, 72px); align-items: start; }
+.form { display: grid; gap: 20px; max-width: 520px; }
+.field { display: grid; gap: 7px; }
+.field label { font-size: .9rem; font-weight: 600; color: var(--ink); }
+.field .hint { margin: 0; font-size: .82rem; color: var(--ink-2); }
+.field input, .field select, .field textarea {
+  width: 100%;
+  font: inherit;
+  font-size: .97rem;
+  color: var(--ink);
+  background: var(--paper);
+  border: 2px solid var(--line-strong);
+  border-radius: 0;
+  padding: 12px 14px;
+  transition: border-color .16s ease, box-shadow .16s var(--ease-out);
+}
+.field textarea { min-height: 120px; resize: vertical; }
+.field input::placeholder, .field textarea::placeholder { color: var(--ink-2); }
+.field input:hover, .field select:hover, .field textarea:hover { border-color: var(--ink-3); }
+.field input:focus, .field select:focus, .field textarea:focus { outline: none; border-color: var(--cobalt); box-shadow: 4px 4px 0 var(--cobalt-wash); }
+.field.invalid input, .field.invalid textarea { border-color: var(--danger); }
+.field.invalid :is(input, textarea):focus { border-color: var(--cobalt); box-shadow: 4px 4px 0 var(--cobalt-wash); }
+.err { display: flex; align-items: center; gap: 6px; margin: 0; font-size: .85rem; font-weight: 500; color: var(--danger); }
+.form .contact-submit { justify-content: center; }
+.form .contact-submit[aria-disabled="true"] { cursor: progress; }
+.form > .meta { margin: 0; min-height: 1.45em; }
+.contact-sent { padding: 32px; }
+.contact-sent .d3 { display: flex; align-items: center; gap: 10px; }
+.contact-sent .d3:focus-visible { outline: none; }
+.contact-sent-icon { display: inline-flex; color: var(--cobalt-ink); }
+.contact-sent .body { margin: 12px 0 0; font-size: .96rem; }
+.contact-aside .d3 { margin: 0 0 6px; }
+.dl { display: grid; gap: 0; margin: 0; }
+.dl > div { padding: 16px 0; border-bottom: 1px solid var(--line); }
+.dl dt { font-size: .82rem; color: var(--ink-3); font-weight: 600; margin-bottom: 4px; }
+.dl dd { margin: 0; font-size: 1.02rem; font-weight: 500; }
+.contact-price { margin-top: 32px; padding: 24px; }
+.contact-price .d3 { font-size: 1.1rem; }
+.contact-price .body { margin: 8px 0 18px; font-size: .94rem; }
+@media (max-width: 1000px) {
+  .contact-grid { grid-template-columns: 1fr; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .field input, .field select, .field textarea { transition: none; }
+}
+
+/* ── FAQ: native details, 1px dividers, the plus turns into a cross ── */
+.faq { max-width: 860px; border-top: 1px solid var(--line); }
+.faq-row { border-bottom: 1px solid var(--line); }
+.faq-row summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 22px 0;
+  font-family: var(--font-heading), sans-serif;
+  font-size: clamp(1.08rem, 1.5vw, 1.25rem);
+  font-weight: 700;
+  letter-spacing: -.02em;
+  line-height: 1.3;
+  cursor: pointer;
+  list-style: none;
+}
+.faq-row summary::-webkit-details-marker { display: none; }
+.faq-row summary .px-ico { flex: 0 0 auto; color: var(--cobalt-ink); transition: transform .2s var(--ease-out); }
+.faq-row[open] summary .px-ico { transform: rotate(45deg); }
+.faq-row summary:hover { color: var(--cobalt-ink); }
+.faq-row .body { margin: 0; padding: 0 48px 24px 0; }
+@media (prefers-reduced-motion: reduce) {
+  .faq-row summary .px-ico { transition: none; }
+}
+
+/* ── O nas ── */
+.about-split { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: clamp(28px, 5vw, 80px); align-items: start; }
+.about-split .d2 { margin: 0; max-width: 16ch; }
+.about-story .body + .body { margin-top: 18px; }
+.about-story .body, .about-split .body { margin: 0; font-size: 1.08rem; line-height: 1.7; }
+.about-head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 20px; margin-bottom: 32px; }
+.about-head .d2 { margin: 0; }
+.about-cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+.about-card { height: 100%; padding: 28px; background: var(--paper); border: 2px solid var(--line-strong); }
+.about-card .d3 { margin: 0; font-size: 1.2rem; }
+.about-card .body { margin: 10px 0 0; }
+.about-techs { margin-top: 20px; }
+.about-fit { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+.about-fit-col { height: 100%; padding: 28px; border: 2px solid var(--line-strong); background: var(--paper); }
+.about-fit-yes { border-color: var(--cobalt); }
+.about-fit-col .d3 { margin: 0 0 16px; font-size: 1.2rem; }
+.about-fit-col ul { display: grid; gap: 12px; margin: 0; padding: 0; list-style: none; }
+.about-fit-col li { display: flex; align-items: center; gap: 10px; color: var(--ink-2); }
+.about-fit-yes .px-ico { color: var(--cobalt-ink); }
+.about-fit-no .px-ico { color: var(--ink-3); }
+.about-local { max-width: 640px; }
+.about-local .d2 { margin: 0; }
+.about-local .body { margin: 16px 0 8px; }
+@media (max-width: 1000px) {
+  .about-split, .about-fit { grid-template-columns: 1fr; }
+  .about-cards { grid-template-columns: 1fr; }
+}
+
+/* ── Proces ── */
+.process-detail { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--line); }
+.process-detail > li { border-bottom: 1px solid var(--line); }
+.process-detail-row { display: grid; grid-template-columns: auto minmax(0, 1.3fr) minmax(0, 1fr); gap: clamp(20px, 3vw, 44px); align-items: start; padding: clamp(24px, 3vw, 36px) 0; }
+.process-detail .when { margin: 0 0 6px; font-size: .82rem; font-weight: 700; color: var(--cobalt-ink); }
+.process-detail .d3 { margin: 0; }
+.process-detail .body { margin: 10px 0 0; }
+.process-detail-row ul { display: grid; gap: 10px; margin: 4px 0 0; padding: 0; list-style: none; }
+.process-detail-row li { display: flex; align-items: center; gap: 10px; color: var(--ink-2); }
+.process-detail-row li .px-ico { color: var(--cobalt-ink); }
+.process-total { margin: 24px 0 0; }
+@media (max-width: 1000px) {
+  .process-detail-row { grid-template-columns: auto minmax(0, 1fr); }
+  .process-detail-row ul { grid-column: 2; }
+}
+
+/* ── Legal pages (spec stub: .sec, shell max 660px, h1 as .d2) ── */
+.legal-shell { max-width: 760px; }
+.legal-page .d2 { margin: 0; }
+.legal-date { margin: 14px 0 0; }
+.legal { margin-top: clamp(32px, 4vw, 48px); color: var(--ink-2); }
+.legal > section + section { margin-top: 36px; padding-top: 28px; border-top: 1px solid var(--line); }
+.legal h2 { margin: 0; font-family: var(--font-heading), sans-serif; font-size: 1.2rem; font-weight: 700; letter-spacing: -.02em; line-height: 1.25; color: var(--ink); }
+.legal p { margin: 14px 0 0; line-height: 1.7; }
+.legal ul { margin: 14px 0 0; padding-left: 1.2em; display: grid; gap: 8px; line-height: 1.7; }
+.legal li::marker { color: var(--cobalt-ink); }
+.legal strong { color: var(--ink); font-weight: 600; }
+.legal a { color: var(--cobalt-ink); text-decoration: underline; text-underline-offset: 3px; }

@@ -1,8 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
+
+import { BrandLogo } from "@/components/brand/BrandLogo";
+import { PixelIcon } from "@/components/brand/PixelIcon";
 import { useCalculator } from "@/hooks/useCalculator";
+
 import { CalculatorLeft } from "./CalculatorLeft";
 import { CalculatorRight } from "./CalculatorRight";
 
@@ -11,23 +14,13 @@ export function Calculator() {
 
   return (
     <div className="calc-shell">
-      <div className="calc-bg" aria-hidden>
-        <div className="calc-blob calc-blob--left" />
-        <div className="calc-blob calc-blob--right" />
-      </div>
-
       <header className="calc-header">
-        <Link href="/" className="calc-logo">
-          <Image
-            src="/logov3.svg"
-            alt="Blueport Studio — strona główna"
-            width={70}
-            height={70}
-            className="h-10 w-auto object-contain md:h-12"
-          />
+        <h1 className="sr-only">Kalkulator wyceny</h1>
+        <Link href="/" className="brand calc-logo" aria-label="blueport.studio, strona główna">
+          <BrandLogo size="nav" />
         </Link>
         <Link href="/" className="calc-back">
-          ← Wróć na stronę
+          <PixelIcon name="arrow-left" /> Wróć na stronę
         </Link>
       </header>
 

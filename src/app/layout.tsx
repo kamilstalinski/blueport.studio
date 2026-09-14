@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import "@/styles/globals.css";
 import "@/styles/kafel.css";
+import "@/styles/kafel-pages.css";
+import "@/styles/kafel-calculator.css";
 import { Bricolage_Grotesque, Schibsted_Grotesk } from "next/font/google";
 import { cn } from "@/lib/utils";
 import { ConditionalChrome } from "@/components/layout/ConditionalChrome";
