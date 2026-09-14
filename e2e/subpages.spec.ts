@@ -379,3 +379,24 @@ test.describe("calculator", () => {
     expect(priceBox!.y + priceBox!.height).toBeLessThanOrEqual(innerHeight);
   });
 });
+
+const KAFEL_ROUTES = ["/realizacje", "/realizacje/spavalnia", "/cennik", "/kontakt", "/faq", "/o-nas", "/proces", "/polityka-prywatnosci", "/regulamin", "/kalkulator"];
+
+for (const route of KAFEL_ROUTES) {
+  test(`${route} has no legacy glass and no horizontal scroll`, async ({ page }) => {
+    await page.goto(route);
+    await settle(page);
+    await expect(page.locator(".glass-card, .custom-spotlight-card, .heading-2, .cs-card-label")).toHaveCount(0);
+    // The calculator's step slide briefly overhangs the viewport on mobile; measure the layout at rest.
+    await expect
+      .poll(() => page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth))
+      .toBe(true);
+  });
+}
+
+test("every subpage has exactly one h1", async ({ page }) => {
+  for (const route of KAFEL_ROUTES) {
+    await page.goto(route);
+    await expect(page.locator("h1"), route).toHaveCount(1);
+  }
+});
