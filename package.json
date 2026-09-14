@@ -10,7 +10,9 @@
     "test": "vitest run",
     "test:e2e": "playwright test",
     "format": "prettier --write \"src/**/*.{ts,tsx,json,css,md}\"",
-    "deploy": "git checkout prod && git merge main && git push origin prod; git checkout main"
+    "deploy": "git checkout prod && git merge main && git push origin prod; git checkout main",
+    "test:visual": "bash scripts/playwright-docker.sh --project=visual-desktop --project=visual-mobile",
+    "test:visual:update": "bash scripts/playwright-docker.sh --project=visual-desktop --project=visual-mobile --update-snapshots"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
