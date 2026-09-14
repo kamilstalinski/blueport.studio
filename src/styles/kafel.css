@@ -395,3 +395,86 @@ body {
 .px-num { display: block; }
 .px-num .n-ink { fill: var(--ink); }
 .px-num .n-acc { fill: var(--cobalt); }
+
+/* ── Sections ───────────────────────────────────────────────────────── */
+.sec { padding-block: clamp(72px, 8.5vw, 124px); }
+.band { background: var(--paper-2); }
+.rule { height: 1px; margin: 0; border: 0; background: var(--line); }
+.d2, .d3 {
+  margin: 0;
+  font-family: var(--font-heading), var(--font-body), sans-serif;
+  font-weight: 700;
+  letter-spacing: -.03em;
+  text-wrap: balance;
+  font-variation-settings: "opsz" 48;
+}
+.d2 { font-size: clamp(2rem, 3.6vw, 3.05rem); line-height: 1.08; }
+.d3 { font-size: clamp(1.35rem, 1.9vw, 1.65rem); line-height: 1.18; letter-spacing: -.022em; }
+.body { max-width: 68ch; color: var(--ink-2); }
+.link {
+  color: var(--cobalt-ink);
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 3px;
+  text-decoration-color: color-mix(in srgb, var(--cobalt) 34%, transparent);
+}
+.link:hover { text-decoration-color: var(--cobalt-ink); }
+
+/* hosts for 8-bit accents: accents sit behind, content above */
+.px-host { position: relative; isolation: isolate; overflow: clip; }
+.px-host > .shell { position: relative; z-index: 1; }
+.px-deco { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+.px-deco svg { display: block; }
+
+/* entrances below the fold: InView sets data-in once the block is seen */
+.reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition-property: opacity, transform;
+  transition-duration: .5s, .6s;
+  transition-timing-function: var(--ease-out);
+}
+.reveal[data-in] { opacity: 1; transform: none; }
+.reveal[data-lag="1"] { transition-delay: .07s; }
+.reveal[data-lag="2"] { transition-delay: .14s; }
+.reveal[data-lag="3"] { transition-delay: .21s; }
+
+/* buttons on the accent band */
+.btn-oncobalt {
+  background: var(--on-cobalt);
+  color: var(--cobalt);
+  clip-path: polygon(0 0, calc(100% - 8px) 0, calc(100% - 8px) 4px, calc(100% - 4px) 4px, calc(100% - 4px) 8px, 100% 8px, 100% 100%, 0 100%);
+}
+.btn-oncobalt:hover { background: color-mix(in srgb, var(--on-cobalt) 88%, var(--cobalt)); }
+.btn-ghost-oncobalt { background: transparent; color: var(--on-cobalt); border-color: color-mix(in srgb, var(--on-cobalt) 45%, transparent); }
+.btn-ghost-oncobalt:hover { background: color-mix(in srgb, var(--on-cobalt) 12%, transparent); border-color: var(--on-cobalt); }
+
+/* ── Domain marquee ─────────────────────────────────────────────────── */
+.marq {
+  overflow: hidden;
+  padding: 17px 0;
+  border-block: 1px solid var(--line);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+}
+.marq-track { display: flex; gap: 54px; width: max-content; animation: kafel-marquee 38s linear infinite; }
+.marq:hover .marq-track { animation-play-state: paused; }
+.marq span {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--ink-2);
+  font-family: var(--font-heading), sans-serif;
+  font-size: 1.02rem;
+  font-weight: 600;
+  letter-spacing: -.02em;
+  white-space: nowrap;
+}
+.marq span::after { content: ""; width: 6px; height: 6px; background: var(--line-strong); }
+@keyframes kafel-marquee { to { transform: translateX(-50%); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+  .marq-track { animation: none; }
+}

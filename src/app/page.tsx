@@ -1,5 +1,7 @@
-import { HeroHome } from "@/components/sections/HeroHome";
 import dynamic from "next/dynamic";
+
+import { DomainMarquee } from "@/components/sections/home/DomainMarquee";
+import { HeroHome } from "@/components/sections/HeroHome";
 
 const ProblemRozwiazanie = dynamic(
   () => import("@/components/sections/ProblemRozwiazanie").then((m) => m.ProblemRozwiazanie),
@@ -38,6 +40,8 @@ export default function HomePage() {
   return (
     <>
       <HeroHome />
+      <DomainMarquee />
+      <hr className="rule" />
       <ProblemRozwiazanie />
       <DlaczegoMy />
       <OfertaPakiety topGradient={false} />

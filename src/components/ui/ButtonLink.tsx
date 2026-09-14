@@ -5,6 +5,8 @@ import { cn } from "@/lib/utils";
 const VARIANT_CLASS = {
   primary: "btn-primary",
   secondary: "btn-secondary",
+  oncobalt: "btn-oncobalt",
+  "ghost-oncobalt": "btn-ghost-oncobalt",
 } as const;
 
 interface ButtonLinkProps {
