@@ -1,14 +1,13 @@
-export type ProjectType = "wordpress" | "nextjs" | "other";
+import type { ContactTopic } from "@/constants/contact";
 
 export interface ContactFormData {
   name: string;
   email: string;
   message: string;
-  projectType: ProjectType;
+  topic: ContactTopic;
 }
 
 export interface ContactFormState {
   status: "idle" | "loading" | "success" | "error";
   error: string | null;
 }
-

@@ -105,3 +105,74 @@ for (const legacy of ["/uslugi", "/oferta", "/oferta/strony", "/oferta/sklepy"])
     expect(response.headers()["location"]).toMatch(/^(https?:\/\/[^/]+)?\/cennik$/);
   });
 }
+
+test.describe("kontakt form", () => {
+  test("shows the spec layout and direct contact details", async ({ page }) => {
+    await page.goto("/kontakt");
+
+    await expect(page.getByRole("heading", { level: 1 })).toHaveText("Napisz, co chcesz zbudować.");
+    await expect(page.getByLabel("Czego potrzebujesz?").locator("option")).toHaveText(["Strona firmowa", "Sklep internetowy", "Projekt dedykowany", "Jeszcze nie wiem"]);
+    await expect(page.locator("main").getByRole("link", { name: "kontakt@blueport.studio" })).toHaveAttribute("href", "mailto:kontakt@blueport.studio");
+    await expect(page.locator("main").getByRole("link", { name: "+48 534 287 233" })).toHaveAttribute("href", "tel:+48534287233");
+    await expect(page.locator(".contact-aside").getByRole("link", { name: "Sprawdź koszt" })).toHaveAttribute("href", "/kalkulator");
+    await expect(page.locator("main section.cta-band")).toHaveCount(0);
+
+    await expectNoAxeViolations(page);
+  });
+
+  test("validates in place and focuses the first broken field", async ({ page }) => {
+    let posted = false;
+    await page.route("**/api/contact", (route) => {
+      posted = true;
+      return route.fulfill({ json: { success: true } });
+    });
+    await page.goto("/kontakt");
+
+    await page.getByLabel("Adres e-mail").fill("anna@firma");
+    await page.getByRole("button", { name: "Wyślij zapytanie" }).click();
+
+    await expect(page.getByText("Podaj imię, żebyśmy wiedzieli jak się zwracać.")).toBeVisible();
+    await expect(page.getByText("Ten adres e-mail wygląda na niepełny.")).toBeVisible();
+    await expect(page.getByText("Napisz choć jedno zdanie o projekcie.")).toBeVisible();
+    await expect(page.getByLabel("Imię")).toBeFocused();
+    await expect(page.getByLabel("Imię")).toHaveAttribute("aria-invalid", "true");
+
+    await page.getByLabel("Imię").fill("Anna");
+    await expect(page.getByText("Podaj imię, żebyśmy wiedzieli jak się zwracać.")).toHaveCount(0);
+    expect(posted).toBe(false);
+  });
+
+  test("sends the topic and shows the success note", async ({ page }) => {
+    let body: unknown = null;
+    await page.route("**/api/contact", async (route) => {
+      body = route.request().postDataJSON();
+      await new Promise((resolve) => setTimeout(resolve, 300));
+      await route.fulfill({ json: { success: true } });
+    });
+    await page.goto("/kontakt");
+
+    await page.getByLabel("Imię").fill("Anna");
+    await page.getByLabel("Adres e-mail").fill("anna@firma.pl");
+    await page.getByLabel("Czego potrzebujesz?").selectOption({ label: "Sklep internetowy" });
+    await page.getByLabel("Wiadomość").fill("Sklep z ceramiką, około 40 produktów.");
+    await page.getByRole("button", { name: "Wyślij zapytanie" }).click();
+
+    await expect(page.getByRole("button", { name: /Wysyłamy/ })).toHaveAttribute("aria-disabled", "true");
+    await expect(page.getByRole("heading", { name: "Zapytanie wysłane" })).toBeVisible();
+    await expect(page.getByText("anna@firma.pl")).toBeVisible();
+    expect(body).toEqual({ name: "Anna", email: "anna@firma.pl", message: "Sklep z ceramiką, około 40 produktów.", topic: "sklep" });
+  });
+
+  test("keeps the form and explains a server failure", async ({ page }) => {
+    await page.route("**/api/contact", (route) => route.fulfill({ status: 500, json: { error: "Błąd wysyłki wiadomości" } }));
+    await page.goto("/kontakt");
+
+    await page.getByLabel("Imię").fill("Anna");
+    await page.getByLabel("Adres e-mail").fill("anna@firma.pl");
+    await page.getByLabel("Wiadomość").fill("Sklep z ceramiką, około 40 produktów.");
+    await page.getByRole("button", { name: "Wyślij zapytanie" }).click();
+
+    await expect(page.getByRole("status")).toHaveText("Coś poszło nie tak. Napisz bezpośrednio na kontakt@blueport.studio");
+    await expect(page.getByRole("button", { name: "Wyślij zapytanie" })).toBeEnabled();
+  });
+});
