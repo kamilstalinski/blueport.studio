@@ -6,7 +6,6 @@ const FOOTER_COLUMNS = [
   {
     title: "Oferta",
     links: [
-      { href: "/uslugi", label: "Usługi" },
       { href: "/cennik", label: "Cennik" },
       { href: "/kalkulator", label: "Kalkulator wyceny" },
       { href: "/realizacje", label: "Realizacje" },

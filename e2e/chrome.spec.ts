@@ -44,7 +44,6 @@ test("footer links every section and the legal pages", async ({ page }) => {
   const footer = page.getByRole("contentinfo");
 
   for (const [name, href] of [
-    ["Usługi", "/uslugi"],
     ["Cennik", "/cennik"],
     ["Kalkulator wyceny", "/kalkulator"],
     ["Realizacje", "/realizacje"],
@@ -57,6 +56,7 @@ test("footer links every section and the legal pages", async ({ page }) => {
   ] as const) {
     await expect(footer.getByRole("link", { name, exact: true })).toHaveAttribute("href", href);
   }
+  await expect(footer.getByRole("link", { name: "Usługi", exact: true })).toHaveCount(0);
   await expect(footer.getByRole("link", { name: "kontakt@blueport.studio" })).toHaveAttribute("href", "mailto:kontakt@blueport.studio");
   await expect(footer).toContainText(`© ${new Date().getFullYear()} Blueport Studio`);
 });

@@ -97,3 +97,11 @@ test("cennik shows the tiers, the comparison table from the price list and the C
 
   await expectNoAxeViolations(page);
 });
+
+for (const legacy of ["/uslugi", "/oferta", "/oferta/strony", "/oferta/sklepy"]) {
+  test(`${legacy} redirects permanently to /cennik`, async ({ request }) => {
+    const response = await request.get(legacy, { maxRedirects: 0 });
+    expect(response.status()).toBe(308);
+    expect(response.headers()["location"]).toMatch(/^(https?:\/\/[^/]+)?\/cennik$/);
+  });
+}
