@@ -26,15 +26,21 @@ async function settle(page: Page) {
   // The calculator also runs its own framer-motion transitions inside .calc-shell (the step
   // slide, the success-step entrance, the package dropdown), independent of the page fade
   // above. Wait for those to finish too, or axe can catch inline opacity mid-transition and
-  // report a false color-contrast violation.
+  // report a false color-contrast violation. Checking for a "finished" Web Animation alone is
+  // racy (there's a gap between the state update and framer-motion registering the Animation
+  // object), so also check the rendered opacity of every element framer-motion is driving.
   await page.waitForFunction(() => {
     const shell = document.querySelector(".calc-shell");
     if (!shell) return true;
-    return document.getAnimations().every((anim) => {
+    const noRunningAnimations = document.getAnimations().every((anim) => {
       const target = (anim.effect as KeyframeEffect | null)?.target;
       if (!target || !shell.contains(target)) return true;
       return anim.playState === "finished" || anim.playState === "idle";
     });
+    const allOpaque = [...shell.querySelectorAll<HTMLElement>("[style*='opacity']")].every(
+      (el) => getComputedStyle(el).opacity === "1"
+    );
+    return noRunningAnimations && allOpaque;
   });
   for (const block of await page.locator("main .reveal:visible").all()) {
     await block.scrollIntoViewIfNeeded();
@@ -337,5 +343,39 @@ test.describe("calculator", () => {
     await page.goto("/wycena");
     await expect(page.getByRole("heading", { name: "Czego potrzebujesz?" })).toBeVisible();
     await expect(page.locator(".calc-shell")).toHaveCount(1);
+  });
+
+  test("scrolls each desktop pane independently even with a tall feature list", async ({ page, isMobile }) => {
+    test.skip(isMobile, "desktop-only two-pane layout");
+    await page.goto("/kalkulator");
+
+    await page.getByRole("button", { name: /Sklep Online/ }).first().click();
+    await page.getByRole("button", { name: "Dalej" }).click();
+
+    await expect(page.getByRole("heading", { name: "Dodatkowe funkcje" })).toBeVisible();
+    const featureRows = page.locator(".feature-row");
+    const featureCount = await featureRows.count();
+    expect(featureCount).toBeGreaterThan(0);
+    for (let i = 0; i < featureCount; i++) {
+      await featureRows.nth(i).click();
+    }
+
+    const { scrollHeight, innerHeight } = await page.evaluate(() => ({
+      scrollHeight: document.documentElement.scrollHeight,
+      innerHeight: window.innerHeight,
+    }));
+    expect(scrollHeight).toBeLessThanOrEqual(innerHeight + 1);
+
+    const leftOverflows = await page
+      .locator(".calc-left")
+      .evaluate((el) => el.scrollHeight > el.clientHeight);
+    expect(leftOverflows).toBe(true);
+
+    await page.locator(".calc-left").evaluate((el) => el.scrollTo({ top: el.scrollHeight }));
+
+    const priceBox = await page.locator(".calc-price").boundingBox();
+    expect(priceBox).not.toBeNull();
+    expect(priceBox!.y).toBeGreaterThanOrEqual(0);
+    expect(priceBox!.y + priceBox!.height).toBeLessThanOrEqual(innerHeight);
   });
 });

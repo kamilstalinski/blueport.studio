@@ -10,12 +10,13 @@
 .calc-shell .calc-back:hover { color: var(--ink); }
 
 /* two panes */
-.calc-shell .calc-main { display: grid; grid-template-columns: minmax(0, 1fr) 420px; flex: 1; min-height: 0; height: calc(100dvh - var(--nav-h)); }
+.calc-shell .calc-main { display: grid; grid-template-columns: minmax(0, 1fr) 420px; grid-template-rows: minmax(0, 1fr); flex: 0 0 auto; min-height: 0; height: calc(100dvh - var(--nav-h)); }
 .calc-shell .calc-left { position: relative; display: flex; flex-direction: column; min-height: 0; padding: 44px clamp(24px, 5vw, 64px); overflow-y: auto; }
 .calc-shell .calc-top { position: absolute; top: 0; left: 0; width: 1px; height: 1px; pointer-events: none; }
-.calc-shell .calc-step-viewport { position: relative; flex: 1; margin: 32px 0; overflow: hidden; }
+.calc-shell .calc-step-viewport { position: relative; flex: 1 0 auto; margin: 32px 0; padding-inline-end: 6px; overflow: hidden; }
 .calc-shell .calc-step-content { width: 100%; }
-.calc-shell .calc-right { display: flex; flex-direction: column; justify-content: center; min-height: 0; padding: 44px 36px; overflow-y: auto; background: var(--paper-2); border-left: 1px solid var(--line); }
+.calc-shell .calc-right { display: flex; flex-direction: column; min-height: 0; padding: 44px 36px; overflow-y: auto; background: var(--paper-2); border-left: 1px solid var(--line); }
+.calc-shell .calc-right > * { margin-block: auto; }
 
 /* nav buttons: the Kafel button shapes */
 .calc-shell .calc-nav { display: flex; align-items: center; gap: 12px; padding-top: 24px; border-top: 1px solid var(--line); }
@@ -52,12 +53,13 @@
 .calc-shell .option-card:hover { border-color: var(--ink-3); }
 .calc-shell .option-card.selected { border-color: var(--cobalt); background: var(--cobalt-wash); box-shadow: 5px 5px 0 color-mix(in srgb, var(--cobalt) 28%, transparent); }
 .calc-shell .option-card-main { display: grid; flex: 1; min-width: 0; padding: 0; text-align: left; font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+.calc-shell .option-card-main::after { content: ""; position: absolute; inset: 0; }
 .calc-shell .option-card-main:focus-visible { outline-offset: 6px; }
 .calc-shell .option-title { font-family: var(--font-heading), sans-serif; font-size: 1.08rem; font-weight: 700; letter-spacing: -.02em; }
 .calc-shell .option-desc { margin-top: 4px; font-size: .9rem; color: var(--ink-2); }
 .calc-shell .option-price { margin-top: 8px; font-weight: 700; color: var(--cobalt-ink); }
 .calc-shell .option-tag { position: absolute; top: -11px; right: 16px; padding: 2px 8px; font-size: .74rem; font-weight: 700; background: var(--cobalt); color: var(--on-cobalt); }
-.calc-shell .option-more-btn { display: inline-flex; align-items: center; gap: 6px; flex: 0 0 auto; padding: 6px 10px; font: inherit; font-size: .84rem; font-weight: 600; color: var(--ink-2); background: transparent; border: 2px solid var(--line-strong); cursor: pointer; }
+.calc-shell .option-more-btn { position: relative; z-index: 1; display: inline-flex; align-items: center; gap: 6px; flex: 0 0 auto; padding: 6px 10px; font: inherit; font-size: .84rem; font-weight: 600; color: var(--ink-2); background: transparent; border: 2px solid var(--line-strong); cursor: pointer; }
 .calc-shell .option-more-btn:hover { color: var(--ink); border-color: var(--ink-3); }
 .calc-shell .option-more-chevron { display: inline-flex; transition: transform .2s var(--ease-out); }
 .calc-shell .option-more-btn[aria-expanded="true"] .option-more-chevron { transform: rotate(45deg); }
