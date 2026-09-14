@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 
 import { PixelNumber } from "@/components/brand/PixelNumber";
+import { IN_VIEW_MARGIN, IN_VIEW_THRESHOLD } from "@/components/ui/InView";
 import { TALLY } from "@/constants/process";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
@@ -12,7 +13,7 @@ type TallyItemProps = (typeof TALLY)[number];
 
 function TallyItem({ count, prefix, suffix, label }: TallyItemProps) {
   const isStill = usePrefersReducedMotion();
-  const { ref, isInView } = useScrollAnimation({ threshold: 0.2 });
+  const { ref, isInView } = useScrollAnimation({ threshold: IN_VIEW_THRESHOLD, margin: IN_VIEW_MARGIN });
   const [value, setValue] = useState(0);
 
   useEffect(() => {

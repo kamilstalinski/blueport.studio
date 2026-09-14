@@ -504,16 +504,17 @@ a.frame:focus-visible { transform: translate(-3px, -3px); border-color: var(--co
 @media (hover: hover) and (pointer: fine) {
   a.frame:hover { transform: translate(-3px, -3px); border-color: var(--cobalt); box-shadow: 9px 9px 0 color-mix(in srgb, var(--cobalt) 30%, transparent); }
   a.frame:hover .chrome::after { display: none; }
+  a.frame:hover .chrome .live { opacity: 1; }
 }
 .chrome .live { margin-left: auto; color: var(--ink-3); font-size: .7rem; font-weight: 700; opacity: 0; transition: opacity .2s var(--ease-out); }
-a.frame:hover .chrome .live { opacity: 1; }
 .pane { position: relative; overflow: hidden; aspect-ratio: 4 / 3.9; background: var(--paper-2); }
-.pane img { display: block; width: 100%; height: auto; transform: translateY(0); transition: transform .85s var(--ease-out); will-change: transform; }
+.pane img { display: block; width: 100%; height: auto; transform: translateY(0); transition: transform .85s var(--ease-out); }
 @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
   a.frame:hover .pane img, a.frame:focus-visible .pane img {
     transform: translateY(var(--shift, 0));
     transition-duration: var(--dur, 10s);
     transition-timing-function: linear;
+    will-change: transform;
   }
 }
 .frame-foot { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding: 13px 15px 14px; border-top: 2px solid var(--line-strong); }
@@ -716,7 +717,8 @@ a.frame:hover .chrome .live { opacity: 1; }
 @media (max-width: 1000px) {
   .steps { grid-template-columns: 1fr; }
   .steps .step { padding: 0 0 26px 30px; }
-  .steps .step::before { top: 0; bottom: 0; left: 7px; right: auto; width: 2px; height: auto; transform-origin: center top; }
+  .steps .step::before { top: 0; bottom: 0; left: 7px; right: auto; width: 2px; height: auto; transform: scaleY(0); transform-origin: center top; }
+  .steps .step[data-in]::before { transform: scaleY(1); }
   .steps .step .dot { position: absolute; top: 2px; left: 0; margin: 0; }
   .tally { grid-template-columns: 1fr; border-top: 0; }
   .tally > div { padding: 20px 0; border-top: 1px solid var(--line); }

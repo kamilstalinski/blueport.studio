@@ -3,8 +3,8 @@
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { cn } from "@/lib/utils";
 
-const IN_VIEW_THRESHOLD = 0.2;
-const IN_VIEW_MARGIN = "0px 0px -6% 0px";
+export const IN_VIEW_THRESHOLD = 0.2;
+export const IN_VIEW_MARGIN = "0px 0px -6% 0px";
 
 interface InViewProps {
   children?: React.ReactNode;
