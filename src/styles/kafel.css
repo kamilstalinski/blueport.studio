@@ -534,3 +534,48 @@ a.frame:hover .chrome .live { opacity: 1; }
   .px-field .tw { animation: none; }
   a.frame, .pane img { transition: none; }
 }
+
+/* ── Structure section on the deep ground ───────────────────────────── */
+:root { --deep-fill: rgba(255, 255, 255, .04); }
+.ink { background: var(--deep); color: var(--on-deep); }
+.ink .lede, .ink .body { color: var(--on-deep-2); }
+.ink-grid { display: grid; grid-template-columns: 1.04fr .96fr; align-items: center; gap: clamp(36px, 5vw, 72px); }
+.plan-lede { margin-top: 22px; }
+.swap { display: grid; gap: 0; margin: 34px 0 0; padding: 0; list-style: none; }
+.swap li { display: grid; grid-template-columns: auto 1fr; align-items: baseline; gap: 14px; padding: 19px 0; border-top: 1px solid var(--deep-line); }
+.swap li:last-child { border-bottom: 1px solid var(--deep-line); }
+.swap .px-ico { color: var(--lift); transform: translateY(2px); }
+.swap .was { color: var(--on-deep-2); font-size: 1rem; text-decoration: line-through; text-decoration-color: color-mix(in srgb, var(--on-deep-2) 55%, transparent); }
+.swap .now { display: inline-block; margin-top: 4px; font-size: 1.06rem; font-weight: 600; letter-spacing: -.012em; }
+
+.plan { width: 100%; height: auto; overflow: visible; }
+.plan .hair { stroke: color-mix(in srgb, var(--on-deep) 20%, transparent); }
+.plan .box { fill: none; stroke: color-mix(in srgb, var(--on-deep) 22%, transparent); stroke-width: 1.2; }
+.plan .fillbox { fill: var(--deep-fill); stroke: color-mix(in srgb, var(--on-deep) 16%, transparent); stroke-width: 1; }
+.plan .bar { fill: color-mix(in srgb, var(--on-deep) 18%, transparent); }
+.plan .bar-dim { fill: color-mix(in srgb, var(--on-deep) 10%, transparent); }
+.plan .cta { fill: var(--cobalt); }
+.plan .route { fill: none; stroke: var(--lift); stroke-width: 3; stroke-linecap: square; stroke-linejoin: miter; stroke-dasharray: 620; stroke-dashoffset: 620; }
+.plan .pin { fill: var(--lift); opacity: 0; }
+.plan-wrap[data-in] .plan .route { stroke-dashoffset: 0; transition: stroke-dashoffset 1.6s var(--ease-out) .25s; }
+.plan-wrap[data-in] .plan .pin { opacity: 1; transition: opacity .5s var(--ease-out) 1.5s; }
+.plan-cap { max-width: 38ch; margin: 20px 0 0; color: var(--on-deep-2); font-size: .85rem; line-height: 1.5; }
+
+/* tetromino stack, bottom right; the falling piece lands when the section is seen */
+.px-deco--tetro { color: var(--on-deep); }
+.deco-tetro { position: absolute; right: max(24px, calc((100% - var(--shell)) / 2 - 40px)); bottom: 0; width: min(234px, 24vw); height: auto; }
+.deco-drop { fill: var(--lift); opacity: .28; transform: translateY(-78px); }
+.px-deco--tetro[data-in] .deco-drop { transform: none; transition: transform .7s var(--ease-out) .15s; }
+
+@media (max-width: 1000px) {
+  .ink-grid { grid-template-columns: 1fr; gap: 36px; }
+  .plan { max-width: 460px; }
+}
+@media (max-width: 760px) {
+  .deco-tetro { width: 150px; opacity: .8; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .plan .route { stroke-dashoffset: 0; }
+  .plan .pin { opacity: 1; }
+  .deco-drop, .px-deco--tetro[data-in] .deco-drop { transform: none; transition: none; }
+}

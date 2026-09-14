@@ -70,3 +70,27 @@ test.describe("full-page preview on hover", () => {
       .toBeLessThan(-20);
   });
 });
+
+const planSection = (page: import("@playwright/test").Page) =>
+  page.locator("section", {
+    has: page.getByRole("heading", { name: "Większość stron dla małych firm powstaje bez planu. Potem nie sprzedaje." }),
+  });
+
+test("the structure section argues with a traced page plan", async ({ page }) => {
+  await page.goto("/");
+  const section = planSection(page);
+  await section.scrollIntoViewIfNeeded();
+
+  await expect(section.getByText("Wygląda dobrze na prezentacji i nic nie robi przez kolejne trzy lata.")).toBeVisible();
+  await expect(section.locator(".swap .now")).toHaveText([
+    "Struktura i treść pisane pod wyszukiwanie lokalne",
+    "Optymalizacja szybkości przed publikacją",
+    "Formularz i ścieżka kontaktu w centrum układu",
+  ]);
+  await expect(section.getByRole("img", { name: /Schemat strony/ })).toBeVisible();
+  await expect(section.getByText("Ścieżka od pierwszego ekranu do formularza. Projektujemy ją, zanim powstanie pierwszy piksel.")).toBeVisible();
+
+  await expect.poll(() => section.locator(".plan .route").evaluate((el) => getComputedStyle(el).strokeDashoffset)).toBe("0px");
+  await expect(section.locator(".px-deco--tetro")).toHaveAttribute("aria-hidden", "true");
+  await expect.poll(() => section.locator(".deco-drop").evaluate((el) => getComputedStyle(el).transform)).toBe("none");
+});

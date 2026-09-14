@@ -7,8 +7,8 @@ const WorkWall = dynamic(
   () => import("@/components/sections/home/WorkWall").then((m) => m.WorkWall),
   { ssr: true }
 );
-const ProblemRozwiazanie = dynamic(
-  () => import("@/components/sections/ProblemRozwiazanie").then((m) => m.ProblemRozwiazanie),
+const PlanSection = dynamic(
+  () => import("@/components/sections/home/PlanSection").then((m) => m.PlanSection),
   { ssr: true }
 );
 const DlaczegoMy = dynamic(
@@ -47,7 +47,7 @@ export default function HomePage() {
       <DomainMarquee />
       <hr className="rule" />
       <WorkWall />
-      <ProblemRozwiazanie />
+      <PlanSection />
       <DlaczegoMy />
       <OfertaPakiety topGradient={false} />
       <TestimonialsSection />
