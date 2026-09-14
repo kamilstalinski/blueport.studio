@@ -3,6 +3,13 @@ import { expect, test, type Page } from "@playwright/test";
 
 /** Scroll through every visible reveal, then wait for all of them to rest before measuring. */
 async function settle(page: Page) {
+  // Every route is wrapped by app/template.tsx in a 0.35s opacity fade-in. Pages with at
+  // least one .reveal element happen to outlast it while scrolling, but a page with none
+  // (e.g. the legal pages) can run axe mid-fade and get a false color-contrast violation.
+  await page.waitForFunction(() => {
+    const wrap = document.querySelector("main")?.firstElementChild as HTMLElement | null;
+    return !wrap || getComputedStyle(wrap).opacity === "1";
+  });
   for (const block of await page.locator("main .reveal:visible").all()) {
     await block.scrollIntoViewIfNeeded();
   }
@@ -232,3 +239,20 @@ test("o nas keeps the story, approach, technologies and audience", async ({ page
 
   await expectNoAxeViolations(page);
 });
+
+for (const [route, title, sections] of [
+  ["/polityka-prywatnosci", "Polityka prywatności", 11],
+  ["/regulamin", "Regulamin", 12],
+] as const) {
+  test(`${route} uses the Kafel legal layout`, async ({ page }) => {
+    await page.goto(route);
+
+    await expect(page.getByRole("heading", { level: 1 })).toHaveText(title);
+    await expect(page.locator("article.legal > section")).toHaveCount(sections);
+    await expect(page.locator("article.legal [class]")).toHaveCount(0);
+    expect(await page.locator("article.legal h2").first().evaluate((el) => getComputedStyle(el).fontFamily)).toMatch(/Bricolage/);
+    await expect(page.locator("main section.cta-band")).toHaveCount(0);
+
+    await expectNoAxeViolations(page);
+  });
+}

@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Section } from "@/components/ui/Section";
 
 export const metadata: Metadata = {
   title: "Polityka prywatności",
@@ -9,19 +8,15 @@ export const metadata: Metadata = {
 
 export default function PolitykaPrywatnosciPage() {
   return (
-    <Section as="div" firstOnPage>
-      <div className="container-narrow">
-        <h1 className="text-3xl font-semibold tracking-tight text-foreground md:text-4xl">
-          Polityka prywatności
-        </h1>
-        <p className="mt-6 text-muted-foreground">
-          https://blueport.studio | Obowiązuje od: 20 marca 2026
-        </p>
+    <section className="sec legal-page">
+      <div className="shell legal-shell">
+        <h1 className="d2">Polityka prywatności</h1>
+        <p className="meta legal-date">https://blueport.studio | Obowiązuje od: 20 marca 2026</p>
 
-        <div className="mt-10 space-y-10 text-muted-foreground">
+        <article className="legal">
         <section>
-          <h2 className="text-lg font-semibold text-foreground">§1. Administrator danych osobowych</h2>
-          <p className="mt-4 leading-relaxed">
+          <h2>§1. Administrator danych osobowych</h2>
+          <p>
             Administratorem Twoich danych osobowych jest Kamil Staliński, prowadzący działalność pod
             nazwą Blueport Studio, ul. Panoramiczna 5/6, 71-447 Szczecin, NIP: 5252788177, REGON:
             383198229. Kontakt w sprawach dotyczących danych osobowych: kontakt@blueport.studio.
@@ -29,11 +24,11 @@ export default function PolitykaPrywatnosciPage() {
         </section>
 
         <section>
-          <h2 className="text-lg font-semibold text-foreground">§2. Jakie dane zbieramy</h2>
-          <p className="mt-4 leading-relaxed">
+          <h2>§2. Jakie dane zbieramy</h2>
+          <p>
             W zależności od sposobu korzystania ze strony, możemy zbierać następujące dane:
           </p>
-          <ul className="mt-4 list-inside list-disc space-y-2 leading-relaxed">
+          <ul>
             <li>
               Imię i adres e-mail — podane dobrowolnie przez formularz kontaktowy lub kalkulator wyceny.
             </li>
@@ -49,11 +44,11 @@ export default function PolitykaPrywatnosciPage() {
         </section>
 
         <section>
-          <h2 className="text-lg font-semibold text-foreground">§3. Cel i podstawa prawna przetwarzania</h2>
-          <p className="mt-4 leading-relaxed">
+          <h2>§3. Cel i podstawa prawna przetwarzania</h2>
+          <p>
             Twoje dane przetwarzamy w następujących celach:
           </p>
-          <ul className="mt-4 list-inside list-disc space-y-2 leading-relaxed">
+          <ul>
             <li>
               Odpowiedź na wiadomość i prowadzenie korespondencji (art. 6 ust. 1 lit. b RODO — niezbędność
               do wykonania umowy lub podjęcia działań na żądanie osoby przed zawarciem umowy).
@@ -70,9 +65,9 @@ export default function PolitykaPrywatnosciPage() {
         </section>
 
         <section>
-          <h2 className="text-lg font-semibold text-foreground">§4. Odbiorcy danych</h2>
-          <p className="mt-4 leading-relaxed">Twoje dane możemy przekazywać następującym podmiotom:</p>
-          <ul className="mt-4 list-inside list-disc space-y-2 leading-relaxed">
+          <h2>§4. Odbiorcy danych</h2>
+          <p>Twoje dane możemy przekazywać następującym podmiotom:</p>
+          <ul>
             <li>Resend Inc. — w celu wysyłki wiadomości e-mail (serwer pocztowy).</li>
             <li>Supabase Inc. — w celu przechowywania danych z formularzy (baza danych).</li>
             <li>Hetzner Online GmbH — dostawca serwera VPS, na którym hostowana jest strona.</li>
@@ -80,15 +75,15 @@ export default function PolitykaPrywatnosciPage() {
               Google LLC — w zakresie usług analitycznych (Google Analytics), jeśli są wdrożone.
             </li>
           </ul>
-          <p className="mt-4 leading-relaxed">
+          <p>
             Wszystkie podmioty są zobowiązane do przetwarzania danych zgodnie z obowiązującymi przepisami
             i wyłącznie w zakresie niezbędnym do świadczenia usług.
           </p>
         </section>
 
         <section>
-          <h2 className="text-lg font-semibold text-foreground">§5. Przekazywanie danych poza EOG</h2>
-          <p className="mt-4 leading-relaxed">
+          <h2>§5. Przekazywanie danych poza EOG</h2>
+          <p>
             Część podmiotów wymienionych w §4 (m.in. Resend, Supabase, Google) może przetwarzać dane poza
             Europejskim Obszarem Gospodarczym. Przekazanie odbywa się na podstawie standardowych klauzul
             umownych zatwierdzonych przez Komisję Europejską lub w ramach programów certyfikacji
@@ -97,8 +92,8 @@ export default function PolitykaPrywatnosciPage() {
         </section>
 
         <section>
-          <h2 className="text-lg font-semibold text-foreground">§6. Okres przechowywania danych</h2>
-          <ul className="mt-4 list-inside list-disc space-y-2 leading-relaxed">
+          <h2>§6. Okres przechowywania danych</h2>
+          <ul>
             <li>
               Dane z formularzy kontaktowych — przez czas niezbędny do obsługi zapytania, jednak nie dłużej
               niż 2 lata od ostatniego kontaktu.
@@ -113,11 +108,11 @@ export default function PolitykaPrywatnosciPage() {
         </section>
 
         <section>
-          <h2 className="text-lg font-semibold text-foreground">§7. Twoje prawa</h2>
-          <p className="mt-4 leading-relaxed">
+          <h2>§7. Twoje prawa</h2>
+          <p>
             W związku z przetwarzaniem Twoich danych osobowych przysługują Ci następujące prawa:
           </p>
-          <ul className="mt-4 list-inside list-disc space-y-2 leading-relaxed">
+          <ul>
             <li>Prawo dostępu do danych (art. 15 RODO).</li>
             <li>Prawo do sprostowania danych (art. 16 RODO).</li>
             <li>Prawo do usunięcia danych (&quot;prawo do bycia zapomnianym&quot;) (art. 17 RODO).</li>
@@ -129,17 +124,17 @@ export default function PolitykaPrywatnosciPage() {
               (ul. Stawki 2, 00-193 Warszawa, www.uodo.gov.pl).
             </li>
           </ul>
-          <p className="mt-4 leading-relaxed">
+          <p>
             Aby skorzystać z powyższych praw, skontaktuj się z nami pod adresem: kontakt@blueport.studio.
           </p>
         </section>
 
         <section>
-          <h2 className="text-lg font-semibold text-foreground">§8. Pliki cookies</h2>
-          <p className="mt-4 leading-relaxed">
+          <h2>§8. Pliki cookies</h2>
+          <p>
             Strona może używać plików cookies (ciasteczek) w następujących celach:
           </p>
-          <ul className="mt-4 list-inside list-disc space-y-2 leading-relaxed">
+          <ul>
             <li>
               Cookies niezbędne — zapewniają prawidłowe działanie strony (sesja, preferencje).
             </li>
@@ -151,7 +146,7 @@ export default function PolitykaPrywatnosciPage() {
               Cookies marketingowe — jeśli są stosowane, wymagają wyraźnej zgody.
             </li>
           </ul>
-          <p className="mt-4 leading-relaxed">
+          <p>
             Możesz zarządzać ustawieniami cookies poprzez ustawienia swojej przeglądarki lub panel zgód
             dostępny na stronie. Odrzucenie cookies analitycznych i marketingowych nie wpływa na korzystanie
             z podstawowych funkcji serwisu.
@@ -159,8 +154,8 @@ export default function PolitykaPrywatnosciPage() {
         </section>
 
         <section>
-          <h2 className="text-lg font-semibold text-foreground">§9. Bezpieczeństwo danych</h2>
-          <p className="mt-4 leading-relaxed">
+          <h2>§9. Bezpieczeństwo danych</h2>
+          <p>
             Stosujemy odpowiednie środki techniczne i organizacyjne w celu ochrony Twoich danych przed
             nieuprawnionym dostępem, utratą lub zniszczeniem. Dane przesyłane są z wykorzystaniem protokołu
             HTTPS (szyfrowanie TLS). Dostęp do danych mają wyłącznie osoby upoważnione.
@@ -168,8 +163,8 @@ export default function PolitykaPrywatnosciPage() {
         </section>
 
         <section>
-          <h2 className="text-lg font-semibold text-foreground">§10. Zmiany polityki prywatności</h2>
-          <p className="mt-4 leading-relaxed">
+          <h2>§10. Zmiany polityki prywatności</h2>
+          <p>
             Zastrzegamy sobie prawo do zmiany niniejszej Polityki Prywatności. O istotnych zmianach poinformujemy
             poprzez aktualizację daty na początku dokumentu. Aktualna wersja jest zawsze dostępna pod adresem:
             https://blueport.studio/polityka-prywatnosci.
@@ -177,17 +172,17 @@ export default function PolitykaPrywatnosciPage() {
         </section>
 
         <section>
-          <h2 className="text-lg font-semibold text-foreground">§11. Kontakt</h2>
-          <p className="mt-4 leading-relaxed">
+          <h2>§11. Kontakt</h2>
+          <p>
             W sprawach dotyczących ochrony danych osobowych prosimy o kontakt: kontakt@blueport.studio.
           </p>
-          <p className="mt-4 leading-relaxed">
+          <p>
             Blueport Studio | Kamil Staliński, prowadzący działalność pod nazwą Blueport Studio, ul.
             Panoramiczna 5/6, 71-447 Szczecin, NIP: 5252788177, REGON: 383198229
           </p>
         </section>
-        </div>
+        </article>
       </div>
-    </Section>
+    </section>
   );
 }

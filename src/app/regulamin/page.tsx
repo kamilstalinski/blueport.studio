@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Section } from "@/components/ui/Section";
 
 export const metadata: Metadata = {
   title: "Regulamin",
@@ -9,20 +8,18 @@ export const metadata: Metadata = {
 
 export default function RegulaminPage() {
   return (
-    <Section as="div" firstOnPage>
-      <div className="container-narrow">
-        <h1 className="text-3xl font-semibold tracking-tight text-foreground md:text-4xl">
-          Regulamin
-        </h1>
-        <p className="mt-6 text-muted-foreground">https://blueport.studio | Obowiązuje od: 20 marca 2026</p>
+    <section className="sec legal-page">
+      <div className="shell legal-shell">
+        <h1 className="d2">Regulamin</h1>
+        <p className="meta legal-date">https://blueport.studio | Obowiązuje od: 20 marca 2026</p>
 
-        <div className="mt-10 space-y-10 text-muted-foreground">
+        <article className="legal">
         <section>
-          <h2 className="text-lg font-semibold text-foreground">§1. Definicje</h2>
-          <p className="mt-4 leading-relaxed">
+          <h2>§1. Definicje</h2>
+          <p>
             Użyte w niniejszym Regulaminie pojęcia oznaczają:
           </p>
-          <ul className="mt-4 list-inside list-disc space-y-2 leading-relaxed">
+          <ul>
             <li>
               <strong>Usługodawca</strong> — Kamil Staliński, prowadzący działalność pod nazwą Blueport Studio, ul.
               Panoramiczna 5/6, 71-447 Szczecin, NIP: 5252788177, REGON: 383198229.
@@ -48,25 +45,25 @@ export default function RegulaminPage() {
         </section>
 
         <section>
-          <h2 className="text-lg font-semibold text-foreground">§2. Postanowienia ogólne</h2>
-          <p className="mt-4 leading-relaxed">
+          <h2>§2. Postanowienia ogólne</h2>
+          <p>
             Niniejszy Regulamin określa zasady korzystania z serwisu internetowego Blueport Studio oraz warunki
             świadczenia usług tworzenia stron internetowych i aplikacji webowych.
           </p>
-          <p className="mt-4 leading-relaxed">
+          <p>
             Korzystanie z serwisu oraz złożenie zamówienia jest równoznaczne z akceptacją niniejszego Regulaminu
             w całości.
           </p>
-          <p className="mt-4 leading-relaxed">
+          <p>
             Usługodawca zastrzega sobie prawo do zmiany Regulaminu. Zmiany wchodzą w życie z chwilą
             opublikowania ich na stronie. Zmiana Regulaminu nie wpływa na umowy już zawarte.
           </p>
         </section>
 
         <section>
-          <h2 className="text-lg font-semibold text-foreground">§3. Zakres usług</h2>
-          <p className="mt-4 leading-relaxed">Blueport Studio świadczy następujące usługi:</p>
-          <ul className="mt-4 list-inside list-disc space-y-2 leading-relaxed">
+          <h2>§3. Zakres usług</h2>
+          <p>Blueport Studio świadczy następujące usługi:</p>
+          <ul>
             <li>Projektowanie i tworzenie stron internetowych (WordPress, Next.js).</li>
             <li>Tworzenie sklepów internetowych (WooCommerce, Next.js Commerce).</li>
             <li>Projektowanie interfejsów użytkownika (UI/UX).</li>
@@ -74,23 +71,23 @@ export default function RegulaminPage() {
             <li>Konfiguracja hostingu i domeny.</li>
             <li>Wsparcie techniczne i opieka powdrożeniowa.</li>
           </ul>
-          <p className="mt-4 leading-relaxed">
+          <p>
             Szczegółowy zakres usługi jest każdorazowo ustalany indywidualnie i określany w ofercie lub umowie.
           </p>
         </section>
 
         <section>
-          <h2 className="text-lg font-semibold text-foreground">§4. Zawarcie umowy i proces realizacji</h2>
-          <p className="mt-4 leading-relaxed">Umowa zostaje zawarta w momencie:</p>
-          <ul className="mt-4 list-inside list-disc space-y-2 leading-relaxed">
+          <h2>§4. Zawarcie umowy i proces realizacji</h2>
+          <p>Umowa zostaje zawarta w momencie:</p>
+          <ul>
             <li>Podpisania przez obie strony umowy o dzieło lub zlecenia, lub</li>
             <li>
               Pisemnego (w tym e-mailowego) potwierdzenia przez Klienta akceptacji oferty i warunków współpracy.
             </li>
           </ul>
 
-          <p className="mt-4 leading-relaxed">Standardowy proces realizacji projektu obejmuje następujące etapy:</p>
-          <ul className="mt-4 list-inside list-disc space-y-2 leading-relaxed">
+          <p>Standardowy proces realizacji projektu obejmuje następujące etapy:</p>
+          <ul>
             <li>Brief i ustalenie zakresu — Klient dostarcza niezbędne materiały i informacje.</li>
             <li>
               Projekt graficzny / wireframe — Usługodawca przygotowuje projekt do akceptacji.
@@ -105,9 +102,9 @@ export default function RegulaminPage() {
         </section>
 
         <section>
-          <h2 className="text-lg font-semibold text-foreground">§5. Obowiązki Klienta</h2>
-          <p className="mt-4 leading-relaxed">Klient zobowiązuje się do:</p>
-          <ul className="mt-4 list-inside list-disc space-y-2 leading-relaxed">
+          <h2>§5. Obowiązki Klienta</h2>
+          <p>Klient zobowiązuje się do:</p>
+          <ul>
             <li>
               Dostarczenia wszelkich niezbędnych materiałów (teksty, zdjęcia, logotypy, dane firmowe) w uzgodnionym terminie.
             </li>
@@ -122,35 +119,35 @@ export default function RegulaminPage() {
         </section>
 
         <section>
-          <h2 className="text-lg font-semibold text-foreground">§6. Wynagrodzenie i płatności</h2>
-          <p className="mt-4 leading-relaxed">
+          <h2>§6. Wynagrodzenie i płatności</h2>
+          <p>
             Wynagrodzenie za usługi jest każdorazowo ustalane indywidualnie i podawane w ofercie lub umowie.
             Standardowy harmonogram płatności:
           </p>
-          <ul className="mt-4 list-inside list-disc space-y-2 leading-relaxed">
+          <ul>
             <li>50% wartości projektu — zaliczka płatna przed rozpoczęciem prac.</li>
             <li>50% wartości projektu — płatność końcowa po ukończeniu i przed wdrożeniem.</li>
           </ul>
-          <p className="mt-4 leading-relaxed">
+          <p>
             Faktury wystawiane są w formie elektronicznej i przesyłane na adres e-mail Klienta. Termin płatności
             wynosi 7 dni od daty wystawienia faktury, chyba że strony ustalą inaczej.
           </p>
-          <p className="mt-4 leading-relaxed">
+          <p>
             W przypadku opóźnienia płatności Usługodawca zastrzega sobie prawo do wstrzymania prac do czasu uregulowania należności oraz naliczania ustawowych odsetek za opóźnienie.
           </p>
         </section>
 
         <section>
-          <h2 className="text-lg font-semibold text-foreground">§7. Prawa autorskie i własność intelektualna</h2>
-          <p className="mt-4 leading-relaxed">
+          <h2>§7. Prawa autorskie i własność intelektualna</h2>
+          <p>
             Po uiszczeniu pełnego wynagrodzenia Klient nabywa majątkowe prawa autorskie do wykonanego projektu
             graficznego i kodu źródłowego strony, na następujących polach eksploatacji: wyświetlanie w sieci Internet,
             modyfikacja, kopiowanie na własne potrzeby.
           </p>
-          <p className="mt-4 leading-relaxed">
+          <p>
             Usługodawca zachowuje prawo do:
           </p>
-          <ul className="mt-4 list-inside list-disc space-y-2 leading-relaxed">
+          <ul>
             <li>
               Prezentowania wykonanej pracy w portfolio i materiałach marketingowych, chyba że Klient zastrzeże inaczej na piśmie.
             </li>
@@ -164,25 +161,25 @@ export default function RegulaminPage() {
         </section>
 
         <section>
-          <h2 className="text-lg font-semibold text-foreground">§8. Gwarancja i reklamacje</h2>
-          <p className="mt-4 leading-relaxed">
+          <h2>§8. Gwarancja i reklamacje</h2>
+          <p>
             Usługodawca zapewnia 30-dniowy bezpłatny okres gwarancyjny po wdrożeniu strony, obejmujący naprawę błędów wynikających bezpośrednio z realizacji projektu (nie dotyczy błędów wynikających z działań Klienta lub osób trzecich).
           </p>
-          <p className="mt-4 leading-relaxed">
+          <p>
             Reklamacje należy składać pisemnie na adres e-mail: kontakt@blueport.studio. Reklamacja powinna
             zawierać opis problemu i — jeśli to możliwe — zrzuty ekranu lub inne materiały ilustrujące problem.
           </p>
-          <p className="mt-4 leading-relaxed">
+          <p>
             Usługodawca rozpatruje reklamacje w terminie 14 dni roboczych od ich otrzymania.
           </p>
         </section>
 
         <section>
-          <h2 className="text-lg font-semibold text-foreground">§9. Odpowiedzialność</h2>
-          <p className="mt-4 leading-relaxed">
+          <h2>§9. Odpowiedzialność</h2>
+          <p>
             Usługodawca nie ponosi odpowiedzialności za:
           </p>
-          <ul className="mt-4 list-inside list-disc space-y-2 leading-relaxed">
+          <ul>
             <li>
               Szkody wynikające z niedostarczenia przez Klienta materiałów w terminie lub dostarczenia materiałów niepełnych, błędnych lub naruszających prawa osób trzecich.
             </li>
@@ -190,15 +187,15 @@ export default function RegulaminPage() {
             <li>Działania lub zaniechania podmiotów trzecich (dostawców hostingu, operatorów płatności, wtyczek).</li>
             <li>Jakiekolwiek pośrednie lub wtórne straty biznesowe Klienta.</li>
           </ul>
-          <p className="mt-4 leading-relaxed">
+          <p>
             Odpowiedzialność Usługodawcy jest ograniczona do wartości wynagrodzenia brutto za dany projekt.
           </p>
         </section>
 
         <section>
-          <h2 className="text-lg font-semibold text-foreground">§10. Rozwiązanie umowy</h2>
-          <p className="mt-4 leading-relaxed">Każda ze stron może odstąpić od umowy:</p>
-          <ul className="mt-4 list-inside list-disc space-y-2 leading-relaxed">
+          <h2>§10. Rozwiązanie umowy</h2>
+          <p>Każda ze stron może odstąpić od umowy:</p>
+          <ul>
             <li>
               Klient — za pisemnym wypowiedzeniem z 14-dniowym okresem wypowiedzenia. Klient zobowiązany jest do zapłaty za prace wykonane do dnia wypowiedzenia.
             </li>
@@ -209,32 +206,32 @@ export default function RegulaminPage() {
         </section>
 
         <section>
-          <h2 className="text-lg font-semibold text-foreground">§11. Poufność</h2>
-          <p className="mt-4 leading-relaxed">
+          <h2>§11. Poufność</h2>
+          <p>
             Obie strony zobowiązują się do zachowania poufności informacji handlowych, technicznych i organizacyjnych uzyskanych w toku współpracy, przez okres 2 lat od zakończenia współpracy.
           </p>
         </section>
 
         <section>
-          <h2 className="text-lg font-semibold text-foreground">§12. Postanowienia końcowe</h2>
-          <p className="mt-4 leading-relaxed">
+          <h2>§12. Postanowienia końcowe</h2>
+          <p>
             W sprawach nieuregulowanych niniejszym Regulaminem zastosowanie mają przepisy prawa polskiego, w szczególności Kodeksu Cywilnego oraz ustawy o prawie autorskim i prawach pokrewnych.
           </p>
-          <p className="mt-4 leading-relaxed">
+          <p>
             Wszelkie spory wynikające z realizacji usług strony będą rozwiązywać polubownie. W przypadku braku porozumienia, sądem właściwym do rozstrzygania sporów jest sąd właściwy dla siedziby Usługodawcy.
           </p>
-          <p className="mt-4 leading-relaxed">
+          <p>
             Niniejszy Regulamin obowiązuje od dnia 20 marca 2026.
           </p>
 
-          <p className="mt-6 leading-relaxed">
+          <p>
             Blueport Studio | Kamil Staliński, prowadzący działalność pod nazwą Blueport Studio, ul. Panoramiczna 5/6, 71-447 Szczecin, NIP: 5252788177, REGON: 383198229
             <br />
             E-mail: kontakt@blueport.studio | Strona: https://blueport.studio
           </p>
         </section>
-        </div>
+        </article>
       </div>
-    </Section>
+    </section>
   );
 }

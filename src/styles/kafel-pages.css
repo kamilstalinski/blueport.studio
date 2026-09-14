@@ -186,3 +186,16 @@
   .process-detail-row { grid-template-columns: auto minmax(0, 1fr); }
   .process-detail-row ul { grid-column: 2; }
 }
+
+/* ── Legal pages (spec stub: .sec, shell max 660px, h1 as .d2) ── */
+.legal-shell { max-width: 760px; }
+.legal-page .d2 { margin: 0; }
+.legal-date { margin: 14px 0 0; }
+.legal { margin-top: clamp(32px, 4vw, 48px); color: var(--ink-2); }
+.legal > section + section { margin-top: 36px; padding-top: 28px; border-top: 1px solid var(--line); }
+.legal h2 { margin: 0; font-family: var(--font-heading), sans-serif; font-size: 1.2rem; font-weight: 700; letter-spacing: -.02em; line-height: 1.25; color: var(--ink); }
+.legal p { margin: 14px 0 0; line-height: 1.7; }
+.legal ul { margin: 14px 0 0; padding-left: 1.2em; display: grid; gap: 8px; line-height: 1.7; }
+.legal li::marker { color: var(--cobalt-ink); }
+.legal strong { color: var(--ink); font-weight: 600; }
+.legal a { color: var(--cobalt-ink); text-decoration: underline; text-underline-offset: 3px; }
