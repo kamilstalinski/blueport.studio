@@ -15,8 +15,8 @@ const DlaczegoMy = dynamic(
   () => import("@/components/sections/DlaczegoMy").then((m) => m.DlaczegoMy),
   { ssr: true }
 );
-const OfertaPakiety = dynamic(
-  () => import("@/components/sections/OfertaPakiety").then((m) => m.OfertaPakiety),
+const HomePricing = dynamic(
+  () => import("@/components/sections/home/HomePricing").then((m) => m.HomePricing),
   { ssr: true }
 );
 const TestimonialsSection = dynamic(
@@ -49,7 +49,7 @@ export default function HomePage() {
       <WorkWall />
       <PlanSection />
       <DlaczegoMy />
-      <OfertaPakiety topGradient={false} />
+      <HomePricing />
       <TestimonialsSection />
       <KalkulatorSection />
       <ProcesHome />

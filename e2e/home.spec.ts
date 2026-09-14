@@ -94,3 +94,26 @@ test("the structure section argues with a traced page plan", async ({ page }) =>
   await expect(section.locator(".px-deco--tetro")).toHaveAttribute("aria-hidden", "true");
   await expect.poll(() => section.locator(".deco-drop").evaluate((el) => getComputedStyle(el).transform)).toBe("none");
 });
+
+test("pricing shows three packages from the price list and the dedicated project", async ({ page }) => {
+  await page.goto("/");
+  const section = page.locator("section", { has: page.getByRole("heading", { name: "Trzy pakiety. Cena znana przed startem." }) });
+  await section.scrollIntoViewIfNeeded();
+
+  await expect(section.getByText("Poniżej ceny bazowe. Dokładną kwotę pod Twój zakres policzysz w kalkulatorze.")).toBeVisible();
+  const tiers = section.locator("article.tier");
+  await expect(tiers).toHaveCount(3);
+  await expect(tiers.locator("h3")).toHaveText(["Strona start", "Strona Pro", "Sklep online"]);
+  await expect(tiers.locator(".price")).toHaveText([/^od 2\s500 zł$/, /^od 3\s900 zł$/, /^od 4\s900 zł$/]);
+  await expect(tiers.locator(".when")).toHaveText(["od 7 dni roboczych", "od 14 dni roboczych", "od 21 dni roboczych"]);
+  await expect(section.locator("article.tier.featured .tier-tag")).toHaveText("Najczęściej wybierany");
+  for (const link of await tiers.getByRole("link", { name: "Sprawdź koszt" }).all()) {
+    await expect(link).toHaveAttribute("href", "/kalkulator");
+  }
+
+  const dedicated = section.locator(".tier-wide");
+  await expect(dedicated.getByRole("heading", { name: "Projekt dedykowany" })).toBeVisible();
+  await expect(dedicated).toContainText(/Od 6\s500 zł, od 30 dni roboczych\./);
+  await expect(dedicated.getByRole("link", { name: "Umów konsultację" })).toHaveAttribute("href", "/kontakt");
+  await expect(section.locator(".px-deco--stairs")).toHaveAttribute("aria-hidden", "true");
+});
