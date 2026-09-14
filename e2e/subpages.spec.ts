@@ -131,6 +131,11 @@ test.describe("kontakt form", () => {
     await page.getByLabel("Adres e-mail").fill("anna@firma");
     await page.getByRole("button", { name: "Wyślij zapytanie" }).click();
 
+    // The error state must already be in the DOM at the moment focus lands, not after.
+    await page.waitForFunction(
+      () => document.activeElement?.getAttribute("aria-invalid") === "true" && !!document.getElementById("contact-name-error")
+    );
+
     await expect(page.getByText("Podaj imię, żebyśmy wiedzieli jak się zwracać.")).toBeVisible();
     await expect(page.getByText("Ten adres e-mail wygląda na niepełny.")).toBeVisible();
     await expect(page.getByText("Napisz choć jedno zdanie o projekcie.")).toBeVisible();
@@ -159,6 +164,7 @@ test.describe("kontakt form", () => {
 
     await expect(page.getByRole("button", { name: /Wysyłamy/ })).toHaveAttribute("aria-disabled", "true");
     await expect(page.getByRole("heading", { name: "Zapytanie wysłane" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Zapytanie wysłane" })).toBeFocused();
     await expect(page.getByText("anna@firma.pl")).toBeVisible();
     expect(body).toEqual({ name: "Anna", email: "anna@firma.pl", message: "Sklep z ceramiką, około 40 produktów.", topic: "sklep" });
   });

@@ -1,6 +1,7 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { flushSync } from "react-dom";
 
 import { PixelIcon } from "@/components/brand/PixelIcon";
 import { CONTACT_TOPICS } from "@/constants/contact";
@@ -19,6 +20,8 @@ export function ContactForm() {
   const [fields, setFields] = useState<ContactFormData>(INITIAL_FIELDS);
   const [errors, setErrors] = useState<ContactErrors>({});
   const inputs = useRef<Partial<Record<TextField, HTMLInputElement | HTMLTextAreaElement | null>>>({});
+  const submitting = useRef(false);
+  const successHeading = useRef<HTMLHeadingElement | null>(null);
   const isSending = formState.status === "loading";
 
   const setText = (key: TextField, value: string) => {
@@ -26,23 +29,36 @@ export function ContactForm() {
     if (value.trim()) setErrors((prev) => ({ ...prev, [key]: undefined }));
   };
 
+  // Move focus to the success heading once it has mounted, so assistive tech announces it.
+  useEffect(() => {
+    if (formState.status === "success") successHeading.current?.focus();
+  }, [formState.status]);
+
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (isSending) return;
+    if (isSending || submitting.current) return;
     const found = validateContact(fields);
-    setErrors(found);
     const firstBroken = FIELD_ORDER.find((key) => found[key]);
     if (firstBroken) {
+      // Flush the error state synchronously so aria-invalid/aria-describedby and the
+      // error text exist in the DOM before we move focus, not after.
+      flushSync(() => setErrors(found));
       inputs.current[firstBroken]?.focus();
       return;
     }
-    await handleSubmit({ ...fields, name: fields.name.trim(), email: fields.email.trim(), message: fields.message.trim() });
+    setErrors(found);
+    submitting.current = true;
+    try {
+      await handleSubmit({ ...fields, name: fields.name.trim(), email: fields.email.trim(), message: fields.message.trim() });
+    } finally {
+      submitting.current = false;
+    }
   };
 
   if (formState.status === "success") {
     return (
       <div className="px-note contact-sent" role="status" aria-live="polite">
-        <h2 className="d3">
+        <h2 className="d3" ref={successHeading} tabIndex={-1}>
           <span className="contact-sent-icon">
             <PixelIcon name="done" scale={3} />
           </span>
