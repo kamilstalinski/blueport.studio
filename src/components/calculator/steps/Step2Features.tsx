@@ -4,7 +4,7 @@ import { useMemo } from "react";
 import { m } from "framer-motion";
 import type { useCalculator } from "@/hooks/useCalculator";
 import { FEATURES, getFeaturesForPackage } from "@/constants/pricing";
-import type { FeatureId, PackageId } from "@/constants/pricing";
+import type { FeatureId } from "@/constants/pricing";
 import { cn } from "@/lib/utils";
 import { PixelIcon } from "@/components/brand/PixelIcon";
 

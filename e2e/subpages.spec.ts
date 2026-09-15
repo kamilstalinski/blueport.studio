@@ -185,6 +185,12 @@ for (const legacy of ["/uslugi", "/oferta", "/oferta/strony", "/oferta/sklepy"])
   });
 }
 
+test("/landing redirects permanently to the home page", async ({ request }) => {
+  const response = await request.get("/landing", { maxRedirects: 0 });
+  expect(response.status()).toBe(308);
+  expect(response.headers().location).toBe("/");
+});
+
 test.describe("kontakt form", () => {
   test("shows the spec layout and direct contact details", async ({ page }) => {
     await page.goto("/kontakt");
