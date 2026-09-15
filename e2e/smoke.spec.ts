@@ -24,7 +24,10 @@ for (const route of ROUTES) {
       if (message.type() === "error" && HYDRATION_ERROR.test(message.text())) errors.push(message.text());
     });
 
-    const response = await page.goto(route, { waitUntil: "networkidle" });
+    /* "networkidle" never fires on "/" and "/realizacje": their build/scroll animations keep
+       re-requesting work screenshots forever, so nothing here waits for the network to go quiet -
+       "load" (all initial resources fetched) is what "rendered" actually means for this test. */
+    const response = await page.goto(route, { waitUntil: "load" });
 
     expect(response?.status()).toBeLessThan(400);
     await expect(page.locator("body")).toBeVisible();

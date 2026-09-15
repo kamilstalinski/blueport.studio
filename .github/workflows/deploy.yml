@@ -6,6 +6,13 @@ on:
   pull_request:
     branches: [main]
 
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
 jobs:
   test:
     name: Testy i type-check
@@ -16,7 +23,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: npm
       - name: Instalacja zaleznosci
         run: npm ci
@@ -29,15 +36,16 @@ jobs:
       - name: Build testowy
         run: npm run build
         env:
-          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
-          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
-          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
-          RESEND_FROM: ${{ secrets.RESEND_FROM }}
-          NOTIFICATION_EMAIL: ${{ secrets.NOTIFICATION_EMAIL }}
+          NEXT_PUBLIC_SUPABASE_URL: http://localhost:54321
+          SUPABASE_SERVICE_ROLE_KEY: ci-dummy
+          RESEND_API_KEY: re_ci_dummy
+          RESEND_FROM: Blueport <ci@example.com>
+          NOTIFICATION_EMAIL: ci@example.com
 
   e2e:
     name: Testy e2e i wizualne
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     # Keep the tag equal to the pinned @playwright/test version: baselines are rendered in this image.
     container:
       image: mcr.microsoft.com/playwright:v1.63.0-noble
