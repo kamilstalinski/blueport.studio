@@ -4,7 +4,8 @@ export type { PackageId, FeatureId, TimelineId };
 
 export type ProjectPriority = "speed" | "price" | "quality" | "feature" | null;
 
-export interface CalculatorState {
+/** Input of buildSummary: the calculator selection plus contact fields. */
+export interface SummaryInput {
   packageId: PackageId | null;
   features: FeatureId[];
   timeline: TimelineId;
@@ -30,14 +31,6 @@ export interface SummaryResult {
   qualificationTags: string[];
   projectDescription: string;
 }
-
-export type ClientTranslationFn = ((key: string) => string) & {
-  raw: (key: string) => unknown;
-};
-
-export type ServerTranslationFn = ((key: string) => string) & {
-  raw: (key: string) => unknown;
-};
 
 export interface CaseStudy {
   title: string;

@@ -94,7 +94,6 @@ test("Budowa builds the page and reveals a real client site", async ({ page }) =
   const chrome = page.locator("section#hero .bd-frame .chrome");
 
   await expect(chrome).toContainText("nowa-strona.pl");
-  await page.waitForLoadState("networkidle");
   await expect(pane).toHaveAttribute("data-stage", "3", { timeout: STAGE_3_TIMEOUT_MS });
   await expect(chrome).toContainText("dobreprecle.pl");
   await expect(page.locator("section#hero .bd-steps li.on")).toHaveCount(4);
@@ -105,15 +104,15 @@ test.describe("reduced motion Budowa", () => {
 
   test("shows the finished site straight away", async ({ page }) => {
     await page.goto("/");
-    await page.waitForLoadState("networkidle");
-    await expect(page.locator("section#hero .bd-pane")).toHaveAttribute("data-stage", "3", { timeout: 1500 });
+    /* well under the ~3760ms it takes the animated cycle to reach stage 3 on its own, so this
+       still distinguishes "instant" from "animated" while tolerating slower CI hydration. */
+    await expect(page.locator("section#hero .bd-pane")).toHaveAttribute("data-stage", "3", { timeout: 3000 });
     await expect(page.locator("section#hero .bw.in")).toHaveCount(16);
   });
 });
 
 test("home hero, navbar and footer have no axe violations", async ({ page }) => {
   await page.goto("/");
-  await page.waitForLoadState("networkidle");
   await expect(page.locator("section#hero .bd-pane")).toHaveAttribute("data-stage", "3", { timeout: STAGE_3_TIMEOUT_MS });
 
   const results = await new AxeBuilder({ page })

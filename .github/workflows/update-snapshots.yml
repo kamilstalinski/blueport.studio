@@ -1,0 +1,42 @@
+# Manual workflow: regenerate visual baselines on the CI architecture, then download the
+# `visual-baselines` artifact and commit e2e/__screenshots__/ locally.
+name: Update Visual Snapshots
+
+on: workflow_dispatch
+
+permissions:
+  contents: read
+
+jobs:
+  update-snapshots:
+    name: Aktualizacja baseline'ow wizualnych
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    # Keep the tag equal to the pinned @playwright/test version: baselines are rendered in this image.
+    container:
+      image: mcr.microsoft.com/playwright:v1.63.0-noble
+      options: --ipc=host
+    env:
+      CI: "true"
+      PW_SERVER: prod
+      PW_PORT: "3100"
+      NEXT_PUBLIC_SUPABASE_URL: http://localhost:54321
+      SUPABASE_SERVICE_ROLE_KEY: ci-dummy
+      RESEND_API_KEY: re_ci_dummy
+      RESEND_FROM: Blueport <ci@example.com>
+      NOTIFICATION_EMAIL: ci@example.com
+    steps:
+      - name: Checkout kodu
+        uses: actions/checkout@v4
+      - name: Instalacja zaleznosci
+        run: npm ci
+      - name: Build
+        run: npm run build
+      - name: Playwright (aktualizacja baseline'ow)
+        run: npx playwright test --project=visual-desktop --project=visual-mobile --workers=1 --update-snapshots
+      - name: Baseline'y wizualne
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: visual-baselines
+          path: e2e/__screenshots__/

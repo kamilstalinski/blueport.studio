@@ -3,11 +3,11 @@
  * Pure functions – no UI. Single source of truth: @/constants/pricing.
  */
 
-import type { CalculatorState, SummaryResult, BreakdownItem } from "@/types";
+import type { SummaryInput, SummaryResult, BreakdownItem } from "@/types";
 import type { PackageId, FeatureId, TimelineId } from "@/constants/pricing";
 import { calculatePrice, PACKAGES, FEATURES, TIMELINE_MULTIPLIERS } from "@/constants/pricing";
 
-const PRIORITY_LABELS: Record<NonNullable<CalculatorState["projectPriority"]>, string> = {
+const PRIORITY_LABELS: Record<NonNullable<SummaryInput["projectPriority"]>, string> = {
   speed: "Szybka realizacja",
   price: "Optymalna cena",
   quality: "Najwyższa jakość",
@@ -28,7 +28,7 @@ function getQualificationTags(
   packageId: PackageId,
   features: FeatureId[],
   timeline: TimelineId,
-  projectPriority: CalculatorState["projectPriority"],
+  projectPriority: SummaryInput["projectPriority"],
   total: number
 ): string[] {
   const tags: string[] = [];
@@ -62,7 +62,7 @@ function formatProjectDescription(
   featureLabels: string[],
   timelineLabel: string,
   priceLabel: string,
-  projectPriority: CalculatorState["projectPriority"]
+  projectPriority: SummaryInput["projectPriority"]
 ): string {
   const addons = featureLabels.length > 0 ? featureLabels.join(", ") : "brak";
   const priorityLabel = projectPriority
@@ -74,7 +74,7 @@ function formatProjectDescription(
 /**
  * Full summary from state. Uses calculatePrice and pricing constants only.
  */
-export function buildSummary(state: CalculatorState): SummaryResult {
+export function buildSummary(state: SummaryInput): SummaryResult {
   const { packageId, features, timeline, projectPriority } = state;
 
   if (!packageId) {

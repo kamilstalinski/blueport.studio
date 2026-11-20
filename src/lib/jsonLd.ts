@@ -42,11 +42,6 @@ export function websiteJsonLd(): JsonLdItem {
     "@type": "WebSite",
     name: "Blueport Studio",
     url: "https://blueport.studio",
-    potentialAction: {
-      "@type": "SearchAction",
-      target: "https://blueport.studio/realizacje?q={search_term_string}",
-      "query-input": "required name=search_term_string",
-    },
   };
 }
 
