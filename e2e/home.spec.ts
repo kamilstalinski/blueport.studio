@@ -106,7 +106,8 @@ test("the home page follows the section order and nothing else", async ({ page }
 
 test("the whole home page has no axe violations", async ({ page }) => {
   await page.goto("/");
-  await expect(page.locator("section#hero .bp-pane")).toHaveAttribute("data-stage", "3", { timeout: 8000 });
+  // generous wait: CI renders the Grainient in software, which slows the hero timers (see hero.spec.ts)
+  await expect(page.locator("section#hero .bp-pane")).toHaveAttribute("data-stage", "3", { timeout: 20000 });
   const results = await new AxeBuilder({ page }).analyze();
   expect(results.violations).toEqual([]);
 });
