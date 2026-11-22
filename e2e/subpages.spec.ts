@@ -84,7 +84,7 @@ test("realizacje shows all six sites as scrolling frames and ends with the CTA b
     await expect(frames.nth(i)).toBeVisible();
   }
   await expect(page.locator("main .wall")).toHaveCount(2);
-  await expect(page.locator("main section.cta-band")).toHaveCount(1);
+  await expect(page.locator("main section.bp-close")).toHaveCount(1);
   await expect(page.getByText("Efekty")).toHaveCount(0);
 
   await expectNoAxeViolations(page);
@@ -103,7 +103,7 @@ test("a case study opens with the spec header and screenshot, then the full stor
     await expect(page.getByRole("heading", { level: 2, name: label })).toBeVisible();
   }
   await expect(page.locator(".cs-facts")).toContainText("Klient");
-  await expect(page.locator("main section.cta-band")).toHaveCount(1);
+  await expect(page.locator("main section.bp-close")).toHaveCount(1);
 
   const jsonLd = await page.locator('script[type="application/ld+json"]').allTextContents();
   expect(jsonLd.some((text) => text.includes('"BreadcrumbList"'))).toBe(true);
@@ -136,7 +136,7 @@ test("cennik shows the tiers, the comparison table from the price list and the C
   await expect(table.getByRole("row").nth(4).getByRole("img", { name: "Nie" })).toHaveCount(1);
   await expect(table.getByRole("row").nth(4).getByRole("img", { name: "Tak" })).toHaveCount(2);
   await expect(page.getByText("Ceny netto. Hosting i domena rozliczane bezpośrednio u dostawcy, bez naszej marży.")).toBeVisible();
-  await expect(page.locator("main section.cta-band")).toHaveCount(1);
+  await expect(page.locator("main section.bp-close")).toHaveCount(1);
 
   await expectNoAxeViolations(page);
 });
@@ -157,7 +157,7 @@ test("faq is a keyboard-friendly accordion with JSON-LD", async ({ page }) => {
 
   const jsonLd = await page.locator('script[type="application/ld+json"]').allTextContents();
   expect(jsonLd.some((text) => text.includes('"FAQPage"'))).toBe(true);
-  await expect(page.locator("main section.cta-band")).toHaveCount(1);
+  await expect(page.locator("main section.bp-close")).toHaveCount(1);
 
   await expectNoAxeViolations(page);
 });
@@ -172,7 +172,7 @@ test("proces expands the five home steps", async ({ page }) => {
   await expect(steps.nth(0)).toContainText("Dzień 0");
   await expect(steps.nth(0).locator("li")).toHaveText(["wybierasz typ strony", "określasz funkcje", "otrzymujesz szacunkowy koszt"]);
   await expect(page.getByText("Całość zwykle trwa 1–2 tygodnie.")).toBeVisible();
-  await expect(page.locator("main section.cta-band")).toHaveCount(1);
+  await expect(page.locator("main section.bp-close")).toHaveCount(1);
 
   await expectNoAxeViolations(page);
 });
@@ -200,7 +200,7 @@ test.describe("kontakt form", () => {
     await expect(page.locator("main").getByRole("link", { name: "kontakt@blueport.studio" })).toHaveAttribute("href", "mailto:kontakt@blueport.studio");
     await expect(page.locator("main").getByRole("link", { name: "+48 534 287 233" })).toHaveAttribute("href", "tel:+48534287233");
     await expect(page.locator(".contact-aside").getByRole("link", { name: "Sprawdź koszt" })).toHaveAttribute("href", "/kalkulator");
-    await expect(page.locator("main section.cta-band")).toHaveCount(0);
+    await expect(page.locator("main section.bp-close")).toHaveCount(0);
 
     await expectNoAxeViolations(page);
   });
@@ -284,7 +284,7 @@ test("o nas keeps the story, approach, technologies and audience", async ({ page
   }
   await expect(page.locator(".about-cards article")).toHaveCount(3);
   await expect(page.getByRole("link", { name: "Zobacz pełny proces" })).toHaveAttribute("href", "/proces");
-  await expect(page.locator("main section.cta-band")).toHaveCount(1);
+  await expect(page.locator("main section.bp-close")).toHaveCount(1);
 
   await expectNoAxeViolations(page);
 });
@@ -300,7 +300,7 @@ for (const [route, title, sections] of [
     await expect(page.locator("article.legal > section")).toHaveCount(sections);
     await expect(page.locator("article.legal [class]")).toHaveCount(0);
     expect(await page.locator("article.legal h2").first().evaluate((el) => getComputedStyle(el).fontFamily)).toMatch(/Bricolage/);
-    await expect(page.locator("main section.cta-band")).toHaveCount(0);
+    await expect(page.locator("main section.bp-close")).toHaveCount(0);
 
     await expectNoAxeViolations(page);
   });
@@ -316,8 +316,8 @@ test.describe("calculator", () => {
     await page.goto("/kalkulator");
 
     await expect(page.locator(".calc-blob")).toHaveCount(0);
-    await expect(page.locator(".calc-header .brand-logo")).toHaveCount(1);
-    expect(await page.locator(".calc-shell").evaluate((el) => getComputedStyle(el).backgroundColor)).toBe("rgb(8, 25, 42)");
+    await expect(page.locator(".calc-header .brand-signet")).toHaveCount(1);
+    expect(await page.locator(".calc-shell").evaluate((el) => getComputedStyle(el).backgroundColor)).toBe("rgb(10, 15, 23)");
 
     await page.getByRole("button", { name: /Strona start/ }).first().click();
     expect(await page.locator(".option-card.selected").evaluate((el) => getComputedStyle(el).borderRadius)).toBe("0px");

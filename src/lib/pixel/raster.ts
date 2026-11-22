@@ -1,12 +1,8 @@
 import { PX_DIGITS, PX_GLYPHS, type GlyphChar, type NumberChar, type TileDigit } from "@/lib/pixel/glyphs";
-import type { Cell, NumberCells, StackCells } from "@/types";
+import type { Cell, NumberCells } from "@/types";
 
 const INK = "X";
 const GAP = 1;
-/** glyph rows 0-6 carry the letter body; rows 7-8 are the descender */
-const ROWS_WITHOUT_DESCENDER = 7;
-const STACK_LINE_OFFSET = 10;
-const STACK_HEIGHT = 17;
 const TILE_SIZE = 9;
 const NUMBER_HEIGHT = 7;
 const TILE_DIGIT_OFFSET = { x: 2, y: 1 } as const;
@@ -46,29 +42,6 @@ export function wordCells(text: string): { cells: Cell[]; width: number } {
   return { cells, width: col - GAP };
 }
 
-/** Second line is tracked out so both lines start and end together; leftover pixels go to the middle gaps. */
-export function stackCells(top: string, bottom: string): StackCells {
-  const { cells: topCells, width } = wordCells(top);
-  const glyphs = [...bottom].map(glyph);
-  const gaps = glyphs.length - 1;
-  if (gaps < 1) throw new Error("The second line needs at least two characters");
-
-  const inked = glyphs.reduce((sum, rows) => sum + rows[0].length, 0);
-  const spare = width - inked;
-  const base = Math.floor(spare / gaps);
-  const extra = spare - base * gaps;
-  const firstWideGap = Math.floor((gaps - extra) / 2);
-
-  const bottomCells: Cell[] = [];
-  let col = 0;
-  glyphs.forEach((rows, index) => {
-    bottomCells.push(...rowsToCells(rows.slice(0, ROWS_WITHOUT_DESCENDER), col, STACK_LINE_OFFSET));
-    const isWideGap = index >= firstWideGap && index < firstWideGap + extra;
-    col += rows[0].length + base + (isWideGap ? 1 : 0);
-  });
-
-  return { top: topCells, bottom: bottomCells, width, height: STACK_HEIGHT };
-}
 
 export function tileRows(digit: TileDigit): string[] {
   const knocked = new Set(

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256">
+  <title>blueport studio</title>
+  <path fill="#0B1B2B" d="M30 36 H56 V128 H30 Z"/>
+  <path fill="#0B1B2B" d="M92 66 A62 62 0 0 0 92 190 V164 A36 36 0 0 1 92 92 Z"/>
+  <path fill="#0B1B2B" d="M92 92 A36 36 0 0 1 92 164 Z"/>
+  <path fill="#0B1B2B" d="M128 128 H154 V220 H128 Z"/>
+  <path fill="#0B1B2B" d="M190 66 A62 62 0 0 0 190 190 V164 A36 36 0 0 1 190 92 Z"/>
+  <path fill="#0B1B2B" d="M190 92 A36 36 0 0 1 190 164 Z"/>
+</svg>

@@ -47,3 +47,11 @@ CURSOR_RULES.md
 # playwright
 /test-results/
 /playwright-report/
+# browser profiles and scratch output left by the design screenshot tools
+design/**/.chrome-*/
+design/**/.taste-skill/
+design/social/out/html/
+design/logo/kit/blueport-studio-logo/
+design/logo/kit/blueport-studio-logo.zip
+# asset library copied in for the rejected first prototype (design/site); 37 MB of third-party files
+design/site/assets/

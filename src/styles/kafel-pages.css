@@ -54,7 +54,7 @@
 .cs-block .body { margin: 0; }
 .cs-results { margin-top: clamp(40px, 5vw, 64px); padding: clamp(24px, 3vw, 36px); }
 .cs-results .body { margin: 10px 0 0; color: var(--ink); }
-.cs-lessons { margin: clamp(32px, 4vw, 48px) 0 0; padding-left: 22px; border-left: 2px solid var(--cobalt); }
+.cs-lessons { margin: clamp(32px, 4vw, 48px) 0 0; padding-left: 22px; border-left: 2px solid var(--lift); }
 .cs-lessons blockquote { margin: 0; }
 .cs-lessons p { margin: 0; max-width: 60ch; font-size: 1.08rem; line-height: 1.6; color: var(--ink-2); }
 @media (max-width: 760px) {
@@ -100,9 +100,9 @@
 .field textarea { min-height: 120px; resize: vertical; }
 .field input::placeholder, .field textarea::placeholder { color: var(--ink-2); }
 .field input:hover, .field select:hover, .field textarea:hover { border-color: var(--ink-3); }
-.field input:focus, .field select:focus, .field textarea:focus { outline: none; border-color: var(--cobalt); box-shadow: 4px 4px 0 var(--cobalt-wash); }
+.field input:focus, .field select:focus, .field textarea:focus { outline: none; border-color: var(--cobalt); box-shadow: 4px 4px 0 color-mix(in srgb, var(--cobalt) 14%, var(--paper)); }
 .field.invalid input, .field.invalid textarea { border-color: var(--danger); }
-.field.invalid :is(input, textarea):focus { border-color: var(--cobalt); box-shadow: 4px 4px 0 var(--cobalt-wash); }
+.field.invalid :is(input, textarea):focus { border-color: var(--cobalt); box-shadow: 4px 4px 0 color-mix(in srgb, var(--cobalt) 14%, var(--paper)); }
 .err { display: flex; align-items: center; gap: 6px; margin: 0; font-size: .85rem; font-weight: 500; color: var(--danger); }
 .form .contact-submit { justify-content: center; }
 .form .contact-submit[aria-disabled="true"] { cursor: progress; }
@@ -167,7 +167,7 @@
 .about-techs { margin-top: 20px; }
 .about-fit { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
 .about-fit-col { height: 100%; padding: 28px; border: 2px solid var(--line-strong); background: var(--paper); }
-.about-fit-yes { border-color: var(--cobalt); }
+.about-fit-yes { border-color: var(--lift); }
 .about-fit-col .d3 { margin: 0 0 16px; font-size: 1.2rem; }
 .about-fit-col ul { display: grid; gap: 12px; margin: 0; padding: 0; list-style: none; }
 .about-fit-col li { display: flex; align-items: center; gap: 10px; color: var(--ink-2); }

@@ -51,7 +51,7 @@
 .calc-shell .option-card-wrapper { position: relative; }
 .calc-shell .option-card { position: relative; display: flex; align-items: center; gap: 16px; width: 100%; padding: 18px 20px; text-align: left; font: inherit; color: var(--ink); background: var(--paper); border: 2px solid var(--line-strong); border-radius: 0; cursor: pointer; transition: border-color .16s ease, background-color .16s ease; }
 .calc-shell .option-card:hover { border-color: var(--ink-3); }
-.calc-shell .option-card.selected { border-color: var(--cobalt); background: var(--cobalt-wash); box-shadow: 5px 5px 0 color-mix(in srgb, var(--cobalt) 28%, transparent); }
+.calc-shell .option-card.selected { border-color: var(--cobalt); background: color-mix(in srgb, var(--cobalt) 14%, var(--paper)); box-shadow: 5px 5px 0 color-mix(in srgb, var(--cobalt) 28%, transparent); }
 .calc-shell .option-card-main { display: grid; flex: 1; min-width: 0; padding: 0; text-align: left; font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
 .calc-shell .option-card-main::after { content: ""; position: absolute; inset: 0; }
 .calc-shell .option-card-main:focus-visible { outline-offset: 6px; }
@@ -72,7 +72,7 @@
 .calc-shell .step-features { display: grid; gap: 10px; margin-top: 28px; }
 .calc-shell .feature-row { display: flex; align-items: center; gap: 14px; width: 100%; padding: 14px 16px; text-align: left; font: inherit; color: var(--ink); background: var(--paper); border: 2px solid var(--line-strong); border-radius: 0; cursor: pointer; transition: border-color .16s ease, background-color .16s ease; }
 .calc-shell .feature-row:hover { border-color: var(--ink-3); }
-.calc-shell .feature-row.selected { border-color: var(--cobalt); background: var(--cobalt-wash); }
+.calc-shell .feature-row.selected { border-color: var(--cobalt); background: color-mix(in srgb, var(--cobalt) 14%, var(--paper)); }
 .calc-shell .feature-check { display: grid; place-items: center; flex: 0 0 auto; width: 22px; height: 22px; border: 2px solid var(--line-strong); color: var(--on-cobalt); }
 .calc-shell .feature-row.selected .feature-check { background: var(--cobalt); border-color: var(--cobalt); }
 .calc-shell .feature-info { display: grid; gap: 2px; flex: 1; min-width: 0; }

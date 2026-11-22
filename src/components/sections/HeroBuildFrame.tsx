@@ -2,8 +2,7 @@
 
 import Image from "next/image";
 
-import { PixelIcon } from "@/components/brand/PixelIcon";
-import { PixelTile } from "@/components/brand/PixelTile";
+import { Lock } from "@/components/ui/Arrow";
 import { HERO_WORK } from "@/constants/work";
 import { useBuildCycle } from "@/hooks/useBuildCycle";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
@@ -35,19 +34,15 @@ const isBar = (wire: Wire): boolean => wire.kind === "bar" || wire.kind === "bar
 const STRUCTURE = WIRES.filter((wire) => !isBar(wire));
 const BARS = WIRES.filter(isBar);
 const WIRE_CLASS: Record<WireKind, string> = {
-  outline: "bw",
-  cta: "bw bw-cta",
-  bar: "bw bw-bar",
-  "bar-dim": "bw bw-bar bw-dim",
+  outline: "bp-bw",
+  cta: "bp-bw bp-bw-cta",
+  bar: "bp-bw bp-bw-bar",
+  "bar-dim": "bp-bw bp-bw-bar bp-bw-dim",
 };
-const STEPS = [
-  { digit: "1", label: "Siatka" },
-  { digit: "2", label: "Układ" },
-  { digit: "3", label: "Treść" },
-  { digit: "4", label: "Start" },
-] as const;
+const STEPS = ["Siatka", "Układ", "Treść", "Start"] as const;
 const PLACEHOLDER_DOMAIN = "nowa-strona.pl";
 
+/** The hero's moment: a page builds on the construction dots, then a real client site wipes in; five sites in turn. */
 export function HeroBuildFrame() {
   const isStill = usePrefersReducedMotion();
   const cycle = useBuildCycle({
@@ -59,30 +54,28 @@ export function HeroBuildFrame() {
   const site = HERO_WORK[cycle.site];
   const isLive = cycle.stage === 3;
 
-  /* No entrance animation on the frame: with the h1 sliding too, Chrome dropped both as LCP
-     candidates in about half of the page loads. The build sequence is the frame's entrance. */
   return (
-    <div>
-      <div className="frame bd-frame">
-        <div className="chrome">
-          <PixelIcon name="lock" />
-          <span>{isLive ? site.domain : PLACEHOLDER_DOMAIN}</span>
+    <div className="bp-build" aria-hidden="true">
+      <div className="bp-win">
+        <div className="bp-win-bar">
+          <Lock />
+          <span className="bp-url bp-mono" translate="no">{isLive ? site.domain : PLACEHOLDER_DOMAIN}</span>
         </div>
-        <div className="bd-pane" data-stage={cycle.stage}>
+        <div className="bp-pane" data-stage={cycle.stage}>
           <Image
-            className="bd-shot"
+            className="bp-shot"
             src={site.image}
-            alt="Przykładowa realizacja"
+            alt=""
             fill
-            sizes="(max-width: 1000px) 100vw, 560px"
+            sizes="(max-width: 1023px) 100vw, 640px"
             priority={cycle.site === 0}
           />
-          <div className="bd-cover" aria-hidden="true" />
-          <svg className="bd-wire" viewBox="0 0 400 330" shapeRendering="crispEdges" aria-hidden="true">
+          <div className="bp-cover" />
+          <svg className="bp-wire" viewBox="0 0 400 330" shapeRendering="crispEdges">
             {STRUCTURE.map((wire, index) => (
               <rect
                 key={`${wire.x}-${wire.y}`}
-                className={cn(WIRE_CLASS[wire.kind], index < cycle.wiresOn && "in")}
+                className={cn(WIRE_CLASS[wire.kind], index < cycle.wiresOn && "bp-in")}
                 x={wire.x}
                 y={wire.y}
                 width={wire.w}
@@ -92,7 +85,7 @@ export function HeroBuildFrame() {
             {BARS.map((wire, index) => (
               <rect
                 key={`${wire.x}-${wire.y}`}
-                className={cn(WIRE_CLASS[wire.kind], index < cycle.barsOn && "in")}
+                className={cn(WIRE_CLASS[wire.kind], index < cycle.barsOn && "bp-in")}
                 x={wire.x}
                 y={wire.y}
                 width={wire.w}
@@ -102,11 +95,11 @@ export function HeroBuildFrame() {
           </svg>
         </div>
       </div>
-      <ol className="bd-steps" data-keep-out aria-hidden="true">
-        {STEPS.map((step, index) => (
-          <li key={step.label} className={cn(index <= cycle.stage && "on")}>
-            <PixelTile digit={step.digit} scale={2} />
-            <span>{step.label}</span>
+      <ol className="bp-build-steps">
+        {STEPS.map((label, index) => (
+          <li key={label} className={cn(index <= cycle.stage && "bp-on")}>
+            <span className="bp-mono">{index + 1}</span>
+            {label}
           </li>
         ))}
       </ol>

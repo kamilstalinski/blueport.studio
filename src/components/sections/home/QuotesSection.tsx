@@ -1,44 +1,35 @@
-import Image from "next/image";
-import Link from "next/link";
-
-import { PixelIcon } from "@/components/brand/PixelIcon";
-import { DecoBubbles } from "@/components/deco/DecoBubbles";
 import { InView } from "@/components/ui/InView";
+import { TALLY } from "@/constants/process";
 import { TESTIMONIALS } from "@/constants/testimonials";
-
-const STARS = [1, 2, 3, 4, 5] as const;
 
 export function QuotesSection() {
   return (
-    <section className="sec band px-host" aria-labelledby="quotes-title">
-      <DecoBubbles />
-      <div className="shell">
-        <InView className="reveal">
-          <h2 id="quotes-title" className="d2 quotes-title">
-            Co mówią klienci.
-          </h2>
-        </InView>
-        <div className="quotes">
-          {TESTIMONIALS.map((testimonial) => (
-            <InView key={testimonial.slug} className="reveal quote">
-              <figure>
-                <Link href={`/realizacje/${testimonial.slug}`} className="shot-sm" aria-label={`Realizacja ${testimonial.site}`}>
-                  <Image src={testimonial.thumb} alt="" width={560} height={315} sizes="(max-width: 1000px) 100vw, 360px" />
-                </Link>
-                <div className="stars" role="img" aria-label="Ocena 5 na 5">
-                  {STARS.map((star) => (
-                    <PixelIcon key={star} name="star" />
-                  ))}
-                </div>
-                <blockquote>„{testimonial.quote}”</blockquote>
+    <section className="bp-sec bp-opinie" id="opinie" aria-labelledby="opinie-h">
+      <div className="bp-shell bp-grid">
+        <div className="bp-sec-head">
+          <h2 id="opinie-h">Opinie klientów</h2>
+          <p>Ze Szczecina, Warszawy i Poznania.</p>
+        </div>
+        <div className="bp-sec-body">
+          <InView className="bp-quotes bp-stagger" margin="0px 0px -25% 0px" threshold={0}>
+            {TESTIMONIALS.map((item) => (
+              <figure key={item.slug} className="bp-quote">
+                <blockquote>„{item.quote}”</blockquote>
                 <figcaption>
-                  <span className="who">{testimonial.author}</span>
-                  <br />
-                  <span className="where">{testimonial.place}</span>
+                  <b>{item.author}</b>
+                  <span>{item.place}</span>
                 </figcaption>
               </figure>
-            </InView>
-          ))}
+            ))}
+          </InView>
+          <div className="bp-facts">
+            {TALLY.map((fact) => (
+              <p key={fact.label}>
+                <b>{`${fact.prefix.replace("-", "–")}${fact.count}${fact.suffix}`}</b>
+                {fact.label}
+              </p>
+            ))}
+          </div>
         </div>
       </div>
     </section>

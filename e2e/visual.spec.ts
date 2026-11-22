@@ -43,7 +43,7 @@ for (const route of ROUTES) {
     await page.clock.setFixedTime(new Date("2026-09-14T10:00:00Z"));
     await page.goto(route, { waitUntil: "networkidle" });
 
-    /* Pin `.nav`/`.calc-header` to `position: static` and hide `.skip-link` for the screenshot:
+    /* Pin `.bp-top`/`.calc-header` to `position: static` and hide `.skip-link` for the screenshot:
        Chromium's full-page (beyond-viewport) capture intermittently mis-renders `position: fixed`
        and `position: sticky` elements — the skip-link (invisible until keyboard-focused) can paint
        at its in-flow position instead of off-screen, pushing the rest of the page down, and the
@@ -59,7 +59,7 @@ for (const route of ROUTES) {
       await expect(calcHeader).toHaveCSS("position", "sticky");
       await expect(calcHeader).toHaveCSS("top", "0px");
     } else {
-      const nav = page.locator(".nav");
+      const nav = page.locator(".bp-top");
       await expect(nav).toHaveCSS("position", "sticky");
       await expect(nav).toHaveCSS("top", "0px");
     }
@@ -67,19 +67,13 @@ for (const route of ROUTES) {
     expect(skipLinkBox, "skip-link should be in the DOM").not.toBeNull();
     expect(skipLinkBox!.y + skipLinkBox!.height, "skip-link should be off-screen (unfocused)").toBeLessThanOrEqual(0);
 
-    /* HeroCursorField draws a pointer-driven "cursor trail" onto a <canvas> the size of the whole
-       hero (`.hero-cursor { position: absolute; inset: 0; }`); it's a no-op under
-       prefers-reduced-motion (which this spec sets), but is hidden outright anyway so a future
-       change there can't reintroduce non-determinism. Deliberately not using Playwright's `mask`
-       for this: `mask` paints an opaque box over the *locator's full bounding rect* in the output
-       image regardless of DOM stacking, and because the canvas is exactly hero-sized it would
-       blot out the h1/copy/CTAs/HeroBuildFrame/cranes that sit visually above it (z-index: 1 vs.
-       the canvas's z-index: 0) — those need to stay pixel-covered by this baseline. Hiding the
-       canvas via CSS instead makes it paint nothing, deterministically, while leaving the rest of
-       the hero's real stacking (and pixels) untouched. */
+    /* The homepage's fixed Grainient canvas (PageGrainient) holds one frame under prefers-reduced-motion, which this spec sets,
+       but it follows the pointer and draws after hydration; `.bp-page-bg canvas` is hidden outright so it can never
+       make the baseline flaky. CSS instead of Playwright's `mask`, which would blot out everything above the
+       hero-sized canvas. */
     await page.addStyleTag({
       content:
-        ".skip-link { display: none !important; } .nav, .calc-header { position: static !important; } #hero canvas { visibility: hidden !important; }",
+        ".skip-link { display: none !important; } .bp-top, .calc-header { position: static !important; } .bp-page-bg canvas { visibility: hidden !important; }",
     });
     await settle(page);
     await expect(page).toHaveScreenshot(snapshotName(route), {

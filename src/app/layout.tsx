@@ -3,7 +3,8 @@ import "@/styles/globals.css";
 import "@/styles/kafel.css";
 import "@/styles/kafel-pages.css";
 import "@/styles/kafel-calculator.css";
-import { Bricolage_Grotesque, Schibsted_Grotesk } from "next/font/google";
+import "@/styles/bp.css";
+import { Bricolage_Grotesque, Host_Grotesk, Martian_Mono, Schibsted_Grotesk } from "next/font/google";
 import { cn } from "@/lib/utils";
 import { ConditionalChrome } from "@/components/layout/ConditionalChrome";
 import { SmoothScroll } from "@/components/providers/SmoothScroll";
@@ -27,14 +28,29 @@ export const bricolageGrotesque = Bricolage_Grotesque({
   axes: ["opsz"],
 });
 
+/* the homepage world (bp.css): Host Grotesk for words, Martian Mono only for data */
+export const hostGrotesk = Host_Grotesk({
+  subsets: ["latin", "latin-ext"],
+  display: "swap",
+  variable: "--font-host",
+  weight: ["400", "500", "600"],
+});
+
+export const martianMono = Martian_Mono({
+  subsets: ["latin", "latin-ext"],
+  display: "swap",
+  variable: "--font-martian",
+  weight: ["400", "500"],
+});
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://blueport.studio"),
   title: {
-    default: "Blueport Studio — Strony internetowe Szczecin",
+    default: "Strony internetowe Szczecin, od 2500 zł | Blueport Studio",
     template: "%s | Blueport Studio",
   },
   description:
-    "Studio webowe z Szczecina. Tworzymy strony internetowe i sklepy online w Next.js i WordPress. Szybkie, nowoczesne, zoptymalizowane pod SEO. Bezpłatna wycena online.",
+    "Strony internetowe dla małych firm od 2500 zł. Studio ze Szczecina: WordPress, sklepy WooCommerce i Next.js. Wycena w kalkulatorze w 60 sekund, odpowiedź w 24 h.",
   keywords: [
     "strony internetowe Szczecin",
     "studio webowe Szczecin",
@@ -43,7 +59,10 @@ export const metadata: Metadata = {
     "sklepy internetowe Szczecin",
     "Next.js Szczecin",
     "WordPress Szczecin",
-    "strony internetowe",
+    "strony internetowe dla małych firm",
+    "ile kosztuje strona internetowa",
+    "strona WordPress dla firmy",
+    "sklep WooCommerce",
     "web development Polska",
   ],
   authors: [{ name: "Kamil", url: "https://blueport.studio" }],
@@ -56,7 +75,7 @@ export const metadata: Metadata = {
     siteName: "Blueport Studio",
     title: "Blueport Studio — Strony internetowe Szczecin",
     description:
-      "Studio webowe z Szczecina. Strony i sklepy w Next.js i WordPress. Wycena online w 60 sekund.",
+      "Strony internetowe dla małych firm od 2500 zł. Studio ze Szczecina, wycena online w 60 sekund.",
     images: [
       {
         url: "/og/og-default.png",
@@ -69,7 +88,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Blueport Studio — Strony internetowe Szczecin",
-    description: "Studio webowe z Szczecina. Strony i sklepy w Next.js i WordPress.",
+    description: "Strony WordPress i sklepy WooCommerce dla małych firm, od 2500 zł. Studio ze Szczecina.",
     images: ["/og/og-default.png"],
   },
   robots: {
@@ -92,7 +111,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html
       lang="pl"
-      className={cn(schibstedGrotesk.variable, bricolageGrotesque.variable, "dark")}
+      className={cn(schibstedGrotesk.variable, bricolageGrotesque.variable, hostGrotesk.variable, martianMono.variable, "dark")}
       suppressHydrationWarning
     >
       <head>
@@ -105,10 +124,10 @@ export default function RootLayout({ children }: RootLayoutProps) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd()) }}
         />
         <noscript>
-          <style>{".reveal{opacity:1;transform:none}"}</style>
+          <style>{".reveal,.bp-stagger>*{opacity:1;transform:none}"}</style>
         </noscript>
       </head>
-      <body className="font-body min-h-screen antialiased">
+      <body className="font-body min-h-screen antialiased" suppressHydrationWarning>
         <a
           href="#main-content"
           className="skip-link fixed left-4 top-0 z-[9999] -translate-y-full bg-primary px-4 py-2.5 font-heading text-sm font-bold text-[var(--color-on-primary)] transition-transform focus:translate-y-0 focus:outline-none"

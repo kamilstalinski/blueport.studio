@@ -9,7 +9,7 @@ import { ABOUT_APPROACH, ABOUT_FOR, ABOUT_NOT_FOR, ABOUT_STORY, ABOUT_TECHS } fr
 
 export const metadata: Metadata = {
   title: "O nas — Kim jesteśmy",
-  description: "Blueport Studio to studio webowe z Szczecina. Poznaj nas, nasze wartości i sposób pracy.",
+  description: "Blueport Studio to studio webowe ze Szczecina. Poznaj nas, nasze wartości i sposób pracy.",
   alternates: { canonical: "https://blueport.studio/o-nas" },
   openGraph: { url: "https://blueport.studio/o-nas" },
 };

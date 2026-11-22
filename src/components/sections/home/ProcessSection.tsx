@@ -1,37 +1,24 @@
-import { PixelTile } from "@/components/brand/PixelTile";
-import { DecoProgress } from "@/components/deco/DecoProgress";
-import { Tally } from "@/components/sections/home/Tally";
-import { InView } from "@/components/ui/InView";
 import { PROCESS_STEPS } from "@/constants/process";
-
-const STEP_LAGS = [0, 1, 2, 3, 3] as const;
 
 export function ProcessSection() {
   return (
-    <section className="sec px-host" aria-labelledby="process-title">
-      <DecoProgress />
-      <div className="shell">
-        <InView className="reveal">
-          <h2 id="process-title" className="d2 process-title">
-            Jak to wygląda od zapytania do startu.
-          </h2>
-        </InView>
-        <ol className="steps">
-          {PROCESS_STEPS.map((step, index) => (
+    <section className="bp-sec" id="proces" aria-labelledby="proces-h">
+      <div className="bp-shell bp-grid">
+        <div className="bp-sec-head">
+          <h2 id="proces-h">Od zapytania do startu</h2>
+          <p>Pięć kroków. Cenę i termin ustalamy, zanim cokolwiek zaczniemy.</p>
+        </div>
+        <ol className="bp-sec-body bp-steps">
+          {PROCESS_STEPS.map((step) => (
             <li key={step.title}>
-              <InView className="reveal step" lag={STEP_LAGS[index]}>
-                <div className="dot" />
-                <div className="mark">
-                  <PixelTile digit={step.digit} />
-                </div>
-                <p className="when">{step.when}</p>
-                <h3 className="d3">{step.title}</h3>
+              <span className="bp-day bp-mono">{step.when.replace("-", "–")}</span>
+              <div className="bp-what">
+                <h3>{step.title}</h3>
                 <p>{step.text}</p>
-              </InView>
+              </div>
             </li>
           ))}
         </ol>
-        <Tally />
       </div>
     </section>
   );

@@ -9,7 +9,7 @@ import { WORK_SITES } from "@/constants/work";
 export const metadata: Metadata = {
   title: "Realizacje — Portfolio Blueport Studio",
   description:
-    "Zobacz nasze realizacje — strony firmowe, sklepy internetowe i aplikacje webowe. Projekty dla firm z Szczecina i całej Polski.",
+    "Zobacz nasze realizacje — strony firmowe, sklepy internetowe i aplikacje webowe. Projekty dla firm ze Szczecina i całej Polski.",
   alternates: { canonical: "https://blueport.studio/realizacje" },
   openGraph: { url: "https://blueport.studio/realizacje" },
 };
