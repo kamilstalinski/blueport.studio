@@ -4,7 +4,8 @@ import { useEffect, useRef } from "react";
 import { AnimatePresence, m, useReducedMotion } from "framer-motion";
 import type { useCalculator } from "@/hooks/useCalculator";
 import { ease } from "@/constants/animations";
-import { PixelIcon } from "@/components/brand/PixelIcon";
+import { Arrow } from "@/components/ui/Arrow";
+import { Check } from "@/components/ui/Marks";
 import { CalculatorProgress } from "./CalculatorProgress";
 import { Step1Type } from "./steps/Step1Type";
 import { Step2Features } from "./steps/Step2Features";
@@ -107,7 +108,7 @@ export function CalculatorLeft({ calculator }: { calculator: CalculatorProps }) 
             onClick={goPrev}
             className="calc-btn calc-btn--ghost"
           >
-            <PixelIcon name="arrow-left" /> Wróć
+            <Arrow /> Wróć
           </button>
         )}
 
@@ -119,17 +120,17 @@ export function CalculatorLeft({ calculator }: { calculator: CalculatorProps }) 
         >
           {state.isSubmitted && isLastStep ? (
             <>
-              Wysłano <PixelIcon name="check" />
+              Wysłano <Check />
             </>
           ) : state.isSubmitting ? (
             "Wysyłam..."
           ) : isLastStep ? (
             <>
-              Wyślij zapytanie <PixelIcon name="arrow-right" />
+              Wyślij zapytanie <Arrow />
             </>
           ) : (
             <>
-              Dalej <PixelIcon name="arrow-right" />
+              Dalej <Arrow />
             </>
           )}
         </button>

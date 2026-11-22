@@ -316,7 +316,7 @@ test.describe("calculator", () => {
     await page.goto("/kalkulator");
 
     await expect(page.locator(".calc-blob")).toHaveCount(0);
-    await expect(page.locator(".calc-header .brand-signet")).toHaveCount(1);
+    await expect(page.locator(".calc-header .bp-brand svg")).toHaveCount(1);
     expect(await page.locator(".calc-shell").evaluate((el) => getComputedStyle(el).backgroundColor)).toBe("rgb(10, 15, 23)");
 
     await page.getByRole("button", { name: /Strona start/ }).first().click();
