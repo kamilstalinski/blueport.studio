@@ -8,9 +8,9 @@ import { HomePricing } from "@/components/sections/home/HomePricing";
 import { InView } from "@/components/ui/InView";
 
 export const metadata: Metadata = {
-  title: "Cennik — Strony internetowe Szczecin",
+  title: "Cennik stron internetowych: od 2 500 zł",
   description:
-    "Transparentne ceny bez ukrytych kosztów. Strony firmowe od 2 500 zł, sklepy od 4 900 zł. Sprawdź szczegółowy cennik Blueport Studio.",
+    "Strony firmowe od 2 500 zł, sklepy WooCommerce od 4 900 zł, ceny netto. Tabela z tym, co zawiera każdy pakiet. Hosting i domena bez naszej marży.",
   alternates: { canonical: "https://blueport.studio/cennik" },
   openGraph: { url: "https://blueport.studio/cennik" },
 };

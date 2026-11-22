@@ -7,9 +7,9 @@ import { Arrow } from "@/components/ui/Arrow";
 import { InView } from "@/components/ui/InView";
 
 export const metadata: Metadata = {
-  title: "Kontakt — Blueport Studio Szczecin",
+  title: "Kontakt: Blueport Studio, Szczecin",
   description:
-    "Skontaktuj się z nami. Studio webowe Szczecin — odpiszemy w ciągu 24h. Bezpłatna konsultacja i wycena projektu.",
+    "Napisz przez formularz, na kontakt@blueport.studio albo zadzwoń: +48 534 287 233. Odpowiadamy w ciągu 24 godzin w dni robocze, konsultacja jest bezpłatna.",
   alternates: { canonical: "https://blueport.studio/kontakt" },
   openGraph: { url: "https://blueport.studio/kontakt" },
 };

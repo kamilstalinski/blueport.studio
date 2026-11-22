@@ -1,27 +1,27 @@
 export const FAQ_ITEMS = {
   price: {
     q: "Ile kosztuje strona internetowa?",
-    a: "Proste strony firmowe zaczynają się od 2 500 zł. Sklepy internetowe od 4 900 zł. Dokładną wycenę sprawdzisz w kalkulatorze.",
+    a: "Strona start od 2 500 zł, Strona Pro od 3 900 zł, sklep WooCommerce od 4 900 zł (ceny netto). Widełki dla swojego zakresu sprawdzisz w kalkulatorze w 60 sekund.",
   },
   time: {
     q: "Ile trwa realizacja?",
-    a: "Strona firmowa lub sklep do 30 produktów: zwykle 2–4 tygodnie. Większe projekty ustalamy indywidualnie po wycenie.",
+    a: "Strona start od 7 dni roboczych, Strona Pro od 14, sklep od 21. Od akceptacji projektu graficznego do publikacji mija zwykle 1–2 tygodnie. Dokładną datę wpisujemy do umowy.",
   },
   contract: {
     q: "Czy podpisujemy umowę?",
-    a: "Tak. Przed rozpoczęciem prac podpisujemy umowę z jasno określonym zakresem, terminami i warunkami współpracy.",
+    a: "Tak. Przed startem prac podpisujemy umowę z zakresem, ceną i datą publikacji.",
   },
   hosting: {
     q: "Czy pomagasz z hostingiem?",
-    a: "Tak. Możemy zarekomendować i skonfigurować hosting, a także przenieść gotową stronę na Twoją domenę.",
+    a: "Tak. Doradzamy hosting, konfigurujemy serwer i podpinamy Twoją domenę. Za hosting i domenę płacisz bezpośrednio dostawcy, bez naszej marży.",
   },
   cms: {
     q: "Czy mogę sam edytować stronę?",
-    a: "Tak. Strony oparte o WordPress mają panel CMS – możesz sam dodawać treści, zdjęcia i aktualizacje bez znajomości kodu.",
+    a: "Tak. Strony na WordPressie mają panel, w którym zmieniasz teksty, zdjęcia i ceny bez znajomości kodu. Przy publikacji pokazujemy, jak z niego korzystać.",
   },
   support: {
     q: "Czy pomagasz po wdrożeniu?",
-    a: "Tak. Oferujemy wsparcie i szkolenie po oddaniu projektu, abyś mógł swobodnie zarządzać stroną.",
+    a: "Tak. Szkolenie z obsługi jest w każdym pakiecie, a wsparcie po starcie trwa 14 dni w pakiecie Start i 30 dni w Pro i Sklepie.",
   },
 } as const;
 

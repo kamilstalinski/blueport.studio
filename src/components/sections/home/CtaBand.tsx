@@ -8,7 +8,7 @@ export function CtaBand() {
     <section className="bp-close bp-scope" aria-labelledby="cta-title">
       <div className="bp-shell bp-grid">
         <h2 id="cta-title">Sprawdź, ile kosztuje Twoja strona.</h2>
-        <p className="bp-lead">Wybierasz zakres, dostajesz widełki. 60 sekund, bez rejestracji i bez zobowiązań.</p>
+        <p className="bp-lead">Wybierasz typ strony i funkcje, a po 60 sekundach widzisz widełki. E-mail podajesz dopiero, jeśli chcesz dostać wycenę.</p>
         <div className="bp-rows-act">
           <Link className="bp-row-act bp-row-act--primary" href="/kalkulator">
             Sprawdź koszt <Arrow />

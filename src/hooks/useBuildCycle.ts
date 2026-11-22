@@ -4,30 +4,29 @@ import { buildTimeline } from "@/lib/hero/buildTimeline";
 import type { BuildCycle } from "@/types";
 
 interface UseBuildCycleOptions {
-  wireCount: number;
-  barCount: number;
-  siteCount: number;
+  /** wireframe size of each site in turn: every site builds its own layout */
+  counts: readonly { wireCount: number; barCount: number }[];
   isStill: boolean;
 }
 
-export function useBuildCycle({ wireCount, barCount, siteCount, isStill }: UseBuildCycleOptions): BuildCycle {
-  const timeline = useMemo(() => buildTimeline(wireCount, barCount), [wireCount, barCount]);
-  const [cycle, setCycle] = useState<BuildCycle>({ ...timeline.frames[0], site: 0 });
+export function useBuildCycle({ counts, isStill }: UseBuildCycleOptions): BuildCycle {
+  const timelines = useMemo(() => counts.map((c) => buildTimeline(c.wireCount, c.barCount)), [counts]);
+  const [cycle, setCycle] = useState<BuildCycle>({ ...timelines[0].frames[0], site: 0 });
 
   useEffect(() => {
     if (isStill) return;
-    const { frames, cycleMs } = timeline;
     let index = 0;
     let site = 0;
     let timer: number | undefined;
 
     const showNextFrame = () => {
+      const { frames, cycleMs } = timelines[site];
       const frame = frames[index];
       setCycle({ ...frame, site });
       const isLast = index === frames.length - 1;
       const delay = isLast ? cycleMs - frame.at : frames[index + 1].at - frame.at;
       index = isLast ? 0 : index + 1;
-      if (isLast) site = (site + 1) % siteCount;
+      if (isLast) site = (site + 1) % timelines.length;
       timer = window.setTimeout(showNextFrame, delay);
     };
 
@@ -43,8 +42,9 @@ export function useBuildCycle({ wireCount, barCount, siteCount, isStill }: UseBu
       window.clearTimeout(timer);
       document.removeEventListener("visibilitychange", handleVisibilityChange);
     };
-  }, [timeline, siteCount, isStill]);
+  }, [timelines, isStill]);
 
-  if (isStill) return { ...timeline.frames[timeline.frames.length - 1], site: 0 };
+  const still = timelines[0].frames;
+  if (isStill) return { ...still[still.length - 1], site: 0 };
   return cycle;
 }

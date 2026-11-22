@@ -69,21 +69,21 @@ test("the subpage stylesheets are loaded", async ({ page }) => {
   expect(sheets).toContain(".bp-sub");
 });
 
-test("realizacje shows all six sites as scrolling frames and ends with the CTA band", async ({ page }) => {
+test("realizacje shows all eight sites as scrolling frames and ends with the CTA band", async ({ page }) => {
   await page.goto("/realizacje");
 
-  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Dziesięć wdrożeń. Sześć, które możemy pokazać.");
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Osiem wdrożeń, które możemy pokazać.");
   await expect(page.locator(".page-head .lede")).toHaveText("Najedź kursorem na dowolną, żeby przewinąć ją w całości. Bez wchodzenia na stronę klienta.");
 
   const frames = page.locator("main a.bp-frame");
-  await expect(frames).toHaveCount(6);
-  await expect(frames.nth(0)).toHaveAttribute("href", "/realizacje/dobreprecle");
-  await expect(frames.nth(5)).toHaveAttribute("href", "/realizacje/afterthesin");
-  // Unlike the home teaser, /realizacje shows all six sites at every viewport (desktop and mobile projects both).
-  for (let i = 0; i < 6; i++) {
+  await expect(frames).toHaveCount(8);
+  await expect(frames.nth(0)).toHaveAttribute("href", "/realizacje/uniqueideas");
+  await expect(frames.nth(7)).toHaveAttribute("href", "/realizacje/afterthesin");
+  // Unlike the home teaser, /realizacje shows all eight sites at every viewport (desktop and mobile projects both).
+  for (let i = 0; i < 8; i++) {
     await expect(frames.nth(i)).toBeVisible();
   }
-  await expect(page.locator("main .bp-wall")).toHaveCount(2);
+  await expect(page.locator("main .bp-wall")).toHaveCount(1);
   await expect(page.locator("main section.bp-close")).toHaveCount(1);
   await expect(page.getByText("Efekty")).toHaveCount(0);
 
@@ -95,7 +95,7 @@ test("a case study opens with the spec header and screenshot, then the full stor
 
   await expect(page.getByRole("link", { name: "Wszystkie realizacje" })).toHaveAttribute("href", "/realizacje");
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("Vilmart Water Service");
-  await expect(page.locator(".page-head .lede")).toHaveText("Strona WordPress dla specjalisty od uzdatniania wody. Formularz doboru urządzenia jako główne narzędzie leadowe.");
+  await expect(page.locator(".page-head .lede")).toHaveText("Strona szczecińskiej firmy od uzdatniania wody. Zamiast zwykłego formularza kontaktu klient wypełnia formularz doboru urządzenia.");
   await expect(page.locator(".page-head .meta")).toHaveText("vilmart.pl");
   await expect(page.locator(".cs-shot img")).toHaveAttribute("alt", "Strona Vilmart Water Service");
 
@@ -153,7 +153,7 @@ test("faq is a keyboard-friendly accordion with JSON-LD", async ({ page }) => {
   await rows.first().locator("summary").focus();
   await page.keyboard.press("Enter");
   await expect(rows.first()).toHaveAttribute("open", "");
-  await expect(rows.first().getByText("Proste strony firmowe zaczynają się od 2 500 zł.", { exact: false })).toBeVisible();
+  await expect(rows.first().getByText("Strona start od 2 500 zł", { exact: false })).toBeVisible();
 
   const jsonLd = await page.locator('script[type="application/ld+json"]').allTextContents();
   expect(jsonLd.some((text) => text.includes('"FAQPage"'))).toBe(true);
@@ -162,16 +162,22 @@ test("faq is a keyboard-friendly accordion with JSON-LD", async ({ page }) => {
   await expectNoAxeViolations(page);
 });
 
-test("proces expands the five home steps", async ({ page }) => {
+test("proces lays the five steps on a day ruler", async ({ page }) => {
   await page.goto("/proces");
 
-  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Proces współpracy");
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Od kalkulatora do publikacji");
   const steps = page.locator("ol.process-detail > li");
   await expect(steps).toHaveCount(5);
   await expect(steps.nth(0).getByRole("heading", { level: 2 })).toHaveText("Wypełniasz kalkulator");
   await expect(steps.nth(0)).toContainText("Dzień 0");
-  await expect(steps.nth(0).locator("li")).toHaveText(["wybierasz typ strony", "określasz funkcje", "otrzymujesz szacunkowy koszt"]);
-  await expect(page.getByText("Całość zwykle trwa 1–2 tygodnie.")).toBeVisible();
+  await expect(steps.nth(1).locator("dt")).toHaveText(["Ty", "My", "Dostajesz"]);
+  await expect(steps.nth(1).locator(".bp-proc-get dd")).toHaveText("Umowę z ceną i datą publikacji");
+  const ruler = page.getByRole("navigation", { name: "Etapy współpracy" });
+  await expect(ruler.getByRole("link")).toHaveCount(5);
+  await ruler.getByRole("link", { name: /Testy i poprawki/ }).click();
+  await expect(page).toHaveURL(/#krok-4$/);
+  await expect(ruler.locator('[aria-current="step"]')).toContainText("Przed startem");
+  await expect(page.getByText("Od akceptacji projektu do publikacji: zwykle 1–2 tygodnie.")).toBeVisible();
   await expect(page.locator("main section.bp-close")).toHaveCount(1);
 
   await expectNoAxeViolations(page);
@@ -278,8 +284,8 @@ test.describe("kontakt form", () => {
 test("o nas keeps the story, approach, technologies and audience", async ({ page }) => {
   await page.goto("/o-nas");
 
-  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Tworzymy strony, które sprzedają. Bez chaosu.");
-  for (const heading of ["Po co powstał Blueport?", "Jak pracujemy?", "Technologia dopasowana do celu", "Dla kogo jesteśmy", "Dla kogo nie jesteśmy", "Pracujemy lokalnie i zdalnie"]) {
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Studio ze Szczecina, które podaje cenę przed rozmową.");
+  for (const heading of ["Dlaczego zaczynamy od ceny", "Jak pracujemy", "WordPress, a gdy to za mało, Next.js", "Dla kogo jesteśmy", "Dla kogo nie jesteśmy", "Pracujemy lokalnie i zdalnie"]) {
     await expect(page.getByRole("heading", { name: heading })).toBeVisible();
   }
   await expect(page.locator(".about-cards article")).toHaveCount(3);
@@ -335,7 +341,7 @@ test.describe("calculator", () => {
     await page.getByLabel("Email *").fill("jan@firma.pl");
     await page.getByRole("button", { name: "Wyślij zapytanie" }).click();
 
-    await expect(page.getByRole("heading", { name: "Zapytanie wysłane!" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Zapytanie wysłane" })).toBeVisible();
     await expect(page.getByRole("button", { name: "Wysłano" })).toBeDisabled();
     expect(lead).toMatchObject({ name: "Jan Kowalski", email: "jan@firma.pl", packageId: "strona-start" });
 

@@ -12,9 +12,9 @@ import { faqJsonLd } from "@/lib/jsonLd";
 const ALL_FAQ_KEYS = ["price", "time", "contract", "hosting", "cms", "support"] as const;
 
 export const metadata: Metadata = {
-  title: "FAQ — Najczęściej zadawane pytania",
+  title: "FAQ: cena, czas, umowa i hosting",
   description:
-    "Odpowiedzi na najczęstsze pytania o tworzenie stron, ceny, czas realizacji i współpracę z Blueport Studio.",
+    "Ile kosztuje strona, ile trwa, czy podpisujemy umowę, kto płaci za hosting i czy edytujesz stronę sam. Krótkie odpowiedzi z konkretnymi kwotami.",
   alternates: { canonical: "https://blueport.studio/faq" },
   openGraph: { url: "https://blueport.studio/faq" },
 };
@@ -25,7 +25,7 @@ export default function FAQPage() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd(faqItemsForJsonLd)) }} />
-      <PageHead title="Najczęściej zadawane pytania" lede="Odpowiedzi na pytania, które klienci zadają przed rozpoczęciem współpracy." />
+      <PageHead title="Najczęściej zadawane pytania" lede="Pytania, które słyszymy najczęściej przed podpisaniem umowy." />
       <section className="bp-sec bp-sec--tight" aria-label="Pytania i odpowiedzi">
         <div className="bp-shell bp-grid">
           <div className="bp-sec-head">

@@ -4,7 +4,7 @@ import { Calculator } from "@/components/calculator";
 export const metadata: Metadata = {
   title: "Kalkulator wyceny — Ile kosztuje strona internetowa?",
   description:
-    "Sprawdź cenę swojej strony internetowej w 60 sekund. Kalkulator wyceny online — bez zobowiązań, bez rejestracji.",
+    "Wybierz typ strony i funkcje, a kalkulator pokaże widełki cenowe w 60 sekund. Dane kontaktowe podajesz tylko, jeśli chcesz wycenę na e-mail.",
   alternates: { canonical: "https://blueport.studio/wycena" },
   openGraph: { url: "https://blueport.studio/wycena" },
   robots: { index: true, follow: false },

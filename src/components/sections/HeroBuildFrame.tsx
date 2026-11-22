@@ -3,36 +3,19 @@
 import Image from "next/image";
 
 import { Lock } from "@/components/ui/Arrow";
+import { HERO_WIRES, type Wire, type WireKind } from "@/constants/heroWires";
 import { HERO_WORK } from "@/constants/work";
 import { useBuildCycle } from "@/hooks/useBuildCycle";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 import { cn } from "@/lib/utils";
 
-type WireKind = "outline" | "cta" | "bar" | "bar-dim";
-type Wire = { x: number; y: number; w: number; h: number; kind: WireKind };
-
-/* A 400×330 page skeleton: nav, hero block, three cards, footer. Bars are the content layer. */
-const WIRES: readonly Wire[] = [
-  { x: 16, y: 14, w: 56, h: 10, kind: "outline" },
-  { x: 262, y: 14, w: 30, h: 10, kind: "outline" },
-  { x: 300, y: 14, w: 30, h: 10, kind: "outline" },
-  { x: 340, y: 12, w: 44, h: 14, kind: "cta" },
-  { x: 16, y: 44, w: 220, h: 120, kind: "outline" },
-  { x: 248, y: 44, w: 136, h: 120, kind: "outline" },
-  { x: 32, y: 66, w: 160, h: 14, kind: "bar" },
-  { x: 32, y: 90, w: 120, h: 9, kind: "bar-dim" },
-  { x: 32, y: 130, w: 70, h: 16, kind: "cta" },
-  { x: 16, y: 178, w: 116, h: 84, kind: "outline" },
-  { x: 142, y: 178, w: 116, h: 84, kind: "outline" },
-  { x: 268, y: 178, w: 116, h: 84, kind: "outline" },
-  { x: 28, y: 196, w: 70, h: 8, kind: "bar-dim" },
-  { x: 154, y: 196, w: 70, h: 8, kind: "bar-dim" },
-  { x: 280, y: 196, w: 70, h: 8, kind: "bar-dim" },
-  { x: 16, y: 276, w: 368, h: 40, kind: "outline" },
-];
 const isBar = (wire: Wire): boolean => wire.kind === "bar" || wire.kind === "bar-dim";
-const STRUCTURE = WIRES.filter((wire) => !isBar(wire));
-const BARS = WIRES.filter(isBar);
+/* each hero site splits into its structure (drawn first) and its content bars */
+const LAYOUTS = HERO_WORK.map((site) => {
+  const wires = HERO_WIRES[site.slug] ?? [];
+  return { structure: wires.filter((wire) => !isBar(wire)), bars: wires.filter(isBar) };
+});
+const COUNTS = LAYOUTS.map((layout) => ({ wireCount: layout.structure.length, barCount: layout.bars.length }));
 const WIRE_CLASS: Record<WireKind, string> = {
   outline: "bp-bw",
   cta: "bp-bw bp-bw-cta",
@@ -42,16 +25,12 @@ const WIRE_CLASS: Record<WireKind, string> = {
 const STEPS = ["Siatka", "Układ", "Treść", "Start"] as const;
 const PLACEHOLDER_DOMAIN = "nowa-strona.pl";
 
-/** The hero's moment: a page builds on the construction dots, then a real client site wipes in; five sites in turn. */
+/** The hero's moment: each client site's real layout builds on the construction dots, then the site itself wipes in; five sites in turn. */
 export function HeroBuildFrame() {
   const isStill = usePrefersReducedMotion();
-  const cycle = useBuildCycle({
-    wireCount: STRUCTURE.length,
-    barCount: BARS.length,
-    siteCount: HERO_WORK.length,
-    isStill,
-  });
+  const cycle = useBuildCycle({ counts: COUNTS, isStill });
   const site = HERO_WORK[cycle.site];
+  const { structure, bars } = LAYOUTS[cycle.site];
   const isLive = cycle.stage === 3;
 
   return (
@@ -72,9 +51,9 @@ export function HeroBuildFrame() {
           />
           <div className="bp-cover" />
           <svg className="bp-wire" viewBox="0 0 400 330" shapeRendering="crispEdges">
-            {STRUCTURE.map((wire, index) => (
+            {structure.map((wire, index) => (
               <rect
-                key={`${wire.x}-${wire.y}`}
+                key={`${site.slug}-${wire.x}-${wire.y}-${wire.w}`}
                 className={cn(WIRE_CLASS[wire.kind], index < cycle.wiresOn && "bp-in")}
                 x={wire.x}
                 y={wire.y}
@@ -82,9 +61,9 @@ export function HeroBuildFrame() {
                 height={wire.h}
               />
             ))}
-            {BARS.map((wire, index) => (
+            {bars.map((wire, index) => (
               <rect
-                key={`${wire.x}-${wire.y}`}
+                key={`${site.slug}-${wire.x}-${wire.y}-${wire.w}`}
                 className={cn(WIRE_CLASS[wire.kind], index < cycle.barsOn && "bp-in")}
                 x={wire.x}
                 y={wire.y}

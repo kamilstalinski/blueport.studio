@@ -1,14 +1,16 @@
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
 
-const DOMAINS = ["dobreprecle.pl", "spavalnia.pl", "vilmart.pl", "dowytrenowania.pl", "abcmosty.pl", "afterthesin.com"];
+const DOMAINS = ["uniqueideasfoundation.pl", "polaquagroup.eu", "dobreprecle.pl", "spavalnia.pl", "vilmart.pl", "dowytrenowania.pl", "abcmosty.pl", "afterthesin.com"];
+/* Polaqua serves plain http until it moves to polaquagroup.com */
+const HREFS: Record<string, string> = { "polaquagroup.eu": "http://polaquagroup.eu" };
 
-test("the client domains link out to the six live sites", async ({ page }) => {
+test("the client domains link out to the eight live sites", async ({ page }) => {
   await page.goto("/");
   const links = page.locator(".bp-domains a");
   await expect(links).toHaveText(DOMAINS);
   for (const [index, domain] of DOMAINS.entries()) {
-    await expect(links.nth(index)).toHaveAttribute("href", `https://${domain}`);
+    await expect(links.nth(index)).toHaveAttribute("href", HREFS[domain] ?? `https://${domain}`);
     await expect(links.nth(index)).toHaveAttribute("rel", "noopener noreferrer");
   }
 });
@@ -22,14 +24,14 @@ test("the work list swaps the browser window to the chosen site", async ({ page 
   await works.scrollIntoViewIfNeeded();
 
   const items = works.locator(".bp-work-item");
-  await expect(items.locator("h3")).toHaveText(["Dowytrenowania", "ABC Mosty", "After the Sin"]);
+  await expect(items.locator("h3")).toHaveText(["Unique Ideas Foundation", "Polaqua Group", "Dobre Precle"]);
   await expect(items.first()).toHaveAttribute("aria-pressed", "true");
-  await expect(works.locator("#work-dowytrenowania")).toBeVisible();
+  await expect(works.locator("#work-uniqueideas")).toBeVisible();
 
   await items.nth(1).click();
   await expect(items.nth(1)).toHaveAttribute("aria-pressed", "true");
-  await expect(works.locator("#work-abcmosty")).toHaveAttribute("href", "/realizacje/abcmosty");
-  await expect(works.locator("#work-dowytrenowania")).toHaveAttribute("inert", "");
+  await expect(works.locator("#work-polaqua")).toHaveAttribute("href", "/realizacje/polaqua");
+  await expect(works.locator("#work-uniqueideas")).toHaveAttribute("inert", "");
   await expect(works.getByRole("link", { name: "Wszystkie realizacje" })).toHaveAttribute("href", "/realizacje");
 });
 

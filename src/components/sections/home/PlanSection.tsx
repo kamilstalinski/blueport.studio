@@ -59,7 +59,7 @@ export function PlanSection() {
               <rect className="bp-pin" x="67" y="280" width="12" height="12" />
             </svg>
           </InView>
-          <figcaption>Ścieżka od pierwszego ekranu do formularza. Projektujemy ją, zanim powstanie pierwszy piksel.</figcaption>
+          <figcaption>Ścieżka od pierwszego ekranu do formularza. Rysujemy ją przed projektem graficznym.</figcaption>
         </figure>
       </div>
     </section>

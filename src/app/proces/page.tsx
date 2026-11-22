@@ -5,9 +5,9 @@ import { ProcessDetail } from "@/components/pages/ProcessDetail";
 import { CtaBand } from "@/components/sections/home/CtaBand";
 
 export const metadata: Metadata = {
-  title: "Proces współpracy — Jak działamy",
+  title: "Proces: od wyceny do publikacji w 5 krokach",
   description:
-    "Poznaj nasz proces tworzenia stron: od briefu przez projekt, wdrożenie aż po wsparcie po starcie. Transparentnie i bez niespodzianek.",
+    "Kalkulator, rozmowa o cenie i terminie, projekt, testy na telefonach, publikacja ze szkoleniem. Od akceptacji projektu do startu mija zwykle 1–2 tygodnie.",
   alternates: { canonical: "https://blueport.studio/proces" },
   openGraph: { url: "https://blueport.studio/proces" },
 };
@@ -16,17 +16,13 @@ export default function ProcesPage() {
   return (
     <>
       <PageHead
-        title="Proces współpracy"
-        lede="Współpraca z nami jest uporządkowana i przewidywalna. Każdy etap ma jasny cel, zakres i termin realizacji."
+        title="Od kalkulatora do publikacji"
+        lede="Cenę i datę publikacji ustalamy pierwszego dnia. Poniżej to, co dzieje się potem, krok po kroku."
       />
       <section className="bp-sec bp-sec--tight" aria-label="Etapy współpracy">
-        <div className="bp-shell bp-grid">
-          <div className="bp-sec-head">
-            <p className="bp-total bp-mono">Całość zwykle trwa 1–2 tygodnie.</p>
-          </div>
-          <div className="bp-sec-body">
-            <ProcessDetail />
-          </div>
+        <div className="bp-shell">
+          <p className="bp-total bp-mono">Od akceptacji projektu do publikacji: zwykle 1–2 tygodnie.</p>
+          <ProcessDetail />
         </div>
       </section>
       <CtaBand />

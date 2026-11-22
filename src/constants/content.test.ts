@@ -4,15 +4,15 @@ import { describe, expect, it } from "vitest";
 import { ABOUT_APPROACH, ABOUT_FOR, ABOUT_NOT_FOR, ABOUT_STORY, ABOUT_TECHS } from "@/constants/about";
 import { CASE_STUDIES, isWorkSlug } from "@/constants/caseStudies";
 import { HOME_TIERS, PACKAGES, PRICE_TABLE_HEADS, PRICE_TABLE_ROWS } from "@/constants/pricing";
-import { PROCESS_DETAILS, PROCESS_STEPS, TALLY } from "@/constants/process";
+import { PROCESS_PARTS, PROCESS_STEPS, TALLY } from "@/constants/process";
 import { TESTIMONIALS } from "@/constants/testimonials";
 import { HERO_WORK, WORK_SITES } from "@/constants/work";
 
 const inPublic = (src: string): boolean => existsSync(join(process.cwd(), "public", src));
 
 describe("WORK_SITES", () => {
-  it("lists the six client sites in the spec order and feeds the hero the first five", () => {
-    expect(WORK_SITES.map((site) => site.slug)).toEqual(["dobreprecle", "spavalnia", "vilmart", "dowytrenowania", "abcmosty", "afterthesin"]);
+  it("lists the eight client sites newest first and feeds the hero the first five", () => {
+    expect(WORK_SITES.map((site) => site.slug)).toEqual(["uniqueideas", "polaqua", "dobreprecle", "spavalnia", "vilmart", "dowytrenowania", "abcmosty", "afterthesin"]);
     expect(HERO_WORK.map((site) => site.slug)).toEqual(WORK_SITES.slice(0, 5).map((site) => site.slug));
   });
 
@@ -25,14 +25,16 @@ describe("WORK_SITES", () => {
     }
   });
 
-  it("carries the spec's one-sentence description for every site", () => {
+  it("carries a one- or two-sentence description for every site", () => {
     expect(WORK_SITES.map((site) => site.desc)).toEqual([
-      "Strona Next.js dla sieci punktów z tradycyjnymi preclami. Menu, lokalizacje, integracja z social media.",
-      "Sklep internetowy dla marki streetwearowej. Ciemny design oddający klimat marki, sprawna ścieżka zakupowa, integracja z WooCommerce.",
-      "Strona WordPress dla specjalisty od uzdatniania wody. Formularz doboru urządzenia jako główne narzędzie leadowe.",
-      "Strona WordPress + WooCommerce dla magistra fizjoterapii i trenerki medycznej. Sklep z poradnikami i kursami, SEO lokalne.",
-      "Wizytówka WordPress dla rodzinnej szkółki drzew i krzewów ozdobnych. Nowa obecność online, wzrost zapytań B2B.",
-      "Strona WordPress dla poznańskiego zespołu dark wave. Klimatyczny design, kalendarz koncertów, integracja z teledyskami.",
+      "Strona fundacji, która organizuje salony dyskusyjne i sieć Polish Future Network. Zespół sam edytuje treści, a zgłoszenia do sieci trafiają do jednej bazy.",
+      "Katalog hurtowni urządzeń do uzdatniania wody, podzielony na kategorie, po polsku i angielsku. Nowe produkty zespół dodaje sam.",
+      "Strona sieci punktów z preclami: menu z alergenami, mapa lokalizacji i linki do mediów społecznościowych.",
+      "Sklep WooCommerce marki streetwearowej. Ciemny projekt w stylu marki i krótka droga od produktu do płatności.",
+      "Strona szczecińskiej firmy od uzdatniania wody. Zamiast zwykłego formularza kontaktu klient wypełnia formularz doboru urządzenia.",
+      "Strona fizjoterapeutki i trenerki medycznej ze sklepem z poradnikami i kursami online.",
+      "Pierwsza strona rodzinnej szkółki drzew, krzewów i choinek, działającej od 30 lat. Oferta w trzech grupach i lokalne SEO.",
+      "Strona poznańskiego zespołu dark wave z kalendarzem koncertów, teledyskami i materiałami dla organizatorów.",
     ]);
   });
 });
@@ -57,11 +59,11 @@ describe("PROCESS_STEPS and TALLY", () => {
   });
 });
 
-describe("PROCESS_DETAILS", () => {
-  it("adds three legacy bullets to each of the five steps", () => {
-    expect(PROCESS_DETAILS).toHaveLength(PROCESS_STEPS.length);
-    expect(PROCESS_DETAILS[0]).toEqual(["wybierasz typ strony", "określasz funkcje", "otrzymujesz szacunkowy koszt"]);
-    expect(PROCESS_DETAILS[4]).toEqual(["konfiguracja serwera", "podpięcie domeny", "szkolenie z obsługi"]);
+describe("PROCESS_PARTS", () => {
+  it("gives each of the five steps its roles, one outcome and a ruler span, with the contract as the key step", () => {
+    expect(PROCESS_PARTS).toHaveLength(PROCESS_STEPS.length);
+    expect(PROCESS_PARTS.filter((part) => part.key).map((part) => part.get)).toEqual(["Umowę z ceną i datą publikacji"]);
+    expect(PROCESS_PARTS.slice(0, 3).reduce((days, part) => days + part.span, 0)).toBe(11); // days 0–10
   });
 });
 
@@ -105,9 +107,9 @@ describe("CASE_STUDIES", () => {
 });
 
 describe("ABOUT copy", () => {
-  it("keeps the legacy O nas content", () => {
+  it("keeps the O nas content shape", () => {
     expect(ABOUT_STORY).toHaveLength(3);
-    expect(ABOUT_APPROACH.map((item) => item.title)).toEqual(["Konkret zamiast chaosu", "Jasna wycena", "Małe studio = pełna odpowiedzialność"]);
+    expect(ABOUT_APPROACH.map((item) => item.title)).toEqual(["Cena przed rozmową", "Bezpośredni kontakt", "Strona, którą obsłużysz sam"]);
     expect(ABOUT_TECHS).toEqual(["WordPress", "WooCommerce", "Next.js"]);
     expect(ABOUT_FOR).toHaveLength(4);
     expect(ABOUT_NOT_FOR).toHaveLength(3);

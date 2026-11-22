@@ -7,33 +7,29 @@ import { InView } from "@/components/ui/InView";
 import { WORK_SITES } from "@/constants/work";
 
 export const metadata: Metadata = {
-  title: "Realizacje — Portfolio Blueport Studio",
+  title: "Realizacje: strony i sklepy dla małych firm",
   description:
-    "Zobacz nasze realizacje — strony firmowe, sklepy internetowe i aplikacje webowe. Projekty dla firm ze Szczecina i całej Polski.",
+    "Osiem stron i sklepów dla małych firm, m.in. gabinet fizjoterapii, sklep streetwear i szkółka drzew. Każda z opisem, co było do rozwiązania i jak to zrobiliśmy.",
   alternates: { canonical: "https://blueport.studio/realizacje" },
   openGraph: { url: "https://blueport.studio/realizacje" },
 };
-
-const WALLS = [WORK_SITES.slice(0, 3), WORK_SITES.slice(3)] as const;
 
 export default function RealizacjePage() {
   return (
     <>
       <PageHead
-        title="Dziesięć wdrożeń. Sześć, które możemy pokazać."
+        title="Osiem wdrożeń, które możemy pokazać."
         lede="Najedź kursorem na dowolną, żeby przewinąć ją w całości. Bez wchodzenia na stronę klienta."
       />
       <section className="bp-sec bp-sec--tight" aria-label="Realizacje">
         <div className="bp-shell">
-          {WALLS.map((wall, index) => (
-            <div key={index} className="bp-wall">
-              {wall.map((site) => (
-                <InView key={site.slug} className="reveal">
-                  <ScrollingFrame href={`/realizacje/${site.slug}`} domain={site.domain} name={site.name} page={site.page} />
-                </InView>
-              ))}
-            </div>
-          ))}
+          <div className="bp-wall">
+            {WORK_SITES.map((site) => (
+              <InView key={site.slug} className="reveal">
+                <ScrollingFrame href={`/realizacje/${site.slug}`} domain={site.domain} name={site.name} page={site.page} />
+              </InView>
+            ))}
+          </div>
         </div>
       </section>
       <CtaBand />
