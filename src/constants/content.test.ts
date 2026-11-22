@@ -1,10 +1,10 @@
 import { existsSync } from "node:fs";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
-import { ABOUT_APPROACH, ABOUT_FOR, ABOUT_NOT_FOR, ABOUT_STORY, ABOUT_TECHS } from "@/constants/about";
+import { ABOUT_CLIENTS, ABOUT_NOT_FOR, ABOUT_STORY, ABOUT_TECHS } from "@/constants/about";
 import { CASE_STUDIES, isWorkSlug } from "@/constants/caseStudies";
 import { HOME_TIERS, PACKAGES, PRICE_TABLE_HEADS, PRICE_TABLE_ROWS } from "@/constants/pricing";
-import { PROCESS_PARTS, PROCESS_STEPS, TALLY } from "@/constants/process";
+import { PROCESS_CHAPTERS, PROCESS_STEPS, TALLY } from "@/constants/process";
 import { TESTIMONIALS } from "@/constants/testimonials";
 import { HERO_WORK, WORK_SITES } from "@/constants/work";
 
@@ -59,11 +59,10 @@ describe("PROCESS_STEPS and TALLY", () => {
   });
 });
 
-describe("PROCESS_PARTS", () => {
-  it("gives each of the five steps its roles, one outcome and a ruler span, with the contract as the key step", () => {
-    expect(PROCESS_PARTS).toHaveLength(PROCESS_STEPS.length);
-    expect(PROCESS_PARTS.filter((part) => part.key).map((part) => part.get)).toEqual(["Umowę z ceną i datą publikacji"]);
-    expect(PROCESS_PARTS.slice(0, 3).reduce((days, part) => days + part.span, 0)).toBe(11); // days 0–10
+describe("PROCESS_CHAPTERS", () => {
+  it("tells the process in four chapters, one visual each, from the calculator to launch", () => {
+    expect(PROCESS_CHAPTERS.map((chapter) => chapter.when)).toEqual(["Dzień 0", "Dzień 1", "Dni 2–10", "Start"]);
+    expect(new Set(PROCESS_CHAPTERS.map((chapter) => chapter.visual)).size).toBe(4);
   });
 });
 
@@ -107,11 +106,15 @@ describe("CASE_STUDIES", () => {
 });
 
 describe("ABOUT copy", () => {
-  it("keeps the O nas content shape", () => {
+  it("ties every tool and every trade to a real client site", () => {
     expect(ABOUT_STORY).toHaveLength(3);
-    expect(ABOUT_APPROACH.map((item) => item.title)).toEqual(["Cena przed rozmową", "Bezpośredni kontakt", "Strona, którą obsłużysz sam"]);
-    expect(ABOUT_TECHS).toEqual(["WordPress", "WooCommerce", "Next.js"]);
-    expect(ABOUT_FOR).toHaveLength(4);
+    expect(ABOUT_TECHS.map((tech) => tech.name)).toEqual(["WordPress", "WooCommerce", "Next.js"]);
+    const slugs: readonly string[] = WORK_SITES.map((site) => site.slug);
+    for (const tech of ABOUT_TECHS) {
+      expect(inPublic(tech.icon)).toBe(true);
+      for (const slug of tech.sites) expect(slugs).toContain(slug);
+    }
+    for (const client of ABOUT_CLIENTS) expect(slugs).toContain(client.site);
     expect(ABOUT_NOT_FOR).toHaveLength(3);
   });
 });

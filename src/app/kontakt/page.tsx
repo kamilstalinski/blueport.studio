@@ -43,6 +43,14 @@ export default function KontaktPage() {
                 </div>
               ))}
             </dl>
+            <div className="bp-after">
+              <h3>Co dzieje się po wysłaniu</h3>
+              <ol>
+                <li>Kamil albo Rafał odpisuje w ciągu 24 godzin w dni robocze.</li>
+                <li>Umawiamy krótką rozmowę i doprecyzowujemy zakres.</li>
+                <li>Dostajesz umowę z ceną i datą publikacji.</li>
+              </ol>
+            </div>
             <div className="bp-note">
               <h3>Chcesz najpierw poznać cenę?</h3>
               <p>Kalkulator policzy widełki w 60 sekund, bez podawania danych kontaktowych.</p>

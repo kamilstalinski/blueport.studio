@@ -102,6 +102,7 @@ test("the home page follows the section order and nothing else", async ({ page }
     "Trzy pakiety. Cena znana przed startem.",
     "Od zapytania do startu",
     "Opinie klientów",
+    "Najczęstsze pytania",
     "Sprawdź, ile kosztuje Twoja strona.",
   ]);
 });

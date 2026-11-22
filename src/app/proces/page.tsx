@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 import { PageHead } from "@/components/pages/PageHead";
+import { ProcessAround } from "@/components/pages/ProcessAround";
 import { ProcessDetail } from "@/components/pages/ProcessDetail";
 import { CtaBand } from "@/components/sections/home/CtaBand";
 
@@ -17,14 +18,10 @@ export default function ProcesPage() {
     <>
       <PageHead
         title="Od kalkulatora do publikacji"
-        lede="Cenę i datę publikacji ustalamy pierwszego dnia. Poniżej to, co dzieje się potem, krok po kroku."
+        lede="Cenę i datę publikacji ustalamy pierwszego dnia i wpisujemy do umowy. Dalej pracujemy według niej."
       />
-      <section className="bp-sec bp-sec--tight" aria-label="Etapy współpracy">
-        <div className="bp-shell">
-          <p className="bp-total bp-mono">Od akceptacji projektu do publikacji: zwykle 1–2 tygodnie.</p>
-          <ProcessDetail />
-        </div>
-      </section>
+      <ProcessDetail />
+      <ProcessAround />
       <CtaBand />
     </>
   );

@@ -2,9 +2,11 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { PageHead } from "@/components/pages/PageHead";
+import { AddonPicker } from "@/components/pages/AddonPicker";
 import { PriceTable } from "@/components/pages/PriceTable";
 import { CtaBand } from "@/components/sections/home/CtaBand";
 import { HomePricing } from "@/components/sections/home/HomePricing";
+import { Arrow } from "@/components/ui/Arrow";
 import { InView } from "@/components/ui/InView";
 
 export const metadata: Metadata = {
@@ -40,6 +42,14 @@ export default function CennikPage() {
           <InView className="reveal bp-sec-body">
             <PriceTable />
           </InView>
+        </div>
+      </section>
+      <section className="bp-sec" aria-labelledby="addons-title">
+        <div className="bp-shell">
+          <AddonPicker>
+            <h2 id="addons-title">Dodatki: policz swój zakres</h2>
+            <p>Wybierz pakiet i zaznacz dodatki. Suma liczy się od razu, ceny są netto.</p>
+          </AddonPicker>
         </div>
       </section>
       <CtaBand />

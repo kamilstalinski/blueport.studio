@@ -1,95 +1,125 @@
 "use client";
 
-import { useEffect, useRef, useState, type CSSProperties } from "react";
+import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
 
-import { PROCESS_PARTS, PROCESS_STEPS } from "@/constants/process";
+import { Lock } from "@/components/ui/Arrow";
+import { PROCESS_CHAPTERS, type ProcessChapter } from "@/constants/process";
 
-const STEPS = PROCESS_STEPS.map((step, index) => ({ ...step, when: step.when.replace("-", "–"), ...PROCESS_PARTS[index] }));
-/* the first three steps are counted in days (0–10), so only their bars carry day ticks */
-const DAY_STEPS = 3;
-
-function stateOf(index: number, active: number): "done" | "now" | "next" {
-  if (index < active) return "done";
-  return index === active ? "now" : "next";
+/** What each chapter produces, shown in the one frame (live) or under its step (at rest). */
+function ChapterVisual({ kind, decorative = false }: { kind: ProcessChapter["visual"]; decorative?: boolean }) {
+  const alt = (text: string) => (decorative ? "" : text);
+  switch (kind) {
+    case "calculator":
+      return (
+        <Image
+          className="bp-pc-shot"
+          src="/proces/kalkulator.png"
+          width={1200}
+          height={900}
+          sizes="(max-width: 1023px) 100vw, 620px"
+          alt={alt("Kalkulator wyceny z wybranym pakietem Strona Pro: od 3900 zł")}
+        />
+      );
+    case "contract":
+      return (
+        <div className="bp-pc-lit">
+          <div className="bp-win bp-pc-doc" role={decorative ? undefined : "img"} aria-label={decorative ? undefined : "Umowa z wpisaną ceną 3 900 zł netto i datą publikacji"}>
+            <p className="bp-pc-doc-title">Umowa o wykonanie strony internetowej</p>
+            <dl aria-hidden="true">
+              <div><dt>Pakiet</dt><dd>Strona Pro, WordPress</dd></div>
+              <div><dt>Zakres</dt><dd>do 10 podstron, projekt od zera</dd></div>
+              <div className="bp-pc-doc-key"><dt>Cena</dt><dd>3 900 zł netto</dd></div>
+              <div className="bp-pc-doc-key"><dt>Publikacja</dt><dd>9 grudnia 2026</dd></div>
+              <div><dt>Wsparcie po starcie</dt><dd>30 dni</dd></div>
+            </dl>
+            <div className="bp-pc-doc-sign" aria-hidden="true"><span>Zamawiający</span><span>Wykonawca</span></div>
+          </div>
+        </div>
+      );
+    case "site":
+      return (
+        <div className="bp-win bp-pc-site">
+          <div className="bp-win-bar">
+            <Lock />
+            <span className="bp-url bp-mono" translate="no">polaquagroup.eu</span>
+          </div>
+          <Image src="/work/polaqua.webp" width={1200} height={1057} sizes="(max-width: 1023px) 100vw, 620px" alt={alt("Strona Polaqua Group na komputerze")} />
+        </div>
+      );
+    case "phone":
+      return (
+        <div className="bp-pc-lit">
+          <div className="bp-pc-phone">
+            <span className="bp-pc-phone-url bp-mono" translate="no">dobreprecle.pl</span>
+            <Image src="/work/page-dobreprecle.webp" width={820} height={2803} sizes="240px" alt={alt("Strona Dobre Precle na telefonie")} />
+          </div>
+        </div>
+      );
+  }
 }
 
-/** /proces: a sticky day ruler whose segments are as long as the steps they stand for, over one row per step (you, we, what you get). */
+/** /proces: one section that holds on screen for a screen of scroll while its four chapters open in turn
+ *  and the frame beside them shows what each one produces (taste-skill pinned-chapters, ported to React).
+ *  Live only from 1024px wide and 640px tall without reduced motion; otherwise every chapter stands with its visual. */
 export function ProcessDetail() {
+  const root = useRef<HTMLElement>(null);
   const [active, setActive] = useState(0);
-  const rows = useRef<(HTMLLIElement | null)[]>([]);
 
   useEffect(() => {
-    /* a step is current while it crosses the band just above the middle of the screen */
-    const observer = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (entry.isIntersecting) setActive(rows.current.indexOf(entry.target as HTMLLIElement));
-        }
-      },
-      { rootMargin: "-40% 0px -55% 0px" },
-    );
-    for (const row of rows.current) if (row) observer.observe(row);
-    return () => observer.disconnect();
+    const section = root.current;
+    if (!section) return;
+    let frame = 0;
+    const read = () => {
+      frame = 0;
+      const box = section.getBoundingClientRect();
+      const travel = box.height - innerHeight;
+      if (travel <= 0) return;
+      const progress = Math.min(0.999, Math.max(0, -box.top / travel));
+      setActive(Math.floor(progress * PROCESS_CHAPTERS.length));
+    };
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(read);
+    };
+    read();
+    addEventListener("scroll", onScroll, { passive: true });
+    addEventListener("resize", onScroll);
+    return () => {
+      removeEventListener("scroll", onScroll);
+      removeEventListener("resize", onScroll);
+      cancelAnimationFrame(frame);
+    };
   }, []);
 
-  const current = STEPS[active];
-
   return (
-    <div className="bp-proc">
-      <nav className="bp-ruler" aria-label="Etapy współpracy">
-        <ol style={{ gridTemplateColumns: STEPS.map((step) => `${step.span}fr`).join(" ") }}>
-          {STEPS.map((step, index) => (
-            <li key={step.title}>
-              <a
-                href={`#krok-${step.digit}`}
-                className="bp-ruler-seg"
-                data-state={stateOf(index, active)}
-                aria-current={index === active ? "step" : undefined}
-              >
-                <span className="bp-ruler-when bp-mono">{step.when}</span>
-                <span className="sr-only">: {step.title}</span>
-                <span className="bp-ruler-bar" data-days={index < DAY_STEPS ? "" : undefined} style={{ "--span": step.span } as CSSProperties} />
-              </a>
-            </li>
-          ))}
+    <section ref={root} className="bp-pc" aria-labelledby="pc-h">
+      <div className="bp-shell bp-pc-grid">
+        <div className="bp-pc-head">
+          <h2 id="pc-h">Cztery kroki do publikacji</h2>
+          <p className="bp-pc-lead">Od akceptacji projektu do publikacji mija zwykle 1–2 tygodnie.</p>
+        </div>
+        <ol className="process-detail bp-pc-steps">
+            {PROCESS_CHAPTERS.map((chapter, index) => (
+              <li key={chapter.title} className="bp-pc-step" data-on={index === active ? "" : undefined}>
+                <span className="bp-mono">{chapter.when}</span>
+                <h3>{chapter.title}</h3>
+                <p>
+                  <span>{chapter.text}</span>
+                </p>
+                <figure className="bp-pc-visual">
+                  <ChapterVisual kind={chapter.visual} />
+                </figure>
+              </li>
+            ))}
         </ol>
-        <p className="bp-ruler-now bp-mono" aria-hidden="true">
-          {current.when} · {current.title}
-        </p>
-      </nav>
-
-      <ol className="process-detail bp-proc-steps">
-        {STEPS.map((step, index) => (
-          <li
-            key={step.title}
-            id={`krok-${step.digit}`}
-            ref={(node) => {
-              rows.current[index] = node;
-            }}
-            data-state={stateOf(index, active)}
-            style={{ "--span": step.span } as CSSProperties}
-          >
-            <div className="bp-proc-head">
-              <span className="bp-day bp-mono">{step.when}</span>
-              <h2>{step.title}</h2>
+        <div className="bp-pc-frame" aria-hidden="true">
+          {PROCESS_CHAPTERS.map((chapter, index) => (
+            <div key={chapter.visual} className="bp-pc-slide" data-on={index === active ? "" : undefined} data-past={index < active ? "" : undefined}>
+              <ChapterVisual kind={chapter.visual} decorative />
             </div>
-            <dl className="bp-proc-roles">
-              <div>
-                <dt className="bp-mono">Ty</dt>
-                <dd>{step.you}</dd>
-              </div>
-              <div>
-                <dt className="bp-mono">My</dt>
-                <dd>{step.we}</dd>
-              </div>
-              <div className="bp-proc-get" data-key={step.key ? "" : undefined}>
-                <dt className="bp-mono">Dostajesz</dt>
-                <dd>{step.get}</dd>
-              </div>
-            </dl>
-          </li>
-        ))}
-      </ol>
-    </div>
+          ))}
+        </div>
+      </div>
+    </section>
   );
 }

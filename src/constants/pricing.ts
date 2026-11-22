@@ -186,7 +186,7 @@ export const FEATURES = {
   crm: {
     id: "crm",
     label: "CRM",
-    description: "HubSpot, Pipedrive — formularze i leady",
+    description: "HubSpot, Pipedrive: formularze i leady",
     price: 650,
     group: "automatyzacja" as const,
     availableForPackages: ["strona-pro", "sklep-online", "projekt-dedykowany"] as const,
@@ -194,7 +194,7 @@ export const FEATURES = {
   "mail-automation": {
     id: "mail-automation",
     label: "Automatyzacja mailowa",
-    description: "Mailchimp, Brevo — kampanie i automaty",
+    description: "Mailchimp, Brevo: kampanie i automaty",
     price: 550,
     group: "automatyzacja" as const,
     availableForPackages: ["strona-pro", "sklep-online", "projekt-dedykowany"] as const,
@@ -218,7 +218,7 @@ export const FEATURES = {
   "headless-cms": {
     id: "headless-cms",
     label: "Headless CMS",
-    description: "Sanity / Contentful — edytor oddzielony od kodu",
+    description: "Sanity albo Contentful: edytor oddzielony od kodu",
     price: 1900,
     group: "skalowanie" as const,
     availableForPackages: ["projekt-dedykowany"] as const,
@@ -238,16 +238,16 @@ export const FEATURES = {
   },
   "cicd-deployment": {
     id: "cicd-deployment",
-    label: "CI/CD deployment",
-    description: "Automatyczne wdrożenia i testy",
+    label: "Automatyczne wdrożenia",
+    description: "Każda zmiana przechodzi testy i trafia na serwer sama (CI/CD)",
     price: 1200,
     group: "skalowanie" as const,
     availableForPackages: ["projekt-dedykowany"] as const,
   },
   "multi-language-advanced": {
     id: "multi-language-advanced",
-    label: "Multi-language advanced",
-    description: "Wielojęzyczność zaawansowana (3+ języki)",
+    label: "Trzy języki i więcej",
+    description: "Wersje językowe z osobnymi adresami i treściami",
     price: 1400,
     group: "skalowanie" as const,
     availableForPackages: ["projekt-dedykowany"] as const,
@@ -273,6 +273,22 @@ export const TIMELINE_MULTIPLIERS = {
 } as const;
 
 export type PackageId = keyof typeof PACKAGES;
+
+/** Add-on groups in the order the cennik lists them. */
+export const FEATURE_GROUPS = [
+  { id: "widocznosc", label: "Widoczność i treści" },
+  { id: "sprzedaz", label: "Sprzedaż w sklepie" },
+  { id: "automatyzacja", label: "Automatyzacja" },
+  { id: "skalowanie", label: "Rozbudowa" },
+] as const;
+
+/** Short package names for the add-on list. */
+export const PACKAGE_SHORT: Record<keyof typeof PACKAGES, string> = {
+  "strona-start": "Start",
+  "strona-pro": "Pro",
+  "sklep-online": "Sklep",
+  "projekt-dedykowany": "Dedykowany",
+};
 export type FeatureId = keyof typeof FEATURES;
 export type TimelineId = keyof typeof TIMELINE_MULTIPLIERS;
 

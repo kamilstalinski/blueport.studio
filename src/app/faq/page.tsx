@@ -9,7 +9,7 @@ import { InView } from "@/components/ui/InView";
 import { FAQ_ITEMS } from "@/constants/faq";
 import { faqJsonLd } from "@/lib/jsonLd";
 
-const ALL_FAQ_KEYS = ["price", "time", "contract", "hosting", "cms", "support"] as const;
+const ALL_FAQ_KEYS = ["price", "time", "contract", "revisions", "materials", "hosting", "cms", "support"] as const;
 
 export const metadata: Metadata = {
   title: "FAQ: cena, czas, umowa i hosting",

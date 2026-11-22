@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 
 import { PageHead } from "@/components/pages/PageHead";
 import { CtaBand } from "@/components/sections/home/CtaBand";
+import { QuotesSection } from "@/components/sections/home/QuotesSection";
 import { ScrollingFrame } from "@/components/sections/home/ScrollingFrame";
 import { InView } from "@/components/ui/InView";
 import { WORK_SITES } from "@/constants/work";
@@ -26,12 +27,13 @@ export default function RealizacjePage() {
           <div className="bp-wall">
             {WORK_SITES.map((site) => (
               <InView key={site.slug} className="reveal">
-                <ScrollingFrame href={`/realizacje/${site.slug}`} domain={site.domain} name={site.name} page={site.page} />
+                <ScrollingFrame href={`/realizacje/${site.slug}`} domain={site.domain} kind={site.kind} name={site.name} page={site.page} />
               </InView>
             ))}
           </div>
         </div>
       </section>
+      <QuotesSection />
       <CtaBand />
     </>
   );

@@ -1,3 +1,6 @@
+import { FEATURES } from "@/constants/pricing";
+import { formatPrice } from "@/lib/formatPrice";
+
 export const FAQ_ITEMS = {
   price: {
     q: "Ile kosztuje strona internetowa?",
@@ -18,6 +21,14 @@ export const FAQ_ITEMS = {
   cms: {
     q: "Czy mogę sam edytować stronę?",
     a: "Tak. Strony na WordPressie mają panel, w którym zmieniasz teksty, zdjęcia i ceny bez znajomości kodu. Przy publikacji pokazujemy, jak z niego korzystać.",
+  },
+  revisions: {
+    q: "Ile poprawek jest w cenie?",
+    a: "W cenie są dwie rundy poprawek.",
+  },
+  materials: {
+    q: "Co muszę przygotować?",
+    a: `Logotyp i zdjęcia, a jeśli masz już gotowy projekt graficzny, także jego. Teksty możemy napisać za Ciebie w dodatku „Profesjonalne teksty” za ${formatPrice(FEATURES.copywriting.price)} zł.`,
   },
   support: {
     q: "Czy pomagasz po wdrożeniu?",

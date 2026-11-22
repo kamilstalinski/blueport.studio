@@ -1,3 +1,5 @@
+import type { WorkSlug } from "@/constants/work";
+
 /** O nas copy, rewritten from the facts in PRODUCT.md and the case studies. */
 export const ABOUT_STORY = [
   "Właściciel małej firmy pyta najpierw o dwie rzeczy: ile to kosztuje i kiedy będzie gotowe. W wielu studiach odpowiedź przychodzi dopiero po spotkaniu i briefie.",
@@ -5,20 +7,30 @@ export const ABOUT_STORY = [
   "Projekt zaczynamy od pytania, skąd przychodzą Twoi klienci i co mają zrobić na stronie. Dla Vilmart był to formularz doboru filtra, dla Dobrych Precli mapa punktów i menu z alergenami.",
 ] as const;
 
-export const ABOUT_APPROACH = [
-  { title: "Cena przed rozmową", text: "Kalkulator podaje widełki w 60 sekund. Ostateczną kwotę i termin wpisujemy do umowy przed startem prac." },
-  { title: "Bezpośredni kontakt", text: "Piszesz i dzwonisz do osoby, która prowadzi Twój projekt. Odpowiadamy w ciągu 24 godzin w dni robocze." },
-  { title: "Strona, którą obsłużysz sam", text: "Przy publikacji pokazujemy, jak w panelu zmienić tekst, zdjęcie czy cenę. Do drobnych zmian nie potrzebujesz nas." },
-] as const;
+/** The statement that lights up word by word; `accent` is the one phrase set in the accent. */
+export const ABOUT_STATEMENT = {
+  before: "Cenę i datę publikacji wpisujemy do umowy, zanim zaczniemy projektować. Przez cały projekt rozmawiasz z ",
+  accent: "Kamilem albo Rafałem",
+  after: ". Po publikacji sam zmieniasz teksty, zdjęcia i ceny w panelu.",
+} as const;
 
-export const ABOUT_TECHS = ["WordPress", "WooCommerce", "Next.js"] as const;
+/** The tools we build on, each with client sites made on it. */
+export const ABOUT_TECHS = [
+  { name: "WordPress", icon: "/icons/wordpress.svg", use: "strony firmowe", sites: ["vilmart", "abcmosty"] },
+  { name: "WooCommerce", icon: "/icons/woocommerce.svg", use: "sklepy internetowe", sites: ["dowytrenowania", "spavalnia"] },
+  { name: "Next.js", icon: "/icons/nextjs.svg", use: "projekty dedykowane", sites: ["dobreprecle", "uniqueideas"] },
+] as const satisfies readonly { name: string; icon: string; use: string; sites: readonly WorkSlug[] }[];
 
-export const ABOUT_FOR = [
-  "Firmy usługowe, których klienci szukają w Google po nazwie miasta",
-  "Gabinety, pracownie i warsztaty",
-  "Małe sklepy, które zaczynają sprzedawać online",
-  "Firmy, którym stara strona przestała dawać zapytania",
-] as const;
+/** Who we work for, told by the trade and the real client behind it. */
+export const ABOUT_CLIENTS = [
+  { trade: "Gabinety i specjaliści", site: "dowytrenowania" },
+  { trade: "Usługi lokalne", site: "vilmart" },
+  { trade: "Gastronomia", site: "dobreprecle" },
+  { trade: "Hurtownie i sprzedaż B2B", site: "polaqua" },
+  { trade: "Firmy rodzinne", site: "abcmosty" },
+  { trade: "Fundacje i organizacje", site: "uniqueideas" },
+  { trade: "Muzycy i artyści", site: "afterthesin" },
+] as const satisfies readonly { trade: string; site: WorkSlug }[];
 
 export const ABOUT_NOT_FOR = [
   "Firmy, które potrzebują stałego zespołu i wielomiesięcznych wdrożeń",
