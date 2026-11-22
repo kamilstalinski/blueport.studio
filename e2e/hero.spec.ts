@@ -12,7 +12,8 @@ test("home hero carries the offer, the price and the two actions", async ({ page
 });
 
 /* the build timeline reaches stage 3 at 3760ms after hydration (src/lib/hero/buildTimeline.ts) */
-const STAGE_3_TIMEOUT_MS = 8000;
+/* CI has no GPU: the page-wide Grainient renders in software there and delays the timers, so wait well past that */
+const STAGE_3_TIMEOUT_MS = 20000;
 
 test("the hero builds a page on the grid and reveals a real client site", async ({ page }) => {
   await page.goto("/");

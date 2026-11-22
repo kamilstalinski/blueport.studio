@@ -45,7 +45,8 @@ test("the plan section argues with a traced page plan", async ({ page }) => {
     "Formularz i ścieżka kontaktu w centrum układu",
   ]);
   await expect(plan.getByRole("img", { name: /Schemat strony/ })).toBeVisible();
-  await expect.poll(() => plan.locator(".bp-route").evaluate((el) => getComputedStyle(el).strokeDashoffset)).toBe("0px");
+  // the transition can land on a float residue such as 1.4e-11px, so compare with a tolerance
+  await expect.poll(() => plan.locator(".bp-route").evaluate((el) => Math.abs(parseFloat(getComputedStyle(el).strokeDashoffset)))).toBeLessThan(0.5);
 });
 
 test("pricing shows three packages from the price list and the dedicated project", async ({ page }) => {
