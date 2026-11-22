@@ -3,7 +3,6 @@ import type { Metadata } from "next";
 import { PageHead } from "@/components/pages/PageHead";
 import { ProcessDetail } from "@/components/pages/ProcessDetail";
 import { CtaBand } from "@/components/sections/home/CtaBand";
-import { InView } from "@/components/ui/InView";
 
 export const metadata: Metadata = {
   title: "Proces współpracy — Jak działamy",
@@ -18,15 +17,16 @@ export default function ProcesPage() {
     <>
       <PageHead
         title="Proces współpracy"
-        titleWidth="20ch"
         lede="Współpraca z nami jest uporządkowana i przewidywalna. Każdy etap ma jasny cel, zakres i termin realizacji."
       />
-      <section className="page-body" aria-label="Etapy współpracy">
-        <div className="shell">
-          <ProcessDetail />
-          <InView className="reveal">
-            <p className="meta process-total">Całość zwykle trwa 1–2 tygodnie.</p>
-          </InView>
+      <section className="bp-sec bp-sec--tight" aria-label="Etapy współpracy">
+        <div className="bp-shell bp-grid">
+          <div className="bp-sec-head">
+            <p className="bp-total bp-mono">Całość zwykle trwa 1–2 tygodnie.</p>
+          </div>
+          <div className="bp-sec-body">
+            <ProcessDetail />
+          </div>
         </div>
       </section>
       <CtaBand />

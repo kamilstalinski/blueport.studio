@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 
 import { CaseStudyStory } from "@/components/pages/CaseStudyStory";
 import { PageHead } from "@/components/pages/PageHead";
+import { Lock } from "@/components/ui/Arrow";
 import { CtaBand } from "@/components/sections/home/CtaBand";
 import { CASE_STUDIES, isWorkSlug } from "@/constants/caseStudies";
 import { WORK_SITES } from "@/constants/work";
@@ -82,11 +83,15 @@ export default async function CaseStudyPage({ params }: PageParamsSlug) {
           __html: JSON.stringify(caseStudyJsonLd({ title: seo.title, description: seo.description, client: seo.client, url: seo.url, image: seo.image })),
         }}
       />
-      <PageHead title={site.name} titleWidth="20ch" lede={site.desc} meta={site.domain} back={{ href: "/realizacje", label: "Wszystkie realizacje" }} />
-      <section className="page-body" aria-label="Zrzut strony">
-        <div className="shell">
-          <div className="shot chamfer cs-shot">
-            <Image src={site.image} alt={`Strona ${site.name}`} width={1200} height={825} sizes="(max-width: 1240px) 100vw, 1184px" priority />
+      <PageHead title={site.name} lede={site.desc} meta={site.domain} back={{ href: "/realizacje", label: "Wszystkie realizacje" }} />
+      <section className="bp-cs-shot-sec" aria-label="Zrzut strony">
+        <div className="bp-shell">
+          <div className="bp-win cs-shot">
+            <div className="bp-win-bar">
+              <Lock />
+              <span className="bp-url bp-mono">{site.domain}</span>
+            </div>
+            <Image src={site.image} alt={`Strona ${site.name}`} width={1200} height={825} sizes="(max-width: 1320px) 100vw, 1280px" priority />
           </div>
         </div>
       </section>

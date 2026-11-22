@@ -21,13 +21,12 @@ export default function RealizacjePage() {
     <>
       <PageHead
         title="Dziesięć wdrożeń. Sześć, które możemy pokazać."
-        titleWidth="23ch"
         lede="Najedź kursorem na dowolną, żeby przewinąć ją w całości. Bez wchodzenia na stronę klienta."
       />
-      <section className="page-body" aria-label="Realizacje">
-        <div className="shell">
+      <section className="bp-sec bp-sec--tight" aria-label="Realizacje">
+        <div className="bp-shell">
           {WALLS.map((wall, index) => (
-            <div key={index} className="wall work-walls">
+            <div key={index} className="bp-wall">
               {wall.map((site) => (
                 <InView key={site.slug} className="reveal">
                   <ScrollingFrame href={`/realizacje/${site.slug}`} domain={site.domain} name={site.name} page={site.page} />

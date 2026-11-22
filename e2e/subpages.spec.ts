@@ -65,8 +65,8 @@ async function expectNoAxeViolations(page: Page) {
 test("the subpage stylesheets are loaded", async ({ page }) => {
   await page.goto("/kontakt");
   const sheets = await page.evaluate(() => [...document.styleSheets].flatMap((sheet) => [...sheet.cssRules].map((rule) => rule.cssText)).join("\n"));
-  expect(sheets).toContain(".page-head");
-  expect(sheets).toContain("kafel-px-blink");
+  expect(sheets).toContain(".bp-head");
+  expect(sheets).toContain(".bp-sub");
 });
 
 test("realizacje shows all six sites as scrolling frames and ends with the CTA band", async ({ page }) => {
@@ -75,7 +75,7 @@ test("realizacje shows all six sites as scrolling frames and ends with the CTA b
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("Dziesięć wdrożeń. Sześć, które możemy pokazać.");
   await expect(page.locator(".page-head .lede")).toHaveText("Najedź kursorem na dowolną, żeby przewinąć ją w całości. Bez wchodzenia na stronę klienta.");
 
-  const frames = page.locator("main a.frame");
+  const frames = page.locator("main a.bp-frame");
   await expect(frames).toHaveCount(6);
   await expect(frames.nth(0)).toHaveAttribute("href", "/realizacje/dobreprecle");
   await expect(frames.nth(5)).toHaveAttribute("href", "/realizacje/afterthesin");
@@ -83,7 +83,7 @@ test("realizacje shows all six sites as scrolling frames and ends with the CTA b
   for (let i = 0; i < 6; i++) {
     await expect(frames.nth(i)).toBeVisible();
   }
-  await expect(page.locator("main .wall")).toHaveCount(2);
+  await expect(page.locator("main .bp-wall")).toHaveCount(2);
   await expect(page.locator("main section.bp-close")).toHaveCount(1);
   await expect(page.getByText("Efekty")).toHaveCount(0);
 
@@ -126,7 +126,7 @@ test("cennik shows the tiers, the comparison table from the price list and the C
 
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("Ceny, które widzisz przed podpisaniem umowy.");
   await expect(page.locator(".page-head .lede").getByRole("link", { name: "kalkulatorze" })).toHaveAttribute("href", "/kalkulator");
-  await expect(page.locator("main article.tier")).toHaveCount(3);
+  await expect(page.locator("main article.bp-plan-col")).toHaveCount(3);
 
   const table = page.getByRole("table");
   await expect(table.getByRole("columnheader")).toHaveText(["Zakres", "Start", "Pro", "Sklep"]);
@@ -293,13 +293,13 @@ for (const [route, title, sections] of [
   ["/polityka-prywatnosci", "Polityka prywatności", 11],
   ["/regulamin", "Regulamin", 12],
 ] as const) {
-  test(`${route} uses the Kafel legal layout`, async ({ page }) => {
+  test(`${route} uses the bp legal layout`, async ({ page }) => {
     await page.goto(route);
 
     await expect(page.getByRole("heading", { level: 1 })).toHaveText(title);
     await expect(page.locator("article.legal > section")).toHaveCount(sections);
     await expect(page.locator("article.legal [class]")).toHaveCount(0);
-    expect(await page.locator("article.legal h2").first().evaluate((el) => getComputedStyle(el).fontFamily)).toMatch(/Bricolage/);
+    expect(await page.locator("article.legal h2").first().evaluate((el) => getComputedStyle(el).fontFamily)).toMatch(/Host Grotesk/);
     await expect(page.locator("main section.bp-close")).toHaveCount(0);
 
     await expectNoAxeViolations(page);

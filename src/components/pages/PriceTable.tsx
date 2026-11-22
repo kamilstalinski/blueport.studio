@@ -1,4 +1,4 @@
-import { PixelIcon } from "@/components/brand/PixelIcon";
+import { Check, Dash } from "@/components/ui/Marks";
 import { PACKAGES, PRICE_TABLE_HEADS, PRICE_TABLE_ROWS, type PriceCell } from "@/constants/pricing";
 import { formatPrice } from "@/lib/formatPrice";
 
@@ -7,7 +7,7 @@ function Cell({ value }: { value: PriceCell }) {
   return (
     <td className={value ? "yes" : "no"}>
       <span role="img" aria-label={value ? "Tak" : "Nie"}>
-        <PixelIcon name={value ? "check" : "minus"} />
+        {value ? <Check /> : <Dash />}
       </span>
     </td>
   );
@@ -18,8 +18,8 @@ export function PriceTable() {
   const packages = PRICE_TABLE_HEADS.map((head) => PACKAGES[head.packageId]);
 
   return (
-    <div className="tablewrap" tabIndex={0} role="region" aria-label="Tabela porównawcza pakietów">
-      <table className="ptable">
+    <div className="bp-tablewrap" tabIndex={0} role="region" aria-label="Tabela porównawcza pakietów">
+      <table className="bp-table">
         <thead>
           <tr>
             <th scope="col">Zakres</th>
@@ -32,15 +32,15 @@ export function PriceTable() {
         </thead>
         <tbody>
           <tr>
-            <th scope="row" className="rowname">
+            <th scope="row" className="bp-rowname">
               Cena bazowa<span>Kwota netto, stała po akceptacji zakresu.</span>
             </th>
             {packages.map((pkg) => (
-              <td key={pkg.id} className="amt">{`${formatPrice(pkg.basePrice)} zł`}</td>
+              <td key={pkg.id} className="bp-amt">{`${formatPrice(pkg.basePrice)} zł`}</td>
             ))}
           </tr>
           <tr>
-            <th scope="row" className="rowname">
+            <th scope="row" className="bp-rowname">
               Czas realizacji<span>Liczony od akceptacji projektu wizualnego.</span>
             </th>
             {packages.map((pkg) => (
@@ -49,7 +49,7 @@ export function PriceTable() {
           </tr>
           {PRICE_TABLE_ROWS.map((row) => (
             <tr key={row.name}>
-              <th scope="row" className="rowname">
+              <th scope="row" className="bp-rowname">
                 {row.name}
                 {row.note && <span>{row.note}</span>}
               </th>

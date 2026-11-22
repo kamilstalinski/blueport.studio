@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import "@/styles/globals.css";
 import "@/styles/kafel.css";
-import "@/styles/kafel-pages.css";
 import "@/styles/kafel-calculator.css";
 import "@/styles/bp.css";
 import { Bricolage_Grotesque, Host_Grotesk, Martian_Mono, Schibsted_Grotesk } from "next/font/google";

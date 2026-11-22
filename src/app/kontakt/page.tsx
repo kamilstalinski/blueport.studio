@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 
 import { ContactForm } from "@/components/contact/ContactForm";
 import { PageHead } from "@/components/pages/PageHead";
-import { ButtonLink } from "@/components/ui/ButtonLink";
+import { Arrow } from "@/components/ui/Arrow";
 import { InView } from "@/components/ui/InView";
 
 export const metadata: Metadata = {
@@ -14,8 +15,8 @@ export const metadata: Metadata = {
 };
 
 const DIRECT = [
-  { term: "E-mail", value: <a className="link" href="mailto:kontakt@blueport.studio">kontakt@blueport.studio</a> },
-  { term: "Telefon", value: <a className="link" href="tel:+48534287233">+48 534 287 233</a> },
+  { term: "E-mail", value: <a href="mailto:kontakt@blueport.studio">kontakt@blueport.studio</a> },
+  { term: "Telefon", value: <a href="tel:+48534287233">+48 534 287 233</a> },
   { term: "Gdzie jesteśmy", value: "Szczecin, pracujemy w całej Polsce" },
   { term: "Czas odpowiedzi", value: "do 24 godzin w dni robocze" },
 ] as const;
@@ -25,30 +26,31 @@ export default function KontaktPage() {
     <>
       <PageHead
         title="Napisz, co chcesz zbudować."
-        titleWidth="20ch"
         lede="Odpowiadamy w ciągu 24 godzin w dni robocze. Konsultacja jest bezpłatna i nie zobowiązuje."
       />
-      <section className="page-body" aria-label="Formularz kontaktowy">
-        <div className="shell contact-grid">
-          <InView className="reveal">
+      <section className="bp-sec bp-sec--tight bp-contact" aria-label="Formularz kontaktowy">
+        <div className="bp-shell bp-grid">
+          <InView className="reveal bp-contact-form">
             <ContactForm />
           </InView>
-          <InView className="reveal contact-aside" lag={1}>
-            <h2 className="d3">Wolisz napisać bezpośrednio?</h2>
-            <dl className="dl">
+          <InView className="reveal contact-aside bp-contact-aside" lag={1}>
+            <h2>Wolisz napisać bezpośrednio?</h2>
+            <dl className="bp-dl">
               {DIRECT.map((item) => (
                 <div key={item.term}>
-                  <dt>{item.term}</dt>
+                  <dt className="bp-mono">{item.term}</dt>
                   <dd>{item.value}</dd>
                 </div>
               ))}
             </dl>
-            <div className="px-note contact-price">
-              <h3 className="d3">Chcesz najpierw poznać cenę?</h3>
-              <p className="body">Kalkulator policzy widełki w 60 sekund, bez podawania danych kontaktowych.</p>
-              <ButtonLink href="/kalkulator" withArrow>
-                Sprawdź koszt
-              </ButtonLink>
+            <div className="bp-note">
+              <h3>Chcesz najpierw poznać cenę?</h3>
+              <p>Kalkulator policzy widełki w 60 sekund, bez podawania danych kontaktowych.</p>
+              <div className="bp-rows-act">
+                <Link className="bp-row-act bp-row-act--primary" href="/kalkulator">
+                  Sprawdź koszt <Arrow />
+                </Link>
+              </div>
             </div>
           </InView>
         </div>
