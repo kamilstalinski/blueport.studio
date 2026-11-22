@@ -6,7 +6,7 @@ import type { useCalculator } from "@/hooks/useCalculator";
 import { PACKAGES } from "@/constants/pricing";
 import type { PackageId } from "@/constants/pricing";
 import { cn } from "@/lib/utils";
-import { PixelIcon } from "@/components/brand/PixelIcon";
+import { Plus } from "@/components/ui/Marks";
 
 type CalculatorProps = ReturnType<typeof useCalculator>;
 
@@ -66,7 +66,7 @@ export function Step1Type({ calculator }: { calculator: CalculatorProps }) {
               >
                 Więcej
                 <span className="option-more-chevron" aria-hidden>
-                  <PixelIcon name="plus" />
+                  <Plus />
                 </span>
               </button>
             </div>

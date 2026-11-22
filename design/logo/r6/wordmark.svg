@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 810 224" width="810" height="224">
+  <title>blueport studio</title>
+  <path fill="#0B1B2B" d="M 16 16 H 45 V 168 H 16 Z"/>
+  <path fill="#0B1B2B" d="M 44 56 A 56 56 0 0 1 44 168 V 140 A 28 28 0 0 0 44 84 Z"/>
+  <path fill="#0B1B2B" d="M 116 16 H 144 V 168 H 116 Z"/>
+  <path fill="#0B1B2B" d="M 160 56 H 188 V 113 H 160 Z"/>
+  <path fill="#0B1B2B" d="M 244 56 H 272 V 168 H 244 Z"/>
+  <path fill="#0B1B2B" d="M 160 112 A 56 56 0 0 0 272 112 H 244 A 28 28 0 0 1 188 112 Z"/>
+  <path fill="#0B1B2B" d="M 344 56 A 56 56 0 0 0 344 168 V 140 A 28 28 0 0 1 344 84 Z"/>
+  <path fill="#0B1B2B" d="M 343 56 H 344 A 56 56 0 0 1 400 112 H 372 A 28 28 0 0 0 344 84 H 343 Z"/>
+  <path fill="#0B1B2B" d="M 316 100.8 H 398.87 V 123.2 H 316 Z"/>
+  <path fill="#0B1B2B" d="M 416 56 H 445 V 208 H 416 Z"/>
+  <path fill="#0B1B2B" d="M 444 56 A 56 56 0 0 1 444 168 V 140 A 28 28 0 0 0 444 84 Z"/>
+  <path fill="#0B1B2B" fill-rule="evenodd" d="M 572 56 A 56 56 0 0 1 572 168 A 56 56 0 0 1 572 56 Z M 572 84 A 28 28 0 0 0 572 140 A 28 28 0 0 0 572 84 Z"/>
+  <path fill="#0B1B2B" d="M 644 56 H 673 V 168 H 644 Z"/>
+  <path fill="#0B1B2B" d="M 672 56 A 46 46 0 0 1 718 102 H 690 A 18 18 0 0 0 672 84 Z"/>
+  <path fill="#0B1B2B" d="M 740 22 H 768 V 168 H 740 Z"/>
+  <path fill="#0B1B2B" d="M 726 56 H 794 V 79.8 H 726 Z"/>
+</svg>

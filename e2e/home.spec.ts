@@ -3,239 +3,111 @@ import { expect, test } from "@playwright/test";
 
 const DOMAINS = ["dobreprecle.pl", "spavalnia.pl", "vilmart.pl", "dowytrenowania.pl", "abcmosty.pl", "afterthesin.com"];
 
-test("the domain marquee loops the six client domains", async ({ page }) => {
+test("the client domains link out to the six live sites", async ({ page }) => {
   await page.goto("/");
-  const spans = page.locator(".marq span");
-
-  await expect(spans).toHaveCount(12);
-  await expect(spans).toHaveText([...DOMAINS, ...DOMAINS]);
-  await expect(page.locator(".marq")).toHaveAttribute("aria-hidden", "true");
-  expect(await page.locator(".marq-track").evaluate((el) => getComputedStyle(el).animationName)).toBe("kafel-marquee");
+  const links = page.locator(".bp-domains a");
+  await expect(links).toHaveText(DOMAINS);
+  for (const [index, domain] of DOMAINS.entries()) {
+    await expect(links.nth(index)).toHaveAttribute("href", `https://${domain}`);
+    await expect(links.nth(index)).toHaveAttribute("rel", "noopener noreferrer");
+  }
 });
 
-test.describe("reduced motion marquee", () => {
-  test.use({ contextOptions: { reducedMotion: "reduce" } });
+const section = (page: import("@playwright/test").Page, heading: string) =>
+  page.locator("section", { has: page.getByRole("heading", { name: heading, exact: true }) });
 
-  test("stands still", async ({ page }) => {
-    await page.goto("/");
-    expect(await page.locator(".marq-track").evaluate((el) => getComputedStyle(el).animationName)).toBe("none");
-  });
-});
-
-const workWall = (page: import("@playwright/test").Page) =>
-  page.locator("section", { has: page.getByRole("heading", { name: "Trzy kolejne, które możemy pokazać." }) });
-
-test("the work wall links three client sites and reveals on scroll", async ({ page }) => {
+test("the work list swaps the browser window to the chosen site", async ({ page }) => {
   await page.goto("/");
-  const section = workWall(page);
-  await section.scrollIntoViewIfNeeded();
+  const works = section(page, "Trzy ostatnie realizacje");
+  await works.scrollIntoViewIfNeeded();
 
-  const frames = section.locator("a.frame");
-  await expect(frames).toHaveCount(3);
-  await expect(frames.nth(0)).toHaveAttribute("href", "/realizacje/dowytrenowania");
-  await expect(frames.nth(1)).toHaveAttribute("href", "/realizacje/abcmosty");
-  await expect(frames.nth(2)).toHaveAttribute("href", "/realizacje/afterthesin");
-  await expect(section.getByRole("link", { name: "Wszystkie realizacje" })).toHaveAttribute("href", "/realizacje");
-  await expect(section.locator(".reveal").first()).toHaveAttribute("data-in", "");
+  const items = works.locator(".bp-work-item");
+  await expect(items.locator("h3")).toHaveText(["Dowytrenowania", "ABC Mosty", "After the Sin"]);
+  await expect(items.first()).toHaveAttribute("aria-pressed", "true");
+  await expect(works.locator("#work-dowytrenowania")).toBeVisible();
+
+  await items.nth(1).click();
+  await expect(items.nth(1)).toHaveAttribute("aria-pressed", "true");
+  await expect(works.locator("#work-abcmosty")).toHaveAttribute("href", "/realizacje/abcmosty");
+  await expect(works.locator("#work-dowytrenowania")).toHaveAttribute("inert", "");
+  await expect(works.getByRole("link", { name: "Wszystkie realizacje" })).toHaveAttribute("href", "/realizacje");
 });
 
-test("the soft pixel field never covers the section heading", async ({ page }) => {
+test("the plan section argues with a traced page plan", async ({ page }) => {
   await page.goto("/");
-  const section = workWall(page);
-  await section.scrollIntoViewIfNeeded();
-  await expect.poll(() => section.locator("svg.px-field path").count()).toBeGreaterThan(0);
+  const plan = section(page, "Większość stron dla małych firm powstaje bez planu. Potem nie sprzedaje.");
+  await plan.scrollIntoViewIfNeeded();
 
-  const hits = await section.evaluate((root) => {
-    const heading = root.querySelector("h2")?.getBoundingClientRect();
-    if (!heading) return -1;
-    return [...root.querySelectorAll("svg.px-field path")].filter((path) => {
-      const box = path.getBoundingClientRect();
-      return box.right > heading.left && box.left < heading.right && box.bottom > heading.top && box.top < heading.bottom;
-    }).length;
-  });
-  expect(hits).toBe(0);
-});
-
-test.describe("full-page preview on hover", () => {
-  test.skip(({ isMobile }) => isMobile, "hover scrolling is a fine-pointer interaction");
-
-  test("scrolls the client's page inside the frame", async ({ page }) => {
-    await page.goto("/");
-    const frame = workWall(page).locator("a.frame").first();
-    await frame.scrollIntoViewIfNeeded();
-    await expect.poll(() => frame.evaluate((el) => parseFloat(getComputedStyle(el).getPropertyValue("--shift")))).toBeLessThan(0);
-
-    await frame.hover();
-    await expect
-      .poll(() => frame.locator(".pane img").evaluate((img) => new DOMMatrix(getComputedStyle(img).transform).m42))
-      .toBeLessThan(-20);
-  });
-});
-
-const planSection = (page: import("@playwright/test").Page) =>
-  page.locator("section", {
-    has: page.getByRole("heading", { name: "Większość stron dla małych firm powstaje bez planu. Potem nie sprzedaje." }),
-  });
-
-test("the structure section argues with a traced page plan", async ({ page }) => {
-  await page.goto("/");
-  const section = planSection(page);
-  await section.scrollIntoViewIfNeeded();
-
-  await expect(section.getByText("Wygląda dobrze na prezentacji i nic nie robi przez kolejne trzy lata.")).toBeVisible();
-  await expect(section.locator(".swap .now")).toHaveText([
+  await expect(plan.locator(".bp-fixes s")).toHaveText(["Nie widać Cię w Google", "Strona ładuje się wieki", "Nikt się nie kontaktuje"]);
+  await expect(plan.locator(".bp-fixes b")).toHaveText([
     "Struktura i treść pisane pod wyszukiwanie lokalne",
     "Optymalizacja szybkości przed publikacją",
     "Formularz i ścieżka kontaktu w centrum układu",
   ]);
-  await expect(section.getByRole("img", { name: /Schemat strony/ })).toBeVisible();
-  await expect(section.getByText("Ścieżka od pierwszego ekranu do formularza. Projektujemy ją, zanim powstanie pierwszy piksel.")).toBeVisible();
-
-  await expect.poll(() => section.locator(".plan .route").evaluate((el) => getComputedStyle(el).strokeDashoffset)).toBe("0px");
-  await expect(section.locator(".px-deco--tetro")).toHaveAttribute("aria-hidden", "true");
-  await expect.poll(() => section.locator(".deco-drop").evaluate((el) => getComputedStyle(el).transform)).toBe("none");
+  await expect(plan.getByRole("img", { name: /Schemat strony/ })).toBeVisible();
+  // the transition can land on a float residue such as 1.4e-11px, so compare with a tolerance
+  await expect.poll(() => plan.locator(".bp-route").evaluate((el) => Math.abs(parseFloat(getComputedStyle(el).strokeDashoffset)))).toBeLessThan(0.5);
 });
 
 test("pricing shows three packages from the price list and the dedicated project", async ({ page }) => {
   await page.goto("/");
-  const section = page.locator("section", { has: page.getByRole("heading", { name: "Trzy pakiety. Cena znana przed startem." }) });
-  await section.scrollIntoViewIfNeeded();
+  const pricing = section(page, "Trzy pakiety. Cena znana przed startem.");
+  await pricing.scrollIntoViewIfNeeded();
 
-  await expect(section.getByText("Poniżej ceny bazowe. Dokładną kwotę pod Twój zakres policzysz w kalkulatorze.")).toBeVisible();
-  const tiers = section.locator("article.tier");
-  await expect(tiers).toHaveCount(3);
-  await expect(tiers.locator("h3")).toHaveText(["Strona start", "Strona Pro", "Sklep online"]);
-  await expect(tiers.locator(".price")).toHaveText([/^od 2\s500 zł$/, /^od 3\s900 zł$/, /^od 4\s900 zł$/]);
-  await expect(tiers.locator(".when")).toHaveText(["od 7 dni roboczych", "od 14 dni roboczych", "od 21 dni roboczych"]);
-  await expect(section.locator("article.tier.featured .tier-tag")).toHaveText("Najczęściej wybierany");
-  for (const link of await tiers.getByRole("link", { name: "Sprawdź koszt" }).all()) {
-    await expect(link).toHaveAttribute("href", "/kalkulator");
-  }
-
-  const dedicated = section.locator(".tier-wide");
-  await expect(dedicated.getByRole("heading", { name: "Projekt dedykowany" })).toBeVisible();
-  await expect(dedicated).toContainText(/Od 6\s500 zł, od 30 dni roboczych\./);
-  await expect(dedicated.getByRole("link", { name: "Umów konsultację" })).toHaveAttribute("href", "/kontakt");
-  await expect(section.locator(".px-deco--stairs")).toHaveAttribute("aria-hidden", "true");
+  const plans = pricing.locator("article.bp-plan-col");
+  await expect(plans.locator("h3")).toHaveText(["Strona start", "Strona Pro", "Sklep online"]);
+  await expect(plans.locator(".bp-price")).toHaveText([/^od2\s500\szł$/, /^od3\s900\szł$/, /^od4\s900\szł$/]);
+  await expect(plans.locator(".bp-days")).toHaveText(["od 7 dni roboczych", "od 14 dni roboczych", "od 21 dni roboczych"]);
+  await expect(pricing.locator(".bp-is-top .bp-pick")).toHaveText("Najczęściej wybierany");
+  await expect(pricing.locator(".bp-custom")).toContainText("Projekt dedykowany");
+  await expect(pricing.getByRole("link", { name: /Otwórz kalkulator/ })).toHaveAttribute("href", "/kalkulator");
 });
 
-const processSection = (page: import("@playwright/test").Page) =>
-  page.locator("section", { has: page.getByRole("heading", { name: "Jak to wygląda od zapytania do startu." }) });
-
-test("the process lists five steps and lights them as they are reached", async ({ page }) => {
+test("the process lists five steps with their days", async ({ page }) => {
   await page.goto("/");
-  const section = processSection(page);
-  await section.scrollIntoViewIfNeeded();
-
-  const steps = section.locator(".step");
-  await expect(steps.locator("h3")).toHaveText([
+  const process = section(page, "Od zapytania do startu");
+  await expect(process.locator(".bp-steps h3")).toHaveText([
     "Wypełniasz kalkulator",
     "Doprecyzowujemy",
     "Projekt i wdrożenie",
     "Testy i poprawki",
     "Publikacja i szkolenie",
   ]);
-  await expect(steps.locator(".when")).toHaveText(["Dzień 0", "Dzień 1", "Dzień 2-10", "Przed startem", "Start"]);
-  await expect(steps.first()).toHaveAttribute("data-in", "");
-  await expect(section.locator(".px-deco--progress")).toHaveAttribute("aria-hidden", "true");
+  await expect(process.locator(".bp-day")).toHaveText(["Dzień 0", "Dzień 1", "Dzień 2–10", "Przed startem", "Start"]);
 });
 
-test("the tally counts up to its figures", async ({ page }) => {
+test("testimonials quote three named clients over the three facts", async ({ page }) => {
   await page.goto("/");
-  const tally = processSection(page).locator("dl.tally");
-  await tally.scrollIntoViewIfNeeded();
-
-  await expect(tally.locator("dt .sr-only")).toHaveText(["10+", "1-2", "24 h"]);
-  await expect(tally.locator("dd")).toHaveText([
-    "wdrożeń dla małych firm w całej Polsce",
-    "tygodnie od akceptacji projektu do publikacji",
-    "maksymalny czas odpowiedzi w dni robocze",
-  ]);
-  await expect.poll(() => tally.locator("dt svg").first().getAttribute("viewBox")).toBe("0 0 17 7");
+  const quotes = section(page, "Opinie klientów");
+  await expect(quotes.locator("blockquote")).toHaveCount(3);
+  await expect(quotes.locator("figcaption b")).toHaveText(["Kamil Głogowski", "Igor Romanowski", "Andrzej Szymko"]);
+  await expect(quotes.locator(".bp-facts b")).toHaveText(["10+", "1–2", "24 h"]);
 });
 
-test.describe("reduced motion process", () => {
-  test.use({ contextOptions: { reducedMotion: "reduce" } });
-
-  test("shows final figures without counting", async ({ page }) => {
-    await page.goto("/");
-    const tally = processSection(page).locator("dl.tally");
-    await tally.scrollIntoViewIfNeeded();
-    await expect(tally.locator("dt svg").nth(2)).toHaveAttribute("viewBox", "0 0 20 7");
-  });
-});
-
-test("testimonials quote three clients next to their sites", async ({ page }) => {
+test("the close repeats the calculator and consultation links", async ({ page }) => {
   await page.goto("/");
-  const section = page.locator("section", { has: page.getByRole("heading", { name: "Co mówią klienci." }) });
-  await section.scrollIntoViewIfNeeded();
-
-  const quotes = section.locator("figure");
-  await expect(quotes).toHaveCount(3);
-  await expect(quotes.locator("blockquote")).toHaveText([
-    "„Strona gotowa w 10 dni, wszystko zgodnie z ustaleniami. Ruch z Google wzrósł 3x w ciągu miesiąca.”",
-    "„Profesjonalna obsługa od A do Z. Sklep działa bez zarzutu, klienci chwalą prostotę zamawiania.”",
-    "„W końcu mam stronę, z której jestem zadowolony. Szybki kontakt, konkretna wycena i termin dotrzymany w 100%.”",
-  ]);
-  await expect(quotes.locator(".who")).toHaveText(["Kamil Głogowski", "Igor Romanowski", "Andrzej Szymko"]);
-  await expect(section.getByRole("link", { name: "Realizacja Vilmart Water Service" })).toHaveAttribute("href", "/realizacje/vilmart");
-  await expect(section.getByRole("img", { name: "Ocena 5 na 5" })).toHaveCount(3);
-  await expect(section.locator(".px-deco--bubbles svg")).toHaveCount(2);
+  const close = page.locator("section.bp-close");
+  await expect(close.getByRole("heading", { level: 2 })).toHaveText("Sprawdź, ile kosztuje Twoja strona.");
+  await expect(close.getByRole("link", { name: "Sprawdź koszt" })).toHaveAttribute("href", "/kalkulator");
+  await expect(close.getByRole("link", { name: "Umów konsultację" })).toHaveAttribute("href", "/kontakt");
 });
 
-test("the CTA band closes the page with the calculator and consultation links", async ({ page }) => {
-  await page.goto("/");
-  const band = page.locator("section.cta-band");
-  await band.scrollIntoViewIfNeeded();
-
-  await expect(band.getByRole("heading", { level: 2 })).toHaveText("Sprawdź, ile kosztuje Twoja strona.");
-  await expect(band.getByText("Wybierasz zakres, dostajesz widełki. 60 sekund, bez rejestracji i bez zobowiązań.")).toBeVisible();
-  await expect(band.getByRole("link", { name: "Sprawdź koszt" })).toHaveAttribute("href", "/kalkulator");
-  await expect(band.getByRole("link", { name: "Umów konsultację" })).toHaveAttribute("href", "/kontakt");
-  await expect(band.locator(".deco-plus")).toHaveCount(4);
-  await expect(band.locator(".px-deco--plus")).toHaveAttribute("data-in", "");
-});
-
-test("the footer stands on a brick floor", async ({ page }) => {
-  await page.goto("/");
-  const floor = page.locator("footer#site-footer .px-deco--floor");
-  await floor.scrollIntoViewIfNeeded();
-  await expect(floor).toHaveAttribute("aria-hidden", "true");
-  await expect(floor.locator("svg.deco-floor rect")).toHaveCount(1);
-});
-
-test("the home page follows the spec's section order and nothing else", async ({ page }) => {
+test("the home page follows the section order and nothing else", async ({ page }) => {
   await page.goto("/");
   await expect(page.locator("main h2")).toHaveText([
-    "Trzy kolejne, które możemy pokazać.",
+    "Trzy ostatnie realizacje",
     "Większość stron dla małych firm powstaje bez planu. Potem nie sprzedaje.",
     "Trzy pakiety. Cena znana przed startem.",
-    "Jak to wygląda od zapytania do startu.",
-    "Co mówią klienci.",
+    "Od zapytania do startu",
+    "Opinie klientów",
     "Sprawdź, ile kosztuje Twoja strona.",
   ]);
-  await expect(page.locator("#kalkulator")).toHaveCount(0);
 });
 
-test("the whole home page has no axe violations once every section is revealed", async ({ page }) => {
+test("the whole home page has no axe violations", async ({ page }) => {
   await page.goto("/");
-  /* visit every visible reveal: tall sections reveal block by block, and some frames are hidden on small screens */
-  for (const block of await page.locator("main .reveal:visible").all()) {
-    await block.scrollIntoViewIfNeeded();
-  }
-  await expect(page.locator("main .reveal:visible:not([data-in])")).toHaveCount(0);
-  /* data-in only starts each block's staggered .5s/.6s entrance transition; wait for every
-     visible reveal to actually reach its rest state (opacity 1, transform none) so axe measures
-     the settled colors instead of a still-fading blend. */
-  await page.waitForFunction(() =>
-    [...document.querySelectorAll("main .reveal")]
-      .filter((el) => el.checkVisibility())
-      .every((el) => {
-        const style = getComputedStyle(el);
-        return style.opacity === "1" && style.transform === "none";
-      })
-  );
-
+  // generous wait: CI renders the Grainient in software, which slows the hero timers (see hero.spec.ts)
+  await expect(page.locator("section#hero .bp-pane")).toHaveAttribute("data-stage", "3", { timeout: 20000 });
   const results = await new AxeBuilder({ page }).analyze();
   expect(results.violations).toEqual([]);
 });

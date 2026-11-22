@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 
-test("pages use the Boja tokens and Kafel fonts", async ({ page }) => {
+test("pages use the Kobalt / Grafit / Sygnał tokens and Kafel fonts", async ({ page }) => {
   await page.goto("/");
 
   const styles = await page.evaluate(() => {
@@ -16,13 +16,13 @@ test("pages use the Boja tokens and Kafel fonts", async ({ page }) => {
     };
   });
 
-  expect(styles.background).toBe("rgb(8, 25, 42)");
+  expect(styles.background).toBe("rgb(10, 15, 23)");
   expect(styles.bodyFont).toMatch(/Schibsted/);
   // Next.js's CSS pipeline (Lightning CSS) lowercases hex color literals when
   // serving the stylesheet, even though the source in src/styles/kafel.css
-  // uses the spec's verbatim uppercase #FF6A2B. Compare case-insensitively.
-  expect(styles.accentToken.toLowerCase()).toBe("#ff6a2b");
-  expect(styles.legacyPrimary.toLowerCase()).toBe("#ff6a2b");
+  // uses the brand kit's uppercase #FF5A1F. Compare case-insensitively.
+  expect(styles.accentToken.toLowerCase()).toBe("#ff5a1f");
+  expect(styles.legacyPrimary.toLowerCase()).toBe("#ff5a1f");
   expect(styles.dataAccent).toBeNull();
   expect(styles.isDark).toBe(true);
 });

@@ -1,35 +1,67 @@
-import Link from "next/link";
+"use client";
 
-import { PixelField } from "@/components/deco/PixelField";
-import { ScrollingFrame } from "@/components/sections/home/ScrollingFrame";
-import { InView } from "@/components/ui/InView";
+import Image from "next/image";
+import Link from "next/link";
+import { useState } from "react";
+
+import { Arrow, Lock } from "@/components/ui/Arrow";
 import { WORK_SITES } from "@/constants/work";
 
 const WALL_SITES = WORK_SITES.slice(3);
 
+/** Three recent sites: the list picks one, the browser window swaps to it with a wipe. */
 export function WorkWall() {
+  const [current, setCurrent] = useState<string>(WALL_SITES[0].slug);
+
   return (
-    <section className="sec px-host" aria-labelledby="work-wall-title">
-      <PixelField />
-      <div className="shell">
-        <div className="wall-head">
-          <InView className="reveal">
-            <h2 id="work-wall-title" className="d2" data-keep-out>
-              Trzy kolejne, które możemy pokazać.
-            </h2>
-          </InView>
-          <InView className="reveal">
-            <Link href="/realizacje" className="link" data-keep-out>
-              Wszystkie realizacje
-            </Link>
-          </InView>
+    <section className="bp-sec bp-works" id="realizacje" aria-labelledby="works-h">
+      <div className="bp-shell bp-grid">
+        <div className="bp-sec-head">
+          <h2 id="works-h">Trzy ostatnie realizacje</h2>
+          <p>Fizjoterapeutka, szkółka drzew i zespół dark wave.</p>
         </div>
-        <div className="wall">
+        <div className="bp-work-list" role="group" aria-label="Wybierz realizację">
           {WALL_SITES.map((site) => (
-            <InView key={site.slug} className="reveal">
-              <ScrollingFrame href={`/realizacje/${site.slug}`} domain={site.domain} name={site.name} page={site.page} />
-            </InView>
+            <button
+              key={site.slug}
+              className="bp-work-item"
+              type="button"
+              aria-pressed={current === site.slug}
+              aria-controls={`work-${site.slug}`}
+              onClick={() => setCurrent(site.slug)}
+            >
+              <h3>{site.name}</h3>
+              <span className="bp-desc">{site.line}</span>
+              <span className="bp-mono" translate="no">{site.domain}</span>
+            </button>
           ))}
+          <Link className="bp-work-more" href="/realizacje">
+            Wszystkie realizacje <Arrow />
+          </Link>
+        </div>
+        <div className="bp-work-stage">
+          {WALL_SITES.map((site) => {
+            const isOn = current === site.slug;
+            return (
+              <Link
+                key={site.slug}
+                id={`work-${site.slug}`}
+                href={`/realizacje/${site.slug}`}
+                className="bp-win bp-work-win"
+                hidden={!isOn}
+                inert={!isOn}
+                aria-label={`${site.domain}: case study ${site.name}`}
+              >
+                <div className="bp-win-bar">
+                  <Lock />
+                  <span className="bp-url bp-mono" translate="no">{site.domain}</span>
+                </div>
+                <div className="bp-view">
+                  <Image src={site.image} alt="" fill sizes="(max-width: 1023px) 100vw, 960px" />
+                </div>
+              </Link>
+            );
+          })}
         </div>
       </div>
     </section>

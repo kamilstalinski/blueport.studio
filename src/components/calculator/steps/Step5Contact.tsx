@@ -2,7 +2,7 @@
 
 import { m } from "framer-motion";
 import type { useCalculator } from "@/hooks/useCalculator";
-import { PixelIcon } from "@/components/brand/PixelIcon";
+import { Check } from "@/components/ui/Marks";
 
 type CalculatorProps = ReturnType<typeof useCalculator>;
 
@@ -17,7 +17,7 @@ export function Step5Contact({ calculator }: { calculator: CalculatorProps }) {
         className="step step--success"
       >
         <div className="success-icon" aria-hidden="true">
-          <PixelIcon name="done" scale={4} />
+          <Check />
         </div>
         <h2 className="step-title">Zapytanie wysłane!</h2>
         <p className="step-desc">

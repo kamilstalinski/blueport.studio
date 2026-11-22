@@ -12,62 +12,60 @@ interface CaseStudyStoryProps {
   study: CaseStudy;
 }
 
-/** The full case study narrative under the screenshot. */
+/** The case study under the screenshot: facts, the four story rows on the grid, results and lessons. */
 export function CaseStudyStory({ study }: CaseStudyStoryProps) {
   const stack = study.stack.split(",").map((item) => item.trim()).filter(Boolean);
 
   return (
-    <section className="sec band" aria-label="Przebieg projektu">
-      <div className="shell">
-        <InView className="reveal">
-          <dl className="cs-facts">
-            <div>
-              <dt>Klient</dt>
-              <dd>{study.client}</dd>
-            </div>
-            <div>
-              <dt>Branża</dt>
-              <dd>{study.industry}</dd>
-            </div>
-            <div>
-              <dt>Technologie</dt>
-              <dd>
-                <ul className="stack-tags">
-                  {stack.map((item) => (
-                    <li key={item}>{item}</li>
-                  ))}
-                </ul>
-              </dd>
-            </div>
-          </dl>
-        </InView>
+    <section className="bp-sec bp-sec--tight" aria-label="Przebieg projektu">
+      <div className="bp-shell">
+        <dl className="cs-facts bp-facts bp-facts--dl">
+          <div>
+            <dt>Klient</dt>
+            <dd>{study.client}</dd>
+          </div>
+          <div>
+            <dt>Branża</dt>
+            <dd>{study.industry}</dd>
+          </div>
+          <div>
+            <dt>Technologie</dt>
+            <dd>
+              <ul className="bp-tags">
+                {stack.map((item) => (
+                  <li key={item} className="bp-mono">
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </dd>
+          </div>
+        </dl>
 
-        <div className="cs-story">
-          {BLOCKS.map((block, index) => (
-            <InView key={block.key} className="reveal" lag={index % 2 === 0 ? 0 : 1}>
-              <article className="cs-block">
-                <h2 className="cs-label">{block.label}</h2>
-                <p className="body">{study[block.key]}</p>
+        <div className="bp-story">
+          {BLOCKS.map((block) => (
+            <InView key={block.key} className="reveal">
+              <article className="bp-story-row">
+                <h2>{block.label}</h2>
+                <p>{study[block.key]}</p>
               </article>
             </InView>
           ))}
+          <InView className="reveal">
+            <article className="bp-story-row bp-story-row--result">
+              <h2>Wyniki</h2>
+              <p>{study.results}</p>
+            </article>
+          </InView>
+          <InView className="reveal">
+            <figure className="bp-story-row bp-story-row--quote">
+              <h2>Wnioski</h2>
+              <blockquote>
+                <p>{study.lessons}</p>
+              </blockquote>
+            </figure>
+          </InView>
         </div>
-
-        <InView className="reveal">
-          <div className="px-note cs-results">
-            <h2 className="d3">Wyniki</h2>
-            <p className="body">{study.results}</p>
-          </div>
-        </InView>
-
-        <InView className="reveal">
-          <figure className="cs-lessons">
-            <h2 className="cs-label">Wnioski</h2>
-            <blockquote>
-              <p>{study.lessons}</p>
-            </blockquote>
-          </figure>
-        </InView>
       </div>
     </section>
   );

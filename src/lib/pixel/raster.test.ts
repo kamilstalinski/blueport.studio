@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { cellsToPath, numberCells, rowsToCells, stackCells, tileRows, wordCells } from "@/lib/pixel/raster";
+import { cellsToPath, numberCells, rowsToCells, tileRows, wordCells } from "@/lib/pixel/raster";
 
 describe("rowsToCells", () => {
   it("returns inked cells shifted by the offset", () => {
@@ -20,23 +20,6 @@ describe("wordCells", () => {
 
   it("rejects a character without a glyph", () => {
     expect(() => wordCells("x")).toThrow('No pixel glyph for "x"');
-  });
-});
-
-describe("stackCells", () => {
-  const stack = stackCells("blueport", "studio");
-  const xs = stack.bottom.map(([x]) => x);
-  const ys = stack.bottom.map(([, y]) => y);
-
-  it("tracks the second line out to the width of the first", () => {
-    expect(Math.min(...xs)).toBe(0);
-    expect(Math.max(...xs)).toBe(stack.width - 1);
-  });
-
-  it("places the second line below the descender", () => {
-    expect(Math.min(...ys)).toBe(10);
-    expect(Math.max(...ys)).toBe(16);
-    expect(stack.height).toBe(17);
   });
 });
 

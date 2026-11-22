@@ -1,0 +1,17 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "next-dev",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev"],
+      "port": 3000
+    },
+    {
+      "name": "site-prototype",
+      "runtimeExecutable": "sh",
+      "runtimeArgs": ["-c", "cd /Users/kamilstalinski/Documents/GitHub/blueport-studio/design/site && exec python3 -m http.server 4310 --bind 127.0.0.1"],
+      "port": 4310
+    }
+  ]
+}

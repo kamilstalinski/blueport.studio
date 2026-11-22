@@ -1,16 +1,30 @@
+import Link from "next/link";
+
 import { HeroBuildFrame } from "@/components/sections/HeroBuildFrame";
-import { HeroCopy } from "@/components/sections/HeroCopy";
-import { HeroCranes } from "@/components/sections/HeroCranes";
-import { HeroCursorField } from "@/components/sections/HeroCursorField";
+import { Arrow } from "@/components/ui/Arrow";
 
 export function HeroHome() {
   return (
-    <section id="hero" className="hero">
-      <HeroCursorField />
-      <HeroCranes />
-      <div className="shell bd-grid">
-        <HeroCopy />
-        <HeroBuildFrame />
+    <section id="hero" className="bp-hero" aria-labelledby="hero-h">
+      <div className="bp-shell">
+        <div className="bp-hero-copy">
+          <h1 id="hero-h">Strony internetowe dla małych firm, od 2&nbsp;500&nbsp;zł</h1>
+          <p className="bp-lead">
+            Projektujemy strony WordPress i sklepy WooCommerce dla firm z całej Polski. Cenę znasz przed startem, a od
+            akceptacji projektu do publikacji mijają 1–2 tygodnie.
+          </p>
+          <div className="bp-rows-act">
+            <Link className="bp-row-act bp-row-act--primary" href="/kalkulator">
+              Sprawdź koszt <span className="bp-mono">60 s</span>
+            </Link>
+            <Link className="bp-row-act" href="/kontakt">
+              Umów konsultację <Arrow />
+            </Link>
+          </div>
+        </div>
+        <div className="bp-hero-visual">
+          <HeroBuildFrame />
+        </div>
       </div>
     </section>
   );

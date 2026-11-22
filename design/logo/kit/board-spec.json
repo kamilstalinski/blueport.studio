@@ -1,0 +1,35 @@
+{
+  "brand": "blueport studio",
+  "tagline": "Strony, które dobijają do celu",
+  "brief": "Polskie studio projektujące i budujące strony www. Znak ma być konstrukcyjny, precyzyjny i technologiczny, ale nie zimny; ma działać od faviconu po szyld i dać stronie nowy kierunek wizualny.",
+  "adjectives": ["precyzyjny", "konstrukcyjny", "technologiczny", "spokojny"],
+  "criteria": "Sukces: litery bp zbudowane z prymitywów, czytelne w 16 px, działa w jednym kolorze, odróżnia się od typowych niebieskich znaków tech.",
+  "industry": "software",
+  "nav": ["Realizacje", "Cennik", "Kontakt"],
+  "brand_color": "#0A0F17",
+  "greyscale": false,
+  "designer": "blueport studio",
+  "round": 8,
+  "concepts": [
+    {
+      "name": "Gniazdo",
+      "symbol": "svg/symbol-color.svg",
+      "lockup": "svg/lockup-horizontal-color.svg",
+      "symbol_on_tile": "svg/symbol-on-dark.svg",
+      "lockup_on_dark": "svg/lockup-horizontal-on-dark.svg",
+      "tile_color": "#0A0F17",
+      "idea": "Trzon p wpada dokładnie w szczelinę, którą zostawia b — wtyczka i gniazdo, czyli port.",
+      "rationale": [
+        "b z „rozciętego” o: pierścień i półdysk zamieniają się na osi (figura/tło)",
+        "Całość z trzech prymitywów: trzon, półpierścień, półdysk — ten sam zestaw buduje wordmark",
+        "Pomarańczowy półdysk to jedyny akcent: światło portowe, przyszły kolor CTA"
+      ]
+    }
+  ],
+  "recommendation": "Gniazdo w palecie Kobalt / Grafit / Sygnał — ciemna baza, kobalt jako marka, sygnał tylko jako akcent.",
+  "next_steps": [
+    "Akceptacja kitu i przewodnika",
+    "Wdrożenie znaku i palety w kodzie strony (BrandLogo, favicon, tokeny CSS)",
+    "Nowy kierunek wizualny strony na bazie modułu pierścień/półdysk"
+  ]
+}

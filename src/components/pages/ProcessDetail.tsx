@@ -1,32 +1,25 @@
-import { PixelIcon } from "@/components/brand/PixelIcon";
-import { PixelTile } from "@/components/brand/PixelTile";
-import { InView } from "@/components/ui/InView";
+import { Check } from "@/components/ui/Marks";
 import { PROCESS_DETAILS, PROCESS_STEPS } from "@/constants/process";
 
-/** The five home steps, each with its timing, description and what happens inside it. */
+/** The five home steps on the process rule: timing, description and what happens inside each one. */
 export function ProcessDetail() {
   return (
-    <ol className="process-detail">
+    <ol className="process-detail bp-steps bp-steps--detail">
       {PROCESS_STEPS.map((step, index) => (
         <li key={step.title}>
-          <InView className="reveal process-detail-row">
-            <div className="process-detail-mark">
-              <PixelTile digit={step.digit} />
-            </div>
-            <div>
-              <p className="when">{step.when}</p>
-              <h2 className="d3">{step.title}</h2>
-              <p className="body">{step.text}</p>
-            </div>
-            <ul>
+          <span className="bp-day bp-mono">{step.when.replace("-", "–")}</span>
+          <div className="bp-what">
+            <h2>{step.title}</h2>
+            <p>{step.text}</p>
+            <ul className="bp-ticks">
               {PROCESS_DETAILS[index].map((bullet) => (
                 <li key={bullet}>
-                  <PixelIcon name="check" />
+                  <Check />
                   <span>{bullet}</span>
                 </li>
               ))}
             </ul>
-          </InView>
+          </div>
         </li>
       ))}
     </ol>

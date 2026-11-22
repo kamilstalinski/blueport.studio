@@ -1,0 +1,89 @@
+{
+  "_info": "Edit the texts here, then run: python3 build.py  (PNG files land in out/). Images are paths inside assets/.",
+  "domain": "blueport.studio",
+  "headline": "Strony internetowe dla małych firm, od 2 500 zł",
+  "tagline": "Cena znana przed startem. Publikacja 1–2 tygodnie po akceptacji projektu.",
+
+  "highlights": [
+    { "file": "highlight-realizacje", "label": "Realizacje", "glyph": "window" },
+    { "file": "highlight-cennik", "label": "Cennik", "glyph": "zł" },
+    { "file": "highlight-proces", "label": "Proces", "glyph": "steps" },
+    { "file": "highlight-opinie", "label": "Opinie", "glyph": "„" },
+    { "file": "highlight-kontakt", "label": "Kontakt", "glyph": "@" }
+  ],
+
+  "ig_headline": {
+    "file": "ig-post-headline",
+    "label": "Jak pracujemy",
+    "title": "Większość stron dla małych firm powstaje bez planu. Potem nie sprzedaje.",
+    "text": "Zaczynamy od pytania, kto ma na stronę trafić i co ma na niej zrobić."
+  },
+  "ig_case": {
+    "file": "ig-post-realizacja",
+    "label": "Realizacja",
+    "name": "Dowytrenowania",
+    "line": "Gabinet fizjoterapii ze sklepem z planami treningowymi.",
+    "domain": "dowytrenowania.pl",
+    "image": "work/dowytrenowania.webp"
+  },
+  "ig_quote": {
+    "file": "ig-post-opinia",
+    "quote": "Strona gotowa w 10 dni, wszystko zgodnie z ustaleniami. Ruch z Google wzrósł 3x w ciągu miesiąca.",
+    "author": "Kamil Głogowski",
+    "company": "Vilmart Water Services, Szczecin"
+  },
+  "ig_offer": {
+    "file": "ig-post-pakiet",
+    "label": "Pakiet",
+    "name": "Strona Pro",
+    "tech": "WordPress",
+    "price": "3 900 zł",
+    "days": "od 14 dni roboczych",
+    "items": ["Indywidualny projekt, bez szablonu", "Do 10 podstron", "Struktura sekcji pisana pod konwersję", "Optymalizacja pod Google"]
+  },
+  "ig_carousel": {
+    "file": "ig-karuzela",
+    "cover_title": "Dlaczego strona nie sprzedaje? Trzy powody.",
+    "slides": [
+      { "was": "Nie widać Cię w Google", "now": "Struktura i treść pisane pod wyszukiwanie lokalne." },
+      { "was": "Strona ładuje się wieki", "now": "Optymalizacja szybkości przed publikacją." },
+      { "was": "Nikt się nie kontaktuje", "now": "Formularz i ścieżka kontaktu w centrum układu." }
+    ],
+    "cta_title": "Sprawdź, ile kosztuje Twoja strona.",
+    "cta_text": "Kalkulator na blueport.studio. 60 sekund, bez rejestracji."
+  },
+  "ig_story_case": {
+    "file": "ig-story-realizacja",
+    "label": "Nowa realizacja",
+    "name": "ABC Mosty",
+    "line": "Szkółka drzew z katalogiem dla klientów hurtowych.",
+    "domain": "abcmosty.pl",
+    "image": "work/abc_mosty.webp"
+  },
+  "ig_story_cta": {
+    "file": "ig-story-wycena",
+    "title": "Ile kosztuje Twoja strona?",
+    "text": "Wybierasz zakres, dostajesz widełki. 60 sekund, bez rejestracji.",
+    "button": "Sprawdź koszt"
+  },
+
+  "li_case": {
+    "file": "li-post-realizacja",
+    "label": "Realizacja",
+    "name": "After the Sin",
+    "line": "Zespół dark wave: koncerty, płyty i odtwarzacz.",
+    "domain": "afterthesin.com",
+    "image": "work/after_the_sin.webp"
+  },
+  "li_quote": {
+    "file": "li-post-opinia",
+    "quote": "Profesjonalna obsługa od A do Z. Sklep działa bez zarzutu, klienci chwalą prostotę zamawiania.",
+    "author": "Igor Romanowski",
+    "company": "SPAVALNIA, Warszawa"
+  },
+  "li_link": {
+    "file": "li-link",
+    "title": "Strony internetowe dla małych firm, od 2 500 zł",
+    "text": "Cena znana przed startem. Publikacja 1–2 tygodnie po akceptacji projektu."
+  }
+}

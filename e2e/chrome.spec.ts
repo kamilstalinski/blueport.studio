@@ -25,7 +25,7 @@ test.describe("navbar on mobile", () => {
 
   test("burger opens the link list and Escape closes it", async ({ page }) => {
     await page.goto("/");
-    const links = page.locator("#nav-links");
+    const links = page.locator("#bp-sheet");
     await expect(links).toBeHidden();
 
     await page.getByRole("button", { name: "Otwórz menu" }).click();

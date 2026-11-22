@@ -1,0 +1,384 @@
+consistency  /Users/kamilstalinski/Documents/GitHub/blueport-studio/design/site-v2/index.html
+--quick: not checked: scroll-linked (stepping), scroll-reveal (the reveal walk; IntersectionObserver reveals are read), hover-spill, hidden-visual, loop-pause, forms, reduced-motion, the dead-IntersectionObserver walk (hidden content is read with scripts off and under reduced motion), hover-move. Still told: IntersectionObserver reveals (scroll-reveal), held sections (pinned) and CSS scroll timelines (scroll-linked); faults inside held or [data-big-scene] sections are WARNs
+
+1440x900  8 screens  40 FAIL  30 WARN
+  FAIL nav             header.top
+       the nav has no bar, and its pieces sit past the content's edges (104-1360px against 104-1336px)  [1440-01-nav.jpg]
+       fix: make the nav one bar from the content's left edge to its right edge, with every link and action inside it
+  FAIL spill           section.hero > div.shell > div.hero-visual > form.win.calc  "kalkulator krok 1 z 4 Czego potrzebujesz"
+       runs 131px past the left edge of the panel it sits on (div.shell > div.hero-visual > div.win.site > div.view)  [1440-02-spill.jpg]
+       fix: keep the box inside the panel it starts on: shrink it, or grow the panel to hold it
+  FAIL spill           div#w2  "abcmosty.pl"
+       runs 39px past the top edge of the panel it sits on (div#w1 > div.view)  [1440-24-spill.jpg]
+       fix: keep the box inside the panel it starts on: shrink it, or grow the panel to hold it
+  FAIL spill           div#w3  "afterthesin.com"
+       runs 39px past the top edge of the panel it sits on (div#w1 > div.view)  [1440-25-spill.jpg]
+       fix: keep the box inside the panel it starts on: shrink it, or grow the panel to hold it
+  FAIL overlap-text    div#w1  "dowytrenowania.pl"
+       lies over the text "abcmosty.pl" (div.win-bar > span.url.mono)  [1440-17-overlap-text.jpg]
+       fix: move the box off the text (or the text off the box)
+  FAIL no-visual       section#proces  "Od zapytania do startu"
+       no picture, effect or mock in this section; a feature section needs a visual  [1440-31-no-visual.jpg]
+       fix: give the section a visual: a UI fragment on a ground, real icons, or a photograph that fits
+  FAIL text-only       section#cennik  "Trzy pakiety. Cena znana przed startem."
+       the section is only text: no picture, icon, mock or effect in it (2 sections like it at this width)  [1440-29-text-only.jpg]
+       fix: give the section a visual: a photograph that fits, the real icons, or a UI fragment on a ground
+  FAIL text-only       section#opinie  "Opinie klientów"
+       the quote section is only text: no picture, icon, mock or effect in it (2 sections like it at this width)  [1440-32-text-only.jpg]
+       fix: give the section a visual: a photograph that fits, the real icons, or a UI fragment on a ground
+  FAIL cta             section#opinie  "Opinie klientów"
+       the last section before the footer ends with no button  [1440-33-cta.jpg]
+       fix: add the action: a button in the hero, one on every priced item, one in the closing section
+  FAIL copy-headings   h2#works-h  "Trzy ostatnie realizacje"
+       "Trzy ostatnie realizacje" names no product, part, place or section (11 headings like it; at most one brand line per page) (and 10 more like it: "Dowytrenowania", "ABC Mosty", "After the Sin", "Nie widać Cię w Google", ...)  [1440-18-copy-headings.jpg]
+       fix: name the thing in every heading: the product, a part, the place or a section noun
+  FAIL off-grid        div.shell > div.hero-copy > div.rows-act > a.row-act.row-act--primary  "Sprawdź koszt 60 s"
+       left edge at 80px, 24px off the page margin at 104px (29 elements, like p.lead); 1 more in this section off the grid too (a.row-act:nth-of-type(2) at 100px)  [1440-03-off-grid.jpg]
+       fix: move it onto the page margin, or the column edge its section uses
+  FAIL off-grid        div.shell.grid > div.sec-head > div.rows-act > a.row-act.row-act--primary  "Otwórz kalkulator 60 s"
+       left edge at 80px, 24px off the page margin at 104px (29 elements, like p); 3 more in this section off the grid too (a.row-act at 420px, a.row-act at 740px, a.row-act at 1060px)  [1440-30-off-grid.jpg]
+       fix: move it onto the page margin, or the column edge its section uses
+  FAIL off-grid        footer#kontakt > div.shell.grid > div.rows-act > a.row-act.row-act--primary  "Sprawdź koszt"
+       left edge at 1040px, 24px off a common edge of its section at 1064px (4 elements); 1 more in this section off the grid too (a.row-act:nth-of-type(2) at 1060px)  [1440-34-off-grid.jpg]
+       fix: move it onto the page margin, or the column edge its section uses
+  FAIL text-contrast   div.hero-copy > div.rows-act > a.row-act.row-act--primary > span.mono  "60 s"
+       a caption, label or muted line in #472219 on #ff5a1f reads 4.46:1 (needs 4.5:1); 2 like it, like "60 s"  [1440-04-text-contrast.jpg]
+       fix: body text in the ink at 7:1 or more; grey (4.5:1 or more) only for captions and labels
+  WARN flush           section.live > div.shell > div.domains > a.mono:nth-of-type(4)  "dowytrenowania.pl"
+       its button sits 25px above the rule on top of section#realizacje  [1440-20-flush.jpg]
+       fix: give the section its padding at the edge where the ground changes (the closing call keeps a clear gap above the footer)
+  WARN flush           div.shell.grid > div.sec-body > div.facts > p:nth-of-type(1)  "10+ wdrożeń dla małych firm w całej Pols"
+       its last line sits 25px above the rule on top of the footer  [1440-35-flush.jpg]
+       fix: give the section its padding at the edge where the ground changes (the closing call keeps a clear gap above the footer)
+  WARN nav             header.top > div.shell > div.act > a.btn-sq  "Sprawdź koszt"
+       the nav is lopsided: its last item ends 24px outside the content's edge (1336px), while its first starts on the other edge  [1440-05-nav.jpg]
+       fix: start the nav's first item and end its last on the content's two edges
+  WARN copy-headline   h1#hero-h  "Strony internetowe dla małych firm, od 2"
+       the h1 has 10 words (2 to 8 read at a glance)  [1440-06-copy-headline.jpg]
+       fix: put the category noun in the h1 (and who it is for, or where), in 2 to 8 words
+  WARN copy-buttons    header.top > div.shell > div.act > a.btn-sq  "Sprawdź koszt"
+       "Sprawdź koszt" does not start with a verb (book, buy, try, start, get, see...) (and 2 more like it: "Sprawdź koszt 60 s", "Otwórz kalkulator 60 s")  [1440-07-copy-buttons.jpg]
+       fix: label buttons with a verb and what the visitor gets ("Book a room", "Start free trial")
+  WARN copy-actions    header.top > div.shell > div.act > a.btn-sq  "Sprawdź koszt"
+       3 labels for one target /kalkulator: "Sprawdź koszt", "Sprawdź koszt 60 s", "Otwórz kalkulator 60 s"  [1440-08-copy-actions.jpg]
+       fix: few actions, one wording: at most 2 in the hero, the main action word for word in nav, hero and close
+  WARN copy-actions    (the page)
+       the main action "Sprawdź koszt" does not read word for word the same in the closing section
+       fix: few actions, one wording: at most 2 in the hero, the main action word for word in nav, hero and close
+  WARN section-gaps    main#main > section.hero / main#main > section.live
+       97px between these sections, -52% against the median 204px  [1440-21-section-gaps.jpg]
+       fix: use one gap between sections (all within 25% of each other)
+  WARN section-gaps    main#main > section.live / section#realizacje
+       130px between these sections, -36% against the median 204px  [1440-22-section-gaps.jpg]
+       fix: use one gap between sections (all within 25% of each other)
+  WARN section-gaps    section#opinie / footer#kontakt
+       109px between these sections, -47% against the median 204px  [1440-36-section-gaps.jpg]
+       fix: use one gap between sections (all within 25% of each other)
+  WARN links           header.top > div.shell > nav.nav > a:nth-of-type(4)  "Kontakt"
+       "Kontakt" goes to #kontakt, in the footer  [1440-09-links.jpg]
+       fix: point every link at a real section, page or file
+  WARN links           div:nth-of-type(3) > ul > li:nth-of-type(2) > a  "Kontakt"
+       "Kontakt" goes to #kontakt, the block it already sits in  [1440-38-links.jpg]
+       fix: point every link at a real section, page or file
+  WARN links           header.top > div.shell > div.act > a.btn-sq  "Sprawdź koszt"
+       "Sprawdź koszt" goes to /kalkulator, which does not exist here  [1440-10-links.jpg]
+       fix: point every link at a real section, page or file
+  WARN links           div.shell > div.hero-copy > div.rows-act > a.row-act:nth-of-type(2)  "Umów konsultację"
+       "Umów konsultację" goes to /kontakt, which does not exist here  [1440-11-links.jpg]
+       fix: point every link at a real section, page or file
+  WARN links           section#realizacje > div.shell.grid > div.work-list > a.work-more  "Wszystkie realizacje"
+       "Wszystkie realizacje" goes to /realizacje, which does not exist here  [1440-26-links.jpg]
+       fix: point every link at a real section, page or file
+  WARN nav-labels      header.top > div.shell > nav.nav > a:nth-of-type(2)  "Cennik"
+       "Cennik" opens a section headed "Trzy pakiety. Cena znana przed startem."  [1440-12-nav-labels.jpg]
+       fix: name each nav link after the heading of the section it opens
+  WARN nav-labels      header.top > div.shell > nav.nav > a:nth-of-type(3)  "Proces"
+       "Proces" opens a section headed "Od zapytania do startu"  [1440-13-nav-labels.jpg]
+       fix: name each nav link after the heading of the section it opens
+  WARN nav-labels      header.top > div.shell > nav.nav > a:nth-of-type(4)  "Kontakt"
+       "Kontakt" opens a section headed "Sprawdź, ile kosztuje Twoja strona."  [1440-14-nav-labels.jpg]
+       fix: name each nav link after the heading of the section it opens
+  WARN copy-length     h1#hero-h  "Strony internetowe dla małych firm, od 2"
+       a headline of 9 words on 4 lines at 74.9px: a paragraph set in display type  [1440-15-copy-length.jpg]
+       fix: cut the heading to one short line (2 to 12 words) and move the rest into the text under it
+  WARN copy-length     h2#plan-h  "Większość stron dla małych firm powstaje"
+       a section heading of 29 words on 4 lines at 43.2px: a paragraph set in display type  [1440-27-copy-length.jpg]
+       fix: cut the heading to one short line (2 to 12 words) and move the rest into the text under it
+  WARN copy-length     h2#cennik-h  "Trzy pakiety. Cena znana przed startem."
+       a section heading of 6 words on 4 lines at 49px: a paragraph set in display type  [1440-28-copy-length.jpg]
+       fix: cut the heading to one short line (2 to 12 words) and move the rest into the text under it
+  WARN nav-current     header.top
+       the nav stays on screen with 4 links to the page's sections, but never marks the one you are in (no link changes as the page scrolls)  [1440-23-nav-current.jpg]
+       fix: mark the link of the section on screen (a colour, a weight or a line under it) as the visitor scrolls
+  WARN one-screen      section#opinie  "Opinie klientów"
+       1 section is shorter than the screen, so the next one's heading or picture shows with it: "Opinie klientów" is 482px of the 835px under the nav, and "Sprawdź, ile kosztuje Twoja st" shows below it  [1440-37-one-screen.jpg]
+       fix: give each section the screen (min-height: 100svh less the nav, its content centred), or join two short ones into one
+  WARN hero-enter      main#main > section.hero
+       the hero does not enter on load: no data-enter on the hero and no head line setting html.m-enter (motion.md, The hero's entrance)  [1440-16-hero-enter.jpg]
+       fix: put data-enter on the hero <section> and keep the head line from starter.html that sets html.m-enter
+  WARN moment-none     (the page)
+       a service page (--type) deals no moment: every kind carries one, two on a long page (moments.md)
+       fix: deal one (moments.mjs pick --page service --photo) and mount it in its own section
+  WARN section-tile    section#proces  "Od zapytania do startu"
+       the section is 813px tall (0.90 screens at 1440x900), shorter than the screen: its tile (the screen from its top) shows 748px of it and only 87px of the next section's ground ("Opinie klientów"), none of its content  [1440-43-section-tile.jpg]
+       fix: set every section after the hero to one screen or two (height: calc(var(--h,1) * 100vh)) and fit its content above --padb
+  WARN heading-order   div.shell > div.grid:nth-of-type(1) > div:nth-of-type(2) > h4  "Oferta"
+       "Oferta" is an h4 after an h2: a level is skipped (in the header or footer)  [1440-39-heading-order.jpg]
+       fix: step down one level at a time (h1, h2, h3): change the tag, not the look; a footer's column heads are h3
+  WARN skip-link       a.skip  "Przejdź do treści"
+       the first Tab stop is "Przejdź do treści", not a skip link: a keyboard user tabs through the whole nav on every visit
+       fix: add the starter's skip link as the header's first child: <a class="skip-link" href="#top">Skip to content</a>
+  WARN share-meta      head
+       the head lacks og:title, og:description, og:image, twitter:card: a shared link shows no picture or title of its own
+       fix: copy the head block of starter.html: og tags, twitter:card, the icon and theme-color (references/system.md, Head)
+  FAIL hero-screen     main#main > section.hero  "Strony internetowe dla małych firm, od 2"
+       the hero's content is 167px taller than the hero (scrollHeight 1003, clientHeight 836): it spills out or scrolls inside it (SR-1)  [1440-rhythm-01-hero-screen.jpg]
+       fix: fit the hero's content inside the hero's box: shorten the text or the picture, never let it spill
+  FAIL section-height  main#main > section.live  "Strony, które pracują dziś dla naszych k"
+       the section is 129px tall (0.1 screens), 771px short of one screen (900px): every section after the hero is one screen or two, 2px either way (SR-2)  [1440-rhythm-02-section-height.jpg]
+       fix: set the section to one screen or two (height: calc(var(--h,1) * 100vh), --h 1 or 2) and cut or split its content to fit
+  FAIL section-height  section#opinie  "Opinie klientów Ze Szczecina, Warszawy i"
+       the section is 482px tall (0.5 screens), 418px short of one screen (900px): every section after the hero is one screen or two, 2px either way (SR-2)
+       fix: set the section to one screen or two (height: calc(var(--h,1) * 100vh), --h 1 or 2) and cut or split its content to fit
+  FAIL section-height  footer#kontakt  "Sprawdź, ile kosztuje Twoja strona. Wybi"
+       the section is 798px tall (0.9 screens), 102px short of one screen (900px): every section after the hero is one screen or two, 2px either way (and 4 more like it: "Od zapytania do startu P", "Trzy ostatnie realizacje", "Większość stron dla mały") (SR-2)
+       fix: set the section to one screen or two (height: calc(var(--h,1) * 100vh), --h 1 or 2) and cut or split its content to fit
+  FAIL section-height  footer#kontakt  "Sprawdź, ile kosztuje Twoja strona. Wybi"
+       the section starts at 4976px, 424px above the screen grid (6 x 900px): sections start on whole screens (SR-2)
+       fix: make every section above it exactly one or two screens tall, so this one starts on a whole screen
+  FAIL section-height  section#plan  "Większość stron dla małych firm powstaje"
+       the section starts at 1991px, 191px below the screen grid (2 x 900px): sections start on whole screens (SR-2)
+       fix: make every section above it exactly one or two screens tall, so this one starts on a whole screen
+  FAIL section-height  section#cennik  "Trzy pakiety. Cena znana przed startem. "
+       the section starts at 2833px, 133px below the screen grid (3 x 900px): sections start on whole screens (and 4 more like it: "Trzy ostatnie realizacje", "Od zapytania do startu P", "Strony internetowe dla m") (SR-2)
+       fix: make every section above it exactly one or two screens tall, so this one starts on a whole screen
+  FAIL section-height  main#main > section.live  "Strony, które pracują dziś dla naszych k"
+       the section's content does not fit it: its lowest content ends 129px below its top, past 57px (the section less 72px of bottom padding) (SR-2)
+       fix: fit the content above the section's bottom padding (--padb), or make it two screens (.g2) in two groups
+  FAIL section-height  footer#kontakt  "Sprawdź, ile kosztuje Twoja strona. Wybi"
+       the section's content does not fit it: its lowest content ends 776px below its top, past 726px (the section less 72px of bottom padding) (and 1 more like it: "Opinie klientów Ze Szcze") (SR-2)
+       fix: fit the content above the section's bottom padding (--padb), or make it two screens (.g2) in two groups
+  FAIL section-air     footer#kontakt > div.foot  "Studio webowe ze Szczecina. Strony i skl"
+       a top border across 113% of the container, between the section's content: sections and their parts are told apart by air and ground, not lines (SR-3)  [1440-rhythm-03-section-air.jpg]
+       fix: take the rule out: sections and their parts are parted by their ground and the air between them
+  WARN section-air     main#main > section.live / section#realizacje
+       105px of air between the content of these two sections: 128-480px (64-600px WARN) (SR-3)
+       fix: keep 128-480px of air between the content of neighbouring sections (112-420px on a phone): the sections' padding (--padt, --padb)
+  FAIL one-section     h2#opinie-h  "Opinie klientów"
+       the screen at scroll 4495px (the top of section 7) shows 416px of section 7 and the heading of section 7 whole and the content of 2 sections, over 24px each beside section 8: a screen shows one section (another may peek 8px, 24px WARN) (SR-4)  [1440-rhythm-04-one-section.jpg]
+       fix: make each section exactly one screen or two, so a screen shows one section and no neighbour peeks
+  FAIL one-section     h2#opinie-h  "Opinie klientów"
+       the screen at scroll 4500px (stride 5) shows 411px of section 7 and the heading of section 7 whole and the content of 2 sections, over 24px each beside section 8: a screen shows one section (another may peek 8px, 24px WARN) (SR-4)
+       fix: make each section exactly one screen or two, so a screen shows one section and no neighbour peeks
+  FAIL one-section     section#realizacje  "Trzy ostatnie realizacje Fizjoterapeutka"
+       the screen at scroll 1800px (stride 2) shows 126px of section 3 and the content of 2 sections, over 24px each beside section 4: a screen shows one section (another may peek 8px, 24px WARN) (and 7 more like it: scroll 3682px, scroll 2700px, scroll 900px) (SR-4)
+       fix: make each section exactly one screen or two, so a screen shows one section and no neighbour peeks
+  FAIL one-heading     h2#close-h  "Sprawdź, ile kosztuje Twoja strona."
+       headings of two sections show whole on one screen at 4 of 98 scroll positions (4.1%; at scroll 4350, 4400, 4450, 4500px), here with "Opinie klientów": at most 3% on a desktop (SR-5)  [1440-rhythm-05-one-heading.jpg]
+       fix: make the sections one screen tall so their headings sit a screen apart and two never share one
+  FAIL container-edges main#main > section.hero  "Strony internetowe dla małych firm, od 2"
+       the content of section 1 runs 80px from the left and 0px from the right (read from its outermost blocks: no .wrap): 80 and 0px are not one margin (one container, equal margins, 2px either way) (SR-6)  [1440-rhythm-06-container-edges.jpg]
+       fix: use one container on every section and the nav (.wrap): one margin left and right, 64-120px on a desktop, 16-24px on a phone
+  FAIL container-edges a.skip  "Przejdź do treści"
+       a <a> at the top of the page, outside header.nav, main, footer.closing and nav.actionbar (SR-6)
+       fix: build the page as header.nav, a main of sections (each one in-flow .wrap plus background layers) and footer.closing
+  FAIL container-edges div.rails
+       a <div> at the top of the page, outside header.nav, main, footer.closing and nav.actionbar (and 10 more like it: "Realizacje Cennik Proces", "Sprawdź, ile kosztuje Tw", "Strony internetowe dla m") (SR-6)
+       fix: build the page as header.nav, a main of sections (each one in-flow .wrap plus background layers) and footer.closing
+  FAIL container-edges footer#kontakt > div.foot  "Studio webowe ze Szczecina. Strony i skl"
+       a box runs 0-1440px, outside the container lines of section 8 at 80-1360px: full width is for background layers and grounds only (SR-6)
+       fix: keep it inside the container lines (.wrap): full width is for background layers and grounds only
+  FAIL container-edges div.shell.grid > div.sec-wide.path > div.node:nth-of-type(1) > i
+       a box runs 68-92px, outside the container lines of section 4 at 80-1360px: full width is for background layers and grounds only (and 1 more like it: div.shell.grid > div.sec-wide.path > div.node:nth-of-type(5) > i) (SR-6)
+       fix: keep it inside the container lines (.wrap): full width is for background layers and grounds only
+  FAIL container-edges div.sec-body > div.plans > div.plan-col:nth-of-type(1) > h3  "Strona start"
+       14 text blocks start on a left line at x 424, 344px from the container's left: text starts on the container's left, or on one split line (x 623, 732, 841) (also "WordPress", "od2 500 zł", "od 7 dni roboczych") (SR-6)
+       fix: start the text on the container's left, or on the one split line every split shares
+  FAIL container-edges h1#hero-h  "Strony internetowe dla małych firm, od 2"
+       16 text blocks start on a left line at x 104, 24px from the container's left: text starts on the container's left, or on one split line (x 623, 732, 841) (also "Projektujemy strony WordPress i ", "Strony, które pracują dziś dla n", "Trzy ostatnie realizacje") (and 7 more like it: "Strony internetowe dla m", "Trzy ostatnie realizacje", "Większość stron dla mały") (SR-6)
+       fix: start the text on the container's left, or on the one split line every split shares
+  FAIL container-edges div#w1  "dowytrenowania.pl"
+       a box over half the container wide runs 400-1360px, not on the container's lines at 80-1360px (and 3 more like it: "abcmosty.pl", "afterthesin.com", "Studio webowe ze Szczeci") (SR-6)
+       fix: run the picture or box from the container's left line to its right line, or put it in a row or a split
+  FAIL split-pair      main#main > section.hero > div.shell  "Strony internetowe dla małych firm, od 2"
+       the two columns of the split start 69px apart at the top: a split's columns are top-aligned, 8px either way (SR-8)  [1440-rhythm-07-split-pair.jpg]
+       fix: top-align both columns of the split (align-items: start)
+  FAIL split-pair      section#cennik > div.shell.grid  "Trzy pakiety. Cena znana przed startem. "
+       the split's columns are off the page's one pair of lines: its right column starts at x 400, the first split's at 720; its right column starts at x 400, on none of the split lines 623 (k=5), 732 (k=6), 841 (k=7) (SR-8)
+       fix: start every split's right column on one shared line (wrap.left + k x (width + 24) / 12, k 5, 6 or 7; 6 on a place page) and end the left one 24px before it
+  FAIL split-pair      section#proces > div.shell.grid  "Od zapytania do startu Pięć kroków. Cenę"
+       the split's columns are off the page's one pair of lines: its right column starts at x 400, the first split's at 720; its right column starts at x 400, on none of the split lines 623 (k=5), 732 (k=6), 841 (k=7) (SR-8)
+       fix: start every split's right column on one shared line (wrap.left + k x (width + 24) / 12, k 5, 6 or 7; 6 on a place page) and end the left one 24px before it
+  FAIL split-pair      section#opinie > div.shell.grid  "Opinie klientów Ze Szczecina, Warszawy i"
+       the split's columns are off the page's one pair of lines: its right column starts at x 400, the first split's at 720; its right column starts at x 400, on none of the split lines 623 (k=5), 732 (k=6), 841 (k=7) (and 1 more like it: "Strony internetowe dla m") (SR-8)
+       fix: start every split's right column on one shared line (wrap.left + k x (width + 24) / 12, k 5, 6 or 7; 6 on a place page) and end the left one 24px before it
+
+390x844  14 screens  20 FAIL  10 WARN
+  FAIL nav             header.top
+       the nav has no bar, and its pieces sit past the content's edges (40-366px against 40-350px)  [390-01-nav.jpg]
+       fix: make the nav one bar from the content's left edge to its right edge, with every link and action inside it
+  FAIL spill           div#w2  "abcmosty.pl"
+       runs 39px past the top edge of the panel it sits on (div#w1 > div.view)  [390-13-spill.jpg]
+       fix: keep the box inside the panel it starts on: shrink it, or grow the panel to hold it
+  FAIL spill           div#w3  "afterthesin.com"
+       runs 39px past the top edge of the panel it sits on (div#w1 > div.view)  [390-14-spill.jpg]
+       fix: keep the box inside the panel it starts on: shrink it, or grow the panel to hold it
+  FAIL overlap-text    div#w1  "dowytrenowania.pl"
+       lies over the text "abcmosty.pl" (div.win-bar > span.url.mono)  [390-15-overlap-text.jpg]
+       fix: move the box off the text (or the text off the box)
+  FAIL collide         div#w1 > div.win-bar > span.url.mono  "dowytrenowania.pl"
+       the words "dowytrenowania.pl" lie over "abcmosty.pl": two lines in one place  [390-16-collide.jpg]
+       fix: on a phone nothing lies on anything else: let the section grow with its content (min-height for its screens, never a fixed height; --hm: 2 when it needs two) or cut what it holds; keep pictures and cards off the buttons; pad the page under a fixed bar by the bar's height (top: the first section; end: the footer)
+  FAIL collide         div#w2 > div.win-bar > span.url.mono  "abcmosty.pl"
+       the words "abcmosty.pl" lie over "afterthesin.com": two lines in one place  [390-17-collide.jpg]
+       fix: on a phone nothing lies on anything else: let the section grow with its content (min-height for its screens, never a fixed height; --hm: 2 when it needs two) or cut what it holds; keep pictures and cards off the buttons; pad the page under a fixed bar by the bar's height (top: the first section; end: the footer)
+  FAIL tap-size        header.top > div.shell > a.brand
+       a 175x26px tap target: 0px from the next one ("Sprawdź koszt"), so a thumb lands on the wrong one  [390-02-tap-size.jpg]
+       fix: make every link and control outside running text 44px tall on a phone: display: inline-flex; align-items: center; min-height: 44px (a footer list then needs no gap), a 44px small button, or a transparent ::before laid past the box
+  FAIL no-visual       main#main > section.hero  "Strony internetowe dla małych firm, od 2"
+       pictures, effects and mocks cover 14% of this section; a feature section needs a visual (about 25% or more)  [390-03-no-visual.jpg]
+       fix: give the section a visual: a UI fragment on a ground, real icons, or a photograph that fits
+  FAIL no-visual       main#main > section.live  "Strony, które pracują dziś dla naszych k"
+       no picture, effect or mock in this section; a feature section needs a visual  [390-10-no-visual.jpg]
+       fix: give the section a visual: a UI fragment on a ground, real icons, or a photograph that fits
+  FAIL no-visual       section#proces  "Od zapytania do startu"
+       no picture, effect or mock in this section; a feature section needs a visual  [390-22-no-visual.jpg]
+       fix: give the section a visual: a UI fragment on a ground, real icons, or a photograph that fits
+  FAIL text-only       section#cennik  "Trzy pakiety. Cena znana przed startem."
+       the section is only text: no picture, icon, mock or effect in it (2 sections like it at this width)  [390-21-text-only.jpg]
+       fix: give the section a visual: a photograph that fits, the real icons, or a UI fragment on a ground
+  FAIL text-only       section#opinie  "Opinie klientów"
+       the quote section is only text: no picture, icon, mock or effect in it (2 sections like it at this width)  [390-24-text-only.jpg]
+       fix: give the section a visual: a photograph that fits, the real icons, or a UI fragment on a ground
+  FAIL cta             section#opinie  "Opinie klientów"
+       the last section before the footer ends with no button  [390-25-cta.jpg]
+       fix: add the action: a button in the hero, one on every priced item, one in the closing section
+  FAIL off-grid        div.shell > div.hero-copy > div.rows-act > a.row-act.row-act--primary  "Sprawdź koszt 60 s"
+       left edge at 24px, 16px off the page margin at 40px (78 elements, like p.lead); 3 more in this section off the grid too (a.row-act:nth-of-type(2) at 44px, div.win.site at 51.5px, form.win.calc at 24px)  [390-04-off-grid.jpg]
+       fix: move it onto the page margin, or the column edge its section uses
+  FAIL off-grid        main#main > section.live > div.shell > p  "Strony, które pracują dziś dla naszych k"
+       left edge at 48px, 8px off the page margin at 40px (78 elements); 6 more in this section off the grid too (a.mono:nth-of-type(1) at 45px, a.mono:nth-of-type(2) at 45px, a.mono:nth-of-type(3) at 45px, a.mono:nth-of-type(4) at 45px, ...)  [390-07-off-grid.jpg]
+       fix: move it onto the page margin, or the column edge its section uses
+  FAIL off-grid        div.shell.grid > div.work-list > button.work-item:nth-of-type(1) > h3  "Dowytrenowania"
+       left edge at 48px, 8px off the page margin at 40px (78 elements, like p); 12 more in this section off the grid too (span.desc at 48px, span.mono at 48px, h3 at 48px, div#w1 at 24px, ...)  [390-11-off-grid.jpg]
+       fix: move it onto the page margin, or the column edge its section uses
+  FAIL off-grid        div.shell.grid > div.sec-head > div.rows-act > a.row-act.row-act--primary  "Otwórz kalkulator 60 s"
+       left edge at 24px, 16px off the page margin at 40px (78 elements, like p); 3 more in this section off the grid too (a.row-act at 44px, a.row-act at 44px, a.row-act at 44px)  [390-19-off-grid.jpg]
+       fix: move it onto the page margin, or the column edge its section uses
+  FAIL off-grid        div.sec-body > div.quotes > figure.quote:nth-of-type(1) > blockquote  "„Strona gotowa w 10 dni, wszystko zgodni"
+       left edge at 48px, 8px off the page margin at 40px (78 elements, like p); 14 more in this section off the grid too (b at 48px, figcaption at 48px, blockquote at 48px, b at 48px, ...)  [390-23-off-grid.jpg]
+       fix: move it onto the page margin, or the column edge its section uses
+  FAIL off-grid        footer#kontakt > div.shell.grid > div.rows-act > a.row-act.row-act--primary  "Sprawdź koszt"
+       left edge at 24px, 16px off the page margin at 40px (78 elements, like p.lead); 1 more in this section off the grid too (a.row-act:nth-of-type(2) at 44px)  [390-26-off-grid.jpg]
+       fix: move it onto the page margin, or the column edge its section uses
+  FAIL text-contrast   div.hero-copy > div.rows-act > a.row-act.row-act--primary > span.mono  "60 s"
+       a caption, label or muted line in #472219 on #ff5a1f reads 4.46:1 (needs 4.5:1); 2 like it, like "60 s"  [390-05-text-contrast.jpg]
+       fix: body text in the ink at 7:1 or more; grey (4.5:1 or more) only for captions and labels
+  WARN nav             header.top > div.shell > div.act > a.btn-sq  "Sprawdź koszt"
+       the nav is lopsided: its last item ends 16px outside the content's edge (350px), while its first starts on the other edge  [390-06-nav.jpg]
+       fix: start the nav's first item and end its last on the content's two edges
+  WARN tap-size        div.hero-visual > form.win.calc > div.calc-sum > a  "Pełna wycena"
+       a 118x23px tap target: under the 44px a phone needs  [390-08-tap-size.jpg]
+       fix: make every link and control outside running text 44px tall on a phone: display: inline-flex; align-items: center; min-height: 44px (a footer list then needs no gap), a 44px small button, or a transparent ::before laid past the box
+  WARN tap-size        div.shell.grid > div.sec-head > div.custom > a  "Umów konsultację"
+       a 310x23px tap target: under the 44px a phone needs  [390-20-tap-size.jpg]
+       fix: make every link and control outside running text 44px tall on a phone: display: inline-flex; align-items: center; min-height: 44px (a footer list then needs no gap), a 44px small button, or a transparent ::before laid past the box
+  WARN tap-size        div:nth-of-type(2) > ul > li:nth-of-type(1) > a  "Cennik"
+       a 47x20px tap target (and 6 more like it on this screen): under the 44px a phone needs  [390-28-tap-size.jpg]
+       fix: make every link and control outside running text 44px tall on a phone: display: inline-flex; align-items: center; min-height: 44px (a footer list then needs no gap), a 44px small button, or a transparent ::before laid past the box
+  WARN tap-size        div:nth-of-type(4) > ul > li:nth-of-type(1) > a.mono  "kontakt@blueport.studio"
+       a 193x14px tap target: under the 44px a phone needs  [390-29-tap-size.jpg]
+       fix: make every link and control outside running text 44px tall on a phone: display: inline-flex; align-items: center; min-height: 44px (a footer list then needs no gap), a 44px small button, or a transparent ::before laid past the box
+  WARN no-visual       section#realizacje  "Trzy ostatnie realizacje"
+       pictures, effects and mocks cover 25% of this section; a feature section needs a visual (about 25% or more)  [390-18-no-visual.jpg]
+       fix: give the section a visual: a UI fragment on a ground, real icons, or a photograph that fits
+  WARN button-styles   a.skip  "Przejdź do treści"
+       on the phone 3 buttons run the full width of their column, but  "Przejdź do treści" is 149px of 390px: one action in two sizes
+       fix: give every button the same width rule on the phone: all full width, or all at their own width
+  WARN section-gaps    main#main > section.hero / main#main > section.live
+       78px between these sections, -51% against the median 158px  [390-09-section-gaps.jpg]
+       fix: use one gap between sections (all within 25% of each other)
+  WARN section-gaps    main#main > section.live / section#realizacje
+       101px between these sections, -36% against the median 158px  [390-12-section-gaps.jpg]
+       fix: use one gap between sections (all within 25% of each other)
+  WARN section-gaps    section#opinie / footer#kontakt
+       114px between these sections, -28% against the median 158px  [390-27-section-gaps.jpg]
+       fix: use one gap between sections (all within 25% of each other)
+
+first screen at 1280, 1152, 1024, 896, 768  0 FAIL  0 WARN
+
+the page at 320x640, walked for what runs past the screen's edge  3 FAIL
+  FAIL tap-size        [320] header.top > div.shell > a.brand
+       a 134x26px tap target: 0px from the next one ("Sprawdź koszt"), so a thumb lands on the wrong one  [narrow-320-01-tap-size.jpg]
+       fix: make every link and control outside running text 44px tall on a phone: display: inline-flex; align-items: center; min-height: 44px (a footer list then needs no gap), a 44px small button, or a transparent ::before laid past the box
+  WARN tap-size        [320] div.hero-visual > form.win.calc > div.calc-sum > a  "Pełna wycena"
+       a 118x23px tap target: under the 44px a phone needs  [narrow-320-02-tap-size.jpg]
+       fix: make every link and control outside running text 44px tall on a phone: display: inline-flex; align-items: center; min-height: 44px (a footer list then needs no gap), a 44px small button, or a transparent ::before laid past the box
+  FAIL collide         [320] div#w1 > div.win-bar > span.url.mono  "dowytrenowania.pl"
+       the words "dowytrenowania.pl" lie over "abcmosty.pl": two lines in one place  [narrow-320-03-collide.jpg]
+       fix: on a phone nothing lies on anything else: let the section grow with its content (min-height for its screens, never a fixed height; --hm: 2 when it needs two) or cut what it holds; keep pictures and cards off the buttons; pad the page under a fixed bar by the bar's height (top: the first section; end: the footer)
+  FAIL collide         [320] div#w2 > div.win-bar > span.url.mono  "abcmosty.pl"
+       the words "abcmosty.pl" lie over "afterthesin.com": two lines in one place  [narrow-320-04-collide.jpg]
+       fix: on a phone nothing lies on anything else: let the section grow with its content (min-height for its screens, never a fixed height; --hm: 2 when it needs two) or cut what it holds; keep pictures and cards off the buttons; pad the page under a fixed bar by the bar's height (top: the first section; end: the footer)
+  WARN tap-size        [320] div.shell.grid > div.sec-head > div.custom > a  "Umów konsultację"
+       a 240x23px tap target: under the 44px a phone needs  [narrow-320-05-tap-size.jpg]
+       fix: make every link and control outside running text 44px tall on a phone: display: inline-flex; align-items: center; min-height: 44px (a footer list then needs no gap), a 44px small button, or a transparent ::before laid past the box
+  WARN tap-size        [320] div:nth-of-type(2) > ul > li:nth-of-type(1) > a  "Cennik"
+       a 47x20px tap target (and 6 more like it on this screen): under the 44px a phone needs  [narrow-320-06-tap-size.jpg]
+       fix: make every link and control outside running text 44px tall on a phone: display: inline-flex; align-items: center; min-height: 44px (a footer list then needs no gap), a 44px small button, or a transparent ::before laid past the box
+  WARN tap-size        [320] div:nth-of-type(4) > ul > li:nth-of-type(1) > a.mono  "kontakt@blueport.studio"
+       a 193x14px tap target: under the 44px a phone needs
+       fix: make every link and control outside running text 44px tall on a phone: display: inline-flex; align-items: center; min-height: 44px (a footer list then needs no gap), a 44px small button, or a transparent ::before laid past the box
+
+checks
+  PASS assets                 PASS shader-lint            PASS gl-fallback            
+  PASS empty-visual           PASS hero-fill              WARN flush                  
+  PASS placeholder            PASS sample-label           PASS caption                
+  PASS credit-wall            FAIL nav                    PASS nav-covers             
+  FAIL spill                  PASS off-viewport           PASS fold-card              
+  SKIP hover-spill            FAIL overlap-text           FAIL collide                
+  FAIL tap-size               PASS row-gap                PASS cut-text               
+  PASS fold-cut               PASS marquee                SKIP scroll-linked          
+  SKIP scroll-reveal          PASS pinned                 SKIP loop-pause             
+  SKIP reduced-motion         PASS hidden-content         PASS webgl                  
+  FAIL no-visual              FAIL text-only              PASS card-visual            
+  SKIP hidden-visual          PASS card-family            PASS card-layout            
+  PASS nesting                PASS effect-repeat          PASS ui-fit                 
+  PASS ui-centre              PASS dark-ground            WARN button-styles          
+  PASS button-shape           PASS same-action            PASS button-picture         
+  FAIL cta                    PASS pricing-tiers          WARN copy-headline          
+  PASS copy-fact              FAIL copy-headings          WARN copy-buttons           
+  WARN copy-actions           PASS heading-scale          PASS stagger                
+  PASS top-stagger            FAIL off-grid               PASS col-edge               
+  PASS right-edge             PASS centre-axis            PASS tilt                   
+  PASS contrast               FAIL text-contrast          PASS body-size              
+  PASS busy-ground            WARN section-gaps           PASS proximity              
+  PASS hole                   WARN links                  SKIP forms                  
+  PASS photo-upscale          PASS photo-set              PASS photo-credit           
+  PASS nav-family             WARN nav-labels             PASS link-styles            
+  PASS heading-align          PASS label-centre           PASS fake-button            
+  PASS stranded-action        PASS orphan                 PASS unit-break             
+  PASS tab-wrap               PASS effects-fit            PASS fade-cut               
+  PASS photo-weight           WARN copy-length            WARN nav-current            
+  PASS progress-bar           PASS photo-repeat           PASS button-contrast        
+  PASS photo-print            PASS grounds                PASS split-align            
+  PASS fact-agree             PASS fold-action            PASS action-count           
+  WARN one-screen             SKIP hover                  SKIP hover-move             
+  PASS product-shown          PASS same-object            PASS font-load              
+  PASS visual-caption         PASS visual-empty           PASS effect-kind            
+  WARN hero-enter             WARN moment-none            PASS street-number          
+  PASS postcode               PASS coordinates            PASS company-number         
+  PASS phone-number           FAIL hero-screen            FAIL section-height         
+  FAIL section-air            FAIL one-section            FAIL one-heading            
+  FAIL container-edges        PASS row-lines              FAIL split-pair             
+  PASS motion-layer           PASS count-text             PASS loop-cycle             
+  WARN section-tile           PASS empty-area             PASS a11y-name              
+  PASS img-alt                PASS field-label            WARN heading-order          
+  PASS tabindex               PASS focus-ring             PASS focus-visible          
+  PASS focus-hidden           WARN skip-link              PASS menu-toggle            
+  PASS lang                   PASS page-meta              WARN share-meta             
+  PASS action-repeat          PASS map-link               PASS open-now               
+  PASS assumed                PASS run-on                 PASS form-fields            
+  PASS form-send              
+
+total  63 FAIL  44 WARN  (crops and report.json in /Users/kamilstalinski/Documents/GitHub/blueport-studio/design/site-v2/.taste-skill/consistency)

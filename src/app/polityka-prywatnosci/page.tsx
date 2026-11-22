@@ -8,12 +8,14 @@ export const metadata: Metadata = {
 
 export default function PolitykaPrywatnosciPage() {
   return (
-    <section className="sec legal-page">
-      <div className="shell legal-shell">
-        <h1 className="d2">Polityka prywatności</h1>
-        <p className="meta legal-date">https://blueport.studio | Obowiązuje od: 20 marca 2026</p>
+    <section className="bp-sec bp-legal-page">
+      <div className="bp-shell bp-grid">
+        <header className="bp-legal-head">
+          <h1>Polityka prywatności</h1>
+          <p className="bp-mono">https://blueport.studio | Obowiązuje od: 20 marca 2026</p>
+        </header>
 
-        <article className="legal">
+        <article className="legal bp-doc">
         <section>
           <h2>§1. Administrator danych osobowych</h2>
           <p>

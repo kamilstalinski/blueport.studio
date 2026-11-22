@@ -1,27 +1,21 @@
-import { DecoPlus } from "@/components/deco/DecoPlus";
-import { ButtonLink } from "@/components/ui/ButtonLink";
-import { InView } from "@/components/ui/InView";
+import Link from "next/link";
 
+import { Arrow } from "@/components/ui/Arrow";
+
+/** The close on every page: the one action again, set large on the grid, right above the footer. */
 export function CtaBand() {
   return (
-    <section className="cta-band px-host" aria-labelledby="cta-title">
-      <InView className="px-deco px-deco--plus" decorative>
-        <DecoPlus />
-      </InView>
-      <div className="shell cta-in">
-        <div>
-          <h2 id="cta-title" className="d2">
-            Sprawdź, ile kosztuje Twoja strona.
-          </h2>
-          <p className="lede cta-lede">Wybierasz zakres, dostajesz widełki. 60 sekund, bez rejestracji i bez zobowiązań.</p>
-        </div>
-        <div className="cta-actions">
-          <ButtonLink href="/kalkulator" variant="oncobalt" withArrow>
-            Sprawdź koszt
-          </ButtonLink>
-          <ButtonLink href="/kontakt" variant="ghost-oncobalt">
-            Umów konsultację
-          </ButtonLink>
+    <section className="bp-close bp-scope" aria-labelledby="cta-title">
+      <div className="bp-shell bp-grid">
+        <h2 id="cta-title">Sprawdź, ile kosztuje Twoja strona.</h2>
+        <p className="bp-lead">Wybierasz zakres, dostajesz widełki. 60 sekund, bez rejestracji i bez zobowiązań.</p>
+        <div className="bp-rows-act">
+          <Link className="bp-row-act bp-row-act--primary" href="/kalkulator">
+            Sprawdź koszt <Arrow />
+          </Link>
+          <Link className="bp-row-act" href="/kontakt">
+            Umów konsultację <Arrow />
+          </Link>
         </div>
       </div>
     </section>

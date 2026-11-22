@@ -3,7 +3,8 @@
 import { useEffect, useRef, useState } from "react";
 import { flushSync } from "react-dom";
 
-import { PixelIcon } from "@/components/brand/PixelIcon";
+import { Arrow } from "@/components/ui/Arrow";
+import { Check } from "@/components/ui/Marks";
 import { CONTACT_TOPICS } from "@/constants/contact";
 import { useContactForm } from "@/hooks/useContactForm";
 import { isContactTopic, validateContact, type ContactErrors } from "@/lib/contactValidation";
@@ -57,14 +58,12 @@ export function ContactForm() {
 
   if (formState.status === "success") {
     return (
-      <div className="px-note contact-sent" role="status" aria-live="polite">
-        <h2 className="d3" ref={successHeading} tabIndex={-1}>
-          <span className="contact-sent-icon">
-            <PixelIcon name="done" scale={3} />
-          </span>
+      <div className="bp-note bp-sent" role="status" aria-live="polite">
+        <h2 ref={successHeading} tabIndex={-1}>
+          <Check />
           Zapytanie wysłane
         </h2>
-        <p className="body">
+        <p>
           Odpowiemy na <strong>{fields.email.trim()}</strong> w ciągu 24 godzin w dni robocze.
         </p>
       </div>
@@ -73,15 +72,14 @@ export function ContactForm() {
 
   const errorFor = (key: TextField) =>
     errors[key] && (
-      <p id={`contact-${key}-error`} className="err">
-        <PixelIcon name="warning" />
+      <p id={`contact-${key}-error`} className="bp-err">
         {errors[key]}
       </p>
     );
 
   return (
-    <form className="form" onSubmit={onSubmit} noValidate aria-busy={isSending}>
-      <div className={cn("field", errors.name && "invalid")}>
+    <form className="bp-form" onSubmit={onSubmit} noValidate aria-busy={isSending}>
+      <div className={cn("bp-field", errors.name && "bp-invalid")}>
         <label htmlFor="contact-name">Imię</label>
         <input
           ref={(node) => {
@@ -101,7 +99,7 @@ export function ContactForm() {
         {errorFor("name")}
       </div>
 
-      <div className={cn("field", errors.email && "invalid")}>
+      <div className={cn("bp-field", errors.email && "bp-invalid")}>
         <label htmlFor="contact-email">Adres e-mail</label>
         <input
           ref={(node) => {
@@ -118,13 +116,13 @@ export function ContactForm() {
           aria-invalid={errors.email ? "true" : undefined}
           aria-describedby={errors.email ? "contact-email-error contact-email-hint" : "contact-email-hint"}
         />
-        <p id="contact-email-hint" className="hint">
+        <p id="contact-email-hint" className="bp-hint">
           Użyjemy go tylko do odpowiedzi na to zapytanie.
         </p>
         {errorFor("email")}
       </div>
 
-      <div className="field">
+      <div className="bp-field">
         <label htmlFor="contact-topic">Czego potrzebujesz?</label>
         <select
           id="contact-topic"
@@ -143,7 +141,7 @@ export function ContactForm() {
         </select>
       </div>
 
-      <div className={cn("field", errors.message && "invalid")}>
+      <div className={cn("bp-field", errors.message && "bp-invalid")}>
         <label htmlFor="contact-message">Wiadomość</label>
         <textarea
           ref={(node) => {
@@ -161,24 +159,20 @@ export function ContactForm() {
         {errorFor("message")}
       </div>
 
-      <button className="btn btn-primary contact-submit" type="submit" aria-disabled={isSending ? "true" : undefined}>
+      <button className="bp-row-act bp-row-act--primary bp-submit" type="submit" aria-disabled={isSending ? "true" : undefined}>
         {isSending ? (
           <>
-            <span className="px-load" aria-hidden="true">
-              <i />
-              <i />
-              <i />
-            </span>
             Wysyłamy…
+            <span className="bp-load" aria-hidden="true" />
           </>
         ) : (
           <>
             Wyślij zapytanie
-            <PixelIcon name="arrow-right" />
+            <Arrow />
           </>
         )}
       </button>
-      <p className="meta" role="status" aria-live="polite">
+      <p className="bp-form-status" role="status" aria-live="polite">
         {formState.status === "error" ? formState.error : ""}
       </p>
     </form>

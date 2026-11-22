@@ -5,10 +5,8 @@ import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 import { BrandLogo } from "@/components/brand/BrandLogo";
-import { PixelIcon } from "@/components/brand/PixelIcon";
-import { ButtonLink } from "@/components/ui/ButtonLink";
+import { Arrow } from "@/components/ui/Arrow";
 import { isNavActive } from "@/lib/navigation";
-import { cn } from "@/lib/utils";
 
 const NAV_LINKS = [
   { href: "/realizacje", label: "Realizacje" },
@@ -20,34 +18,7 @@ const NAV_LINKS = [
 export function Navbar() {
   const pathname = usePathname() ?? "";
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const listRef = useRef<HTMLUListElement>(null);
-  const markRef = useRef<HTMLLIElement>(null);
   const burgerRef = useRef<HTMLButtonElement>(null);
-
-  /* the square under the links: follows the hovered link, rests on the current one */
-  const placeMark = useCallback((target: HTMLElement | null) => {
-    const mark = markRef.current;
-    if (!mark) return;
-    if (!target) {
-      mark.style.setProperty("--s", "0");
-      mark.style.setProperty("--o", "0");
-      return;
-    }
-    const x = target.offsetLeft + target.offsetWidth / 2 - mark.offsetWidth / 2;
-    mark.style.setProperty("--x", `${Math.round(x)}px`);
-    mark.style.setProperty("--s", "1");
-    mark.style.setProperty("--o", "1");
-  }, []);
-
-  const placeMarkOnCurrent = useCallback(() => {
-    placeMark(listRef.current?.querySelector<HTMLElement>('a[aria-current="page"]') ?? null);
-  }, [placeMark]);
-
-  useEffect(() => {
-    placeMarkOnCurrent();
-    window.addEventListener("resize", placeMarkOnCurrent);
-    return () => window.removeEventListener("resize", placeMarkOnCurrent);
-  }, [pathname, placeMarkOnCurrent]);
 
   useEffect(() => {
     if (!isMenuOpen) return;
@@ -61,67 +32,51 @@ export function Navbar() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [isMenuOpen]);
 
-  const handleLinkEnter = useCallback(
-    (event: React.PointerEvent<HTMLAnchorElement>) => {
-      if (event.pointerType !== "mouse") return;
-      listRef.current?.classList.add("preview");
-      placeMark(event.currentTarget);
-    },
-    [placeMark],
-  );
-
-  const handleListLeave = useCallback(() => {
-    listRef.current?.classList.remove("preview");
-    placeMarkOnCurrent();
-  }, [placeMarkOnCurrent]);
-
   const closeMenu = useCallback(() => setIsMenuOpen(false), []);
   const toggleMenu = useCallback(() => setIsMenuOpen((open) => !open), []);
 
+  const links = NAV_LINKS.map((link) => (
+    <Link
+      key={link.href}
+      href={link.href}
+      aria-current={isNavActive(pathname, link.href) ? "page" : undefined}
+      onClick={closeMenu}
+    >
+      {link.label}
+    </Link>
+  ));
+
   return (
-    <header className="nav">
-      <div className="shell nav-in">
-        <Link href="/" className="brand" aria-label="blueport.studio, strona główna" onClick={closeMenu}>
-          <BrandLogo size="nav" />
+    <header className="bp-top bp-scope">
+      <div className="bp-shell">
+        <Link href="/" className="bp-brand" aria-label="blueport.studio, strona główna" translate="no" onClick={closeMenu}>
+          <BrandLogo size="footer" />
         </Link>
-        <div className="nav-right">
-          <nav aria-label="Główna nawigacja">
-            <ul id="nav-links" ref={listRef} className={cn("nav-links", isMenuOpen && "open")} onPointerLeave={handleListLeave}>
-              <li ref={markRef} className="nav-mark" aria-hidden="true" />
-              {NAV_LINKS.map((link) => {
-                const isActive = isNavActive(pathname, link.href);
-                return (
-                  <li key={link.href}>
-                    <Link
-                      href={link.href}
-                      aria-current={isActive ? "page" : undefined}
-                      onPointerEnter={handleLinkEnter}
-                      onClick={closeMenu}
-                    >
-                      {link.label}
-                    </Link>
-                  </li>
-                );
-              })}
-            </ul>
-          </nav>
-          <span className="nav-sep" aria-hidden="true" />
-          <ButtonLink href="/kalkulator" withArrow className="nav-cta">
-            Sprawdź koszt
-          </ButtonLink>
-          <button
-            ref={burgerRef}
-            type="button"
-            className="nav-burger"
-            aria-expanded={isMenuOpen}
-            aria-controls="nav-links"
-            aria-label={isMenuOpen ? "Zamknij menu" : "Otwórz menu"}
-            onClick={toggleMenu}
-          >
-            <PixelIcon name="list" />
-          </button>
+        <nav className="bp-nav" aria-label="Główna nawigacja">
+          {links}
+        </nav>
+        <div className="bp-act">
+          <Link className="bp-btn-sq" href="/kalkulator" onClick={closeMenu}>
+            Sprawdź koszt <Arrow />
+          </Link>
         </div>
+        <button
+          ref={burgerRef}
+          type="button"
+          className="bp-menu-btn"
+          aria-expanded={isMenuOpen}
+          aria-controls="bp-sheet"
+          aria-label={isMenuOpen ? "Zamknij menu" : "Otwórz menu"}
+          onClick={toggleMenu}
+        >
+          <svg viewBox="0 0 18 18" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.6">
+            {isMenuOpen ? <path d="M4 4l10 10M14 4L4 14" /> : <path d="M2 6h14M2 12h14" />}
+          </svg>
+        </button>
       </div>
+      <nav id="bp-sheet" className="bp-sheet" aria-label="Menu" hidden={!isMenuOpen}>
+        {links}
+      </nav>
     </header>
   );
 }

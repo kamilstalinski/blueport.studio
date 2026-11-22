@@ -2,7 +2,7 @@
 
 import { m } from "framer-motion";
 import { cn } from "@/lib/utils";
-import { PixelIcon } from "@/components/brand/PixelIcon";
+import { Check } from "@/components/ui/Marks";
 import { ease } from "@/constants/animations";
 
 type CalculatorProgressProps = {
@@ -37,7 +37,7 @@ export function CalculatorProgress({
             )}
           >
             <div className="calc-step-dot">
-              {i < current ? <PixelIcon name="check" /> : i + 1}
+              {i < current ? <Check /> : i + 1}
             </div>
             <span className="calc-step-label">{label}</span>
           </div>

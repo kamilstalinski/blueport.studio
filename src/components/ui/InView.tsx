@@ -11,11 +11,15 @@ interface InViewProps {
   className?: string;
   lag?: 0 | 1 | 2 | 3;
   decorative?: boolean;
+  /** rootMargin; a larger negative bottom margin waits until the block is well inside the screen */
+  margin?: string;
+  /** share of the block that must be inside the margin; 0 for tall groups that should start at their top edge */
+  threshold?: number;
 }
 
 /** Marks its box with data-in once it has been seen; CSS decides what that reveals. */
-export function InView({ children, className, lag = 0, decorative = false }: InViewProps) {
-  const { ref, isInView } = useScrollAnimation({ threshold: IN_VIEW_THRESHOLD, margin: IN_VIEW_MARGIN });
+export function InView({ children, className, lag = 0, decorative = false, margin = IN_VIEW_MARGIN, threshold = IN_VIEW_THRESHOLD }: InViewProps) {
+  const { ref, isInView } = useScrollAnimation({ threshold, margin });
 
   return (
     <div

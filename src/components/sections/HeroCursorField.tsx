@@ -23,7 +23,7 @@ export function HeroCursorField() {
     const context = canvas?.getContext("2d");
     if (isStill || !canvas || !hero || !context) return;
 
-    const accent = getComputedStyle(document.documentElement).getPropertyValue("--cobalt").trim();
+    const accent = getComputedStyle(document.documentElement).getPropertyValue("--lift").trim();
     let cells: TrailCell[] = [];
     let grid: TrailGrid = createTrailGrid(0, 0, []);
     let dpr = 1;

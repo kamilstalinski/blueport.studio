@@ -1,47 +1,56 @@
-import { MARK_RADIUS, markRects, markViewBox, ROG_MARK } from "@/lib/pixel/modularMark";
-import { cellsToPath, stackCells } from "@/lib/pixel/raster";
-import type { MarkTone } from "@/types";
+import {
+  LOGO_ACCENT,
+  LOGO_MARK,
+  LOGO_RATIO,
+  LOGO_SUB,
+  LOGO_VIEWBOX,
+  LOGO_WORD,
+  SIGNET_ACCENT,
+  SIGNET_MARK,
+  SIGNET_VIEWBOX,
+} from "@/lib/brand/logo";
 
-const WORDMARK = stackCells("blueport", "studio");
-const MARK_RECTS = markRects(ROG_MARK);
-const SIZES = {
-  nav: { mark: 34, scale: 2 },
-  footer: { mark: 51, scale: 3 },
-} as const;
-const TONE_CLASS: Record<MarkTone, string> = { t1: "logo-t1", t2: "logo-t2" };
+const FOOTER_HEIGHT = 38;
+const SIGNET_SIZE = 26;
 
 interface BrandLogoProps {
-  size: keyof typeof SIZES;
+  /** nav: the "bp" signet on a tile; footer: the full "blueport studio" lockup */
+  size: "nav" | "footer";
 }
 
 export function BrandLogo({ size }: BrandLogoProps) {
-  const { mark, scale } = SIZES[size];
+  if (size === "nav") {
+    return (
+      <span className="brand-signet">
+        <svg viewBox={SIGNET_VIEWBOX} width={SIGNET_SIZE} height={SIGNET_SIZE} fillRule="evenodd" aria-hidden="true">
+          {SIGNET_MARK.map((d) => (
+            <path key={d} className="logo-mark" d={d} />
+          ))}
+          <path className="logo-accent" d={SIGNET_ACCENT} />
+        </svg>
+      </span>
+    );
+  }
 
   return (
-    <span className="brand-logo">
-      <svg viewBox={markViewBox(ROG_MARK)} width={mark} height={mark} aria-hidden="true">
-        {MARK_RECTS.map((rect) => (
-          <rect
-            key={`${rect.x}-${rect.y}`}
-            className={TONE_CLASS[rect.tone]}
-            x={rect.x}
-            y={rect.y}
-            width={rect.width}
-            height={rect.height}
-            rx={MARK_RADIUS}
-          />
-        ))}
-      </svg>
-      <svg
-        viewBox={`0 0 ${WORDMARK.width} ${WORDMARK.height}`}
-        width={WORDMARK.width * scale}
-        height={WORDMARK.height * scale}
-        shapeRendering="crispEdges"
-        aria-hidden="true"
-      >
-        <path className="logo-ink" d={cellsToPath(WORDMARK.top)} />
-        <path className="logo-sub" d={cellsToPath(WORDMARK.bottom)} />
-      </svg>
-    </span>
+    <svg
+      className="brand-logo"
+      viewBox={LOGO_VIEWBOX}
+      width={Math.round(FOOTER_HEIGHT * LOGO_RATIO)}
+      height={FOOTER_HEIGHT}
+      fillRule="evenodd"
+      aria-hidden="true"
+    >
+      {LOGO_MARK.map((d) => (
+        <path key={d} className="logo-mark" d={d} />
+      ))}
+      <path className="logo-accent" d={LOGO_ACCENT} />
+      {LOGO_WORD.map((d) => (
+        <path key={d} className="logo-word" fillRule="nonzero" d={d} />
+      ))}
+      {LOGO_SUB.map((d) => (
+        <path key={d} className="logo-sub" fillRule="nonzero" d={d} />
+      ))}
+    </svg>
   );
 }
