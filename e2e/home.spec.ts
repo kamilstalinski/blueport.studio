@@ -47,8 +47,15 @@ test("the plan section argues with a traced page plan", async ({ page }) => {
     "Formularz i ścieżka kontaktu w centrum układu",
   ]);
   await expect(plan.getByRole("img", { name: /Schemat strony/ })).toBeVisible();
-  // the transition can land on a float residue such as 1.4e-11px, so compare with a tolerance
-  await expect.poll(() => plan.locator(".bp-route").evaluate((el) => Math.abs(parseFloat(getComputedStyle(el).strokeDashoffset)))).toBeLessThan(0.5);
+  // the draw is triggered by scrolling in; its 1.6s transition can stall under CI load, so the end state is checked below
+  await expect(plan.locator(".bp-plan-draw")).toHaveAttribute("data-in", "");
+});
+
+test("the plan route ends fully drawn", async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto("/");
+  const route = section(page, "Planujemy stronę, zanim ją zaprojektujemy").locator(".bp-route");
+  expect(await route.evaluate((el) => Math.abs(parseFloat(getComputedStyle(el).strokeDashoffset)))).toBeLessThan(0.5);
 });
 
 test("pricing shows three packages from the price list and the dedicated project", async ({ page }) => {
