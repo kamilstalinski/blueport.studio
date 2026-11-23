@@ -1,0 +1,9 @@
+# /etc/caddy/Caddyfile — Caddy gets and renews the Let's Encrypt certificates itself.
+blueport.studio {
+	encode zstd gzip
+	reverse_proxy 127.0.0.1:3000
+}
+
+www.blueport.studio {
+	redir https://blueport.studio{uri} permanent
+}

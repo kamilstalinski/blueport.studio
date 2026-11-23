@@ -36,8 +36,6 @@ jobs:
       - name: Build testowy
         run: npm run build
         env:
-          NEXT_PUBLIC_SUPABASE_URL: http://localhost:54321
-          SUPABASE_SERVICE_ROLE_KEY: ci-dummy
           RESEND_API_KEY: re_ci_dummy
           RESEND_FROM: Blueport <ci@example.com>
           NOTIFICATION_EMAIL: ci@example.com
@@ -54,8 +52,6 @@ jobs:
       CI: "true"
       PW_SERVER: prod
       PW_PORT: "3100"
-      NEXT_PUBLIC_SUPABASE_URL: http://localhost:54321
-      SUPABASE_SERVICE_ROLE_KEY: ci-dummy
       RESEND_API_KEY: re_ci_dummy
       RESEND_FROM: Blueport <ci@example.com>
       NOTIFICATION_EMAIL: ci@example.com
@@ -87,18 +83,41 @@ jobs:
     runs-on: ubuntu-latest
     needs: [test, e2e]
     if: github.ref == 'refs/heads/prod'
+    # One deploy at a time; a newer push waits rather than cancelling a release mid-switch.
+    concurrency:
+      group: deploy-prod
+      cancel-in-progress: false
     steps:
-      - name: Deploy przez SSH
-        uses: appleboy/ssh-action@v1
+      - name: Checkout kodu
+        uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          host: ${{ secrets.SERVER_IP }}
-          username: ${{ secrets.SERVER_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          envs: NEXT_PUBLIC_SUPABASE_URL,SUPABASE_SERVICE_ROLE_KEY,RESEND_API_KEY,RESEND_FROM,NOTIFICATION_EMAIL
-          script: |
-            cd ~/blueport.studio
-            git checkout next-env.d.ts || true
-            git pull origin prod
-            npm ci
-            npm run build
-            pm2 restart blueport
+          node-version: 22
+          cache: npm
+      - name: Instalacja zaleznosci
+        run: npm ci
+      - name: Build (output standalone)
+        run: npm run build
+      - name: Paczka release
+        # The standalone bundle leaves out public/ and .next/static; server.js serves them from inside it.
+        run: |
+          cp -r public .next/standalone/public
+          cp -r .next/static .next/standalone/.next/static
+          tar -czf release.tar.gz -C .next/standalone .
+      - name: Konfiguracja SSH
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          SSH_KNOWN_HOSTS: ${{ secrets.SSH_KNOWN_HOSTS }}
+          SERVER_IP: ${{ secrets.SERVER_IP }}
+          SERVER_USER: ${{ secrets.SERVER_USER }}
+        run: |
+          install -m 700 -d ~/.ssh
+          printf '%s\n' "$SSH_PRIVATE_KEY" > ~/.ssh/id_deploy
+          printf '%s\n' "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
+          chmod 600 ~/.ssh/id_deploy ~/.ssh/known_hosts
+          printf 'Host prod\n  HostName %s\n  User %s\n  IdentityFile ~/.ssh/id_deploy\n  StrictHostKeyChecking yes\n' "$SERVER_IP" "$SERVER_USER" > ~/.ssh/config
+      - name: Upload i przelaczenie release
+        run: |
+          scp release.tar.gz "prod:/srv/blueport/releases/$GITHUB_SHA.tar.gz"
+          ssh prod bash -s -- "$GITHUB_SHA" < deploy/release.sh
