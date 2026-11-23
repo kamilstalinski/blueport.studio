@@ -10,8 +10,8 @@ import { ABOUT_CLIENTS, ABOUT_NOT_FOR, ABOUT_STORY, ABOUT_TECHS } from "@/consta
 import { WORK_SITES, type WorkSlug } from "@/constants/work";
 
 export const metadata: Metadata = {
-  title: "O nas: studio webowe ze Szczecina",
-  description: "Kamil i Rafał ze Szczecina. Strony WordPress i sklepy WooCommerce dla małych firm z całej Polski. Cenę i termin ustalamy przed startem prac.",
+  title: "Studio webowe Szczecin: Kamil i Rafał",
+  description: "Blueport to studio webowe ze Szczecina. Kamil i Rafał projektują strony WordPress i sklepy WooCommerce dla małych firm z całej Polski. Poznaj nas.",
   alternates: { canonical: "https://blueport.studio/o-nas" },
   openGraph: { url: "https://blueport.studio/o-nas" },
 };
@@ -22,14 +22,14 @@ export default function ONasPage() {
   return (
     <>
       <PageHead
-        title="Studio ze Szczecina, które podaje cenę przed rozmową."
-        lede="Blueport to Kamil i Rafał. Robimy strony i sklepy dla małych firm: gabinetów, warsztatów, sklepów i zespołów muzycznych. Ponad 10 wdrożeń w całej Polsce."
+        title="Studio webowe ze Szczecina, które projektuje strony dla małych firm."
+        lede="Blueport to Kamil i Rafał. Projektujemy strony internetowe i sklepy dla małych firm: gabinetów, warsztatów, sklepów i zespołów muzycznych. Ponad 10 wdrożeń w całej Polsce."
       />
 
       <section className="bp-sec bp-sec--tight" aria-labelledby="about-story-title">
         <div className="bp-shell bp-grid">
           <div className="bp-sec-head">
-            <h2 id="about-story-title">Dlaczego zaczynamy od ceny</h2>
+            <h2 id="about-story-title">Od czego zaczynamy projekt strony</h2>
           </div>
           <div className="bp-sec-body bp-about-split">
             <div className="bp-prose">
@@ -55,7 +55,7 @@ export default function ONasPage() {
       <section className="bp-sec" aria-labelledby="about-tech-title">
         <div className="bp-shell bp-grid">
           <div className="bp-sec-head">
-            <h2 id="about-tech-title">WordPress, a gdy to za mało, Next.js</h2>
+            <h2 id="about-tech-title">Strony na WordPressie, sklepy na WooCommerce, projekty w Next.js</h2>
             <p>
               Strony firmowe robimy na WordPressie, sklepy na WooCommerce. Panel jest popularny, więc łatwo znaleźć kogoś, kto pomoże przy stronie także bez nas.
             </p>

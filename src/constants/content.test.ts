@@ -115,6 +115,6 @@ describe("ABOUT copy", () => {
       for (const slug of tech.sites) expect(slugs).toContain(slug);
     }
     for (const client of ABOUT_CLIENTS) expect(slugs).toContain(client.site);
-    expect(ABOUT_NOT_FOR).toHaveLength(3);
+    expect(ABOUT_NOT_FOR).toHaveLength(2);
   });
 });

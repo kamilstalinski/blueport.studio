@@ -312,8 +312,8 @@ test.describe("kontakt form", () => {
 test("o nas tells the story, the way we work, the tools and the clients", async ({ page }) => {
   await page.goto("/o-nas");
 
-  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Studio ze Szczecina, które podaje cenę przed rozmową.");
-  for (const heading of ["Dlaczego zaczynamy od ceny", "Jak pracujemy", "WordPress, a gdy to za mało, Next.js", "Dla kogo pracujemy"]) {
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText(/^Studio webowe ze Szczecina/);
+  for (const heading of ["Od czego zaczynamy projekt strony", "Jak pracujemy", "Strony na WordPressie, sklepy na WooCommerce, projekty w Next.js", "Dla kogo pracujemy"]) {
     await expect(page.getByRole("heading", { name: heading })).toBeVisible();
   }
   await expect(page.locator(".bp-wh-text")).toContainText("Kamilem albo Rafałem");

@@ -2,14 +2,14 @@ import type { WorkSlug } from "@/constants/work";
 
 /** O nas copy, rewritten from the facts in PRODUCT.md and the case studies. */
 export const ABOUT_STORY = [
-  "Właściciel małej firmy pyta najpierw o dwie rzeczy: ile to kosztuje i kiedy będzie gotowe. W wielu studiach odpowiedź przychodzi dopiero po spotkaniu i briefie.",
-  "U nas widełki pokazuje kalkulator, zanim ktokolwiek do Ciebie zadzwoni. Na krótkiej rozmowie ustalamy kwotę i datę publikacji, a potem się ich trzymamy.",
-  "Projekt zaczynamy od pytania, skąd przychodzą Twoi klienci i co mają zrobić na stronie. Dla Vilmart był to formularz doboru filtra, dla Dobrych Precli mapa punktów i menu z alergenami.",
+  "Mała firma potrzebuje strony, z której przychodzą zapytania. Ładny projekt nie wystarczy, jeśli klient nie znajdzie strony w Google albo nie wie, gdzie na niej kliknąć.",
+  "Dlatego projekt zaczynamy od pytania, skąd przychodzą Twoi klienci i co mają zrobić na stronie. Dla Vilmart był to formularz doboru filtra, dla Dobrych Precli mapa punktów i menu z alergenami.",
+  "Zakres i datę publikacji ustalamy na krótkiej rozmowie, zanim zaczniemy projektować, a potem się ich trzymamy. Od akceptacji projektu do publikacji mijają zwykle 1–2 tygodnie.",
 ] as const;
 
 /** The statement that lights up word by word; `accent` is the one phrase set in the accent. */
 export const ABOUT_STATEMENT = {
-  before: "Cenę i datę publikacji wpisujemy do umowy, zanim zaczniemy projektować. Przez cały projekt rozmawiasz z ",
+  before: "Zakres i datę publikacji wpisujemy do umowy, zanim zaczniemy projektować. Przez cały projekt rozmawiasz z ",
   accent: "Kamilem albo Rafałem",
   after: ". Po publikacji sam zmieniasz teksty, zdjęcia i ceny w panelu.",
 } as const;
@@ -34,6 +34,5 @@ export const ABOUT_CLIENTS = [
 
 export const ABOUT_NOT_FOR = [
   "Firmy, które potrzebują stałego zespołu i wielomiesięcznych wdrożeń",
-  "Projekty z budżetem poniżej 2 500 zł",
   "Agencje szukające podwykonawcy do masowej produkcji",
 ] as const;
