@@ -12,7 +12,7 @@ interface OfferGroupProps {
 }
 
 /** One group of services on the hub: the heading in column 1, one HomePricing-style column per service in 2–4.
- *  "automatyzacja" has one service, so the AI diagram takes the two columns left over. */
+ *  "automatyzacja" has one service, so the AI diagram and its example scenarios take the two columns left over. */
 export function OfferGroup({ group, id, title, lead }: OfferGroupProps) {
   const services = SERVICES.filter((service) => service.group === group);
 
@@ -54,7 +54,24 @@ export function OfferGroup({ group, id, title, lead }: OfferGroupProps) {
               </Link>
             </article>
           ))}
-          {group === "automatyzacja" && <OfferAiDiagram />}
+          {group === "automatyzacja" && (
+            <div className="bp-offer-ai-side">
+              <OfferAiDiagram />
+              {services.map(
+                (service) =>
+                  service.proof.kind === "scenarios" && (
+                    <dl key={service.slug} className="bp-pa-rows bp-offer-scen">
+                      {service.proof.items.map((item) => (
+                        <div key={item.title}>
+                          <dt>{item.title}</dt>
+                          <dd>{item.text}</dd>
+                        </div>
+                      ))}
+                    </dl>
+                  ),
+              )}
+            </div>
+          )}
         </div>
       </div>
     </section>

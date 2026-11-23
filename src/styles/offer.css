@@ -76,7 +76,8 @@
 .bp-offer-col .bp-feat { margin-bottom: 24px; }
 
 /* AI diagram: the page's one still diagram, in the two columns the single AI service leaves */
-.bp-offer-ai { grid-column: span 2; margin: 0; padding: 32px 24px; display: grid; grid-template-columns: minmax(0, 1fr) 24px minmax(0, .7fr) 20px minmax(0, 1.3fr); align-items: center; }
+.bp-offer-ai-side { grid-column: span 2; padding: 32px 24px; }
+.bp-offer-ai { margin: 0; display: grid; grid-template-columns: minmax(0, 1fr) 24px minmax(0, .7fr) 20px minmax(0, 1.3fr); align-items: center; }
 .bp-offer-ai-node { margin: 0; min-height: 60px; display: flex; align-items: center; padding: 10px 16px; border: 1px solid var(--line-2); background: var(--tusz-2); color: var(--papier); font-size: 15px; font-weight: 500; line-height: 1.3; }
 .bp-offer-ai-core { justify-content: center; border-color: var(--kobalt); }
 .bp-offer-ai-wire { height: 1px; background: var(--line-2); }
@@ -88,10 +89,13 @@
 .bp-offer-ai-out li::after { top: -7px; bottom: -7px; width: 1px; }
 .bp-offer-ai-out li:first-child::after { top: 50%; }
 .bp-offer-ai-out li:last-child::after { bottom: 50%; }
+/* scenarios: ProcessAround's rows under the diagram, text only */
+.bp-offer-scen { margin-top: 40px; border-bottom: 1px solid var(--line); }
 
 @media (max-width: 1023px) {
   .bp-offer-group .bp-sec-head .bp-rows-act { margin-inline: 0; }
-  .bp-offer-ai { grid-column: 1 / -1; grid-template-columns: 1fr; padding: 28px 0 0; }
+  .bp-offer-ai-side { grid-column: 1 / -1; padding: 28px 0 0; }
+  .bp-offer-ai { grid-template-columns: 1fr; }
   .bp-offer-ai-wire { width: 1px; height: 24px; margin-left: 24px; }
   .bp-offer-ai-out { padding-left: 48px; }
   .bp-offer-ai-out li::before, .bp-offer-ai-out li::after { left: -25px; }

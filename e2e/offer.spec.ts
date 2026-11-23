@@ -1,6 +1,8 @@
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
 
+import { SERVICES } from "../src/constants/services";
+
 for (const [slug, topic] of [["strony-www", "strona"], ["sklepy-internetowe", "sklep"], ["reklamy-meta-google", "reklamy"], ["wdrozenia-ai", "ai"]]) {
   test(`${slug}: one h1, CTA with topic, three sibling links, topic preselected`, async ({ page }) => {
     await page.goto(`/oferta/${slug}`);
@@ -76,4 +78,13 @@ test("offer hub has no axe violations", async ({ page }) => {
   await page.waitForFunction(() => getComputedStyle(document.querySelector("main")!.firstElementChild!).opacity === "1");
   await page.waitForTimeout(1200);
   expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
+});
+test("offer hub AI section shows the AI scenarios", async ({ page }) => {
+  const ai = SERVICES.find((service) => service.slug === "wdrozenia-ai")!;
+  if (ai.proof.kind !== "scenarios") throw new Error("wdrozenia-ai has no scenarios");
+  expect(ai.proof.items.length).toBeGreaterThanOrEqual(2);
+  await page.goto("/oferta");
+  const section = page.locator("section", { has: page.locator("#offer-ai-h") });
+  // scoped to the term rows: "Zapytanie z formularza" is also a diagram node
+  await expect(section.locator("dl dt")).toHaveText(ai.proof.items.map((item) => item.title));
 });
