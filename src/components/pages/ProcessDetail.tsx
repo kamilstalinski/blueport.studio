@@ -18,13 +18,13 @@ function ChapterVisual({ kind, decorative = false }: { kind: ProcessChapter["vis
           width={1200}
           height={900}
           sizes="(max-width: 1023px) 100vw, 620px"
-          alt={alt("Kalkulator wyceny z wybranym pakietem Strona Pro: od 3900 zł")}
+          alt={alt("Kalkulator wyceny z wybranym pakietem Strona Pro")}
         />
       );
     case "contract":
       return (
         <div className="bp-pc-lit">
-          <div className="bp-win bp-pc-doc" role={decorative ? undefined : "img"} aria-label={decorative ? undefined : "Umowa z wpisaną ceną 3 900 zł netto i datą publikacji"}>
+          <div className="bp-win bp-pc-doc" role={decorative ? undefined : "img"} aria-label={decorative ? undefined : "Umowa z wpisanym zakresem, ceną i datą publikacji"}>
             <p className="bp-pc-doc-title">Umowa o wykonanie strony internetowej</p>
             <dl aria-hidden="true">
               <div><dt>Pakiet</dt><dd>Strona Pro, WordPress</dd></div>
@@ -95,8 +95,8 @@ export function ProcessDetail() {
     <section ref={root} className="bp-pc" aria-labelledby="pc-h">
       <div className="bp-shell bp-pc-grid">
         <div className="bp-pc-head">
-          <h2 id="pc-h">Cztery kroki do publikacji</h2>
-          <p className="bp-pc-lead">Od akceptacji projektu do publikacji mija zwykle 1–2 tygodnie.</p>
+          <h2 id="pc-h">Ile trwa zrobienie strony internetowej</h2>
+          <p className="bp-pc-lead">Od akceptacji projektu do publikacji mija zwykle 1–2 tygodnie. Całość to cztery kroki.</p>
         </div>
         <ol className="process-detail bp-pc-steps">
             {PROCESS_CHAPTERS.map((chapter, index) => (

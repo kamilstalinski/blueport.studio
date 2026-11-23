@@ -2,7 +2,7 @@ import type { TileDigit } from "@/lib/pixel/glyphs";
 
 export const PROCESS_STEPS = [
   { digit: "1", when: "Dzień 0", title: "Wypełniasz kalkulator", text: "60 sekund. Określasz zakres i dostajesz wstępną wycenę. Bez rozmowy sprzedażowej." },
-  { digit: "2", when: "Dzień 1", title: "Doprecyzowujemy", text: "Krótka rozmowa. Ustalamy finalną cenę i termin, zanim cokolwiek zaczniemy." },
+  { digit: "2", when: "Dzień 1", title: "Doprecyzowujemy", text: "Krótka rozmowa. Ustalamy zakres i termin publikacji, zanim zaczniemy projektować." },
   { digit: "3", when: "Dzień 2-10", title: "Projekt i wdrożenie", text: "Projekt wizualny, a po Twojej akceptacji implementacja i optymalizacja szybkości." },
   { digit: "4", when: "Przed startem", title: "Testy i poprawki", text: "Sprawdzamy na telefonach i tabletach, nanosimy poprawki, akceptujesz finalną wersję." },
   { digit: "5", when: "Start", title: "Publikacja i szkolenie", text: "Konfiguracja serwera, podpięcie domeny i szkolenie z obsługi. Strona jest Twoja." },
@@ -13,13 +13,13 @@ export const PROCESS_CHAPTERS = [
   {
     when: "Dzień 0",
     title: "Wypełniasz kalkulator",
-    text: "Wybierasz typ strony i funkcje, a kalkulator od razu pokazuje widełki cenowe. Odzywamy się dopiero, gdy wyślesz zapytanie.",
+    text: "Kalkulator w 60 sekund pokazuje wstępną wycenę dla wybranego typu strony i funkcji. Odzywamy się dopiero, gdy wyślesz zapytanie.",
     visual: "calculator",
   },
   {
     when: "Dzień 1",
-    title: "Ustalamy cenę i datę publikacji",
-    text: "Na krótkiej rozmowie doprecyzowujemy zakres. Potem dostajesz umowę, w której cena i data publikacji są już wpisane.",
+    title: "Ustalamy zakres i datę publikacji",
+    text: "Na krótkiej rozmowie doprecyzowujemy zakres strony. Potem dostajesz umowę, w której zakres i data publikacji są już wpisane.",
     visual: "contract",
   },
   {

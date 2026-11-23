@@ -187,9 +187,9 @@ test("faq is a keyboard-friendly accordion with JSON-LD", async ({ page }) => {
 test("proces walks four chapters beside one frame that shows each one", async ({ page, isMobile }) => {
   await page.goto("/proces");
 
-  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Od kalkulatora do publikacji");
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Jak powstaje strona internetowa");
   const steps = page.locator("ol.process-detail > li");
-  await expect(steps.getByRole("heading", { level: 3 })).toHaveText(["Wypełniasz kalkulator", "Ustalamy cenę i datę publikacji", "Projektujemy i budujemy stronę", "Testujemy i publikujemy"]);
+  await expect(steps.getByRole("heading", { level: 3 })).toHaveText(["Wypełniasz kalkulator", "Ustalamy zakres i datę publikacji", "Projektujemy i budujemy stronę", "Testujemy i publikujemy"]);
   await expect(page.getByText("Od akceptacji projektu do publikacji mija zwykle 1–2 tygodnie.")).toBeVisible();
 
   // live from 1024px only: on a phone every chapter stands with its own visual
