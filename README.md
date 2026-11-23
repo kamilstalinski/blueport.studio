@@ -1,11 +1,18 @@
-## BluePort Studio – Strony i sklepy internetowe
+## BluePort Studio – strony, sklepy, reklamy i AI
 
-Marketingowa strona www studia BluePort Studio, zbudowana w oparciu o Next.js (App Router), TypeScript i Tailwind CSS.
+Strona studia BluePort Studio: Next.js 16 (App Router), TypeScript, Tailwind CSS. Formularz kontaktowy wysyła maile przez Resend (`/api/contact`).
 
-### Uruchomienie projektu
+### Uruchomienie
 
-- `npm install`
+- `npm ci`
 - `npm run dev`
 
-Struktura layoutu została zaprojektowana tak, aby łatwo rozwijać treści, dodać kalkulator, formularze oraz logikę backendową w kolejnych etapach.
+### Testy
 
+- `npm test`: testy jednostkowe (Vitest)
+- `npm run test:e2e`: testy e2e (Playwright)
+- `npm run test:visual`: testy wizualne w obrazie Dockera Playwrighta (jak na CI)
+
+### Deploy
+
+`npm run deploy` (`main` → `prod`), szczegóły w [docs/DEPLOY.md](docs/DEPLOY.md). Standardy kodu: [docs/CODING_STANDARDS.md](docs/CODING_STANDARDS.md).
