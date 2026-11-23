@@ -3,7 +3,7 @@ import "@/styles/globals.css";
 import "@/styles/kafel.css";
 import "@/styles/bp.css";
 import "@/styles/offer.css";
-import { Bricolage_Grotesque, Host_Grotesk, Martian_Mono, Schibsted_Grotesk } from "next/font/google";
+import localFont from "next/font/local";
 import { cn } from "@/lib/utils";
 import { ConditionalChrome } from "@/components/layout/ConditionalChrome";
 import { SmoothScroll } from "@/components/providers/SmoothScroll";
@@ -11,35 +11,35 @@ import { LazyMotionProvider } from "@/components/providers/LazyMotionProvider";
 import { localBusinessJsonLd, websiteJsonLd } from "@/lib/jsonLd";
 import type { RootLayoutProps } from "@/types";
 
-export const schibstedGrotesk = Schibsted_Grotesk({
-  subsets: ["latin", "latin-ext"],
+/* Self-hosted so the build never fetches Google Fonts (that fetch failed builds at random).
+   Variable woff2 from google/fonts, subset to latin + latin-ext; licences in src/fonts/OFL-*.txt. */
+export const schibstedGrotesk = localFont({
+  src: "../fonts/SchibstedGrotesk-var.woff2",
+  weight: "400 700",
   display: "swap",
-  preload: true,
   variable: "--font-body",
-  weight: ["400", "500", "600", "700"],
 });
 
-export const bricolageGrotesque = Bricolage_Grotesque({
-  subsets: ["latin", "latin-ext"],
+export const bricolageGrotesque = localFont({
+  src: "../fonts/BricolageGrotesque-var.woff2",
+  weight: "200 800",
   display: "swap",
-  preload: true,
   variable: "--font-heading",
-  axes: ["opsz"],
 });
 
 /* the homepage world (bp.css): Host Grotesk for words, Martian Mono only for data */
-export const hostGrotesk = Host_Grotesk({
-  subsets: ["latin", "latin-ext"],
+export const hostGrotesk = localFont({
+  src: "../fonts/HostGrotesk-var.woff2",
+  weight: "400 600",
   display: "swap",
   variable: "--font-host",
-  weight: ["400", "500", "600"],
 });
 
-export const martianMono = Martian_Mono({
-  subsets: ["latin", "latin-ext"],
+export const martianMono = localFont({
+  src: "../fonts/MartianMono-var.woff2",
+  weight: "400 500",
   display: "swap",
   variable: "--font-martian",
-  weight: ["400", "500"],
 });
 
 export const metadata: Metadata = {
