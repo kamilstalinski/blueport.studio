@@ -1,12 +1,14 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { CaseStudyStory } from "@/components/pages/CaseStudyStory";
 import { PageHead } from "@/components/pages/PageHead";
-import { Lock } from "@/components/ui/Arrow";
+import { Arrow, Lock } from "@/components/ui/Arrow";
 import { CtaBand } from "@/components/sections/home/CtaBand";
 import { CASE_STUDIES, isWorkSlug } from "@/constants/caseStudies";
+import { TESTIMONIALS } from "@/constants/testimonials";
 import { WORK_SITES } from "@/constants/work";
 import { breadcrumbJsonLd, caseStudyJsonLd } from "@/lib/jsonLd";
 import type { PageParamsSlug } from "@/types";
@@ -19,8 +21,8 @@ function caseStudySeo(slug: string) {
   const url = `${SITE_URL}/realizacje/${slug}`;
 
   return {
-    title: `${study.title} — Realizacja Blueport Studio`,
-    description: study.context,
+    title: study.seo.title,
+    description: study.seo.description,
     client: study.client,
     url,
     image: `/og/og-realizacje-${slug}.png`,
@@ -68,6 +70,8 @@ export default async function CaseStudyPage({ params }: PageParamsSlug) {
   if (!seo || !site || !isWorkSlug(slug)) notFound();
 
   const study = CASE_STUDIES[slug];
+  const quote = TESTIMONIALS.find((item) => item.slug === slug);
+  const next = WORK_SITES[(WORK_SITES.indexOf(site) + 1) % WORK_SITES.length];
   const breadcrumbs = [
     { name: "Strona główna", url: SITE_URL },
     { name: "Realizacje", url: `${SITE_URL}/realizacje` },
@@ -96,6 +100,30 @@ export default async function CaseStudyPage({ params }: PageParamsSlug) {
         </div>
       </section>
       <CaseStudyStory study={study} />
+      <section className="bp-sec bp-sec--tight" aria-label="Opinia i następna realizacja">
+        <div className="bp-shell">
+          {quote && (
+            <figure className="bp-pa-quote bp-cs-quote">
+              <blockquote>„{quote.quote}”</blockquote>
+              <figcaption>
+                <b>{quote.author}</b>
+                <span>{quote.place}</span>
+              </figcaption>
+            </figure>
+          )}
+          <Link href={`/realizacje/${next.slug}`} className="bp-cs-next">
+            <span className="bp-cs-next-text">
+              <span className="bp-mono">Następna realizacja</span>
+              <span className="bp-cs-next-name">{next.name}</span>
+              <span className="bp-mono">{next.kind}</span>
+            </span>
+            <span className="bp-win bp-cs-next-shot">
+              <Image src={next.image} alt="" width={1200} height={1057} sizes="(max-width: 1023px) 100vw, 480px" />
+            </span>
+            <Arrow />
+          </Link>
+        </div>
+      </section>
       <CtaBand />
     </>
   );

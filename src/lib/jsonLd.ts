@@ -5,7 +5,7 @@ export function localBusinessJsonLd(): JsonLdItem {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
     name: "Blueport Studio",
-    description: "Studio webowe ze Szczecina. Strony WordPress od 2500 zł, sklepy WooCommerce od 4900 zł i projekty Next.js od 6500 zł dla małych firm z całej Polski.",
+    description: "Studio webowe ze Szczecina. Strony WordPress, sklepy WooCommerce i projekty Next.js dla małych firm z całej Polski.",
     url: "https://blueport.studio",
     telephone: "+48534287233",
     email: "kontakt@blueport.studio",

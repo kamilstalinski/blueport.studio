@@ -1,29 +1,32 @@
 export const FAQ_ITEMS = {
-  price: {
-    q: "Ile kosztuje strona internetowa?",
-    a: "Proste strony firmowe zaczynają się od 2 500 zł. Sklepy internetowe od 4 900 zł. Dokładną wycenę sprawdzisz w kalkulatorze.",
-  },
   time: {
-    q: "Ile trwa realizacja?",
-    a: "Strona firmowa lub sklep do 30 produktów: zwykle 2–4 tygodnie. Większe projekty ustalamy indywidualnie po wycenie.",
+    q: "Ile trwa stworzenie strony internetowej?",
+    a: "Od 7 dni roboczych dla prostej strony firmowej, od 14 dla rozbudowanej i od 21 dla sklepu internetowego. Od akceptacji projektu graficznego do publikacji mija zwykle 1–2 tygodnie. Dokładną datę wpisujemy do umowy.",
   },
   contract: {
     q: "Czy podpisujemy umowę?",
-    a: "Tak. Przed rozpoczęciem prac podpisujemy umowę z jasno określonym zakresem, terminami i warunkami współpracy.",
+    a: "Tak. Przed startem prac podpisujemy umowę, w której są zakres strony, cena i data publikacji.",
   },
   hosting: {
-    q: "Czy pomagasz z hostingiem?",
-    a: "Tak. Możemy zarekomendować i skonfigurować hosting, a także przenieść gotową stronę na Twoją domenę.",
+    q: "Kto płaci za hosting i domenę?",
+    a: "Ty, bezpośrednio u dostawcy, bez naszej marży. My doradzamy hosting, konfigurujemy serwer i podpinamy Twoją domenę.",
   },
   cms: {
-    q: "Czy mogę sam edytować stronę?",
-    a: "Tak. Strony oparte o WordPress mają panel CMS – możesz sam dodawać treści, zdjęcia i aktualizacje bez znajomości kodu.",
+    q: "Czy mogę sam edytować stronę na WordPressie?",
+    a: "Tak. W panelu WordPressa zmieniasz teksty, zdjęcia i ceny bez znajomości kodu. Przy publikacji pokazujemy, jak z niego korzystać.",
+  },
+  revisions: {
+    q: "Ile rund poprawek obejmuje projekt?",
+    a: "Projekt obejmuje dwie rundy poprawek.",
+  },
+  materials: {
+    q: "Co muszę przygotować?",
+    a: "Logotyp i zdjęcia, a jeśli masz już gotowy projekt graficzny, także jego. Teksty możemy napisać za Ciebie w dodatku „Profesjonalne teksty”.",
   },
   support: {
-    q: "Czy pomagasz po wdrożeniu?",
-    a: "Tak. Oferujemy wsparcie i szkolenie po oddaniu projektu, abyś mógł swobodnie zarządzać stroną.",
+    q: "Czy pomagasz po publikacji strony?",
+    a: "Tak. Szkolenie z obsługi panelu jest w każdym pakiecie, a wsparcie po starcie trwa 14 dni w pakiecie Start i 30 dni w Pro i Sklepie.",
   },
 } as const;
 
 export type FAQKey = keyof typeof FAQ_ITEMS;
-

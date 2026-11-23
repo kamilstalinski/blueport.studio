@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useMemo } from "react";
+import { useState, useCallback, useEffect, useMemo } from "react";
 import type {
   CalculatorState,
   ContactData,
@@ -11,7 +11,10 @@ import type {
 } from "@/types/calculator.types";
 import {
   calculatePrice,
+  getFeaturesForPackage,
+  PACKAGES,
   TIMELINE_MULTIPLIERS,
+  type PackageId,
   type TimelineId,
 } from "@/constants/pricing";
 import { buildSummary } from "@/components/calculator/logic/summary";
@@ -47,6 +50,17 @@ const initialState: CalculatorState = {
 
 export function useCalculator(): UseCalculatorReturn {
   const [state, setState] = useState<CalculatorState>(initialState);
+
+  /* the cennik hands over a picked scope as ?pakiet=<package>&dodatki=<feature,feature>; unknown ids are ignored */
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const pkg = params.get("pakiet");
+    if (!pkg || !Object.hasOwn(PACKAGES, pkg)) return;
+    const packageId = pkg as PackageId;
+    const allowed: string[] = getFeaturesForPackage(packageId);
+    const features = (params.get("dodatki") ?? "").split(",").filter((id) => allowed.includes(id)) as ProjectFeature[];
+    setState((s) => ({ ...s, projectType: packageId, features }));
+  }, []);
 
   const goNext = useCallback(() => {
     setState((s) => ({

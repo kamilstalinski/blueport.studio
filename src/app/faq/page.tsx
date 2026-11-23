@@ -9,12 +9,12 @@ import { InView } from "@/components/ui/InView";
 import { FAQ_ITEMS } from "@/constants/faq";
 import { faqJsonLd } from "@/lib/jsonLd";
 
-const ALL_FAQ_KEYS = ["price", "time", "contract", "hosting", "cms", "support"] as const;
+const ALL_FAQ_KEYS = ["time", "contract", "revisions", "materials", "hosting", "cms", "support"] as const;
 
 export const metadata: Metadata = {
-  title: "FAQ — Najczęściej zadawane pytania",
+  title: "FAQ: czas, umowa, hosting i edycja strony",
   description:
-    "Odpowiedzi na najczęstsze pytania o tworzenie stron, ceny, czas realizacji i współpracę z Blueport Studio.",
+    "Ile trwa stworzenie strony internetowej, czy podpisujemy umowę, kto płaci za hosting i czy sam edytujesz stronę. Sprawdź krótkie odpowiedzi.",
   alternates: { canonical: "https://blueport.studio/faq" },
   openGraph: { url: "https://blueport.studio/faq" },
 };
@@ -25,7 +25,7 @@ export default function FAQPage() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd(faqItemsForJsonLd)) }} />
-      <PageHead title="Najczęściej zadawane pytania" lede="Odpowiedzi na pytania, które klienci zadają przed rozpoczęciem współpracy." />
+      <PageHead title="Pytania o stronę internetową dla firmy" lede="Pytania, które słyszymy najczęściej przed podpisaniem umowy, z krótkimi odpowiedziami." />
       <section className="bp-sec bp-sec--tight" aria-label="Pytania i odpowiedzi">
         <div className="bp-shell bp-grid">
           <div className="bp-sec-head">

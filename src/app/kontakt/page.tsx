@@ -7,9 +7,9 @@ import { Arrow } from "@/components/ui/Arrow";
 import { InView } from "@/components/ui/InView";
 
 export const metadata: Metadata = {
-  title: "Kontakt — Blueport Studio Szczecin",
+  title: "Kontakt: strony internetowe Szczecin",
   description:
-    "Skontaktuj się z nami. Studio webowe Szczecin — odpiszemy w ciągu 24h. Bezpłatna konsultacja i wycena projektu.",
+    "Studio stron internetowych ze Szczecina. Odpowiadamy w 24 h w dni robocze, konsultacja jest bezpłatna. Napisz do nas przez formularz albo zadzwoń.",
   alternates: { canonical: "https://blueport.studio/kontakt" },
   openGraph: { url: "https://blueport.studio/kontakt" },
 };
@@ -25,8 +25,8 @@ export default function KontaktPage() {
   return (
     <>
       <PageHead
-        title="Napisz, co chcesz zbudować."
-        lede="Odpowiadamy w ciągu 24 godzin w dni robocze. Konsultacja jest bezpłatna i nie zobowiązuje."
+        title="Napisz, jakiej strony internetowej potrzebujesz."
+        lede="Jesteśmy ze Szczecina i pracujemy z firmami z całej Polski. Odpowiadamy w ciągu 24 godzin w dni robocze, a konsultacja jest bezpłatna."
       />
       <section className="bp-sec bp-sec--tight bp-contact" aria-label="Formularz kontaktowy">
         <div className="bp-shell bp-grid">
@@ -43,12 +43,20 @@ export default function KontaktPage() {
                 </div>
               ))}
             </dl>
+            <div className="bp-after">
+              <h3>Co dzieje się po wysłaniu</h3>
+              <ol>
+                <li>Kamil albo Rafał odpisuje w ciągu 24 godzin w dni robocze.</li>
+                <li>Umawiamy krótką rozmowę i doprecyzowujemy zakres.</li>
+                <li>Dostajesz umowę z zakresem i datą publikacji.</li>
+              </ol>
+            </div>
             <div className="bp-note">
-              <h3>Chcesz najpierw poznać cenę?</h3>
-              <p>Kalkulator policzy widełki w 60 sekund, bez podawania danych kontaktowych.</p>
+              <h3>Wolisz najpierw policzyć zakres?</h3>
+              <p>Kalkulator pokaże wstępną wycenę w 60 sekund, bez podawania danych kontaktowych.</p>
               <div className="bp-rows-act">
                 <Link className="bp-row-act bp-row-act--primary" href="/kalkulator">
-                  Sprawdź koszt <Arrow />
+                  Wyceń stronę <Arrow />
                 </Link>
               </div>
             </div>

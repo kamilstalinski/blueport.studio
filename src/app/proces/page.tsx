@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
 
 import { PageHead } from "@/components/pages/PageHead";
+import { ProcessAround } from "@/components/pages/ProcessAround";
 import { ProcessDetail } from "@/components/pages/ProcessDetail";
 import { CtaBand } from "@/components/sections/home/CtaBand";
 
 export const metadata: Metadata = {
-  title: "Proces współpracy — Jak działamy",
+  title: "Jak powstaje strona internetowa: etapy",
   description:
-    "Poznaj nasz proces tworzenia stron: od briefu przez projekt, wdrożenie aż po wsparcie po starcie. Transparentnie i bez niespodzianek.",
+    "Jak powstaje strona internetowa dla firmy: wycena, rozmowa o zakresie, projekt, testy na telefonach i publikacja. Sprawdź, ile trwa każdy etap.",
   alternates: { canonical: "https://blueport.studio/proces" },
   openGraph: { url: "https://blueport.studio/proces" },
 };
@@ -16,19 +17,11 @@ export default function ProcesPage() {
   return (
     <>
       <PageHead
-        title="Proces współpracy"
-        lede="Współpraca z nami jest uporządkowana i przewidywalna. Każdy etap ma jasny cel, zakres i termin realizacji."
+        title="Jak powstaje strona internetowa"
+        lede="Zakres i datę publikacji ustalamy pierwszego dnia i wpisujemy do umowy. Dalej pracujemy według tej umowy."
       />
-      <section className="bp-sec bp-sec--tight" aria-label="Etapy współpracy">
-        <div className="bp-shell bp-grid">
-          <div className="bp-sec-head">
-            <p className="bp-total bp-mono">Całość zwykle trwa 1–2 tygodnie.</p>
-          </div>
-          <div className="bp-sec-body">
-            <ProcessDetail />
-          </div>
-        </div>
-      </section>
+      <ProcessDetail />
+      <ProcessAround />
       <CtaBand />
     </>
   );

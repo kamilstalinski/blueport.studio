@@ -2,20 +2,41 @@ import type { TileDigit } from "@/lib/pixel/glyphs";
 
 export const PROCESS_STEPS = [
   { digit: "1", when: "Dzień 0", title: "Wypełniasz kalkulator", text: "60 sekund. Określasz zakres i dostajesz wstępną wycenę. Bez rozmowy sprzedażowej." },
-  { digit: "2", when: "Dzień 1", title: "Doprecyzowujemy", text: "Krótka rozmowa. Ustalamy finalną cenę i termin, zanim cokolwiek zaczniemy." },
+  { digit: "2", when: "Dzień 1", title: "Doprecyzowujemy", text: "Krótka rozmowa. Ustalamy zakres i termin publikacji, zanim zaczniemy projektować." },
   { digit: "3", when: "Dzień 2-10", title: "Projekt i wdrożenie", text: "Projekt wizualny, a po Twojej akceptacji implementacja i optymalizacja szybkości." },
   { digit: "4", when: "Przed startem", title: "Testy i poprawki", text: "Sprawdzamy na telefonach i tabletach, nanosimy poprawki, akceptujesz finalną wersję." },
   { digit: "5", when: "Start", title: "Publikacja i szkolenie", text: "Konfiguracja serwera, podpięcie domeny i szkolenie z obsługi. Strona jest Twoja." },
 ] as const satisfies readonly { digit: TileDigit; when: string; title: string; text: string }[];
 
-/** What happens inside each step, in PROCESS_STEPS order. Bullets moved unchanged from the legacy /proces timeline. */
-export const PROCESS_DETAILS = [
-  ["wybierasz typ strony", "określasz funkcje", "otrzymujesz szacunkowy koszt"],
-  ["omawiamy potrzeby", "doprecyzowujemy funkcjonalności", "ustalamy harmonogram"],
-  ["projekt UI", "implementacja", "optymalizacja szybkości"],
-  ["testy mobilne", "optymalizacja SEO", "akceptacja finalnej wersji"],
-  ["konfiguracja serwera", "podpięcie domeny", "szkolenie z obsługi"],
-] as const satisfies readonly (readonly [string, string, string])[];
+/** /proces: the five home steps told as four chapters (testing and launch share one), each with the thing it produces. */
+export const PROCESS_CHAPTERS = [
+  {
+    when: "Dzień 0",
+    title: "Wypełniasz kalkulator",
+    text: "Kalkulator w 60 sekund pokazuje wstępną wycenę dla wybranego typu strony i funkcji. Odzywamy się dopiero, gdy wyślesz zapytanie.",
+    visual: "calculator",
+  },
+  {
+    when: "Dzień 1",
+    title: "Ustalamy zakres i datę publikacji",
+    text: "Na krótkiej rozmowie doprecyzowujemy zakres strony. Potem dostajesz umowę, w której zakres i data publikacji są już wpisane.",
+    visual: "contract",
+  },
+  {
+    when: "Dni 2–10",
+    title: "Projektujemy i budujemy stronę",
+    text: "Najpierw dostajesz projekt graficzny do akceptacji. Po Twojej zgodzie budujemy stronę i przyspieszamy jej ładowanie.",
+    visual: "site",
+  },
+  {
+    when: "Start",
+    title: "Testujemy i publikujemy",
+    text: "Sprawdzamy stronę na telefonach i tabletach, a Ty akceptujesz finalną wersję. Na koniec podpinamy domenę i uczymy Cię obsługi panelu.",
+    visual: "phone",
+  },
+] as const satisfies readonly { when: string; title: string; text: string; visual: "calculator" | "contract" | "site" | "phone" }[];
+
+export type ProcessChapter = (typeof PROCESS_CHAPTERS)[number];
 
 export const TALLY = [
   { count: 10, prefix: "", suffix: "+", label: "wdrożeń dla małych firm w całej Polsce" },

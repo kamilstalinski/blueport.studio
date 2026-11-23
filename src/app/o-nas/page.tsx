@@ -1,124 +1,128 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 
+import { AboutStatement } from "@/components/pages/AboutStatement";
 import { PageHead } from "@/components/pages/PageHead";
 import { CtaBand } from "@/components/sections/home/CtaBand";
-import { Arrow } from "@/components/ui/Arrow";
-import { InView } from "@/components/ui/InView";
-import { Check, Dash } from "@/components/ui/Marks";
-import { ABOUT_APPROACH, ABOUT_FOR, ABOUT_NOT_FOR, ABOUT_STORY, ABOUT_TECHS } from "@/constants/about";
+import { Arrow, Lock } from "@/components/ui/Arrow";
+import { ABOUT_CLIENTS, ABOUT_NOT_FOR, ABOUT_STORY, ABOUT_TECHS } from "@/constants/about";
+import { WORK_SITES, type WorkSlug } from "@/constants/work";
 
 export const metadata: Metadata = {
-  title: "O nas — Kim jesteśmy",
-  description: "Blueport Studio to studio webowe ze Szczecina. Poznaj nas, nasze wartości i sposób pracy.",
+  title: "Studio webowe Szczecin: Kamil i Rafał",
+  description: "Blueport to studio webowe ze Szczecina. Kamil i Rafał projektują strony WordPress i sklepy WooCommerce dla małych firm z całej Polski. Poznaj nas.",
   alternates: { canonical: "https://blueport.studio/o-nas" },
   openGraph: { url: "https://blueport.studio/o-nas" },
 };
 
-const STAGGER_MARGIN = "0px 0px -25% 0px";
+const site = (slug: WorkSlug) => WORK_SITES.find((entry) => entry.slug === slug)!;
 
 export default function ONasPage() {
   return (
     <>
       <PageHead
-        title="Tworzymy strony, które sprzedają. Bez chaosu."
-        lede="Blueport to małe studio z konkretnym podejściem. Jasna wycena. Jasny proces. Realne efekty."
+        title="Studio webowe ze Szczecina, które projektuje strony dla małych firm."
+        lede="Blueport to Kamil i Rafał. Projektujemy strony internetowe i sklepy dla małych firm: gabinetów, warsztatów, sklepów i zespołów muzycznych. Ponad 10 wdrożeń w całej Polsce."
       />
 
       <section className="bp-sec bp-sec--tight" aria-labelledby="about-story-title">
         <div className="bp-shell bp-grid">
           <div className="bp-sec-head">
-            <h2 id="about-story-title">Po co powstał Blueport?</h2>
+            <h2 id="about-story-title">Od czego zaczynamy projekt strony</h2>
           </div>
-          <InView className="reveal bp-sec-body bp-prose">
-            {ABOUT_STORY.map((paragraph) => (
-              <p key={paragraph}>{paragraph}</p>
-            ))}
-          </InView>
+          <div className="bp-sec-body bp-about-split">
+            <div className="bp-prose">
+              {ABOUT_STORY.map((paragraph) => (
+                <p key={paragraph}>{paragraph}</p>
+              ))}
+            </div>
+            <Link href="/kalkulator" className="bp-win bp-about-shot">
+              <span className="bp-win-bar">
+                <Lock />
+                <span className="bp-url bp-mono">blueport.studio/kalkulator</span>
+              </span>
+              <span className="bp-about-shot-pane">
+                <Image src="/proces/kalkulator.png" alt="Kalkulator wyceny z wybranym pakietem Strona Pro" width={1200} height={900} sizes="(max-width: 1023px) 100vw, 460px" />
+              </span>
+            </Link>
+          </div>
         </div>
       </section>
 
-      <section className="bp-sec" aria-labelledby="about-approach-title">
-        <div className="bp-shell bp-grid">
-          <div className="bp-sec-head">
-            <h2 id="about-approach-title">Jak pracujemy?</h2>
-            <div className="bp-rows-act">
-              <Link className="bp-row-act" href="/proces">
-                Zobacz pełny proces <Arrow />
-              </Link>
-            </div>
-          </div>
-          <InView className="bp-sec-body bp-cards about-cards bp-stagger" margin={STAGGER_MARGIN} threshold={0}>
-            {ABOUT_APPROACH.map((item, index) => (
-              <article key={item.title} className="bp-card">
-                <span className="bp-mono">{String(index + 1).padStart(2, "0")}</span>
-                <h3>{item.title}</h3>
-                <p>{item.text}</p>
-              </article>
-            ))}
-          </InView>
-        </div>
-      </section>
+      <AboutStatement />
 
       <section className="bp-sec" aria-labelledby="about-tech-title">
         <div className="bp-shell bp-grid">
           <div className="bp-sec-head">
-            <h2 id="about-tech-title">Technologia dopasowana do celu</h2>
-          </div>
-          <InView className="reveal bp-sec-body bp-prose">
+            <h2 id="about-tech-title">Strony na WordPressie, sklepy na WooCommerce, projekty w Next.js</h2>
             <p>
-              Nie przywiązujemy się do jednej technologii. Dobieramy rozwiązanie do potrzeb biznesowych — od WordPressa, przez WooCommerce, po dedykowane projekty w Next.js.
+              Strony firmowe robimy na WordPressie, sklepy na WooCommerce. Panel jest popularny, więc łatwo znaleźć kogoś, kto pomoże przy stronie także bez nas.
             </p>
-            <ul className="bp-tags">
+          </div>
+          <div className="bp-sec-body">
+            <ul className="bp-techs">
               {ABOUT_TECHS.map((tech) => (
-                <li key={tech} className="bp-mono">
-                  {tech}
+                <li key={tech.name}>
+                  <span className="bp-tech-tile">
+                    <Image src={tech.icon} alt="" width={40} height={40} unoptimized />
+                  </span>
+                  <b>{tech.name}</b>
+                  <span>{tech.use}</span>
+                  <span className="bp-tech-sites">
+                    {tech.sites.map((slug) => (
+                      <Link key={slug} href={`/realizacje/${slug}`} className="bp-tech-site">
+                        <span className="bp-tech-site-pane">
+                          <Image src={site(slug).image} alt="" width={1200} height={1057} sizes="(max-width: 640px) 50vw, 200px" />
+                        </span>
+                        <span className="bp-mono">{site(slug).domain}</span>
+                      </Link>
+                    ))}
+                  </span>
                 </li>
               ))}
             </ul>
-          </InView>
-        </div>
-      </section>
-
-      <section className="bp-sec" aria-label="Dla kogo">
-        <div className="bp-shell bp-grid">
-          <div className="bp-sec-head" />
-          <div className="bp-sec-body bp-fit">
-            <InView className="reveal bp-fit-col">
-              <h2>Dla kogo jesteśmy</h2>
-              <ul className="bp-ticks">
-                {ABOUT_FOR.map((item) => (
-                  <li key={item}>
-                    <Check />
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </InView>
-            <InView className="reveal bp-fit-col bp-fit-col--no" lag={1}>
-              <h2>Dla kogo nie jesteśmy</h2>
-              <ul className="bp-ticks">
-                {ABOUT_NOT_FOR.map((item) => (
-                  <li key={item}>
-                    <Dash />
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </InView>
+            <p className="bp-mono bp-meta-line">Nazwy i logotypy produktów należą do ich właścicieli.</p>
           </div>
         </div>
       </section>
 
-      <section className="bp-sec" aria-labelledby="about-local-title">
+      <section className="bp-sec" aria-labelledby="about-for-title">
         <div className="bp-shell bp-grid">
           <div className="bp-sec-head">
-            <h2 id="about-local-title">Pracujemy lokalnie i zdalnie</h2>
+            <h2 id="about-for-title">Dla kogo pracujemy</h2>
+            <p>Jesteśmy ze Szczecina, a klientów mamy też w Warszawie i Poznaniu. Z firmami ze Szczecina spotykamy się na miejscu, z resztą rozmawiamy przez wideo.</p>
           </div>
-          <InView className="reveal bp-sec-body bp-prose">
-            <p>Jesteśmy ze Szczecina, ale realizujemy projekty w całej Polsce. Spotkanie? Online lub na żywo.</p>
-            <p className="bp-mono bp-meta-line">Szczecin · Cała Polska</p>
-          </InView>
+          <div className="bp-sec-body">
+            <ul className="bp-peek">
+              {ABOUT_CLIENTS.map((client) => {
+                const work = site(client.site);
+                return (
+                  <li key={client.site}>
+                    <Link href={`/realizacje/${client.site}`}>
+                      <span className="bp-peek-trade">{client.trade}</span>
+                      <span className="bp-peek-client">
+                        {work.name}
+                        <span className="bp-mono">{work.kind}</span>
+                      </span>
+                      <span className="bp-peek-shot" aria-hidden="true">
+                        <Image src={work.image} alt="" width={1200} height={1057} sizes="280px" />
+                      </span>
+                      <Arrow />
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+            <div className="bp-notfor">
+              <h3>Z kim nie pracujemy</h3>
+              <ul>
+                {ABOUT_NOT_FOR.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </div>
+          </div>
         </div>
       </section>
 

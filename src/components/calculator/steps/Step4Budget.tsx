@@ -20,7 +20,7 @@ export function Step4Budget({ calculator }: { calculator: CalculatorProps }) {
   return (
     <div className="step">
       <h2 className="step-title">Orientacyjny budżet</h2>
-      <p className="step-desc">Pomoże nam dobrać najlepsze rozwiązanie.</p>
+      <p className="step-desc">Dopasujemy zakres do kwoty, którą chcesz wydać.</p>
 
       <div className="step-options step-options--2col">
         {OPTIONS.map((opt) => (

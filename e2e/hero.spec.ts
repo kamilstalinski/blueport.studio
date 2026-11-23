@@ -1,13 +1,16 @@
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
 
-test("home hero carries the offer, the price and the two actions", async ({ page }) => {
+import { HERO_WIRES } from "../src/constants/heroWires";
+import { HERO_WORK } from "../src/constants/work";
+
+test("home hero carries the offer, the timeline and the two actions", async ({ page }) => {
   await page.goto("/");
   const hero = page.locator("section#hero");
 
-  await expect(hero.getByRole("heading", { level: 1 })).toHaveText(/^Strony internetowe dla małych firm, od 2\s500\szł$/);
-  await expect(hero.getByText("Cenę znasz przed startem", { exact: false })).toBeVisible();
-  await expect(hero.getByRole("link", { name: /Sprawdź koszt/ })).toHaveAttribute("href", "/kalkulator");
+  await expect(hero.getByRole("heading", { level: 1 })).toHaveText(/^Strony internetowe .*Szczecina/);
+  await expect(hero.getByText("1–2 tygodnie po akceptacji projektu", { exact: false })).toBeVisible();
+  await expect(hero.getByRole("link", { name: /Wyceń stronę/ })).toHaveAttribute("href", "/kalkulator");
   await expect(hero.getByRole("link", { name: "Umów konsultację" })).toHaveAttribute("href", "/kontakt");
 });
 
@@ -22,7 +25,7 @@ test("the hero builds a page on the grid and reveals a real client site", async 
 
   await expect(url).toHaveText("nowa-strona.pl");
   await expect(pane).toHaveAttribute("data-stage", "3", { timeout: STAGE_3_TIMEOUT_MS });
-  await expect(url).toHaveText("dobreprecle.pl");
+  await expect(url).toHaveText("uniqueideasfoundation.pl");
   await expect(page.locator("section#hero .bp-build-steps li.bp-on")).toHaveCount(4);
 });
 
@@ -33,7 +36,8 @@ test.describe("reduced motion build", () => {
     await page.goto("/");
     /* well under the ~3760ms the animated cycle needs, so "instant" stays distinct from "animated" */
     await expect(page.locator("section#hero .bp-pane")).toHaveAttribute("data-stage", "3", { timeout: 3000 });
-    await expect(page.locator("section#hero .bp-bw.bp-in")).toHaveCount(16);
+    // the first hero site's own wireframe, every box drawn
+    await expect(page.locator("section#hero .bp-bw.bp-in")).toHaveCount(HERO_WIRES[HERO_WORK[0].slug]?.length ?? 0);
   });
 });
 
@@ -44,7 +48,7 @@ test("the mobile menu opens, lists the pages and closes on Escape", async ({ pag
   await button.click();
   const sheet = page.locator("#bp-sheet");
   await expect(sheet).toBeVisible();
-  await expect(sheet.getByRole("link")).toHaveText(["Realizacje", "Cennik", "Proces", "Kontakt"]);
+  await expect(sheet.getByRole("link")).toHaveText(["Cennik", "Realizacje", "Proces", "O nas", "Kontakt", "FAQ"]);
   await page.keyboard.press("Escape");
   await expect(sheet).toBeHidden();
   await expect(page.getByRole("button", { name: "Otwórz menu" })).toBeFocused();

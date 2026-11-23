@@ -7,7 +7,7 @@ import { useState } from "react";
 import { Arrow, Lock } from "@/components/ui/Arrow";
 import { WORK_SITES } from "@/constants/work";
 
-const WALL_SITES = WORK_SITES.slice(3);
+const WALL_SITES = WORK_SITES.slice(0, 3);
 
 /** Three recent sites: the list picks one, the browser window swaps to it with a wipe. */
 export function WorkWall() {
@@ -17,8 +17,8 @@ export function WorkWall() {
     <section className="bp-sec bp-works" id="realizacje" aria-labelledby="works-h">
       <div className="bp-shell bp-grid">
         <div className="bp-sec-head">
-          <h2 id="works-h">Trzy ostatnie realizacje</h2>
-          <p>Fizjoterapeutka, szkółka drzew i zespół dark wave.</p>
+          <h2 id="works-h">Ostatnie realizacje stron internetowych</h2>
+          <p>Fundacja, hurtownia uzdatniania wody i sieć punktów z preclami.</p>
         </div>
         <div className="bp-work-list" role="group" aria-label="Wybierz realizację">
           {WALL_SITES.map((site) => (

@@ -1,14 +1,16 @@
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
 
-const DOMAINS = ["dobreprecle.pl", "spavalnia.pl", "vilmart.pl", "dowytrenowania.pl", "abcmosty.pl", "afterthesin.com"];
+const DOMAINS = ["uniqueideasfoundation.pl", "polaquagroup.eu", "dobreprecle.pl", "spavalnia.pl", "vilmart.pl", "dowytrenowania.pl", "abcmosty.pl", "afterthesin.com"];
+/* Polaqua serves plain http until it moves to polaquagroup.com */
+const HREFS: Record<string, string> = { "polaquagroup.eu": "http://polaquagroup.eu" };
 
-test("the client domains link out to the six live sites", async ({ page }) => {
+test("the client domains link out to the eight live sites", async ({ page }) => {
   await page.goto("/");
   const links = page.locator(".bp-domains a");
   await expect(links).toHaveText(DOMAINS);
   for (const [index, domain] of DOMAINS.entries()) {
-    await expect(links.nth(index)).toHaveAttribute("href", `https://${domain}`);
+    await expect(links.nth(index)).toHaveAttribute("href", HREFS[domain] ?? `https://${domain}`);
     await expect(links.nth(index)).toHaveAttribute("rel", "noopener noreferrer");
   }
 });
@@ -18,24 +20,24 @@ const section = (page: import("@playwright/test").Page, heading: string) =>
 
 test("the work list swaps the browser window to the chosen site", async ({ page }) => {
   await page.goto("/");
-  const works = section(page, "Trzy ostatnie realizacje");
+  const works = section(page, "Ostatnie realizacje stron internetowych");
   await works.scrollIntoViewIfNeeded();
 
   const items = works.locator(".bp-work-item");
-  await expect(items.locator("h3")).toHaveText(["Dowytrenowania", "ABC Mosty", "After the Sin"]);
+  await expect(items.locator("h3")).toHaveText(["Unique Ideas Foundation", "Polaqua Group", "Dobre Precle"]);
   await expect(items.first()).toHaveAttribute("aria-pressed", "true");
-  await expect(works.locator("#work-dowytrenowania")).toBeVisible();
+  await expect(works.locator("#work-uniqueideas")).toBeVisible();
 
   await items.nth(1).click();
   await expect(items.nth(1)).toHaveAttribute("aria-pressed", "true");
-  await expect(works.locator("#work-abcmosty")).toHaveAttribute("href", "/realizacje/abcmosty");
-  await expect(works.locator("#work-dowytrenowania")).toHaveAttribute("inert", "");
+  await expect(works.locator("#work-polaqua")).toHaveAttribute("href", "/realizacje/polaqua");
+  await expect(works.locator("#work-uniqueideas")).toHaveAttribute("inert", "");
   await expect(works.getByRole("link", { name: "Wszystkie realizacje" })).toHaveAttribute("href", "/realizacje");
 });
 
 test("the plan section argues with a traced page plan", async ({ page }) => {
   await page.goto("/");
-  const plan = section(page, "Większość stron dla małych firm powstaje bez planu. Potem nie sprzedaje.");
+  const plan = section(page, "Planujemy stronę, zanim ją zaprojektujemy");
   await plan.scrollIntoViewIfNeeded();
 
   await expect(plan.locator(".bp-fixes s")).toHaveText(["Nie widać Cię w Google", "Strona ładuje się wieki", "Nikt się nie kontaktuje"]);
@@ -65,7 +67,7 @@ test("pricing shows three packages from the price list and the dedicated project
 
 test("the process lists five steps with their days", async ({ page }) => {
   await page.goto("/");
-  const process = section(page, "Od zapytania do startu");
+  const process = section(page, "Od zapytania do publikacji w pięciu krokach");
   await expect(process.locator(".bp-steps h3")).toHaveText([
     "Wypełniasz kalkulator",
     "Doprecyzowujemy",
@@ -87,20 +89,21 @@ test("testimonials quote three named clients over the three facts", async ({ pag
 test("the close repeats the calculator and consultation links", async ({ page }) => {
   await page.goto("/");
   const close = page.locator("section.bp-close");
-  await expect(close.getByRole("heading", { level: 2 })).toHaveText("Sprawdź, ile kosztuje Twoja strona.");
-  await expect(close.getByRole("link", { name: "Sprawdź koszt" })).toHaveAttribute("href", "/kalkulator");
+  await expect(close.getByRole("heading", { level: 2 })).toHaveText("Policz zakres swojej strony w 60 sekund.");
+  await expect(close.getByRole("link", { name: "Wyceń stronę" })).toHaveAttribute("href", "/kalkulator");
   await expect(close.getByRole("link", { name: "Umów konsultację" })).toHaveAttribute("href", "/kontakt");
 });
 
 test("the home page follows the section order and nothing else", async ({ page }) => {
   await page.goto("/");
   await expect(page.locator("main h2")).toHaveText([
-    "Trzy ostatnie realizacje",
-    "Większość stron dla małych firm powstaje bez planu. Potem nie sprzedaje.",
+    "Ostatnie realizacje stron internetowych",
+    "Planujemy stronę, zanim ją zaprojektujemy",
     "Trzy pakiety. Cena znana przed startem.",
-    "Od zapytania do startu",
+    "Od zapytania do publikacji w pięciu krokach",
     "Opinie klientów",
-    "Sprawdź, ile kosztuje Twoja strona.",
+    "Najczęstsze pytania o stronę dla firmy",
+    "Policz zakres swojej strony w 60 sekund.",
   ]);
 });
 

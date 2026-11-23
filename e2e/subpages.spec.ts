@@ -69,21 +69,21 @@ test("the subpage stylesheets are loaded", async ({ page }) => {
   expect(sheets).toContain(".bp-sub");
 });
 
-test("realizacje shows all six sites as scrolling frames and ends with the CTA band", async ({ page }) => {
+test("realizacje shows all eight sites as scrolling frames and ends with the CTA band", async ({ page }) => {
   await page.goto("/realizacje");
 
-  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Dziesięć wdrożeń. Sześć, które możemy pokazać.");
-  await expect(page.locator(".page-head .lede")).toHaveText("Najedź kursorem na dowolną, żeby przewinąć ją w całości. Bez wchodzenia na stronę klienta.");
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Realizacje stron internetowych dla małych firm");
+  await expect(page.locator(".page-head .lede")).toHaveText("Osiem stron i sklepów, które możemy pokazać. Najedź kursorem na dowolną, żeby przewinąć ją w całości bez wchodzenia na stronę klienta.");
 
   const frames = page.locator("main a.bp-frame");
-  await expect(frames).toHaveCount(6);
-  await expect(frames.nth(0)).toHaveAttribute("href", "/realizacje/dobreprecle");
-  await expect(frames.nth(5)).toHaveAttribute("href", "/realizacje/afterthesin");
-  // Unlike the home teaser, /realizacje shows all six sites at every viewport (desktop and mobile projects both).
-  for (let i = 0; i < 6; i++) {
+  await expect(frames).toHaveCount(8);
+  await expect(frames.nth(0)).toHaveAttribute("href", "/realizacje/uniqueideas");
+  await expect(frames.nth(7)).toHaveAttribute("href", "/realizacje/afterthesin");
+  // Unlike the home teaser, /realizacje shows all eight sites at every viewport (desktop and mobile projects both).
+  for (let i = 0; i < 8; i++) {
     await expect(frames.nth(i)).toBeVisible();
   }
-  await expect(page.locator("main .bp-wall")).toHaveCount(2);
+  await expect(page.locator("main .bp-wall")).toHaveCount(1);
   await expect(page.locator("main section.bp-close")).toHaveCount(1);
   await expect(page.getByText("Efekty")).toHaveCount(0);
 
@@ -95,7 +95,7 @@ test("a case study opens with the spec header and screenshot, then the full stor
 
   await expect(page.getByRole("link", { name: "Wszystkie realizacje" })).toHaveAttribute("href", "/realizacje");
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("Vilmart Water Service");
-  await expect(page.locator(".page-head .lede")).toHaveText("Strona WordPress dla specjalisty od uzdatniania wody. Formularz doboru urządzenia jako główne narzędzie leadowe.");
+  await expect(page.locator(".page-head .lede")).toHaveText("Strona internetowa szczecińskiej firmy od uzdatniania wody. Zamiast zwykłego formularza kontaktu klient wypełnia formularz doboru urządzenia.");
   await expect(page.locator(".page-head .meta")).toHaveText("vilmart.pl");
   await expect(page.locator(".cs-shot img")).toHaveAttribute("alt", "Strona Vilmart Water Service");
 
@@ -113,7 +113,7 @@ test("a case study opens with the spec header and screenshot, then the full stor
 
 test("case study metadata uses the study title", async ({ page }) => {
   await page.goto("/realizacje/abcmosty");
-  await expect(page).toHaveTitle(/ABC Mosty — Realizacja Blueport Studio/);
+  await expect(page).toHaveTitle("ABC Mosty: strona szkółki drzew | Blueport Studio");
 });
 
 test("an unknown case study is a 404", async ({ page }) => {
@@ -141,37 +141,75 @@ test("cennik shows the tiers, the comparison table from the price list and the C
   await expectNoAxeViolations(page);
 });
 
+test("cennik picker adds up a scope and hands it to the calculator", async ({ page }) => {
+  await page.goto("/cennik");
+
+  const total = page.locator(".bp-pick-total");
+  await expect(total).toHaveText(/3\s900\szł/);
+  await page.getByRole("button", { name: /Lepsza widoczność w Google/ }).click();
+  await page.getByRole("button", { name: /Profesjonalne teksty/ }).click();
+  await expect(page.getByRole("button", { name: /Profesjonalne teksty/ })).toHaveAttribute("aria-pressed", "true");
+  await expect(total).toHaveText(/5\s400\szł/);
+  await page.getByRole("button", { name: /Ekspresowo/ }).click();
+  await expect(total).toHaveText(/7\s000\szł/);
+
+  // a shop-only add-on is offered only once the shop package is picked
+  await expect(page.getByRole("button", { name: /Porzucone koszyki/ })).toHaveCount(0);
+  await page.getByRole("button", { name: /^Sklep/ }).click();
+  await expect(page.getByRole("button", { name: /Porzucone koszyki/ })).toBeVisible();
+
+  await page.getByRole("link", { name: "Dokończ wycenę" }).click();
+  await expect(page).toHaveURL(/\/kalkulator\?pakiet=sklep-online&dodatki=seo-advanced,copywriting$/);
+  await expect(page.locator(".calc-summary")).toContainText(/6\s400\szł|6400 zł/);
+});
+
 test("faq is a keyboard-friendly accordion with JSON-LD", async ({ page }) => {
   await page.goto("/faq");
 
-  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Najczęściej zadawane pytania");
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Pytania o stronę internetową dla firmy");
   const rows = page.locator("details.faq-row");
-  await expect(rows).toHaveCount(6);
-  await expect(rows.first().locator("summary")).toHaveText("Ile kosztuje strona internetowa?");
+  await expect(rows).toHaveCount(7);
+  await expect(rows.first().locator("summary")).toHaveText("Ile trwa stworzenie strony internetowej?");
+  await expect(page.locator("summary", { hasText: /kosztuje/ })).toHaveCount(0);
   await expect(rows.first()).not.toHaveAttribute("open", "");
 
   await rows.first().locator("summary").focus();
   await page.keyboard.press("Enter");
   await expect(rows.first()).toHaveAttribute("open", "");
-  await expect(rows.first().getByText("Proste strony firmowe zaczynają się od 2 500 zł.", { exact: false })).toBeVisible();
+  await expect(rows.first().getByText(/^Od 7 dni roboczych/)).toBeVisible();
 
   const jsonLd = await page.locator('script[type="application/ld+json"]').allTextContents();
-  expect(jsonLd.some((text) => text.includes('"FAQPage"'))).toBe(true);
+  const faqLd = jsonLd.map((text) => JSON.parse(text)).find((item) => item["@type"] === "FAQPage");
+  expect(faqLd.mainEntity).toHaveLength(7);
   await expect(page.locator("main section.bp-close")).toHaveCount(1);
 
   await expectNoAxeViolations(page);
 });
 
-test("proces expands the five home steps", async ({ page }) => {
+test("proces walks four chapters beside one frame that shows each one", async ({ page, isMobile }) => {
   await page.goto("/proces");
 
-  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Proces współpracy");
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Jak powstaje strona internetowa");
   const steps = page.locator("ol.process-detail > li");
-  await expect(steps).toHaveCount(5);
-  await expect(steps.nth(0).getByRole("heading", { level: 2 })).toHaveText("Wypełniasz kalkulator");
-  await expect(steps.nth(0)).toContainText("Dzień 0");
-  await expect(steps.nth(0).locator("li")).toHaveText(["wybierasz typ strony", "określasz funkcje", "otrzymujesz szacunkowy koszt"]);
-  await expect(page.getByText("Całość zwykle trwa 1–2 tygodnie.")).toBeVisible();
+  await expect(steps.getByRole("heading", { level: 3 })).toHaveText(["Wypełniasz kalkulator", "Ustalamy zakres i datę publikacji", "Projektujemy i budujemy stronę", "Testujemy i publikujemy"]);
+  await expect(page.getByText("Od akceptacji projektu do publikacji mija zwykle 1–2 tygodnie.")).toBeVisible();
+  // the first sentence (what snippets quote) gives the total time, not only the span after design approval
+  await expect(page.locator(".bp-pc-lead")).toHaveText(/^Od 7 dni roboczych/);
+
+  // live from 1024px only: on a phone every chapter stands with its own visual
+  if (isMobile) {
+    await expect(steps.locator(".bp-pc-visual")).toHaveCount(4);
+    await expect(steps.nth(0).locator(".bp-pc-visual img")).toBeVisible();
+    await expectNoAxeViolations(page);
+    return;
+  }
+  // live at 1440x900: the first chapter is open and its visual is the one shown; scrolling through the section moves both on
+  const section = page.locator("section.bp-pc");
+  await expect(steps.nth(0)).toHaveAttribute("data-on", "");
+  await expect(section.locator(".bp-pc-slide[data-on] img")).toHaveAttribute("src", /kalkulator/);
+  await section.evaluate((el) => scrollTo(0, el.getBoundingClientRect().top + scrollY + ((el as HTMLElement).offsetHeight - innerHeight) * 0.9));
+  await expect(steps.nth(3)).toHaveAttribute("data-on", "");
+  await expect(section.locator(".bp-pc-slide[data-on] .bp-pc-phone")).toBeVisible();
   await expect(page.locator("main section.bp-close")).toHaveCount(1);
 
   await expectNoAxeViolations(page);
@@ -195,11 +233,11 @@ test.describe("kontakt form", () => {
   test("shows the spec layout and direct contact details", async ({ page }) => {
     await page.goto("/kontakt");
 
-    await expect(page.getByRole("heading", { level: 1 })).toHaveText("Napisz, co chcesz zbudować.");
+    await expect(page.getByRole("heading", { level: 1 })).toHaveText("Napisz, jakiej strony internetowej potrzebujesz.");
     await expect(page.getByLabel("Czego potrzebujesz?").locator("option")).toHaveText(["Strona firmowa", "Sklep internetowy", "Projekt dedykowany", "Jeszcze nie wiem"]);
     await expect(page.locator("main").getByRole("link", { name: "kontakt@blueport.studio" })).toHaveAttribute("href", "mailto:kontakt@blueport.studio");
     await expect(page.locator("main").getByRole("link", { name: "+48 534 287 233" })).toHaveAttribute("href", "tel:+48534287233");
-    await expect(page.locator(".contact-aside").getByRole("link", { name: "Sprawdź koszt" })).toHaveAttribute("href", "/kalkulator");
+    await expect(page.locator(".contact-aside").getByRole("link", { name: "Wyceń stronę" })).toHaveAttribute("href", "/kalkulator");
     await expect(page.locator("main section.bp-close")).toHaveCount(0);
 
     await expectNoAxeViolations(page);
@@ -275,15 +313,17 @@ test.describe("kontakt form", () => {
   });
 });
 
-test("o nas keeps the story, approach, technologies and audience", async ({ page }) => {
+test("o nas tells the story, the way we work, the tools and the clients", async ({ page }) => {
   await page.goto("/o-nas");
 
-  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Tworzymy strony, które sprzedają. Bez chaosu.");
-  for (const heading of ["Po co powstał Blueport?", "Jak pracujemy?", "Technologia dopasowana do celu", "Dla kogo jesteśmy", "Dla kogo nie jesteśmy", "Pracujemy lokalnie i zdalnie"]) {
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText(/^Studio webowe ze Szczecina/);
+  for (const heading of ["Od czego zaczynamy projekt strony", "Jak pracujemy", "Strony na WordPressie, sklepy na WooCommerce, projekty w Next.js", "Dla kogo pracujemy"]) {
     await expect(page.getByRole("heading", { name: heading })).toBeVisible();
   }
-  await expect(page.locator(".about-cards article")).toHaveCount(3);
-  await expect(page.getByRole("link", { name: "Zobacz pełny proces" })).toHaveAttribute("href", "/proces");
+  await expect(page.locator(".bp-wh-text")).toContainText("Kamilem albo Rafałem");
+  await expect(page.getByRole("link", { name: "Zobacz cały proces" })).toHaveAttribute("href", "/proces");
+  await expect(page.locator(".bp-peek a")).toHaveCount(7);
+  await expect(page.locator(".bp-peek a").first()).toHaveAttribute("href", "/realizacje/dowytrenowania");
   await expect(page.locator("main section.bp-close")).toHaveCount(1);
 
   await expectNoAxeViolations(page);
@@ -335,7 +375,7 @@ test.describe("calculator", () => {
     await page.getByLabel("Email *").fill("jan@firma.pl");
     await page.getByRole("button", { name: "Wyślij zapytanie" }).click();
 
-    await expect(page.getByRole("heading", { name: "Zapytanie wysłane!" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Zapytanie wysłane" })).toBeVisible();
     await expect(page.getByRole("button", { name: "Wysłano" })).toBeDisabled();
     expect(lead).toMatchObject({ name: "Jan Kowalski", email: "jan@firma.pl", packageId: "strona-start" });
 
@@ -424,4 +464,27 @@ test("every subpage has exactly one h1", async ({ page }) => {
     await page.goto(route);
     await expect(page.locator("h1"), route).toHaveCount(1);
   }
+});
+
+test.describe("SEO meta", () => {
+  const ROUTES = ["/", "/o-nas", "/realizacje", "/realizacje/vilmart", "/proces", "/faq", "/kontakt"];
+
+  test("every content page has a short unique title, a 140-160 char description, one h1 and no price wording", async ({ page }) => {
+    const titles: string[] = [];
+    for (const route of ROUTES) {
+      await page.goto(route);
+      const title = await page.title();
+      const description = (await page.locator('meta[name="description"]').getAttribute("content")) ?? "";
+      expect(title.length, `${route} title "${title}"`).toBeLessThanOrEqual(60);
+      expect(title.match(/Blueport Studio/g) ?? [], `${route} brand once in "${title}"`).toHaveLength(1);
+      expect(description.length, `${route} description "${description}"`).toBeGreaterThanOrEqual(140);
+      expect(description.length, `${route} description "${description}"`).toBeLessThanOrEqual(160);
+      expect(`${title} ${description}`, route).not.toMatch(/zł|cennik|koszt/i);
+      // the description closes on a call to action (spec goal: it earns the click)
+      expect(description, `${route} CTA`).toMatch(/(?:^|\.\s)(Sprawdź|Zobacz|Napisz|Poznaj|Umów|Wyceń)[^.]*\.$/);
+      await expect(page.locator("h1"), route).toHaveCount(1);
+      titles.push(title);
+    }
+    expect(new Set(titles).size).toBe(titles.length);
+  });
 });

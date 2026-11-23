@@ -19,7 +19,7 @@ export function Step5Contact({ calculator }: { calculator: CalculatorProps }) {
         <div className="success-icon" aria-hidden="true">
           <Check />
         </div>
-        <h2 className="step-title">Zapytanie wysłane!</h2>
+        <h2 className="step-title">Zapytanie wysłane</h2>
         <p className="step-desc">
           Odpiszemy na <strong>{state.contact.email}</strong> w ciągu 24h.
         </p>

@@ -3,14 +3,34 @@ import { expect, test } from "@playwright/test";
 test.describe("navbar on desktop", () => {
   test.skip(({ isMobile }) => isMobile, "desktop layout only");
 
-  test("shows four links, the CTA and marks the current section", async ({ page }) => {
+  test("shows five words, the CTA and marks the current section", async ({ page }) => {
     await page.goto("/realizacje");
     const nav = page.getByRole("navigation", { name: "Główna nawigacja" });
 
-    await expect(nav.getByRole("link")).toHaveText(["Realizacje", "Cennik", "Proces", "Kontakt"]);
+    await expect(nav.getByRole("link")).toHaveText(["Cennik", "Realizacje", "Proces", "O nas", "Kontakt"]);
     await expect(nav.getByRole("link", { name: "Realizacje" })).toHaveAttribute("aria-current", "page");
     await expect(page.getByRole("banner").getByRole("link", { name: "Sprawdź koszt" })).toHaveAttribute("href", "/kalkulator");
     await expect(page.getByRole("banner").getByRole("link", { name: "blueport.studio, strona główna" })).toHaveAttribute("href", "/");
+  });
+
+  test("Cennik opens the price panel on hover and on focus, and Escape closes it", async ({ page }) => {
+    await page.goto("/o-nas");
+    const nav = page.getByRole("navigation", { name: "Główna nawigacja" });
+    const pro = nav.getByRole("link", { name: /^Pro od 3\s900\szł/ });
+    await expect(pro).toBeHidden();
+
+    await nav.getByRole("link", { name: "Cennik" }).hover();
+    await expect(pro).toBeVisible();
+    await expect(pro).toHaveAttribute("href", "/kalkulator?pakiet=strona-pro");
+    await nav.getByRole("link", { name: "Kontakt" }).hover();
+    await expect(pro).toBeHidden();
+
+    await nav.getByRole("link", { name: "Cennik" }).focus();
+    await expect(pro).toBeVisible();
+    await page.keyboard.press("Tab");
+    await expect(nav.getByRole("link", { name: /^Start od 2\s500\szł/ })).toBeFocused();
+    await page.keyboard.press("Escape");
+    await expect(pro).toBeHidden();
   });
 
   test("stays pinned to the top while scrolling", async ({ page }) => {

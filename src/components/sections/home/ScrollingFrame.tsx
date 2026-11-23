@@ -10,12 +10,13 @@ import { framePan } from "@/lib/framePan";
 interface ScrollingFrameProps {
   href: string;
   domain: string;
+  kind?: string;
   name: string;
   page: { src: string; width: number; height: number };
 }
 
 /** A client's full page in a browser window; hovering scrolls it top to bottom. */
-export function ScrollingFrame({ href, domain, name, page }: ScrollingFrameProps) {
+export function ScrollingFrame({ href, domain, kind, name, page }: ScrollingFrameProps) {
   const frameRef = useRef<HTMLAnchorElement>(null);
   const paneRef = useRef<HTMLDivElement>(null);
 
@@ -43,6 +44,7 @@ export function ScrollingFrame({ href, domain, name, page }: ScrollingFrameProps
       <div className="bp-win-bar">
         <Lock />
         <span className="bp-url bp-mono">{domain}</span>
+        {kind && <span className="bp-win-kind bp-mono">{kind}</span>}
       </div>
       <div ref={paneRef} className="bp-frame-pane">
         <Image

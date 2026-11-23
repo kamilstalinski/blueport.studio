@@ -19,7 +19,7 @@ describe("sitemap", () => {
   });
 
   it("has one entry per case study", () => {
-    expect(WORK_SITES).toHaveLength(6);
+    expect(WORK_SITES).toHaveLength(8);
   });
 });
 

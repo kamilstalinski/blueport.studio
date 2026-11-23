@@ -5,8 +5,8 @@ export function ProcessSection() {
     <section className="bp-sec" id="proces" aria-labelledby="proces-h">
       <div className="bp-shell bp-grid">
         <div className="bp-sec-head">
-          <h2 id="proces-h">Od zapytania do startu</h2>
-          <p>Pięć kroków. Cenę i termin ustalamy, zanim cokolwiek zaczniemy.</p>
+          <h2 id="proces-h">Od zapytania do publikacji w pięciu krokach</h2>
+          <p>Zakres i datę publikacji ustalamy, zanim zaczniemy projektować.</p>
         </div>
         <ol className="bp-sec-body bp-steps">
           {PROCESS_STEPS.map((step) => (

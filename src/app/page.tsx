@@ -1,3 +1,4 @@
+import { FaqTeaser } from "@/components/pages/FaqTeaser";
 import { HeroHome } from "@/components/sections/HeroHome";
 import { PageGrainient } from "@/components/sections/PageGrainient";
 import { CtaBand } from "@/components/sections/home/CtaBand";
@@ -28,6 +29,7 @@ export default function HomePage() {
       <HomePricing />
       <ProcessSection />
       <QuotesSection />
+      <FaqTeaser id="home-faq-h" title="Najczęstsze pytania o stronę dla firmy" keys={["time", "contract", "revisions", "hosting"]} />
       <CtaBand />
     </div>
   );

@@ -1,18 +1,18 @@
 import { existsSync } from "node:fs";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
-import { ABOUT_APPROACH, ABOUT_FOR, ABOUT_NOT_FOR, ABOUT_STORY, ABOUT_TECHS } from "@/constants/about";
+import { ABOUT_CLIENTS, ABOUT_NOT_FOR, ABOUT_STORY, ABOUT_TECHS } from "@/constants/about";
 import { CASE_STUDIES, isWorkSlug } from "@/constants/caseStudies";
 import { HOME_TIERS, PACKAGES, PRICE_TABLE_HEADS, PRICE_TABLE_ROWS } from "@/constants/pricing";
-import { PROCESS_DETAILS, PROCESS_STEPS, TALLY } from "@/constants/process";
+import { PROCESS_CHAPTERS, PROCESS_STEPS, TALLY } from "@/constants/process";
 import { TESTIMONIALS } from "@/constants/testimonials";
 import { HERO_WORK, WORK_SITES } from "@/constants/work";
 
 const inPublic = (src: string): boolean => existsSync(join(process.cwd(), "public", src));
 
 describe("WORK_SITES", () => {
-  it("lists the six client sites in the spec order and feeds the hero the first five", () => {
-    expect(WORK_SITES.map((site) => site.slug)).toEqual(["dobreprecle", "spavalnia", "vilmart", "dowytrenowania", "abcmosty", "afterthesin"]);
+  it("lists the eight client sites newest first and feeds the hero the first five", () => {
+    expect(WORK_SITES.map((site) => site.slug)).toEqual(["uniqueideas", "polaqua", "dobreprecle", "spavalnia", "vilmart", "dowytrenowania", "abcmosty", "afterthesin"]);
     expect(HERO_WORK.map((site) => site.slug)).toEqual(WORK_SITES.slice(0, 5).map((site) => site.slug));
   });
 
@@ -25,15 +25,22 @@ describe("WORK_SITES", () => {
     }
   });
 
-  it("carries the spec's one-sentence description for every site", () => {
-    expect(WORK_SITES.map((site) => site.desc)).toEqual([
-      "Strona Next.js dla sieci punktów z tradycyjnymi preclami. Menu, lokalizacje, integracja z social media.",
-      "Sklep internetowy dla marki streetwearowej. Ciemny design oddający klimat marki, sprawna ścieżka zakupowa, integracja z WooCommerce.",
-      "Strona WordPress dla specjalisty od uzdatniania wody. Formularz doboru urządzenia jako główne narzędzie leadowe.",
-      "Strona WordPress + WooCommerce dla magistra fizjoterapii i trenerki medycznej. Sklep z poradnikami i kursami, SEO lokalne.",
-      "Wizytówka WordPress dla rodzinnej szkółki drzew i krzewów ozdobnych. Nowa obecność online, wzrost zapytań B2B.",
-      "Strona WordPress dla poznańskiego zespołu dark wave. Klimatyczny design, kalendarz koncertów, integracja z teledyskami.",
-    ]);
+  it("carries a one- or two-sentence description for every site", () => {
+    for (const site of WORK_SITES) {
+      expect(site.desc.length).toBeGreaterThan(0);
+      expect(site.desc.split(/(?<=\.)\s/).length).toBeLessThanOrEqual(2);
+      expect(site.desc).not.toMatch(/zł/);
+    }
+  });
+});
+
+describe("CASE_STUDIES seo", () => {
+  it("gives every study a title that fits 60 chars with the layout suffix and a 140-160 char description", () => {
+    for (const study of Object.values(CASE_STUDIES)) {
+      expect(study.seo.title.length, study.seo.title).toBeLessThanOrEqual(42);
+      expect(study.seo.description.length, study.seo.description).toBeGreaterThanOrEqual(140);
+      expect(study.seo.description.length, study.seo.description).toBeLessThanOrEqual(160);
+    }
   });
 });
 
@@ -57,11 +64,10 @@ describe("PROCESS_STEPS and TALLY", () => {
   });
 });
 
-describe("PROCESS_DETAILS", () => {
-  it("adds three legacy bullets to each of the five steps", () => {
-    expect(PROCESS_DETAILS).toHaveLength(PROCESS_STEPS.length);
-    expect(PROCESS_DETAILS[0]).toEqual(["wybierasz typ strony", "określasz funkcje", "otrzymujesz szacunkowy koszt"]);
-    expect(PROCESS_DETAILS[4]).toEqual(["konfiguracja serwera", "podpięcie domeny", "szkolenie z obsługi"]);
+describe("PROCESS_CHAPTERS", () => {
+  it("tells the process in four chapters, one visual each, from the calculator to launch", () => {
+    expect(PROCESS_CHAPTERS.map((chapter) => chapter.when)).toEqual(["Dzień 0", "Dzień 1", "Dni 2–10", "Start"]);
+    expect(new Set(PROCESS_CHAPTERS.map((chapter) => chapter.visual)).size).toBe(4);
   });
 });
 
@@ -105,11 +111,15 @@ describe("CASE_STUDIES", () => {
 });
 
 describe("ABOUT copy", () => {
-  it("keeps the legacy O nas content", () => {
+  it("ties every tool and every trade to a real client site", () => {
     expect(ABOUT_STORY).toHaveLength(3);
-    expect(ABOUT_APPROACH.map((item) => item.title)).toEqual(["Konkret zamiast chaosu", "Jasna wycena", "Małe studio = pełna odpowiedzialność"]);
-    expect(ABOUT_TECHS).toEqual(["WordPress", "WooCommerce", "Next.js"]);
-    expect(ABOUT_FOR).toHaveLength(4);
-    expect(ABOUT_NOT_FOR).toHaveLength(3);
+    expect(ABOUT_TECHS.map((tech) => tech.name)).toEqual(["WordPress", "WooCommerce", "Next.js"]);
+    const slugs: readonly string[] = WORK_SITES.map((site) => site.slug);
+    for (const tech of ABOUT_TECHS) {
+      expect(inPublic(tech.icon)).toBe(true);
+      for (const slug of tech.sites) expect(slugs).toContain(slug);
+    }
+    for (const client of ABOUT_CLIENTS) expect(slugs).toContain(client.site);
+    expect(ABOUT_NOT_FOR).toHaveLength(2);
   });
 });
