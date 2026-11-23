@@ -12,7 +12,7 @@ Audience and job: small-business owners comparing studios; they need price, time
 Action: Umów rozmowę (/kontakt); second: Zobacz ofertę (/oferta).
 Proof on hand: six real client sites (public/work), three named testimonials, 10+ deployments, 24 h reply.
 Constraints: keep every existing section and its copy intent (hero, client domains, three recent works, plan statement, three problems, pricing, process, testimonials, closing CTA, footer). Polish. Brand kit in design/logo/kit. Binding reference: payloadcms.com.
-Prototype: design/site-v2/index.html (static, before the Next.js port).
+Prototype: design/site-v2/index.html (static, before the Next.js port; removed from the tree, still in git history).
 
 ## Direction contract
 

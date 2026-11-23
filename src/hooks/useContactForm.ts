@@ -8,7 +8,7 @@ const INITIAL_STATE: ContactFormState = {
   error: null,
 };
 
-export type UseContactFormReturn = {
+type UseContactFormReturn = {
   formState: ContactFormState;
   handleSubmit: (data: ContactFormData) => Promise<void>;
   resetForm: () => void;

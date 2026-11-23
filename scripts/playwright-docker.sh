@@ -16,8 +16,6 @@ docker run --rm --ipc=host --platform linux/amd64 \
   -v blueport-pw-node-modules-amd64:/work/node_modules \
   -v blueport-pw-next-amd64:/work/.next \
   -e CI=1 -e PW_SERVER=prod -e PW_PORT=3100 \
-  -e NEXT_PUBLIC_SUPABASE_URL=http://localhost:54321 \
-  -e SUPABASE_SERVICE_ROLE_KEY=ci-dummy \
   -e RESEND_API_KEY=re_ci_dummy \
   -e "RESEND_FROM=Blueport <ci@example.com>" \
   -e NOTIFICATION_EMAIL=ci@example.com \

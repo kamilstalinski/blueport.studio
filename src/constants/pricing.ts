@@ -350,8 +350,6 @@ export const HOME_TIERS = [
   features: readonly string[];
 }[];
 
-export type HomeTier = (typeof HOME_TIERS)[number];
-
 /** Cennik comparison table. Price and delivery rows are built from PACKAGES; these are the rows after them (spec). */
 export const PRICE_TABLE_HEADS = [
   { packageId: "strona-start", label: "Start" },
@@ -372,7 +370,7 @@ export const PRICE_TABLE_ROWS = [
 const MIN_PRICE = 2500;
 const MAX_PRICE = 28000;
 
-export interface CalculatePriceResult {
+interface CalculatePriceResult {
   base: number;
   featuresTotal: number;
   total: number;

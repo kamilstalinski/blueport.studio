@@ -1,12 +1,10 @@
-import type { TileDigit } from "@/lib/pixel/glyphs";
-
 export const PROCESS_STEPS = [
-  { digit: "1", when: "Dzień 0", title: "Piszesz albo dzwonisz", text: "Odpowiadamy w 24 godziny w dni robocze. Rozmowa trwa około 30 minut." },
-  { digit: "2", when: "Dzień 1", title: "Doprecyzowujemy", text: "Krótka rozmowa. Ustalamy zakres i termin publikacji, zanim zaczniemy projektować." },
-  { digit: "3", when: "Dzień 2-10", title: "Projekt i wdrożenie", text: "Projekt wizualny, a po Twojej akceptacji implementacja i optymalizacja szybkości." },
-  { digit: "4", when: "Przed startem", title: "Testy i poprawki", text: "Sprawdzamy na telefonach i tabletach, nanosimy poprawki, akceptujesz finalną wersję." },
-  { digit: "5", when: "Start", title: "Publikacja i szkolenie", text: "Konfiguracja serwera, podpięcie domeny i szkolenie z obsługi. Strona jest Twoja." },
-] as const satisfies readonly { digit: TileDigit; when: string; title: string; text: string }[];
+  { when: "Dzień 0", title: "Piszesz albo dzwonisz", text: "Odpowiadamy w 24 godziny w dni robocze. Rozmowa trwa około 30 minut." },
+  { when: "Dzień 1", title: "Doprecyzowujemy", text: "Krótka rozmowa. Ustalamy zakres i termin publikacji, zanim zaczniemy projektować." },
+  { when: "Dzień 2-10", title: "Projekt i wdrożenie", text: "Projekt wizualny, a po Twojej akceptacji implementacja i optymalizacja szybkości." },
+  { when: "Przed startem", title: "Testy i poprawki", text: "Sprawdzamy na telefonach i tabletach, nanosimy poprawki, akceptujesz finalną wersję." },
+  { when: "Start", title: "Publikacja i szkolenie", text: "Konfiguracja serwera, podpięcie domeny i szkolenie z obsługi. Strona jest Twoja." },
+] as const satisfies readonly { when: string; title: string; text: string }[];
 
 /** /proces: the five home steps told as four chapters (testing and launch share one), each with the thing it produces. */
 export const PROCESS_CHAPTERS = [

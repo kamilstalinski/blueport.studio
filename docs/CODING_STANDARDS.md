@@ -7,7 +7,7 @@
 
 ## Kontekst projektu
 
-Next.js 14+ App Router, TypeScript strict, Tailwind CSS, Framer Motion. Stack zorientowany na wydajność i SEO. Każdy komponent, hook i util musi być prosty, przewidywalny i dający się przeczytać bez komentarzy.
+Next.js 16 App Router, TypeScript strict, Tailwind CSS, Framer Motion. Stack zorientowany na wydajność i SEO. Każdy komponent, hook i util musi być prosty, przewidywalny i dający się przeczytać bez komentarzy.
 
 ---
 
@@ -24,12 +24,12 @@ Next.js 14+ App Router, TypeScript strict, Tailwind CSS, Framer Motion. Stack zo
 
 ```ts
 // ✅ Zawsze explicit return type w hookach i funkcjach eksportowanych
-export function useCalculator(): UseCalculatorReturn { ... }
+export function useContactForm(): UseContactFormReturn { ... }
 
 // ✅ Typy w osobnym pliku (src/types/), re-eksportowane przez barrel
-export type { CalculatorState, PriceSummary } from "@/types/calculator.types";
+export type { ContactFormData } from "@/types/contact.types";
 
-// ❌ Unikaj `any` i `as` casty — użyj type guard lub Zod
+// ❌ Unikaj `any` i `as` casty — użyj type guard
 const data = response as SomeType; // ❌
 if (isSomeType(data)) { ... }      // ✅
 
@@ -91,13 +91,13 @@ export function MyComponent({ prop }: Props) {
 
 | Element | Konwencja | Przykład |
 |---|---|---|
-| Komponent React | PascalCase | `HeroSection`, `GlassCard` |
-| Hook | `use` + camelCase | `useCalculator`, `useScrollAnimation` |
+| Komponent React | PascalCase | `HeroHome`, `PriceTable` |
+| Hook | `use` + camelCase | `useContactForm`, `useBuildCycle` |
 | Util / helper | camelCase | `calculatePrice`, `cn` |
 | Stała / config | SCREAMING_SNAKE | `PACKAGES`, `TIMELINE_MULTIPLIERS` |
-| Typ / interfejs | PascalCase | `PackageId`, `CalculatorState` |
+| Typ / interfejs | PascalCase | `PackageId`, `ContactFormData` |
 | Plik komponentu | PascalCase.tsx | `Hero.tsx`, `SpotlightCard.tsx` |
-| Plik hooka | camelCase.ts | `useCalculator.ts` |
+| Plik hooka | camelCase.ts | `useContactForm.ts` |
 | Plik stałych | camelCase.ts | `pricing.ts`, `animations.ts` |
 
 **Nazwy opisują intencję, nie implementację:**
@@ -126,7 +126,7 @@ const priceSummary = useMemo(() => calculatePrice(...), [projectType, features])
 const label = useMemo(() => `od ${price} zł`, [price]); // ❌ — zwykła zmienna wystarczy
 
 // ✅ Jeden hook = jedna odpowiedzialność
-// useCalculator zarządza stanem kalkulatora — nie dotyka DOM, nie robi fetch poza handleSubmit
+// useContactForm zarządza stanem formularza — nie dotyka DOM, nie robi fetch poza handleSubmit
 ```
 
 ---
@@ -286,14 +286,14 @@ if (price > MAX_PRICE) { ... }
 src/
 ├── app/                    # Next.js App Router — tylko strony i layouty
 │   ├── page.tsx            # Home
-│   ├── kalkulator/
-│   │   ├── layout.tsx      # metadata tu, nie w page
-│   │   └── page.tsx
+│   ├── oferta/
+│   │   ├── page.tsx        # metadata eksportowana z page
+│   │   └── [usluga]/page.tsx
 │   └── [inne podstrony]/
 ├── components/
 │   ├── layout/             # Navbar, Footer — singleton per app
 │   ├── sections/           # Sekcje stron (Hero, CTA, FAQ...)
-│   └── ui/                 # Atomowe komponenty UI (Button, Section, GlassCard)
+│   └── ui/                 # Atomowe komponenty UI (Arrow, InView, ScrollToTop)
 ├── constants/              # Stałe, pricing, animacje — zero React
 ├── hooks/                  # Custom hooks — tylko React
 ├── lib/                    # Utils, helpers — zero React
@@ -311,7 +311,7 @@ Przed każdym PR sprawdź:
 - [ ] Brak nieużywanych importów i zmiennych
 - [ ] Brak `console.log`
 - [ ] Ceny/etykiety pobierane z `constants/pricing.ts`
-- [ ] Animacje używają `useMotionSafe()` i wariantów z `constants/animations.ts`
+- [ ] Animacje respektują `usePrefersReducedMotion()` i używają wariantów z `constants/animations.ts`
 - [ ] Klasy dynamiczne przez `cn()`, nie template literals
 - [ ] Obrazy przez `next/image` z właściwym `alt`
 - [ ] Interaktywne elementy dostępne klawiaturowo

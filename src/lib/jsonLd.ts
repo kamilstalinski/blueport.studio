@@ -1,4 +1,4 @@
-export type JsonLdItem = Record<string, unknown>;
+type JsonLdItem = Record<string, unknown>;
 
 export function localBusinessJsonLd(): JsonLdItem {
   return {

@@ -1,6 +1,6 @@
 import type { BuildFrame } from "@/types";
 
-export const BUILD_TIMING = {
+const BUILD_TIMING = {
   blank: 900,
   perWire: 110,
   afterWires: 350,
