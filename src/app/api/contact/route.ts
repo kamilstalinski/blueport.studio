@@ -4,7 +4,8 @@ import type { ContactFormData } from "@/types/contact.types";
 import { CONTACT_TOPICS, type ContactTopic } from "@/constants/contact";
 import { isContactTopic } from "@/lib/contactValidation";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+// Created per request: a module-level client makes `next build` require RESEND_API_KEY.
+const resend = () => new Resend(process.env.RESEND_API_KEY);
 
 const TOPIC_LABELS: Record<ContactTopic, string> = Object.fromEntries(CONTACT_TOPICS.map((topic) => [topic.value, topic.label])) as Record<ContactTopic, string>;
 
@@ -86,7 +87,7 @@ async function sendOwnerNotification(
   ownerEmail: string,
   resendFrom: string
 ): Promise<void> {
-  await resend.emails.send({
+  await resend().emails.send({
     from: resendFrom,
     to: ownerEmail,
     replyTo: data.email,
@@ -96,7 +97,7 @@ async function sendOwnerNotification(
 }
 
 async function sendClientConfirmation(data: ContactFormData, resendFrom: string): Promise<void> {
-  await resend.emails.send({
+  await resend().emails.send({
     from: resendFrom,
     to: data.email,
     subject: "Otrzymałem Twoją wiadomość — Blueport Studio",
