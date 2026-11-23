@@ -60,10 +60,14 @@ for (const route of ROUTES) {
     /* The homepage's fixed Grainient canvas (PageGrainient) holds one frame under prefers-reduced-motion, which this spec sets,
        but it follows the pointer and draws after hydration; `.bp-page-bg canvas` is hidden outright so it can never
        make the baseline flaky. CSS instead of Playwright's `mask`, which would blot out everything above the
-       hero-sized canvas. */
+       hero-sized canvas.
+       `.bp-rails` and `.bp-page-bg` (/ and /oferta) are `position: fixed` too, so they hit the same capture bug:
+       they landed ~30px apart between runs and, with `.bp-top` pinned static (no z-index), painted their
+       vignette over the navbar. Pinned to one viewport at the top of the page, which is what a visitor sees. */
     await page.addStyleTag({
       content:
-        ".skip-link { display: none !important; } .bp-top { position: static !important; } .bp-page-bg canvas { visibility: hidden !important; }",
+        ".skip-link { display: none !important; } .bp-top { position: static !important; } .bp-page-bg canvas { visibility: hidden !important; }" +
+        " .bp-rails, .bp-page-bg { position: absolute !important; bottom: auto !important; height: 100vh !important; }",
     });
     await settle(page);
     await expect(page).toHaveScreenshot(snapshotName(route), {
