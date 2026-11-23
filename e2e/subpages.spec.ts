@@ -230,14 +230,21 @@ test("/landing redirects permanently to the home page", async ({ request }) => {
 });
 
 test.describe("kontakt form", () => {
+  test("kontakt preselects the topic from ?temat and ignores junk", async ({ page }) => {
+    await page.goto("/kontakt?temat=ai");
+    await expect(page.locator("#contact-topic")).toHaveValue("ai");
+    await page.goto("/kontakt?temat=xyz");
+    await expect(page.locator("#contact-topic")).toHaveValue("strona");
+  });
+
   test("shows the spec layout and direct contact details", async ({ page }) => {
     await page.goto("/kontakt");
 
     await expect(page.getByRole("heading", { level: 1 })).toHaveText("Napisz, jakiej strony internetowej potrzebujesz.");
-    await expect(page.getByLabel("Czego potrzebujesz?").locator("option")).toHaveText(["Strona firmowa", "Sklep internetowy", "Projekt dedykowany", "Jeszcze nie wiem"]);
+    await expect(page.getByLabel("Czego potrzebujesz?").locator("option")).toHaveText(["Strona firmowa", "Sklep internetowy", "Projekt dedykowany", "Reklamy Meta / Google", "Wdrożenie AI", "Jeszcze nie wiem"]);
     await expect(page.locator("main").getByRole("link", { name: "kontakt@blueport.studio" })).toHaveAttribute("href", "mailto:kontakt@blueport.studio");
     await expect(page.locator("main").getByRole("link", { name: "+48 534 287 233" })).toHaveAttribute("href", "tel:+48534287233");
-    await expect(page.locator(".contact-aside").getByRole("link", { name: "Wyceń stronę" })).toHaveAttribute("href", "/kalkulator");
+    await expect(page.locator(".contact-aside").getByRole("link", { name: "Zobacz ofertę" })).toHaveAttribute("href", "/oferta");
     await expect(page.locator("main section.bp-close")).toHaveCount(0);
 
     await expectNoAxeViolations(page);

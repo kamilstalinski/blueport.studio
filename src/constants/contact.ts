@@ -3,6 +3,8 @@ export const CONTACT_TOPICS = [
   { value: "strona", label: "Strona firmowa" },
   { value: "sklep", label: "Sklep internetowy" },
   { value: "dedykowany", label: "Projekt dedykowany" },
+  { value: "reklamy", label: "Reklamy Meta / Google" },
+  { value: "ai", label: "Wdrożenie AI" },
   { value: "nie-wiem", label: "Jeszcze nie wiem" },
 ] as const;
 

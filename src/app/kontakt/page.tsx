@@ -21,7 +21,8 @@ const DIRECT = [
   { term: "Czas odpowiedzi", value: "do 24 godzin w dni robocze" },
 ] as const;
 
-export default function KontaktPage() {
+export default async function KontaktPage({ searchParams }: { searchParams: Promise<{ temat?: string }> }) {
+  const { temat } = await searchParams;
   return (
     <>
       <PageHead
@@ -31,7 +32,7 @@ export default function KontaktPage() {
       <section className="bp-sec bp-sec--tight bp-contact" aria-label="Formularz kontaktowy">
         <div className="bp-shell bp-grid">
           <InView className="reveal bp-contact-form">
-            <ContactForm />
+            <ContactForm initialTopic={temat} />
           </InView>
           <InView className="reveal contact-aside bp-contact-aside" lag={1}>
             <h2>Wolisz napisać bezpośrednio?</h2>
@@ -52,11 +53,11 @@ export default function KontaktPage() {
               </ol>
             </div>
             <div className="bp-note">
-              <h3>Wolisz najpierw policzyć zakres?</h3>
-              <p>Kalkulator pokaże wstępną wycenę w 60 sekund, bez podawania danych kontaktowych.</p>
+              <h3>Chcesz najpierw zobaczyć, co robimy?</h3>
+              <p>W ofercie opisujemy każdą usługę: dla kogo jest, co obejmuje i jak wygląda praca.</p>
               <div className="bp-rows-act">
-                <Link className="bp-row-act bp-row-act--primary" href="/kalkulator">
-                  Wyceń stronę <Arrow />
+                <Link className="bp-row-act bp-row-act--primary" href="/oferta">
+                  Zobacz ofertę <Arrow />
                 </Link>
               </div>
             </div>
