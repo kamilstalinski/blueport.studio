@@ -7,7 +7,7 @@ for (const [slug, topic] of [["strony-www", "strona"], ["sklepy-internetowe", "s
   test(`${slug}: one h1, CTA with topic, three sibling links, topic preselected`, async ({ page }) => {
     await page.goto(`/oferta/${slug}`);
     await expect(page.getByRole("heading", { level: 1 })).toHaveCount(1);
-    await expect(page.getByRole("link", { name: /Umów rozmowę/ }).first()).toHaveAttribute("href", `/kontakt?temat=${topic}`);
+    await expect(page.locator("main").getByRole("link", { name: /Umów rozmowę/ }).first()).toHaveAttribute("href", `/kontakt?temat=${topic}`);
     await expect(page.locator("[data-rest] a")).toHaveCount(3);
     await expect(page.locator("#contact-topic")).toHaveValue(topic);
   });
@@ -17,7 +17,7 @@ test("unknown service is a 404", async ({ request }) => expect((await request.ge
 
 test("service without a price never prints a number", async ({ page }) => {
   await page.goto("/oferta/wdrozenia-ai");
-  await expect(page.getByText("Wycena po rozmowie").first()).toBeVisible();
+  await expect(page.locator("main").getByText("Wycena po rozmowie").first()).toBeVisible();
   await expect(page.locator("main")).not.toContainText(/od (null|0) zł/);
 });
 

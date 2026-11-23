@@ -10,38 +10,6 @@ async function settle(page: Page) {
     const wrap = document.querySelector("main")?.firstElementChild as HTMLElement | null;
     return !wrap || getComputedStyle(wrap).opacity === "1";
   });
-  // The calculator route has no site chrome: its <main class="calc-main"> sits inside
-  // .calc-shell, which the template.tsx fade wrapper wraps from the outside. The check
-  // above only inspects main's own first child, so it never covers that outer fade.
-  // Wait for the .calc-shell ancestor chain itself to have settled at opacity 1.
-  await page.waitForFunction(() => {
-    let el = document.querySelector(".calc-shell") as HTMLElement | null;
-    if (!el) return true;
-    while (el) {
-      if (getComputedStyle(el).opacity !== "1") return false;
-      el = el.parentElement;
-    }
-    return true;
-  });
-  // The calculator also runs its own framer-motion transitions inside .calc-shell (the step
-  // slide, the success-step entrance, the package dropdown), independent of the page fade
-  // above. Wait for those to finish too, or axe can catch inline opacity mid-transition and
-  // report a false color-contrast violation. Checking for a "finished" Web Animation alone is
-  // racy (there's a gap between the state update and framer-motion registering the Animation
-  // object), so also check the rendered opacity of every element framer-motion is driving.
-  await page.waitForFunction(() => {
-    const shell = document.querySelector(".calc-shell");
-    if (!shell) return true;
-    const noRunningAnimations = document.getAnimations().every((anim) => {
-      const target = (anim.effect as KeyframeEffect | null)?.target;
-      if (!target || !shell.contains(target)) return true;
-      return anim.playState === "finished" || anim.playState === "idle";
-    });
-    const allOpaque = [...shell.querySelectorAll<HTMLElement>("[style*='opacity']")].every(
-      (el) => getComputedStyle(el).opacity === "1"
-    );
-    return noRunningAnimations && allOpaque;
-  });
   for (const block of await page.locator("main .reveal:visible").all()) {
     await block.scrollIntoViewIfNeeded();
   }
