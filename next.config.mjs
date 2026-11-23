@@ -1,8 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  // Self-contained server bundle for the Hetzner deploy (see docs/DEPLOY.md).
-  output: "standalone",
   async redirects() {
     return [
       { source: "/uslugi", destination: "/oferta", permanent: true },
