@@ -1,4 +1,4 @@
-/* ═══ BP: the homepage world (design/site-v2, direction in .impeccable/surfaces/src-app-page-tsx.md) ═══
+/* ═══ BP: the homepage world (direction in .impeccable/surfaces/src-app-page-tsx.md) ═══
    Palette Kobalt / Grafit / Sygnał, construction grid, Host Grotesk + Martian Mono for data.
    Every class is bp-prefixed and every token lives on .bp-scope, so the Kafel subpages keep their own. */
 .bp-scope {
