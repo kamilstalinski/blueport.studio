@@ -2,7 +2,7 @@ import type { ContactTopic } from "@/constants/contact";
 
 /**
  * Single source of truth for package and feature pricing.
- * Used by: OfertaPakiety (main page packages), Calculator (Step1Type, useCalculator, CalculatorRight).
+ * Used by: OfertaPakiety (main page packages), /cennik (AddonPicker), Navbar.
  * Never hardcode prices in components.
  */
 

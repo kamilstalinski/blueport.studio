@@ -32,12 +32,9 @@ export default function PolitykaPrywatnosciPage() {
           </p>
           <ul>
             <li>
-              Imię i adres e-mail — podane dobrowolnie przez formularz kontaktowy lub kalkulator wyceny.
+              Imię i adres e-mail — podane dobrowolnie przez formularz kontaktowy.
             </li>
             <li>Numer telefonu — jeśli zostanie podany opcjonalnie w formularzu.</li>
-            <li>
-              Informacje o projekcie (typ, budżet, opis) — przekazane przez kalkulator wyceny.
-            </li>
             <li>
               Dane techniczne — adres IP, typ przeglądarki, system operacyjny, strony odwiedzane w serwisie
               (pliki cookies i logi serwera).

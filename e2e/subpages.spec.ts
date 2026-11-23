@@ -220,6 +220,14 @@ test("/uslugi redirects permanently to /oferta", async ({ request }) => {
   expect(response.headers()["location"]).toMatch(/^(https?:\/\/[^/]+)?\/oferta$/);
 });
 
+for (const from of ["/kalkulator", "/kalkulator?pakiet=strona-pro", "/wycena"]) {
+  test(`${from} redirects permanently to /oferta`, async ({ request }) => {
+    const res = await request.get(from, { maxRedirects: 0 });
+    expect([301, 308]).toContain(res.status());
+    expect(res.headers()["location"]).toMatch(/\/oferta(\?.*)?$/);
+  });
+}
+
 test("/landing redirects permanently to the home page", async ({ request }) => {
   const response = await request.get("/landing", { maxRedirects: 0 });
   expect(response.status()).toBe(308);
@@ -350,98 +358,7 @@ for (const [route, title, sections] of [
   });
 }
 
-test.describe("calculator", () => {
-  test("walks the four steps and sends the lead", async ({ page }) => {
-    let lead: Record<string, unknown> | null = null;
-    await page.route("**/api/leads", async (route) => {
-      lead = route.request().postDataJSON();
-      await route.fulfill({ json: { success: true, id: "test-lead" } });
-    });
-    await page.goto("/kalkulator");
-
-    await expect(page.locator(".calc-blob")).toHaveCount(0);
-    await expect(page.locator(".calc-header .bp-brand svg")).toHaveCount(1);
-    expect(await page.locator(".calc-shell").evaluate((el) => getComputedStyle(el).backgroundColor)).toBe("rgb(10, 15, 23)");
-
-    await page.getByRole("button", { name: /Strona start/ }).first().click();
-    expect(await page.locator(".option-card.selected").evaluate((el) => getComputedStyle(el).borderRadius)).toBe("0px");
-    await expect(page.locator(".calc-price")).not.toHaveText("Wybierz opcje");
-    await page.getByRole("button", { name: "Dalej" }).click();
-
-    await expect(page.getByRole("heading", { name: "Dodatkowe funkcje" })).toBeVisible();
-    await page.getByRole("button", { name: "Dalej" }).click();
-
-    await expect(page.getByRole("heading", { name: "Orientacyjny budżet" })).toBeVisible();
-    await page.getByRole("button", { name: "Do 3 000 zł" }).click();
-    await page.getByRole("button", { name: "Dalej" }).click();
-
-    await page.getByLabel("Imię i nazwisko *").fill("Jan Kowalski");
-    await page.getByLabel("Email *").fill("jan@firma.pl");
-    await page.getByRole("button", { name: "Wyślij zapytanie" }).click();
-
-    await expect(page.getByRole("heading", { name: "Zapytanie wysłane" })).toBeVisible();
-    await expect(page.getByRole("button", { name: "Wysłano" })).toBeDisabled();
-    expect(lead).toMatchObject({ name: "Jan Kowalski", email: "jan@firma.pl", packageId: "strona-start" });
-
-    await expectNoAxeViolations(page);
-  });
-
-  test("step one has no nested interactive controls and opens the package details", async ({ page }) => {
-    await page.goto("/kalkulator");
-
-    const card = page.locator(".option-card").first();
-    await expect(card.locator("button")).toHaveCount(2);
-    await expect(card.locator("[role=button]")).toHaveCount(0);
-
-    await card.getByRole("button", { name: "Więcej" }).click();
-    await expect(page.getByRole("dialog", { name: "Zawartość pakietu" })).toBeVisible();
-    await expect(card.getByRole("button", { name: /Strona start/ })).toHaveAttribute("aria-pressed", "false");
-
-    await expectNoAxeViolations(page);
-  });
-
-  test("keeps /wycena on the same calculator", async ({ page }) => {
-    await page.goto("/wycena");
-    await expect(page.getByRole("heading", { name: "Czego potrzebujesz?" })).toBeVisible();
-    await expect(page.locator(".calc-shell")).toHaveCount(1);
-  });
-
-  test("scrolls each desktop pane independently even with a tall feature list", async ({ page, isMobile }) => {
-    test.skip(isMobile, "desktop-only two-pane layout");
-    await page.goto("/kalkulator");
-
-    await page.getByRole("button", { name: /Sklep Online/ }).first().click();
-    await page.getByRole("button", { name: "Dalej" }).click();
-
-    await expect(page.getByRole("heading", { name: "Dodatkowe funkcje" })).toBeVisible();
-    const featureRows = page.locator(".feature-row");
-    const featureCount = await featureRows.count();
-    expect(featureCount).toBeGreaterThan(0);
-    for (let i = 0; i < featureCount; i++) {
-      await featureRows.nth(i).click();
-    }
-
-    const { scrollHeight, innerHeight } = await page.evaluate(() => ({
-      scrollHeight: document.documentElement.scrollHeight,
-      innerHeight: window.innerHeight,
-    }));
-    expect(scrollHeight).toBeLessThanOrEqual(innerHeight + 1);
-
-    const leftOverflows = await page
-      .locator(".calc-left")
-      .evaluate((el) => el.scrollHeight > el.clientHeight);
-    expect(leftOverflows).toBe(true);
-
-    await page.locator(".calc-left").evaluate((el) => el.scrollTo({ top: el.scrollHeight }));
-
-    const priceBox = await page.locator(".calc-price").boundingBox();
-    expect(priceBox).not.toBeNull();
-    expect(priceBox!.y).toBeGreaterThanOrEqual(0);
-    expect(priceBox!.y + priceBox!.height).toBeLessThanOrEqual(innerHeight);
-  });
-});
-
-const KAFEL_ROUTES = ["/realizacje", "/realizacje/spavalnia", "/cennik", "/kontakt", "/faq", "/o-nas", "/proces", "/polityka-prywatnosci", "/regulamin", "/kalkulator"];
+const KAFEL_ROUTES = ["/realizacje", "/realizacje/spavalnia", "/cennik", "/kontakt", "/faq", "/o-nas", "/proces", "/polityka-prywatnosci", "/regulamin", "/oferta", "/oferta/strony-www"];
 
 for (const route of KAFEL_ROUTES) {
   test(`${route} has no legacy glass and no horizontal scroll`, async ({ page }) => {
@@ -451,17 +368,6 @@ for (const route of KAFEL_ROUTES) {
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth)).toBe(true);
   });
 }
-
-test("kalkulator step slide never overflows horizontally on mobile", async ({ page, isMobile }) => {
-  test.skip(!isMobile, "mobile-only: exercises the step-slide entrance that used to overhang the viewport");
-  await page.goto("/kalkulator");
-  await settle(page);
-
-  await page.getByRole("button", { name: /Strona start/ }).first().click();
-  await page.getByRole("button", { name: "Dalej" }).click();
-  // Measure right away, mid-transition, before the framer entrance settles.
-  expect(await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth)).toBe(true);
-});
 
 test("every subpage has exactly one h1", async ({ page }) => {
   for (const route of KAFEL_ROUTES) {
