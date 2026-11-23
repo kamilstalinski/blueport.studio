@@ -1,0 +1,52 @@
+import AxeBuilder from "@axe-core/playwright";
+import { expect, test } from "@playwright/test";
+
+for (const [slug, topic] of [["strony-www", "strona"], ["sklepy-internetowe", "sklep"], ["reklamy-meta-google", "reklamy"], ["wdrozenia-ai", "ai"]]) {
+  test(`${slug}: one h1, CTA with topic, three sibling links, topic preselected`, async ({ page }) => {
+    await page.goto(`/oferta/${slug}`);
+    await expect(page.getByRole("heading", { level: 1 })).toHaveCount(1);
+    await expect(page.getByRole("link", { name: /Umów rozmowę/ }).first()).toHaveAttribute("href", `/kontakt?temat=${topic}`);
+    await expect(page.locator("[data-rest] a")).toHaveCount(3);
+    await expect(page.locator("#contact-topic")).toHaveValue(topic);
+  });
+}
+
+test("unknown service is a 404", async ({ request }) => expect((await request.get("/oferta/xyz")).status()).toBe(404));
+
+test("service without a price never prints a number", async ({ page }) => {
+  await page.goto("/oferta/wdrozenia-ai");
+  await expect(page.getByText("Wycena po rozmowie").first()).toBeVisible();
+  await expect(page.locator("main")).not.toContainText(/od (null|0) zł/);
+});
+
+test("www page lists the dedicated project", async ({ page }) => {
+  await page.goto("/oferta/strony-www");
+  await expect(page.locator("main")).toContainText("Dedykowany"); // PACKAGE_SHORT["projekt-dedykowany"]
+});
+
+test("old offer URLs redirect to the new pages", async ({ request }) => {
+  for (const [from, to] of [["/oferta/strony", "/oferta/strony-www"], ["/oferta/sklepy", "/oferta/sklepy-internetowe"]]) {
+    const res = await request.get(from, { maxRedirects: 0 });
+    expect(res.status()).toBe(308);
+    expect(res.headers()["location"]).toMatch(new RegExp(`${to}$`));
+  }
+});
+
+test("service pages do not scroll sideways at 390", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  for (const slug of ["strony-www", "wdrozenia-ai"]) {
+    await page.goto(`/oferta/${slug}`);
+    expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(390);
+  }
+});
+
+for (const slug of ["strony-www", "reklamy-meta-google"]) {
+  test(`${slug} has no axe violations`, async ({ page }) => {
+    await page.goto(`/oferta/${slug}`);
+    // app/template.tsx fades every route in; axe mid-fade reports false contrast failures
+    await page.waitForFunction(() => getComputedStyle(document.querySelector("main")!.firstElementChild!).opacity === "1");
+    for (const block of await page.locator("main .reveal:visible").all()) await block.scrollIntoViewIfNeeded();
+    await page.waitForTimeout(1200);
+    expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
+  });
+}

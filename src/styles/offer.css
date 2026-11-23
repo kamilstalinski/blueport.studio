@@ -1,0 +1,47 @@
+/* ═══ Offer: the service subpages (/oferta/<slug>) on the bp world. Reuses bp.css first; only the joins live here. ═══ */
+
+/* hero: PageHead plus the one action under the price line */
+.bp-svc-hero .bp-rows-act { margin-top: 40px; max-width: 400px; }
+
+/* fit: who it is for set bright, who it is not for set back (bp-fit from bp.css) */
+.bp-svc-fit .bp-fit-col h3 { margin-bottom: 18px; }
+.bp-svc-fit .bp-fit-col:not(.bp-fit-col--no) li { color: var(--papier); }
+
+/* terms: package rows under the scope and terms; label left, mono price and arrow right, wrapping on a phone */
+.bp-svc-packs { margin-top: 56px; }
+.bp-svc-packs h3 { margin-bottom: 18px; }
+.bp-svc-packs .bp-row-act, .bp-svc-rest .bp-row-act { height: auto; min-height: 60px; padding-block: 14px; flex-wrap: wrap; row-gap: 6px; }
+.bp-svc-tech { margin-left: 8px; color: var(--faint); font-weight: 400; font-size: 15px; }
+.bp-svc-price { display: inline-flex; align-items: center; gap: 16px; margin-left: auto; }
+.bp-svc-price .bp-mono { color: var(--muted); }
+.bp-row-act:hover .bp-svc-price .bp-arrow { transform: translateX(4px); }
+
+/* proof: real sites as browser windows, one per grid column, the left edge on the rail; the linked window lifts 2px */
+.bp-svc-wins { display: grid; grid-template-columns: repeat(var(--n, 3), 1fr); align-items: start; }
+.bp-svc-win { display: block; margin-right: 24px; transition: transform .35s var(--ease), border-color .2s; }
+.bp-svc-win:hover { transform: translateY(-2px); border-color: var(--kobalt-ink); }
+.bp-svc-win .bp-win-bar .bp-arrow { color: var(--faint); transition: transform .35s var(--ease), color .2s; }
+.bp-svc-win:hover .bp-win-bar .bp-arrow { color: var(--papier); transform: translateX(4px); }
+.bp-svc-win .bp-view { position: relative; aspect-ratio: 4 / 3; overflow: hidden; background: #fff; }
+.bp-svc-win .bp-view img { object-fit: cover; object-position: 0 0; }
+
+/* scenarios: ProcessAround's rows, set a step larger because they carry the whole proof */
+.bp-svc-scen { border-bottom: 1px solid var(--line); }
+.bp-svc-scen > div { padding-block: 22px; }
+.bp-svc-scen dt { font-size: 18px; }
+.bp-svc-tools { margin-top: 28px; }
+
+/* contact: the form keeps its column, the other services sit in the aside as rows */
+.bp-svc-contact-h { margin-bottom: 36px; }
+.bp-svc-rest { margin-top: 24px; }
+
+@media (max-width: 1023px) {
+  .bp-svc-hero .bp-rows-act { max-width: none; }
+  .bp-svc-wins { grid-template-columns: 1fr; gap: 24px; }
+  .bp-svc-win { margin-right: 0; }
+  .bp-svc-win .bp-view { aspect-ratio: 16 / 10; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .bp-svc-win, .bp-svc-win .bp-win-bar .bp-arrow { transition: none; }
+  .bp-svc-win:hover { transform: none; }
+}

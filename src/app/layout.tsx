@@ -3,6 +3,7 @@ import "@/styles/globals.css";
 import "@/styles/kafel.css";
 import "@/styles/calculator.css";
 import "@/styles/bp.css";
+import "@/styles/offer.css";
 import { Bricolage_Grotesque, Host_Grotesk, Martian_Mono, Schibsted_Grotesk } from "next/font/google";
 import { cn } from "@/lib/utils";
 import { ConditionalChrome } from "@/components/layout/ConditionalChrome";

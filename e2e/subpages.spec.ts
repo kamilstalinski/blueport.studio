@@ -215,7 +215,7 @@ test("proces walks four chapters beside one frame that shows each one", async ({
   await expectNoAxeViolations(page);
 });
 
-for (const legacy of ["/uslugi", "/oferta", "/oferta/strony", "/oferta/sklepy"]) {
+for (const legacy of ["/uslugi", "/oferta"]) {
   test(`${legacy} redirects permanently to /cennik`, async ({ request }) => {
     const response = await request.get(legacy, { maxRedirects: 0 });
     expect(response.status()).toBe(308);
