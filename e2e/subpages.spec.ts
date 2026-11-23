@@ -176,7 +176,7 @@ test("faq is a keyboard-friendly accordion with JSON-LD", async ({ page }) => {
   await rows.first().locator("summary").focus();
   await page.keyboard.press("Enter");
   await expect(rows.first()).toHaveAttribute("open", "");
-  await expect(rows.first().getByText("Zwykle 1–2 tygodnie od akceptacji projektu", { exact: false })).toBeVisible();
+  await expect(rows.first().getByText(/^Od 7 dni roboczych/)).toBeVisible();
 
   const jsonLd = await page.locator('script[type="application/ld+json"]').allTextContents();
   const faqLd = jsonLd.map((text) => JSON.parse(text)).find((item) => item["@type"] === "FAQPage");
@@ -193,6 +193,8 @@ test("proces walks four chapters beside one frame that shows each one", async ({
   const steps = page.locator("ol.process-detail > li");
   await expect(steps.getByRole("heading", { level: 3 })).toHaveText(["Wypełniasz kalkulator", "Ustalamy zakres i datę publikacji", "Projektujemy i budujemy stronę", "Testujemy i publikujemy"]);
   await expect(page.getByText("Od akceptacji projektu do publikacji mija zwykle 1–2 tygodnie.")).toBeVisible();
+  // the first sentence (what snippets quote) gives the total time, not only the span after design approval
+  await expect(page.locator(".bp-pc-lead")).toHaveText(/^Od 7 dni roboczych/);
 
   // live from 1024px only: on a phone every chapter stands with its own visual
   if (isMobile) {
@@ -478,6 +480,8 @@ test.describe("SEO meta", () => {
       expect(description.length, `${route} description "${description}"`).toBeGreaterThanOrEqual(140);
       expect(description.length, `${route} description "${description}"`).toBeLessThanOrEqual(160);
       expect(`${title} ${description}`, route).not.toMatch(/zł|cennik|koszt/i);
+      // the description closes on a call to action (spec goal: it earns the click)
+      expect(description, `${route} CTA`).toMatch(/(?:^|\.\s)(Sprawdź|Zobacz|Napisz|Poznaj|Umów|Wyceń)[^.]*\.$/);
       await expect(page.locator("h1"), route).toHaveCount(1);
       titles.push(title);
     }

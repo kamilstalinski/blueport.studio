@@ -10,7 +10,7 @@ import { WORK_SITES } from "@/constants/work";
 export const metadata: Metadata = {
   title: "Realizacje stron internetowych dla firm",
   description:
-    "Osiem stron i sklepów internetowych dla małych firm: gabinet fizjoterapii, sklep streetwear, szkółka drzew i inne. Przy każdej opis projektu i efektów.",
+    "Osiem stron i sklepów internetowych dla małych firm: gabinet fizjoterapii, sklep streetwear, szkółka drzew i inne. Zobacz, jak je zaprojektowaliśmy.",
   alternates: { canonical: "https://blueport.studio/realizacje" },
   openGraph: { url: "https://blueport.studio/realizacje" },
 };

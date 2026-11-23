@@ -49,7 +49,7 @@ export const metadata: Metadata = {
     template: "%s | Blueport Studio",
   },
   description:
-    "Strony internetowe i sklepy WooCommerce dla małych firm ze Szczecina i całej Polski. Publikacja 1–2 tygodnie po akceptacji projektu, odpowiedź w 24 h.",
+    "Strony internetowe i sklepy WooCommerce dla małych firm ze Szczecina i całej Polski. Publikacja 1–2 tygodnie po akceptacji projektu. Umów konsultację.",
   keywords: [
     "strony internetowe Szczecin",
     "studio webowe Szczecin",

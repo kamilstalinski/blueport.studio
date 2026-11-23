@@ -14,7 +14,7 @@ const ALL_FAQ_KEYS = ["time", "contract", "revisions", "materials", "hosting", "
 export const metadata: Metadata = {
   title: "FAQ: czas, umowa, hosting i edycja strony",
   description:
-    "Ile trwa stworzenie strony internetowej, czy podpisujemy umowę, kto płaci za hosting i czy sam edytujesz stronę. Krótkie i konkretne odpowiedzi.",
+    "Ile trwa stworzenie strony internetowej, czy podpisujemy umowę, kto płaci za hosting i czy sam edytujesz stronę. Sprawdź krótkie odpowiedzi.",
   alternates: { canonical: "https://blueport.studio/faq" },
   openGraph: { url: "https://blueport.studio/faq" },
 };

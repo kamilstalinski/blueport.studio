@@ -96,7 +96,7 @@ export function ProcessDetail() {
       <div className="bp-shell bp-pc-grid">
         <div className="bp-pc-head">
           <h2 id="pc-h">Ile trwa zrobienie strony internetowej</h2>
-          <p className="bp-pc-lead">Od akceptacji projektu do publikacji mija zwykle 1–2 tygodnie. Całość to cztery kroki.</p>
+          <p className="bp-pc-lead">Od 7 dni roboczych dla prostej strony do 21 dla sklepu. Od akceptacji projektu do publikacji mija zwykle 1–2 tygodnie.</p>
         </div>
         <ol className="process-detail bp-pc-steps">
             {PROCESS_CHAPTERS.map((chapter, index) => (

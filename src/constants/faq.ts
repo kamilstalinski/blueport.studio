@@ -1,7 +1,7 @@
 export const FAQ_ITEMS = {
   time: {
     q: "Ile trwa stworzenie strony internetowej?",
-    a: "Zwykle 1–2 tygodnie od akceptacji projektu graficznego do publikacji. Prosta strona firmowa powstaje od 7 dni roboczych, rozbudowana od 14, sklep internetowy od 21. Dokładną datę publikacji wpisujemy do umowy.",
+    a: "Od 7 dni roboczych dla prostej strony firmowej, od 14 dla rozbudowanej i od 21 dla sklepu internetowego. Od akceptacji projektu graficznego do publikacji mija zwykle 1–2 tygodnie. Dokładną datę wpisujemy do umowy.",
   },
   contract: {
     q: "Czy podpisujemy umowę?",

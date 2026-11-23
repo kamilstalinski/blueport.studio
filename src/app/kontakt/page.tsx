@@ -9,7 +9,7 @@ import { InView } from "@/components/ui/InView";
 export const metadata: Metadata = {
   title: "Kontakt: strony internetowe Szczecin",
   description:
-    "Napisz przez formularz, na kontakt@blueport.studio albo zadzwoń: +48 534 287 233. Studio stron internetowych ze Szczecina, odpowiedź w 24 h w dni robocze.",
+    "Studio stron internetowych ze Szczecina. Odpowiadamy w 24 h w dni robocze, konsultacja jest bezpłatna. Napisz do nas przez formularz albo zadzwoń.",
   alternates: { canonical: "https://blueport.studio/kontakt" },
   openGraph: { url: "https://blueport.studio/kontakt" },
 };

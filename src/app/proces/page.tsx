@@ -8,7 +8,7 @@ import { CtaBand } from "@/components/sections/home/CtaBand";
 export const metadata: Metadata = {
   title: "Jak powstaje strona internetowa: etapy",
   description:
-    "Jak powstaje strona internetowa dla firmy: wycena, rozmowa o zakresie, projekt, testy na telefonach i publikacja. Zwykle 1–2 tygodnie od akceptacji projektu.",
+    "Jak powstaje strona internetowa dla firmy: wycena, rozmowa o zakresie, projekt, testy na telefonach i publikacja. Sprawdź, ile trwa każdy etap.",
   alternates: { canonical: "https://blueport.studio/proces" },
   openGraph: { url: "https://blueport.studio/proces" },
 };
