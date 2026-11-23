@@ -21,8 +21,8 @@ function caseStudySeo(slug: string) {
   const url = `${SITE_URL}/realizacje/${slug}`;
 
   return {
-    title: `${study.title} — Realizacja Blueport Studio`,
-    description: study.context,
+    title: study.seo.title,
+    description: study.seo.description,
     client: study.client,
     url,
     image: `/og/og-realizacje-${slug}.png`,

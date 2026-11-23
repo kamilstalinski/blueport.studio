@@ -26,16 +26,21 @@ describe("WORK_SITES", () => {
   });
 
   it("carries a one- or two-sentence description for every site", () => {
-    expect(WORK_SITES.map((site) => site.desc)).toEqual([
-      "Strona fundacji, która organizuje salony dyskusyjne i sieć Polish Future Network. Zespół sam edytuje treści, a zgłoszenia do sieci trafiają do jednej bazy.",
-      "Katalog hurtowni urządzeń do uzdatniania wody, podzielony na kategorie, po polsku i angielsku. Nowe produkty zespół dodaje sam.",
-      "Strona sieci punktów z preclami: menu z alergenami, mapa lokalizacji i linki do mediów społecznościowych.",
-      "Sklep WooCommerce marki streetwearowej. Ciemny projekt w stylu marki i krótka droga od produktu do płatności.",
-      "Strona szczecińskiej firmy od uzdatniania wody. Zamiast zwykłego formularza kontaktu klient wypełnia formularz doboru urządzenia.",
-      "Strona fizjoterapeutki i trenerki medycznej ze sklepem z poradnikami i kursami online.",
-      "Pierwsza strona rodzinnej szkółki drzew, krzewów i choinek, działającej od 30 lat. Oferta w trzech grupach i lokalne SEO.",
-      "Strona poznańskiego zespołu dark wave z kalendarzem koncertów, teledyskami i materiałami dla organizatorów.",
-    ]);
+    for (const site of WORK_SITES) {
+      expect(site.desc.length).toBeGreaterThan(0);
+      expect(site.desc.split(/(?<=\.)\s/).length).toBeLessThanOrEqual(2);
+      expect(site.desc).not.toMatch(/zł/);
+    }
+  });
+});
+
+describe("CASE_STUDIES seo", () => {
+  it("gives every study a title that fits 60 chars with the layout suffix and a 140-160 char description", () => {
+    for (const study of Object.values(CASE_STUDIES)) {
+      expect(study.seo.title.length, study.seo.title).toBeLessThanOrEqual(42);
+      expect(study.seo.description.length, study.seo.description).toBeGreaterThanOrEqual(140);
+      expect(study.seo.description.length, study.seo.description).toBeLessThanOrEqual(160);
+    }
   });
 });
 

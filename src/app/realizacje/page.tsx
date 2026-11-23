@@ -8,9 +8,9 @@ import { InView } from "@/components/ui/InView";
 import { WORK_SITES } from "@/constants/work";
 
 export const metadata: Metadata = {
-  title: "Realizacje: strony i sklepy dla małych firm",
+  title: "Realizacje stron internetowych dla firm",
   description:
-    "Osiem stron i sklepów dla małych firm, m.in. gabinet fizjoterapii, sklep streetwear i szkółka drzew. Każda z opisem, co było do rozwiązania i jak to zrobiliśmy.",
+    "Osiem stron i sklepów internetowych dla małych firm: gabinet fizjoterapii, sklep streetwear, szkółka drzew i inne. Przy każdej opis projektu i efektów.",
   alternates: { canonical: "https://blueport.studio/realizacje" },
   openGraph: { url: "https://blueport.studio/realizacje" },
 };
@@ -19,8 +19,8 @@ export default function RealizacjePage() {
   return (
     <>
       <PageHead
-        title="Osiem wdrożeń, które możemy pokazać."
-        lede="Najedź kursorem na dowolną, żeby przewinąć ją w całości. Bez wchodzenia na stronę klienta."
+        title="Realizacje stron internetowych dla małych firm"
+        lede="Osiem stron i sklepów, które możemy pokazać. Najedź kursorem na dowolną, żeby przewinąć ją w całości bez wchodzenia na stronę klienta."
       />
       <section className="bp-sec bp-sec--tight" aria-label="Realizacje">
         <div className="bp-shell">

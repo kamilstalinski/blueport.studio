@@ -72,8 +72,8 @@ test("the subpage stylesheets are loaded", async ({ page }) => {
 test("realizacje shows all eight sites as scrolling frames and ends with the CTA band", async ({ page }) => {
   await page.goto("/realizacje");
 
-  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Osiem wdrożeń, które możemy pokazać.");
-  await expect(page.locator(".page-head .lede")).toHaveText("Najedź kursorem na dowolną, żeby przewinąć ją w całości. Bez wchodzenia na stronę klienta.");
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Realizacje stron internetowych dla małych firm");
+  await expect(page.locator(".page-head .lede")).toHaveText("Osiem stron i sklepów, które możemy pokazać. Najedź kursorem na dowolną, żeby przewinąć ją w całości bez wchodzenia na stronę klienta.");
 
   const frames = page.locator("main a.bp-frame");
   await expect(frames).toHaveCount(8);
@@ -95,7 +95,7 @@ test("a case study opens with the spec header and screenshot, then the full stor
 
   await expect(page.getByRole("link", { name: "Wszystkie realizacje" })).toHaveAttribute("href", "/realizacje");
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("Vilmart Water Service");
-  await expect(page.locator(".page-head .lede")).toHaveText("Strona szczecińskiej firmy od uzdatniania wody. Zamiast zwykłego formularza kontaktu klient wypełnia formularz doboru urządzenia.");
+  await expect(page.locator(".page-head .lede")).toHaveText("Strona internetowa szczecińskiej firmy od uzdatniania wody. Zamiast zwykłego formularza kontaktu klient wypełnia formularz doboru urządzenia.");
   await expect(page.locator(".page-head .meta")).toHaveText("vilmart.pl");
   await expect(page.locator(".cs-shot img")).toHaveAttribute("alt", "Strona Vilmart Water Service");
 
@@ -113,7 +113,7 @@ test("a case study opens with the spec header and screenshot, then the full stor
 
 test("case study metadata uses the study title", async ({ page }) => {
   await page.goto("/realizacje/abcmosty");
-  await expect(page).toHaveTitle(/ABC Mosty — Realizacja Blueport Studio/);
+  await expect(page).toHaveTitle("ABC Mosty: strona szkółki drzew | Blueport Studio");
 });
 
 test("an unknown case study is a 404", async ({ page }) => {

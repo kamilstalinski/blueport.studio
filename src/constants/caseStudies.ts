@@ -5,6 +5,10 @@ import type { CaseStudy } from "@/types";
 export const CASE_STUDIES: Record<WorkSlug, CaseStudy> = {
   uniqueideas: {
     title: "Unique Ideas Foundation",
+    seo: {
+      title: "Unique Ideas: strona fundacji w Next.js",
+      description: "Strona fundacji Unique Ideas w Next.js: salony dyskusyjne, sieć Polish Future Network i panel, w którym zespół sam zmienia treści. Zobacz realizację.",
+    },
     client: "Fundacja Unique Ideas",
     industry: "Organizacja pozarządowa / wydarzenia",
     context:
@@ -23,6 +27,10 @@ export const CASE_STUDIES: Record<WorkSlug, CaseStudy> = {
   },
   polaqua: {
     title: "Polaqua Group",
+    seo: {
+      title: "Polaqua: katalog hurtowni uzdatniania wody",
+      description: "Katalog produktów hurtowni uzdatniania wody Polaqua Group w Astro: kategorie, wersja polska i angielska, nowe produkty dodawane przez zespół. Zobacz projekt.",
+    },
     client: "Polaqua Group",
     industry: "Uzdatnianie wody / hurtownia B2B",
     context:
@@ -41,6 +49,10 @@ export const CASE_STUDIES: Record<WorkSlug, CaseStudy> = {
   },
   dowytrenowania: {
     title: "dowytrenowania.pl",
+    seo: {
+      title: "Dowytrenowania: sklep dla fizjoterapeutki",
+      description: "Strona internetowa i sklep WooCommerce dla fizjoterapeutki i trenerki medycznej: poradniki i kursy online sprzedawane prosto ze strony. Zobacz realizację.",
+    },
     client: "Anna Olszewska",
     industry: "Fizjoterapia / zdrowie",
     context:
@@ -59,6 +71,10 @@ export const CASE_STUDIES: Record<WorkSlug, CaseStudy> = {
   },
   abcmosty: {
     title: "ABC Mosty",
+    seo: {
+      title: "ABC Mosty: strona szkółki drzew",
+      description: "Pierwsza strona internetowa rodzinnej szkółki drzew, krzewów i choinek ABC Mosty na WordPressie: oferta w trzech grupach i lokalne SEO. Zobacz realizację.",
+    },
     client: "Przedsiębiorstwo handlowo-produkcyjne ABC",
     industry: "Szkółkarstwo / ogrodnictwo",
     context:
@@ -77,6 +93,10 @@ export const CASE_STUDIES: Record<WorkSlug, CaseStudy> = {
   },
   afterthesin: {
     title: "After the Sin",
+    seo: {
+      title: "After the Sin: strona zespołu muzycznego",
+      description: "Strona internetowa poznańskiego zespołu dark wave After the Sin na WordPressie: kalendarz koncertów, teledyski i materiały dla organizatorów. Zobacz projekt.",
+    },
     client: "After the Sin",
     industry: "Muzyka / entertainment",
     context:
@@ -95,6 +115,10 @@ export const CASE_STUDIES: Record<WorkSlug, CaseStudy> = {
   },
   vilmart: {
     title: "Vilmart Water Service",
+    seo: {
+      title: "Vilmart: strona firmy uzdatniania wody",
+      description: "Strona WordPress dla szczecińskiej firmy Vilmart: zamiast zwykłego formularza kontaktu klient wypełnia formularz doboru urządzenia do wody. Zobacz projekt.",
+    },
     client: "Vilmart Water Service",
     industry: "Uzdatnianie wody / B2B + B2C",
     context:
@@ -113,6 +137,10 @@ export const CASE_STUDIES: Record<WorkSlug, CaseStudy> = {
   },
   dobreprecle: {
     title: "Dobre Precle",
+    seo: {
+      title: "Dobre Precle: strona dla sieci lokali",
+      description: "Strona sieci punktów Dobre Precle w Next.js: menu z alergenami, mapa lokalizacji i linki do mediów społecznościowych w jednym miejscu. Zobacz projekt.",
+    },
     client: "DP 1 sp. z o.o.",
     industry: "Gastronomia / sieć lokali",
     context:
@@ -131,6 +159,10 @@ export const CASE_STUDIES: Record<WorkSlug, CaseStudy> = {
   },
   spavalnia: {
     title: "SPAVALNIA",
+    seo: {
+      title: "SPAVALNIA: sklep WooCommerce streetwear",
+      description: "Sklep internetowy WooCommerce dla marki streetwearowej SPAVALNIA: ciemny projekt w stylu marki i krótka droga od karty produktu do płatności. Zobacz realizację.",
+    },
     client: "SPAVALNIA",
     industry: "Moda / streetwear e-commerce",
     context:
