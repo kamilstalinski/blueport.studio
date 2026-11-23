@@ -50,3 +50,30 @@ for (const slug of ["strony-www", "reklamy-meta-google"]) {
     expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
   });
 }
+
+test("offer hub: one h1, four service links, contact action, price list link", async ({ page }) => {
+  await page.goto("/oferta");
+  await expect(page.getByRole("heading", { level: 1 })).toHaveCount(1);
+  for (const slug of ["strony-www", "sklepy-internetowe", "reklamy-meta-google", "wdrozenia-ai"])
+    await expect(page.locator(`main a[href="/oferta/${slug}"]`).first()).toBeVisible();
+  await expect(page.locator(".bp-hero, .page-head").getByRole("link", { name: "Umów rozmowę" })).toHaveAttribute("href", "/kontakt");
+  await expect(page.locator('main a[href="/cennik"]').first()).toBeVisible();
+});
+test("offer hub hero path is fully drawn under reduced motion", async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto("/oferta");
+  const path = page.locator("[data-offer-path]");
+  await expect(path).toBeVisible();
+  expect(await path.evaluate((el) => getComputedStyle(el).strokeDashoffset)).toMatch(/^0(px)?$/);
+});
+test("offer hub does not scroll sideways at 390", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/oferta");
+  expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(390);
+});
+test("offer hub has no axe violations", async ({ page }) => {
+  await page.goto("/oferta");
+  await page.waitForFunction(() => getComputedStyle(document.querySelector("main")!.firstElementChild!).opacity === "1");
+  await page.waitForTimeout(1200);
+  expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
+});

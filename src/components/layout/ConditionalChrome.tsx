@@ -21,8 +21,8 @@ export function ConditionalChrome({ children }: { children: React.ReactNode }) {
     );
   }
 
-  // the home page draws its own grid and background; every other page gets the same grid on a quiet ground
-  const isHome = pathname === "/";
+  // the home page and the offer hub draw their own grid and background; every other page gets the same grid on a quiet ground
+  const isHome = pathname === "/" || pathname === "/oferta";
 
   return (
     <>

@@ -215,13 +215,11 @@ test("proces walks four chapters beside one frame that shows each one", async ({
   await expectNoAxeViolations(page);
 });
 
-for (const legacy of ["/uslugi", "/oferta"]) {
-  test(`${legacy} redirects permanently to /cennik`, async ({ request }) => {
-    const response = await request.get(legacy, { maxRedirects: 0 });
-    expect(response.status()).toBe(308);
-    expect(response.headers()["location"]).toMatch(/^(https?:\/\/[^/]+)?\/cennik$/);
-  });
-}
+test("/uslugi redirects permanently to /oferta", async ({ request }) => {
+  const response = await request.get("/uslugi", { maxRedirects: 0 });
+  expect(response.status()).toBe(308);
+  expect(response.headers()["location"]).toMatch(/^(https?:\/\/[^/]+)?\/oferta$/);
+});
 
 test("/landing redirects permanently to the home page", async ({ request }) => {
   const response = await request.get("/landing", { maxRedirects: 0 });
