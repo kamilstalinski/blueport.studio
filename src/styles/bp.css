@@ -601,7 +601,7 @@ a:hover > .bp-arrow { transform: translateX(4px); }
 @media (max-width: 1023px) { .bp-cs-next { grid-template-columns: 1fr auto; gap: 24px; } .bp-cs-next-shot { grid-column: 1 / -1; grid-row: 2; } }
 @media (prefers-reduced-motion: reduce) { .bp-cs-next-shot img, .bp-cs-next-name { transition: none; } }
 
-/* o nas: the story beside the calculator it talks about */
+/* o nas: the story beside a shot of our work, linked to /realizacje */
 .bp-about-split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 48px; align-items: start; }
 .bp-about-shot { display: block; color: inherit; transition: border-color .3s, transform .3s var(--ease); }
 .bp-about-shot-pane { display: block; overflow: hidden; aspect-ratio: 4 / 3; }

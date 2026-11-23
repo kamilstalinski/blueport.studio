@@ -29,7 +29,7 @@ export function TierCard({ tier }: TierCardProps) {
         ))}
       </ul>
       <ButtonLink href={`/kontakt?temat=${packageTopic(tier.packageId)}`} variant={tier.featured ? "oncobalt" : "secondary"} withArrow>
-        Umów rozmowę
+        Umów rozmowę<span className="sr-only">: {tier.name}</span>
       </ButtonLink>
     </article>
   );

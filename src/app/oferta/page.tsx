@@ -9,9 +9,9 @@ import { OfferGroup } from "@/components/sections/offer/OfferGroup";
 import { OfferHero } from "@/components/sections/offer/OfferHero";
 
 export const metadata: Metadata = {
-  title: "Oferta: strony, sklepy, reklamy i AI dla firm",
+  title: "Oferta: strony, sklepy, reklamy i AI",
   description:
-    "Strony internetowe, sklepy WooCommerce, reklamy Meta i Google oraz wdrożenia AI dla małych firm ze Szczecina i z całej Polski. Odpowiadamy w 24 godziny w dni robocze.",
+    "Strony internetowe, sklepy WooCommerce, reklamy Meta i Google oraz wdrożenia AI dla małych firm ze Szczecina i całej Polski. Zobacz, co obejmuje każda usługa.",
   alternates: { canonical: "https://blueport.studio/oferta" },
   openGraph: { url: "https://blueport.studio/oferta" },
 };
@@ -45,7 +45,7 @@ export default function OfferPage() {
       <WorkWall />
       <ProcessSection />
       <FaqTeaser id="offer-faq-h" title="Pytania przed rozmową" keys={["contract", "time", "materials", "support"]} />
-      <CtaBand />
+      <CtaBand onOfferPage />
     </div>
   );
 }

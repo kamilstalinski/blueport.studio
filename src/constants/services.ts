@@ -45,7 +45,7 @@ export const SERVICES: readonly Service[] = [
     h1: "Strona internetowa dla małej firmy",
     metaTitle: "Strona internetowa dla małej firmy",
     metaDescription:
-      "Strona firmowa na WordPressie albo w Next.js: do 10 podstron, wersja na telefony, formularz kontaktu. Publikacja od 7 dni roboczych, data w umowie.",
+      "Strona firmowa na WordPressie albo w Next.js, do 10 podstron i wersja na telefony. Publikacja od 7 dni roboczych, data w umowie. Zobacz, co obejmuje.",
     lede: "Budujemy strony na WordPressie, a gdy to nie wystarcza, piszemy je w Next.js. Zakres, cenę i datę publikacji wpisujemy do umowy przed startem prac.",
     problem: "Nie masz strony albo stara wizytówka nie prowadzi klienta do kontaktu.",
     scope: [
@@ -91,7 +91,7 @@ export const SERVICES: readonly Service[] = [
     h1: "Sklep internetowy na WooCommerce dla małej firmy",
     metaTitle: "Sklep internetowy WooCommerce dla firmy",
     metaDescription:
-      "Sklep WooCommerce z płatnościami online, wysyłką przez kurierów i panelem zamówień. Do 30 produktów na start, publikacja od 21 dni roboczych.",
+      "Sklep WooCommerce z płatnościami online, wysyłką przez kurierów i panelem zamówień. Do 30 produktów na start. Zobacz, co obejmuje wdrożenie sklepu.",
     lede: "Sklep na WooCommerce, w którym sam dodajesz produkty i obsługujesz zamówienia. Płatności online i kurierzy są podpięci przed publikacją.",
     problem: "Sprzedajesz przez wiadomości i przelewy, a każde zamówienie obsługujesz ręcznie.",
     scope: [
@@ -142,7 +142,7 @@ export const SERVICES: readonly Service[] = [
     h1: "Reklamy na Facebooku, Instagramie i w Google dla małej firmy",
     metaTitle: "Reklamy Meta i Google Ads dla małej firmy",
     metaDescription:
-      "Kampanie na Facebooku, Instagramie i w Google, które prowadzą klienta na Twoją stronę i do formularza. Budżet reklamowy płacisz prosto Meta lub Google.",
+      "Kampanie na Facebooku, Instagramie i w Google, które prowadzą klienta na Twoją stronę. Budżet płacisz prosto Meta lub Google. Zobacz, jak pracujemy.",
     lede: "Ustawiamy i prowadzimy reklamy, które kierują klientów na Twoją stronę albo do sklepu. Budżet reklamowy płacisz bezpośrednio Meta lub Google, osobno od naszej obsługi.",
     problem: "Strona jest, ale odwiedza ją za mało osób, żeby przychodziły zapytania.",
     // FAKT: zakres obsługi Ads (co dokładnie robimy co miesiąc, raporty, pomiar)
@@ -195,9 +195,9 @@ export const SERVICES: readonly Service[] = [
     group: "automatyzacja",
     topic: "ai",
     h1: "Wdrożenia AI w małej firmie: jeden proces na start",
-    metaTitle: "Wdrożenia AI i automatyzacja dla małej firmy",
+    metaTitle: "Wdrożenia AI i automatyzacja dla firmy",
     metaDescription:
-      "Automatyzujemy jedną powtarzalną czynność w Twojej firmie: odpowiedzi na zapytania, porządkowanie maili, szkice ofert. Zaczynamy od rozmowy o procesie.",
+      "Automatyzujemy jedną powtarzalną czynność: odpowiedzi na zapytania, porządkowanie maili, szkice ofert. Umów rozmowę o procesie, od którego zaczniemy.",
     lede: "Wybieramy jedną czynność, którą dziś robisz ręcznie, i przekazujemy ją AI. Gdy działa, bierzemy następną.",
     problem: "Odpisywanie na zapytania, przepisywanie maili i składanie ofert zjada godziny, które wolisz spędzić z klientem.",
     // FAKT: zakres wdrożenia AI (czy w cenie są szkolenie i poprawki po starcie)

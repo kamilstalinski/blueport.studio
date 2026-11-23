@@ -213,7 +213,7 @@ test.describe("kontakt form", () => {
   test("shows the spec layout and direct contact details", async ({ page }) => {
     await page.goto("/kontakt");
 
-    await expect(page.getByRole("heading", { level: 1 })).toHaveText("Napisz, jakiej strony internetowej potrzebujesz.");
+    await expect(page.getByRole("heading", { level: 1 })).toHaveText("Napisz, czego potrzebuje Twoja firma.");
     await expect(page.getByLabel("Czego potrzebujesz?").locator("option")).toHaveText(["Strona firmowa", "Sklep internetowy", "Projekt dedykowany", "Reklamy Meta / Google", "Wdrożenie AI", "Jeszcze nie wiem"]);
     await expect(page.locator("main").getByRole("link", { name: "kontakt@blueport.studio" })).toHaveAttribute("href", "mailto:kontakt@blueport.studio");
     await expect(page.locator("main").getByRole("link", { name: "+48 534 287 233" })).toHaveAttribute("href", "tel:+48534287233");
@@ -345,7 +345,7 @@ test("every subpage has exactly one h1", async ({ page }) => {
 });
 
 test.describe("SEO meta", () => {
-  const ROUTES = ["/", "/o-nas", "/realizacje", "/realizacje/vilmart", "/proces", "/faq", "/kontakt"];
+  const ROUTES = ["/", "/o-nas", "/realizacje", "/realizacje/vilmart", "/proces", "/faq", "/kontakt", "/oferta", "/oferta/strony-www", "/oferta/sklepy-internetowe", "/oferta/reklamy-meta-google", "/oferta/wdrozenia-ai"];
 
   test("every content page has a short unique title, a 140-160 char description, one h1 and no price wording", async ({ page }) => {
     const titles: string[] = [];

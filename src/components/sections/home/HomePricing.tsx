@@ -59,7 +59,7 @@ export function HomePricing({ onPricePage = false }: { onPricePage?: boolean }) 
                     ))}
                   </ul>
                   <Link className="bp-row-act" href={`/kontakt?temat=${packageTopic(tier.packageId)}`}>
-                    Umów rozmowę <Arrow />
+                    Umów rozmowę<span className="sr-only">: {tier.name}</span> <Arrow />
                   </Link>
                 </article>
               );

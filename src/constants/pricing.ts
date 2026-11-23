@@ -402,7 +402,7 @@ export function calculatePrice(
   return { base, featuresTotal, total, label };
 }
 
-/** Features available for a given package (for calculator step). */
+/** Features available for a given package (for the /cennik add-on picker). */
 export function getFeaturesForPackage(packageId: PackageId): FeatureId[] {
   return (Object.keys(FEATURES) as FeatureId[]).filter((id) =>
     (FEATURES[id].availableForPackages as readonly PackageId[]).includes(packageId)

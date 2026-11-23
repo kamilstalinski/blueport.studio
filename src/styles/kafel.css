@@ -697,7 +697,7 @@ a.frame:focus-visible { transform: translate(-3px, -3px); border-color: var(--co
 /* ── Process ────────────────────────────────────────────────────────── */
 .process-title { max-width: 22ch; }
 .steps { position: relative; display: grid; grid-template-columns: repeat(5, 1fr); gap: 0; margin: 44px 0 0; padding: 0; list-style: none; }
-/* .steps .step (not bare .step) so this never touches the calculator's unrelated .step (globals.css), which is flex with a 24px gap */
+/* .steps .step (not bare .step) so these rules stay inside the process timeline */
 .steps .step { display: block; position: relative; height: 100%; padding: 0 26px 0 0; }
 .steps .step::before {
   content: "";

@@ -2,8 +2,9 @@ import Link from "next/link";
 
 import { Arrow } from "@/components/ui/Arrow";
 
-/** The close on every page: the one action again, set large on the grid, right above the footer. */
-export function CtaBand() {
+/** The close on every page: the one action again, set large on the grid, right above the footer.
+ * `onOfferPage`: on /oferta itself the "Zobacz ofertę" row would link to the page it sits on, so it is left out. */
+export function CtaBand({ onOfferPage = false }: { onOfferPage?: boolean }) {
   return (
     <section className="bp-close bp-scope" aria-labelledby="cta-title">
       <div className="bp-shell bp-grid">
@@ -13,9 +14,11 @@ export function CtaBand() {
           <Link className="bp-row-act bp-row-act--primary" href="/kontakt">
             Umów rozmowę <Arrow />
           </Link>
-          <Link className="bp-row-act" href="/oferta">
-            Zobacz ofertę <Arrow />
-          </Link>
+          {!onOfferPage && (
+            <Link className="bp-row-act" href="/oferta">
+              Zobacz ofertę <Arrow />
+            </Link>
+          )}
         </div>
       </div>
     </section>

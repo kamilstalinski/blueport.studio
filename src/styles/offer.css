@@ -68,8 +68,6 @@
 
 /* groups: HomePricing's columns; the linked column lifts 2px */
 .bp-offer-group .bp-sec-head .bp-rows-act { margin: 36px -24px 0 0; }
-.bp-offer-col { transition: transform .35s var(--ease); }
-.bp-offer-col:hover { transform: translateY(-2px); }
 .bp-offer-problem { margin-top: 14px; color: var(--papier); font-size: 16px; }
 .bp-offer-meta { margin-bottom: 20px; color: var(--muted); }
 .bp-offer-meta .bp-nowrap { white-space: nowrap; }
@@ -106,8 +104,6 @@
   .bp-offer-fact { animation: none; }
   .bp-offer-art .bp-route { stroke-dashoffset: 0; }
   .bp-offer-art .bp-pin { opacity: 1; }
-  .bp-offer-col { transition: none; }
-  .bp-offer-col:hover { transform: none; }
 }
 
 /* ═══ Home: the services as tall rows, name over the problem it solves ═══ */

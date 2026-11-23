@@ -2,7 +2,7 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 
-/** Content pages carry no price wording (spec: docs/superpowers/specs/2026-11-23-seo-copy-design.md). /cennik, the calculator and the package cards are out of scope. */
+/** Content pages carry no price wording (spec: docs/superpowers/specs/2026-11-23-seo-copy-design.md). /cennik and the package cards are out of scope. */
 const SCOPED_FILES = [
   "src/app/layout.tsx",
   "src/lib/jsonLd.ts",
