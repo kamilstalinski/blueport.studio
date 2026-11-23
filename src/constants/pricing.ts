@@ -1,6 +1,8 @@
+import type { ContactTopic } from "@/constants/contact";
+
 /**
  * Single source of truth for package and feature pricing.
- * Used by: OfertaPakiety (main page packages), Calculator (Step1Type, useCalculator, CalculatorRight).
+ * Used by: OfertaPakiety (main page packages), /cennik (AddonPicker), Navbar.
  * Never hardcode prices in components.
  */
 
@@ -274,6 +276,13 @@ export const TIMELINE_MULTIPLIERS = {
 
 export type PackageId = keyof typeof PACKAGES;
 
+/** The /kontakt?temat= topic a package hands over to. */
+export function packageTopic(id: PackageId): ContactTopic {
+  if (id === "sklep-online") return "sklep";
+  if (id === "projekt-dedykowany") return "dedykowany";
+  return "strona";
+}
+
 /** Add-on groups in the order the cennik lists them. */
 export const FEATURE_GROUPS = [
   { id: "widocznosc", label: "Widoczność i treści" },
@@ -393,7 +402,7 @@ export function calculatePrice(
   return { base, featuresTotal, total, label };
 }
 
-/** Features available for a given package (for calculator step). */
+/** Features available for a given package (for the /cennik add-on picker). */
 export function getFeaturesForPackage(packageId: PackageId): FeatureId[] {
   return (Object.keys(FEATURES) as FeatureId[]).filter((id) =>
     (FEATURES[id].availableForPackages as readonly PackageId[]).includes(packageId)

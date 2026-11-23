@@ -12,19 +12,20 @@ Owners of small local businesses from all over Poland (service firms, shops, pra
 
 ## Product Purpose
 
-Blueport Studio is a web studio from Szczecin that designs and builds WordPress websites and WooCommerce shops for small businesses, plus custom Next.js / React projects for advanced needs. Success for the site: a visitor checks the cost in the calculator or books a consultation.
+Blueport Studio is a web studio from Szczecin that sells four services to small businesses: websites (WordPress, or custom Next.js / React for advanced needs), online shops (WooCommerce), Meta and Google ads, and AI implementations. Success for the site: a visitor books a conversation ("Umów rozmowę", via /kontakt).
 
 ## Positioning
 
-Price and timeline known up front: a 60-second calculator gives a quote range before any sales call, the final price and date are fixed before work starts, and publication follows 1–2 weeks after design approval. Every site is planned around how its customer arrives (local search) and what they should do (contact), not around how it looks in a presentation.
+Price and timeline known up front: the "from" price of each service is shown before any conversation (or the page says plainly that the quote comes after the call), the conversation comes first, the final price and date are fixed before work starts, and publication follows 1–2 weeks after design approval. The services are one customer path: an ad brings the visitor, a page or shop turns the visit into an enquiry, AI handles the enquiry. Every site is planned around how its customer arrives and what they should do (contact), not around how it looks in a presentation.
 
 ## Operating Context
 
-The visitor arrives from Google or a referral, compares packages and examples, and either runs the calculator (/kalkulator) or books a consultation (/kontakt). Process: calculator (day 0), short call to fix price and date (day 1), design and build (days 2–10), testing on phones and tablets, publication with server, domain and training.
+The visitor arrives from Google or a referral, compares packages and examples, and looks at the offer (/oferta and its four service pages) and books a conversation (/kontakt?temat=…). Process starts with the conversation: write or call (reply within 24 h, call of about 30 minutes), price and date fixed, design and build, testing on phones and tablets, publication with server, domain and training.
 
 ## Capabilities and Constraints
 
-- Packages: Strona start (WordPress, from 2 500 zł, from 7 working days), Strona Pro (WordPress, from 3 900 zł, from 14 working days), Sklep online (WooCommerce, from 4 900 zł, from 21 working days), Projekt dedykowany (Next.js / React, from 6 500 zł, from 30 working days).
+- Services (src/constants/services.ts, pages /oferta/strony-www, /oferta/sklepy-internetowe, /oferta/reklamy-meta-google, /oferta/wdrozenia-ai): websites, online shops, Meta and Google ads, AI implementations. Meta and Google ads from 900 zł per month (ad budget paid directly to Meta/Google), AI implementations from 2 500 zł per process; no timeline for either yet.
+- Packages behind websites and shops: Strona start (WordPress, from 2 500 zł, from 7 working days), Strona Pro (WordPress, from 3 900 zł, from 14 working days), Sklep online (WooCommerce, from 4 900 zł, from 21 working days), Projekt dedykowany (Next.js / React, from 6 500 zł, from 30 working days).
 - Replies within 24 h on working days. Works in Szczecin and remotely.
 - The site itself is Next.js (App Router), Polish language.
 
@@ -40,13 +41,14 @@ The visitor arrives from Google or a referral, compares packages and examples, a
 - Real client work with screenshots in public/work/: Dobre Precle, SPAVALNIA, Vilmart Water Services, Dowytrenowania, ABC Mosty, After the Sin (each with a case study page).
 - Three client testimonials with names (Kamil Głogowski / Vilmart, Igor Romanowski / SPAVALNIA, Andrzej Szymko / After The Sin) as on the current site.
 - Stats used on the current site: 10+ deployments, 1–2 weeks to publication, 24 h reply time.
+- Ads and AI implementations: "from" prices given by the owner (900 zł / month, 2 500 zł per process); no tools or case studies yet. Their pages show what is planned and say so; nothing about them may be presented as a past project.
 - No team photographs, no client logos files, no press. Do not invent customers, figures or quotes.
 
 ## Product Principles
 
-1. Price and time before persuasion: every page lets the visitor see what it costs and how long it takes.
+1. Price and time before persuasion: every service shows a "from" price and time, or says plainly that the quote comes after the conversation.
 2. Show the work, not adjectives: real client sites carry the proof.
-3. One path to contact: the calculator or a consultation, never a maze of options.
+3. One path to contact: the conversation ("Umów rozmowę"), never a maze of options.
 4. Plain Polish for non-technical owners.
 
 ## Accessibility & Inclusion

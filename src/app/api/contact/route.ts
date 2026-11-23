@@ -10,7 +10,7 @@ const TOPIC_LABELS: Record<ContactTopic, string> = Object.fromEntries(CONTACT_TO
 
 /**
  * Email design system (inline styles only).
- * Keep it consistent with the calculator (leads) integration.
+ * Shared by the team notification and the client confirmation, so both emails look the same.
  */
 const EMAIL_DS = {
   bg: "#00020f",
@@ -302,7 +302,7 @@ function clientEmailHtml(data: ContactFormData): string {
 
       <div style="${bodyStyle}">
         <p style="margin:0 0 20px;font-size:15px;line-height:1.7;color:${d.textSecondary};">
-          Dziękuję za kontakt. Odezwę się do Ciebie w ciągu <strong style="color:${d.textPrimary};">24–48 godzin</strong>
+          Dziękuję za kontakt. Odezwę się do Ciebie w ciągu <strong style="color:${d.textPrimary};">24 godzin</strong>
           w dni robocze.
         </p>
 

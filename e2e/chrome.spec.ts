@@ -7,30 +7,34 @@ test.describe("navbar on desktop", () => {
     await page.goto("/realizacje");
     const nav = page.getByRole("navigation", { name: "Główna nawigacja" });
 
-    await expect(nav.getByRole("link")).toHaveText(["Cennik", "Realizacje", "Proces", "O nas", "Kontakt"]);
+    await expect(nav.getByRole("link")).toHaveText(["Oferta", "Realizacje", "Proces", "O nas", "Kontakt"]);
     await expect(nav.getByRole("link", { name: "Realizacje" })).toHaveAttribute("aria-current", "page");
-    await expect(page.getByRole("banner").getByRole("link", { name: "Sprawdź koszt" })).toHaveAttribute("href", "/kalkulator");
+    await expect(page.getByRole("banner").getByRole("link", { name: "Umów rozmowę" })).toHaveAttribute("href", "/kontakt");
     await expect(page.getByRole("banner").getByRole("link", { name: "blueport.studio, strona główna" })).toHaveAttribute("href", "/");
   });
 
-  test("Cennik opens the price panel on hover and on focus, and Escape closes it", async ({ page }) => {
+  test("Oferta opens the offer panel on hover and on focus, and Escape closes it", async ({ page }) => {
     await page.goto("/o-nas");
     const nav = page.getByRole("navigation", { name: "Główna nawigacja" });
-    const pro = nav.getByRole("link", { name: /^Pro od 3\s900\szł/ });
-    await expect(pro).toBeHidden();
+    const shop = nav.getByRole("link", { name: /^Sklep internetowy od 4\s900\szł/ });
+    await expect(shop).toBeHidden();
 
-    await nav.getByRole("link", { name: "Cennik" }).hover();
-    await expect(pro).toBeVisible();
-    await expect(pro).toHaveAttribute("href", "/kalkulator?pakiet=strona-pro");
+    await nav.getByRole("link", { name: "Oferta" }).hover();
+    await expect(shop).toBeVisible();
+    await expect(shop).toHaveAttribute("href", "/oferta/sklepy-internetowe");
+    await expect(nav.getByRole("link", { name: "Cennik", exact: true })).toHaveAttribute("href", "/cennik");
+    await expect(nav.getByRole("link", { name: /Umów rozmowę/ })).toHaveAttribute("href", "/kontakt");
+    await expect(nav.locator(".bp-mega img")).toHaveCount(0);
     await nav.getByRole("link", { name: "Kontakt" }).hover();
-    await expect(pro).toBeHidden();
+    await expect(shop).toBeHidden();
 
-    await nav.getByRole("link", { name: "Cennik" }).focus();
-    await expect(pro).toBeVisible();
+    await nav.getByRole("link", { name: "Oferta" }).focus();
+    await expect(shop).toBeVisible();
     await page.keyboard.press("Tab");
-    await expect(nav.getByRole("link", { name: /^Start od 2\s500\szł/ })).toBeFocused();
+    await expect(nav.getByRole("link", { name: /^Strona www od 2\s500\szł/ })).toHaveAttribute("href", "/oferta/strony-www");
+    await expect(nav.getByRole("link", { name: /^Strona www od 2\s500\szł/ })).toBeFocused();
     await page.keyboard.press("Escape");
-    await expect(pro).toBeHidden();
+    await expect(shop).toBeHidden();
   });
 
   test("stays pinned to the top while scrolling", async ({ page }) => {
@@ -65,7 +69,7 @@ test("footer links every section and the legal pages", async ({ page }) => {
 
   for (const [name, href] of [
     ["Cennik", "/cennik"],
-    ["Kalkulator wyceny", "/kalkulator"],
+    ["Oferta", "/oferta"],
     ["Realizacje", "/realizacje"],
     ["Proces", "/proces"],
     ["O nas", "/o-nas"],

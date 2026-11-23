@@ -10,8 +10,8 @@ test("home hero carries the offer, the timeline and the two actions", async ({ p
 
   await expect(hero.getByRole("heading", { level: 1 })).toHaveText(/^Strony internetowe .*Szczecina/);
   await expect(hero.getByText("1–2 tygodnie po akceptacji projektu", { exact: false })).toBeVisible();
-  await expect(hero.getByRole("link", { name: /Wyceń stronę/ })).toHaveAttribute("href", "/kalkulator");
-  await expect(hero.getByRole("link", { name: "Umów konsultację" })).toHaveAttribute("href", "/kontakt");
+  await expect(hero.getByRole("link", { name: "Umów rozmowę" })).toHaveAttribute("href", "/kontakt");
+  await expect(hero.getByRole("link", { name: "Zobacz ofertę" })).toHaveAttribute("href", "/oferta");
 });
 
 /* the build timeline reaches stage 3 at 3760ms after hydration (src/lib/hero/buildTimeline.ts) */
@@ -48,7 +48,7 @@ test("the mobile menu opens, lists the pages and closes on Escape", async ({ pag
   await button.click();
   const sheet = page.locator("#bp-sheet");
   await expect(sheet).toBeVisible();
-  await expect(sheet.getByRole("link")).toHaveText(["Cennik", "Realizacje", "Proces", "O nas", "Kontakt", "FAQ"]);
+  await expect(sheet.getByRole("link")).toHaveText(["Oferta", "Realizacje", "Proces", "O nas", "Kontakt", "Cennik", "FAQ"]);
   await page.keyboard.press("Escape");
   await expect(sheet).toBeHidden();
   await expect(page.getByRole("button", { name: "Otwórz menu" })).toBeFocused();

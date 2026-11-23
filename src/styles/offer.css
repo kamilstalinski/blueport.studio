@@ -1,0 +1,119 @@
+/* ═══ Offer: the service subpages (/oferta/<slug>) on the bp world. Reuses bp.css first; only the joins live here. ═══ */
+
+/* hero: PageHead plus the one action under the price line */
+.bp-svc-hero .bp-rows-act { margin-top: 40px; max-width: 400px; }
+
+/* fit: who it is for set bright, who it is not for set back (bp-fit from bp.css) */
+.bp-svc-fit .bp-fit-col h3 { margin-bottom: 18px; }
+.bp-svc-fit .bp-fit-col:not(.bp-fit-col--no) li { color: var(--papier); }
+
+/* terms: package rows under the scope and terms; label left, mono price and arrow right, wrapping on a phone */
+.bp-svc-packs { margin-top: 56px; }
+.bp-svc-packs h3 { margin-bottom: 18px; }
+.bp-svc-packs .bp-row-act, .bp-svc-rest .bp-row-act { height: auto; min-height: 60px; padding-block: 14px; flex-wrap: wrap; row-gap: 6px; }
+.bp-svc-tech { margin-left: 8px; color: var(--faint); font-weight: 400; font-size: 15px; }
+.bp-svc-price { display: inline-flex; align-items: center; gap: 16px; margin-left: auto; }
+.bp-svc-price .bp-mono { color: var(--muted); }
+.bp-row-act:hover .bp-svc-price .bp-arrow { transform: translateX(4px); }
+
+/* proof: real sites as browser windows, one per grid column, the left edge on the rail; the linked window lifts 2px */
+.bp-svc-wins { display: grid; grid-template-columns: repeat(var(--n, 3), 1fr); align-items: start; }
+.bp-svc-win { display: block; margin-right: 24px; transition: transform .35s var(--ease), border-color .2s; }
+.bp-svc-win:hover { transform: translateY(-2px); border-color: var(--kobalt-ink); }
+.bp-svc-win .bp-win-bar .bp-arrow { color: var(--faint); transition: transform .35s var(--ease), color .2s; }
+.bp-svc-win:hover .bp-win-bar .bp-arrow { color: var(--papier); transform: translateX(4px); }
+.bp-svc-win .bp-view { position: relative; aspect-ratio: 4 / 3; overflow: hidden; background: #fff; }
+.bp-svc-win .bp-view img { object-fit: cover; object-position: 0 0; }
+
+/* scenarios: ProcessAround's rows, set a step larger because they carry the whole proof */
+.bp-svc-scen { border-bottom: 1px solid var(--line); }
+.bp-svc-scen > div { padding-block: 22px; }
+.bp-svc-scen dt { font-size: 18px; }
+.bp-svc-tools { margin-top: 28px; }
+
+/* contact: the form keeps its column, the other services sit in the aside as rows */
+.bp-svc-contact-h { margin-bottom: 36px; }
+.bp-svc-rest { margin-top: 24px; }
+
+@media (max-width: 1023px) {
+  .bp-svc-hero .bp-rows-act { max-width: none; }
+  .bp-svc-wins { grid-template-columns: 1fr; gap: 24px; }
+  .bp-svc-win { margin-right: 0; }
+  .bp-svc-win .bp-view { aspect-ratio: 16 / 10; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .bp-svc-win, .bp-svc-win .bp-win-bar .bp-arrow { transition: none; }
+  .bp-svc-win:hover { transform: none; }
+}
+
+/* ═══ Offer hub (/oferta): HeroHome, HomePricing and PlanSection reused; only the joins live here. ═══ */
+
+/* hero: the one hard fact between the lede and the actions */
+.bp-offer-hero .bp-hero-copy .bp-lead { margin-bottom: 16px; }
+.bp-offer-fact { margin-bottom: 40px; color: var(--papier); font-size: 16px; animation: bp-rise .9s var(--ease) .28s both; }
+
+/* hero drawing: PlanSection's hand. pathLength=1 so the dash covers the route whatever its length */
+.bp-offer-art svg { display: block; width: 100%; height: auto; }
+.bp-offer-art .bp-box { stroke: var(--line-2); stroke-width: 1.2; }
+.bp-offer-art .bp-hair { stroke: var(--line-2); }
+.bp-offer-art .bp-fill { fill: var(--tusz-2); stroke: var(--line); }
+.bp-offer-art .bp-field { fill: var(--tusz); stroke: var(--line-2); }
+.bp-offer-art .bp-bar { fill: var(--line-2); } .bp-offer-art .bp-dim { fill: var(--line); }
+.bp-offer-art .bp-cta { fill: color-mix(in srgb, var(--kobalt) 55%, var(--tusz)); }
+.bp-offer-art .bp-goal { fill: var(--kobalt-ink); }
+.bp-offer-art .bp-route { fill: none; stroke: var(--kobalt-ink); stroke-width: 2; stroke-dasharray: 1; stroke-dashoffset: 1; }
+.bp-offer-art .bp-pin { fill: var(--papier); opacity: 0; }
+.bp-offer-art[data-in] .bp-route { stroke-dashoffset: 0; transition: stroke-dashoffset 1.8s var(--ease) .4s; }
+.bp-offer-art[data-in] .bp-pin { opacity: 1; transition: opacity .5s var(--ease) 1.8s; }
+
+/* groups: HomePricing's columns; the linked column lifts 2px */
+.bp-offer-group .bp-sec-head .bp-rows-act { margin: 36px -24px 0 0; }
+.bp-offer-problem { margin-top: 14px; color: var(--papier); font-size: 16px; }
+.bp-offer-meta { margin-bottom: 20px; color: var(--muted); }
+.bp-offer-meta .bp-nowrap { white-space: nowrap; }
+.bp-offer-col .bp-feat { margin-bottom: 24px; }
+
+/* AI diagram: the page's one still diagram, in the two columns the single AI service leaves */
+.bp-offer-ai-side { grid-column: span 2; padding: 32px 24px; }
+.bp-offer-ai { margin: 0; display: grid; grid-template-columns: minmax(0, 1fr) 24px minmax(0, .7fr) 20px minmax(0, 1.3fr); align-items: center; }
+.bp-offer-ai-node { margin: 0; min-height: 60px; display: flex; align-items: center; padding: 10px 16px; border: 1px solid var(--line-2); background: var(--tusz-2); color: var(--papier); font-size: 15px; font-weight: 500; line-height: 1.3; }
+.bp-offer-ai-core { justify-content: center; border-color: var(--kobalt); }
+.bp-offer-ai-wire { height: 1px; background: var(--line-2); }
+.bp-offer-ai-out { list-style: none; margin: 0; padding: 0 0 0 20px; display: grid; gap: 12px; }
+.bp-offer-ai-out li { position: relative; }
+/* the branch: a stub into each outcome and the trunk joining them, through the 12px gaps */
+.bp-offer-ai-out li::before, .bp-offer-ai-out li::after { content: ""; position: absolute; left: -21px; background: var(--line-2); }
+.bp-offer-ai-out li::before { top: 50%; width: 20px; height: 1px; }
+.bp-offer-ai-out li::after { top: -7px; bottom: -7px; width: 1px; }
+.bp-offer-ai-out li:first-child::after { top: 50%; }
+.bp-offer-ai-out li:last-child::after { bottom: 50%; }
+/* scenarios: ProcessAround's rows under the diagram, text only */
+.bp-offer-scen { margin-top: 40px; border-bottom: 1px solid var(--line); }
+
+@media (max-width: 1023px) {
+  .bp-offer-group .bp-sec-head .bp-rows-act { margin-inline: 0; }
+  .bp-offer-ai-side { grid-column: 1 / -1; padding: 28px 0 0; }
+  .bp-offer-ai { grid-template-columns: 1fr; }
+  .bp-offer-ai-wire { width: 1px; height: 24px; margin-left: 24px; }
+  .bp-offer-ai-out { padding-left: 48px; }
+  .bp-offer-ai-out li::before, .bp-offer-ai-out li::after { left: -25px; }
+  .bp-offer-ai-out li::before { width: 24px; }
+  .bp-offer-ai-out li:first-child::after { top: -1px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .bp-offer-fact { animation: none; }
+  .bp-offer-art .bp-route { stroke-dashoffset: 0; }
+  .bp-offer-art .bp-pin { opacity: 1; }
+}
+
+/* ═══ Home: the services as tall rows, name over the problem it solves ═══ */
+.bp-home-offer .bp-sec-head .bp-rows-act { margin: 36px -24px 0 0; }
+.bp-home-offer .bp-sec-body .bp-row-act { height: auto; min-height: 96px; padding-block: 22px; }
+.bp-home-offer-row { display: grid; gap: 6px; }
+.bp-home-offer-row b { font-size: 20px; font-weight: 500; }
+.bp-home-offer-row span { max-width: 60ch; color: var(--muted); font-weight: 400; font-size: 16px; text-wrap: pretty; }
+.bp-row-act:hover .bp-home-offer-row span { color: var(--papier); }
+@media (max-width: 1023px) {
+  .bp-home-offer .bp-sec-head .bp-rows-act { margin-inline: 0; }
+  .bp-home-offer .bp-sec-body { margin-top: 32px; }
+}

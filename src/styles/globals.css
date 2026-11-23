@@ -45,9 +45,6 @@
 
 /* Desktop: enforce minimum font size 12px */
 @media (min-width: 769px) {
-  .calc-summary-label,
-  .calc-step-dot,
-  .calc-step-label,
   .option-more-chevron,
   .option-dropdown-title,
   .option-tag,

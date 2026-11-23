@@ -7,9 +7,9 @@ import { Arrow } from "@/components/ui/Arrow";
 import { InView } from "@/components/ui/InView";
 
 export const metadata: Metadata = {
-  title: "Kontakt: strony internetowe Szczecin",
+  title: "Kontakt: strony, sklepy, reklamy i AI",
   description:
-    "Studio stron internetowych ze Szczecina. Odpowiadamy w 24 h w dni robocze, konsultacja jest bezpłatna. Napisz do nas przez formularz albo zadzwoń.",
+    "Strony, sklepy, reklamy i wdrożenia AI dla firm ze Szczecina i z całej Polski. Odpowiadamy w 24 h w dni robocze. Napisz przez formularz albo zadzwoń.",
   alternates: { canonical: "https://blueport.studio/kontakt" },
   openGraph: { url: "https://blueport.studio/kontakt" },
 };
@@ -21,17 +21,20 @@ const DIRECT = [
   { term: "Czas odpowiedzi", value: "do 24 godzin w dni robocze" },
 ] as const;
 
-export default function KontaktPage() {
+export default async function KontaktPage({ searchParams }: { searchParams: Promise<{ temat?: string | string[] }> }) {
+  const raw = (await searchParams).temat;
+  // ?temat=a&temat=b arrives as an array: keep the first value
+  const temat = Array.isArray(raw) ? raw[0] : raw;
   return (
     <>
       <PageHead
-        title="Napisz, jakiej strony internetowej potrzebujesz."
+        title="Napisz, czego potrzebuje Twoja firma."
         lede="Jesteśmy ze Szczecina i pracujemy z firmami z całej Polski. Odpowiadamy w ciągu 24 godzin w dni robocze, a konsultacja jest bezpłatna."
       />
       <section className="bp-sec bp-sec--tight bp-contact" aria-label="Formularz kontaktowy">
         <div className="bp-shell bp-grid">
           <InView className="reveal bp-contact-form">
-            <ContactForm />
+            <ContactForm initialTopic={temat} />
           </InView>
           <InView className="reveal contact-aside bp-contact-aside" lag={1}>
             <h2>Wolisz napisać bezpośrednio?</h2>
@@ -52,11 +55,11 @@ export default function KontaktPage() {
               </ol>
             </div>
             <div className="bp-note">
-              <h3>Wolisz najpierw policzyć zakres?</h3>
-              <p>Kalkulator pokaże wstępną wycenę w 60 sekund, bez podawania danych kontaktowych.</p>
+              <h3>Chcesz najpierw zobaczyć, co robimy?</h3>
+              <p>W ofercie opisujemy każdą usługę: dla kogo jest, co obejmuje i jak wygląda praca.</p>
               <div className="bp-rows-act">
-                <Link className="bp-row-act bp-row-act--primary" href="/kalkulator">
-                  Wyceń stronę <Arrow />
+                <Link className="bp-row-act bp-row-act--primary" href="/oferta">
+                  Zobacz ofertę <Arrow />
                 </Link>
               </div>
             </div>

@@ -2,6 +2,7 @@ import { FaqTeaser } from "@/components/pages/FaqTeaser";
 import { HeroHome } from "@/components/sections/HeroHome";
 import { PageGrainient } from "@/components/sections/PageGrainient";
 import { CtaBand } from "@/components/sections/home/CtaBand";
+import { HomeOffer } from "@/components/sections/home/HomeOffer";
 import { HomePricing } from "@/components/sections/home/HomePricing";
 import { LiveDomains } from "@/components/sections/home/LiveDomains";
 import { PlanSection } from "@/components/sections/home/PlanSection";
@@ -26,6 +27,7 @@ export default function HomePage() {
       <LiveDomains />
       <WorkWall />
       <PlanSection />
+      <HomeOffer />
       <HomePricing />
       <ProcessSection />
       <QuotesSection />

@@ -16,9 +16,12 @@ type TextField = "name" | "email" | "message";
 const INITIAL_FIELDS: ContactFormData = { name: "", email: "", message: "", topic: "strona" };
 const FIELD_ORDER: readonly TextField[] = ["name", "email", "message"];
 
-export function ContactForm() {
+export function ContactForm({ initialTopic }: { initialTopic?: string }) {
   const { formState, handleSubmit } = useContactForm();
-  const [fields, setFields] = useState<ContactFormData>(INITIAL_FIELDS);
+  const [fields, setFields] = useState<ContactFormData>({
+    ...INITIAL_FIELDS,
+    topic: initialTopic && isContactTopic(initialTopic) ? initialTopic : "strona",
+  });
   const [errors, setErrors] = useState<ContactErrors>({});
   const inputs = useRef<Partial<Record<TextField, HTMLInputElement | HTMLTextAreaElement | null>>>({});
   const submitting = useRef(false);

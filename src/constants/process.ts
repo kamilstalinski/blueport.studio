@@ -1,7 +1,7 @@
 import type { TileDigit } from "@/lib/pixel/glyphs";
 
 export const PROCESS_STEPS = [
-  { digit: "1", when: "Dzień 0", title: "Wypełniasz kalkulator", text: "60 sekund. Określasz zakres i dostajesz wstępną wycenę. Bez rozmowy sprzedażowej." },
+  { digit: "1", when: "Dzień 0", title: "Piszesz albo dzwonisz", text: "Odpowiadamy w 24 godziny w dni robocze. Rozmowa trwa około 30 minut." },
   { digit: "2", when: "Dzień 1", title: "Doprecyzowujemy", text: "Krótka rozmowa. Ustalamy zakres i termin publikacji, zanim zaczniemy projektować." },
   { digit: "3", when: "Dzień 2-10", title: "Projekt i wdrożenie", text: "Projekt wizualny, a po Twojej akceptacji implementacja i optymalizacja szybkości." },
   { digit: "4", when: "Przed startem", title: "Testy i poprawki", text: "Sprawdzamy na telefonach i tabletach, nanosimy poprawki, akceptujesz finalną wersję." },
@@ -12,9 +12,9 @@ export const PROCESS_STEPS = [
 export const PROCESS_CHAPTERS = [
   {
     when: "Dzień 0",
-    title: "Wypełniasz kalkulator",
-    text: "Kalkulator w 60 sekund pokazuje wstępną wycenę dla wybranego typu strony i funkcji. Odzywamy się dopiero, gdy wyślesz zapytanie.",
-    visual: "calculator",
+    title: "Piszesz albo dzwonisz",
+    text: "Odpowiadamy w 24 godziny w dni robocze. Na rozmowie, która trwa około 30 minut, opowiadasz o firmie i o tym, czego potrzebujesz.",
+    visual: "work",
   },
   {
     when: "Dzień 1",
@@ -34,7 +34,7 @@ export const PROCESS_CHAPTERS = [
     text: "Sprawdzamy stronę na telefonach i tabletach, a Ty akceptujesz finalną wersję. Na koniec podpinamy domenę i uczymy Cię obsługi panelu.",
     visual: "phone",
   },
-] as const satisfies readonly { when: string; title: string; text: string; visual: "calculator" | "contract" | "site" | "phone" }[];
+] as const satisfies readonly { when: string; title: string; text: string; visual: "work" | "contract" | "site" | "phone" }[];
 
 export type ProcessChapter = (typeof PROCESS_CHAPTERS)[number];
 

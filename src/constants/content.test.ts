@@ -65,7 +65,7 @@ describe("PROCESS_STEPS and TALLY", () => {
 });
 
 describe("PROCESS_CHAPTERS", () => {
-  it("tells the process in four chapters, one visual each, from the calculator to launch", () => {
+  it("tells the process in four chapters, one visual each, from the first message to launch", () => {
     expect(PROCESS_CHAPTERS.map((chapter) => chapter.when)).toEqual(["Dzień 0", "Dzień 1", "Dni 2–10", "Start"]);
     expect(new Set(PROCESS_CHAPTERS.map((chapter) => chapter.visual)).size).toBe(4);
   });

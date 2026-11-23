@@ -10,38 +10,6 @@ async function settle(page: Page) {
     const wrap = document.querySelector("main")?.firstElementChild as HTMLElement | null;
     return !wrap || getComputedStyle(wrap).opacity === "1";
   });
-  // The calculator route has no site chrome: its <main class="calc-main"> sits inside
-  // .calc-shell, which the template.tsx fade wrapper wraps from the outside. The check
-  // above only inspects main's own first child, so it never covers that outer fade.
-  // Wait for the .calc-shell ancestor chain itself to have settled at opacity 1.
-  await page.waitForFunction(() => {
-    let el = document.querySelector(".calc-shell") as HTMLElement | null;
-    if (!el) return true;
-    while (el) {
-      if (getComputedStyle(el).opacity !== "1") return false;
-      el = el.parentElement;
-    }
-    return true;
-  });
-  // The calculator also runs its own framer-motion transitions inside .calc-shell (the step
-  // slide, the success-step entrance, the package dropdown), independent of the page fade
-  // above. Wait for those to finish too, or axe can catch inline opacity mid-transition and
-  // report a false color-contrast violation. Checking for a "finished" Web Animation alone is
-  // racy (there's a gap between the state update and framer-motion registering the Animation
-  // object), so also check the rendered opacity of every element framer-motion is driving.
-  await page.waitForFunction(() => {
-    const shell = document.querySelector(".calc-shell");
-    if (!shell) return true;
-    const noRunningAnimations = document.getAnimations().every((anim) => {
-      const target = (anim.effect as KeyframeEffect | null)?.target;
-      if (!target || !shell.contains(target)) return true;
-      return anim.playState === "finished" || anim.playState === "idle";
-    });
-    const allOpaque = [...shell.querySelectorAll<HTMLElement>("[style*='opacity']")].every(
-      (el) => getComputedStyle(el).opacity === "1"
-    );
-    return noRunningAnimations && allOpaque;
-  });
   for (const block of await page.locator("main .reveal:visible").all()) {
     await block.scrollIntoViewIfNeeded();
   }
@@ -125,7 +93,7 @@ test("cennik shows the tiers, the comparison table from the price list and the C
   await page.goto("/cennik");
 
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("Ceny, które widzisz przed podpisaniem umowy.");
-  await expect(page.locator(".page-head .lede").getByRole("link", { name: "kalkulatorze" })).toHaveAttribute("href", "/kalkulator");
+  await expect(page.locator(".page-head .lede").getByRole("link", { name: "ofercie" })).toHaveAttribute("href", "/oferta");
   await expect(page.locator("main article.bp-plan-col")).toHaveCount(3);
 
   const table = page.getByRole("table");
@@ -141,7 +109,7 @@ test("cennik shows the tiers, the comparison table from the price list and the C
   await expectNoAxeViolations(page);
 });
 
-test("cennik picker adds up a scope and hands it to the calculator", async ({ page }) => {
+test("cennik picker adds up a scope and hands the package to the contact form", async ({ page }) => {
   await page.goto("/cennik");
 
   const total = page.locator(".bp-pick-total");
@@ -158,9 +126,8 @@ test("cennik picker adds up a scope and hands it to the calculator", async ({ pa
   await page.getByRole("button", { name: /^Sklep/ }).click();
   await expect(page.getByRole("button", { name: /Porzucone koszyki/ })).toBeVisible();
 
-  await page.getByRole("link", { name: "Dokończ wycenę" }).click();
-  await expect(page).toHaveURL(/\/kalkulator\?pakiet=sklep-online&dodatki=seo-advanced,copywriting$/);
-  await expect(page.locator(".calc-summary")).toContainText(/6\s400\szł|6400 zł/);
+  await page.locator(".bp-picker").getByRole("link", { name: "Umów rozmowę" }).click();
+  await expect(page).toHaveURL(/\/kontakt\?temat=sklep$/);
 });
 
 test("faq is a keyboard-friendly accordion with JSON-LD", async ({ page }) => {
@@ -189,9 +156,9 @@ test("faq is a keyboard-friendly accordion with JSON-LD", async ({ page }) => {
 test("proces walks four chapters beside one frame that shows each one", async ({ page, isMobile }) => {
   await page.goto("/proces");
 
-  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Jak powstaje strona internetowa");
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Od rozmowy do publikacji");
   const steps = page.locator("ol.process-detail > li");
-  await expect(steps.getByRole("heading", { level: 3 })).toHaveText(["Wypełniasz kalkulator", "Ustalamy zakres i datę publikacji", "Projektujemy i budujemy stronę", "Testujemy i publikujemy"]);
+  await expect(steps.getByRole("heading", { level: 3 })).toHaveText(["Piszesz albo dzwonisz", "Ustalamy zakres i datę publikacji", "Projektujemy i budujemy stronę", "Testujemy i publikujemy"]);
   await expect(page.getByText("Od akceptacji projektu do publikacji mija zwykle 1–2 tygodnie.")).toBeVisible();
   // the first sentence (what snippets quote) gives the total time, not only the span after design approval
   await expect(page.locator(".bp-pc-lead")).toHaveText(/^Od 7 dni roboczych/);
@@ -206,7 +173,7 @@ test("proces walks four chapters beside one frame that shows each one", async ({
   // live at 1440x900: the first chapter is open and its visual is the one shown; scrolling through the section moves both on
   const section = page.locator("section.bp-pc");
   await expect(steps.nth(0)).toHaveAttribute("data-on", "");
-  await expect(section.locator(".bp-pc-slide[data-on] img")).toHaveAttribute("src", /kalkulator/);
+  await expect(section.locator(".bp-pc-slide[data-on] img")).toHaveAttribute("src", /work/);
   await section.evaluate((el) => scrollTo(0, el.getBoundingClientRect().top + scrollY + ((el as HTMLElement).offsetHeight - innerHeight) * 0.9));
   await expect(steps.nth(3)).toHaveAttribute("data-on", "");
   await expect(section.locator(".bp-pc-slide[data-on] .bp-pc-phone")).toBeVisible();
@@ -215,11 +182,17 @@ test("proces walks four chapters beside one frame that shows each one", async ({
   await expectNoAxeViolations(page);
 });
 
-for (const legacy of ["/uslugi", "/oferta", "/oferta/strony", "/oferta/sklepy"]) {
-  test(`${legacy} redirects permanently to /cennik`, async ({ request }) => {
-    const response = await request.get(legacy, { maxRedirects: 0 });
-    expect(response.status()).toBe(308);
-    expect(response.headers()["location"]).toMatch(/^(https?:\/\/[^/]+)?\/cennik$/);
+test("/uslugi redirects permanently to /oferta", async ({ request }) => {
+  const response = await request.get("/uslugi", { maxRedirects: 0 });
+  expect(response.status()).toBe(308);
+  expect(response.headers()["location"]).toMatch(/^(https?:\/\/[^/]+)?\/oferta$/);
+});
+
+for (const from of ["/kalkulator", "/kalkulator?pakiet=strona-pro", "/wycena"]) {
+  test(`${from} redirects permanently to /oferta`, async ({ request }) => {
+    const res = await request.get(from, { maxRedirects: 0 });
+    expect([301, 308]).toContain(res.status());
+    expect(res.headers()["location"]).toMatch(/\/oferta(\?.*)?$/);
   });
 }
 
@@ -230,14 +203,21 @@ test("/landing redirects permanently to the home page", async ({ request }) => {
 });
 
 test.describe("kontakt form", () => {
+  test("kontakt preselects the topic from ?temat and ignores junk", async ({ page }) => {
+    await page.goto("/kontakt?temat=ai");
+    await expect(page.locator("#contact-topic")).toHaveValue("ai");
+    await page.goto("/kontakt?temat=xyz");
+    await expect(page.locator("#contact-topic")).toHaveValue("strona");
+  });
+
   test("shows the spec layout and direct contact details", async ({ page }) => {
     await page.goto("/kontakt");
 
-    await expect(page.getByRole("heading", { level: 1 })).toHaveText("Napisz, jakiej strony internetowej potrzebujesz.");
-    await expect(page.getByLabel("Czego potrzebujesz?").locator("option")).toHaveText(["Strona firmowa", "Sklep internetowy", "Projekt dedykowany", "Jeszcze nie wiem"]);
+    await expect(page.getByRole("heading", { level: 1 })).toHaveText("Napisz, czego potrzebuje Twoja firma.");
+    await expect(page.getByLabel("Czego potrzebujesz?").locator("option")).toHaveText(["Strona firmowa", "Sklep internetowy", "Projekt dedykowany", "Reklamy Meta / Google", "Wdrożenie AI", "Jeszcze nie wiem"]);
     await expect(page.locator("main").getByRole("link", { name: "kontakt@blueport.studio" })).toHaveAttribute("href", "mailto:kontakt@blueport.studio");
     await expect(page.locator("main").getByRole("link", { name: "+48 534 287 233" })).toHaveAttribute("href", "tel:+48534287233");
-    await expect(page.locator(".contact-aside").getByRole("link", { name: "Wyceń stronę" })).toHaveAttribute("href", "/kalkulator");
+    await expect(page.locator(".contact-aside").getByRole("link", { name: "Zobacz ofertę" })).toHaveAttribute("href", "/oferta");
     await expect(page.locator("main section.bp-close")).toHaveCount(0);
 
     await expectNoAxeViolations(page);
@@ -346,98 +326,7 @@ for (const [route, title, sections] of [
   });
 }
 
-test.describe("calculator", () => {
-  test("walks the four steps and sends the lead", async ({ page }) => {
-    let lead: Record<string, unknown> | null = null;
-    await page.route("**/api/leads", async (route) => {
-      lead = route.request().postDataJSON();
-      await route.fulfill({ json: { success: true, id: "test-lead" } });
-    });
-    await page.goto("/kalkulator");
-
-    await expect(page.locator(".calc-blob")).toHaveCount(0);
-    await expect(page.locator(".calc-header .bp-brand svg")).toHaveCount(1);
-    expect(await page.locator(".calc-shell").evaluate((el) => getComputedStyle(el).backgroundColor)).toBe("rgb(10, 15, 23)");
-
-    await page.getByRole("button", { name: /Strona start/ }).first().click();
-    expect(await page.locator(".option-card.selected").evaluate((el) => getComputedStyle(el).borderRadius)).toBe("0px");
-    await expect(page.locator(".calc-price")).not.toHaveText("Wybierz opcje");
-    await page.getByRole("button", { name: "Dalej" }).click();
-
-    await expect(page.getByRole("heading", { name: "Dodatkowe funkcje" })).toBeVisible();
-    await page.getByRole("button", { name: "Dalej" }).click();
-
-    await expect(page.getByRole("heading", { name: "Orientacyjny budżet" })).toBeVisible();
-    await page.getByRole("button", { name: "Do 3 000 zł" }).click();
-    await page.getByRole("button", { name: "Dalej" }).click();
-
-    await page.getByLabel("Imię i nazwisko *").fill("Jan Kowalski");
-    await page.getByLabel("Email *").fill("jan@firma.pl");
-    await page.getByRole("button", { name: "Wyślij zapytanie" }).click();
-
-    await expect(page.getByRole("heading", { name: "Zapytanie wysłane" })).toBeVisible();
-    await expect(page.getByRole("button", { name: "Wysłano" })).toBeDisabled();
-    expect(lead).toMatchObject({ name: "Jan Kowalski", email: "jan@firma.pl", packageId: "strona-start" });
-
-    await expectNoAxeViolations(page);
-  });
-
-  test("step one has no nested interactive controls and opens the package details", async ({ page }) => {
-    await page.goto("/kalkulator");
-
-    const card = page.locator(".option-card").first();
-    await expect(card.locator("button")).toHaveCount(2);
-    await expect(card.locator("[role=button]")).toHaveCount(0);
-
-    await card.getByRole("button", { name: "Więcej" }).click();
-    await expect(page.getByRole("dialog", { name: "Zawartość pakietu" })).toBeVisible();
-    await expect(card.getByRole("button", { name: /Strona start/ })).toHaveAttribute("aria-pressed", "false");
-
-    await expectNoAxeViolations(page);
-  });
-
-  test("keeps /wycena on the same calculator", async ({ page }) => {
-    await page.goto("/wycena");
-    await expect(page.getByRole("heading", { name: "Czego potrzebujesz?" })).toBeVisible();
-    await expect(page.locator(".calc-shell")).toHaveCount(1);
-  });
-
-  test("scrolls each desktop pane independently even with a tall feature list", async ({ page, isMobile }) => {
-    test.skip(isMobile, "desktop-only two-pane layout");
-    await page.goto("/kalkulator");
-
-    await page.getByRole("button", { name: /Sklep Online/ }).first().click();
-    await page.getByRole("button", { name: "Dalej" }).click();
-
-    await expect(page.getByRole("heading", { name: "Dodatkowe funkcje" })).toBeVisible();
-    const featureRows = page.locator(".feature-row");
-    const featureCount = await featureRows.count();
-    expect(featureCount).toBeGreaterThan(0);
-    for (let i = 0; i < featureCount; i++) {
-      await featureRows.nth(i).click();
-    }
-
-    const { scrollHeight, innerHeight } = await page.evaluate(() => ({
-      scrollHeight: document.documentElement.scrollHeight,
-      innerHeight: window.innerHeight,
-    }));
-    expect(scrollHeight).toBeLessThanOrEqual(innerHeight + 1);
-
-    const leftOverflows = await page
-      .locator(".calc-left")
-      .evaluate((el) => el.scrollHeight > el.clientHeight);
-    expect(leftOverflows).toBe(true);
-
-    await page.locator(".calc-left").evaluate((el) => el.scrollTo({ top: el.scrollHeight }));
-
-    const priceBox = await page.locator(".calc-price").boundingBox();
-    expect(priceBox).not.toBeNull();
-    expect(priceBox!.y).toBeGreaterThanOrEqual(0);
-    expect(priceBox!.y + priceBox!.height).toBeLessThanOrEqual(innerHeight);
-  });
-});
-
-const KAFEL_ROUTES = ["/realizacje", "/realizacje/spavalnia", "/cennik", "/kontakt", "/faq", "/o-nas", "/proces", "/polityka-prywatnosci", "/regulamin", "/kalkulator"];
+const KAFEL_ROUTES = ["/realizacje", "/realizacje/spavalnia", "/cennik", "/kontakt", "/faq", "/o-nas", "/proces", "/polityka-prywatnosci", "/regulamin", "/oferta", "/oferta/strony-www"];
 
 for (const route of KAFEL_ROUTES) {
   test(`${route} has no legacy glass and no horizontal scroll`, async ({ page }) => {
@@ -448,17 +337,6 @@ for (const route of KAFEL_ROUTES) {
   });
 }
 
-test("kalkulator step slide never overflows horizontally on mobile", async ({ page, isMobile }) => {
-  test.skip(!isMobile, "mobile-only: exercises the step-slide entrance that used to overhang the viewport");
-  await page.goto("/kalkulator");
-  await settle(page);
-
-  await page.getByRole("button", { name: /Strona start/ }).first().click();
-  await page.getByRole("button", { name: "Dalej" }).click();
-  // Measure right away, mid-transition, before the framer entrance settles.
-  expect(await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth)).toBe(true);
-});
-
 test("every subpage has exactly one h1", async ({ page }) => {
   for (const route of KAFEL_ROUTES) {
     await page.goto(route);
@@ -467,7 +345,7 @@ test("every subpage has exactly one h1", async ({ page }) => {
 });
 
 test.describe("SEO meta", () => {
-  const ROUTES = ["/", "/o-nas", "/realizacje", "/realizacje/vilmart", "/proces", "/faq", "/kontakt"];
+  const ROUTES = ["/", "/o-nas", "/realizacje", "/realizacje/vilmart", "/proces", "/faq", "/kontakt", "/oferta", "/oferta/strony-www", "/oferta/sklepy-internetowe", "/oferta/reklamy-meta-google", "/oferta/wdrozenia-ai"];
 
   test("every content page has a short unique title, a 140-160 char description, one h1 and no price wording", async ({ page }) => {
     const titles: string[] = [];

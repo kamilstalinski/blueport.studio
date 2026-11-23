@@ -6,23 +6,10 @@ import { Footer } from "@/components/layout/Footer";
 import { ScrollToTop } from "@/components/ui/ScrollToTop";
 import { cn } from "@/lib/utils";
 
-const NO_CHROME_PATHS = ["/wycena", "/kalkulator"];
-
 export function ConditionalChrome({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  const hideChrome = NO_CHROME_PATHS.some((p) => pathname === p || pathname.startsWith(`${p}/`));
-
-  if (hideChrome) {
-    return (
-      <>
-        {children}
-        <ScrollToTop />
-      </>
-    );
-  }
-
-  // the home page draws its own grid and background; every other page gets the same grid on a quiet ground
-  const isHome = pathname === "/";
+  // the home page and the offer hub draw their own grid and background; every other page gets the same grid on a quiet ground
+  const isHome = pathname === "/" || pathname === "/oferta";
 
   return (
     <>

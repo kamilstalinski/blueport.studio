@@ -37,13 +37,13 @@ export default function ONasPage() {
                 <p key={paragraph}>{paragraph}</p>
               ))}
             </div>
-            <Link href="/kalkulator" className="bp-win bp-about-shot">
+            <Link href="/realizacje" className="bp-win bp-about-shot">
               <span className="bp-win-bar">
                 <Lock />
-                <span className="bp-url bp-mono">blueport.studio/kalkulator</span>
+                <span className="bp-url bp-mono" translate="no">{site("vilmart").domain}</span>
               </span>
               <span className="bp-about-shot-pane">
-                <Image src="/proces/kalkulator.png" alt="Kalkulator wyceny z wybranym pakietem Strona Pro" width={1200} height={900} sizes="(max-width: 1023px) 100vw, 460px" />
+                <Image src={site("vilmart").image} alt={`Strona ${site("vilmart").name}, jedna z naszych realizacji`} width={1200} height={1059} sizes="(max-width: 1023px) 100vw, 460px" />
               </span>
             </Link>
           </div>

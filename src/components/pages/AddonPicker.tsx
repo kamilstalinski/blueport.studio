@@ -11,6 +11,7 @@ import {
   getFeaturesForPackage,
   PACKAGE_SHORT,
   PACKAGES,
+  packageTopic,
   TIMELINE_MULTIPLIERS,
   type FeatureId,
   type PackageId,
@@ -27,7 +28,7 @@ function surcharge(multiplier: number): string {
   return percent > 0 ? `+${percent}%` : `−${-percent}%`;
 }
 
-/** Cennik: pick a package, a delivery mode and add-ons as tiles; the summary beside them adds it up with the calculator's own calculatePrice and hands the scope to /kalkulator. */
+/** Cennik: pick a package, a delivery mode and add-ons as tiles; the summary beside them adds it up with the calculator's own calculatePrice and hands the package to the contact form as its topic. */
 export function AddonPicker({ children }: { children: ReactNode }) {
   const [packageId, setPackageId] = useState<PackageId>("strona-pro");
   const [timeline, setTimeline] = useState<TimelineId>("standard");
@@ -37,7 +38,7 @@ export function AddonPicker({ children }: { children: ReactNode }) {
   const chosen = picked.filter((id) => available.includes(id));
   const price = calculatePrice(packageId, chosen, timeline);
   const pkg = PACKAGES[packageId];
-  const handOver = `/kalkulator?pakiet=${packageId}${chosen.length ? `&dodatki=${chosen.join(",")}` : ""}`;
+  const handOver = `/kontakt?temat=${packageTopic(packageId)}`;
 
   const toggle = (id: FeatureId) =>
     setPicked((list) => (list.includes(id) ? list.filter((item) => item !== id) : [...list, id]));
@@ -76,7 +77,7 @@ export function AddonPicker({ children }: { children: ReactNode }) {
             )}
           </ul>
           <Link className="bp-row-act bp-row-act--primary" href={handOver}>
-            Dokończ wycenę <Arrow />
+            Umów rozmowę <Arrow />
           </Link>
         </aside>
       </div>

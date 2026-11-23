@@ -21,8 +21,8 @@ describe("validateContact", () => {
 });
 
 describe("isContactTopic", () => {
-  it("knows the four topics", () => {
-    expect(["strona", "sklep", "dedykowany", "nie-wiem"].every(isContactTopic)).toBe(true);
+  it("knows the six topics", () => {
+    expect(["strona", "sklep", "dedykowany", "reklamy", "ai", "nie-wiem"].every(isContactTopic)).toBe(true);
     expect(isContactTopic("wordpress")).toBe(false);
   });
 });

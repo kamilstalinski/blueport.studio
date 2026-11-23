@@ -1,37 +1,36 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useRef, useState, type FocusEvent } from "react";
 
 import { BrandLogo } from "@/components/brand/BrandLogo";
 import { Arrow } from "@/components/ui/Arrow";
-import { PACKAGES, PACKAGE_SHORT, type PackageId } from "@/constants/pricing";
-import { formatPrice } from "@/lib/formatPrice";
+import { SERVICES, priceLabel } from "@/constants/services";
 import { isNavActive } from "@/lib/navigation";
 
 const NAV_LINKS = [
-  { href: "/cennik", label: "Cennik" },
+  { href: "/oferta", label: "Oferta" },
   { href: "/realizacje", label: "Realizacje" },
   { href: "/proces", label: "Proces" },
   { href: "/o-nas", label: "O nas" },
   { href: "/kontakt", label: "Kontakt" },
 ] as const;
 
-const SHEET_LINKS = [...NAV_LINKS, { href: "/faq", label: "FAQ" }] as const;
+const SHEET_LINKS = [...NAV_LINKS, { href: "/cennik", label: "Cennik" }, { href: "/faq", label: "FAQ" }] as const;
 
 const PRICE_LINKS = [
   { href: "/cennik#price-table-title", label: "Porównanie pakietów" },
   { href: "/cennik#addons-title", label: "Dodatki i ich ceny" },
   { href: "/faq", label: "Pytania o cenę i umowę" },
+  { href: "/cennik", label: "Cennik" },
 ] as const;
 
 /* the panel opens after the pointer has rested on its word this long (taste-skill nav-mega) */
 const OPEN_DELAY_MS = 150;
 
-/** One fixed, opaque bar on the page grid. "Cennik" opens a full-width flat panel: the packages (each straight into
- *  the calculator), the price pages and one picture card of the calculator. Below 1024px a full-screen sheet. */
+/** One fixed, opaque bar on the page grid. "Oferta" opens a full-width flat panel: the four services, the price pages
+ *  and one card that asks for a call. Below 1024px a full-screen sheet. */
 export function Navbar() {
   const pathname = usePathname() ?? "";
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -81,7 +80,7 @@ export function Navbar() {
         </Link>
         <nav className="bp-nav" aria-label="Główna nawigacja">
           {NAV_LINKS.map((link) =>
-            link.href === "/cennik" ? (
+            link.href === "/oferta" ? (
               <div key={link.href} className="bp-nav-item" onMouseEnter={openPanelSoon} onFocus={() => setIsPanelOpen(true)} onBlur={leaveItem}>
                 <Link href={link.href} aria-current={current(link.href)} data-open={isPanelOpen ? "" : undefined} onClick={closeAll}>
                   {link.label}
@@ -89,15 +88,13 @@ export function Navbar() {
                 <div className="bp-mega" data-open={isPanelOpen ? "" : undefined}>
                   <div className="bp-shell bp-mega-grid">
                     <div className="bp-mega-col">
-                      <p className="bp-mono">Pakiety</p>
+                      <p className="bp-mono">Usługi</p>
                       <ul>
-                        {(Object.keys(PACKAGES) as PackageId[]).map((id) => (
-                          <li key={id}>
-                            <Link href={`/kalkulator?pakiet=${id}`} onClick={closeAll}>
-                              <span>{PACKAGE_SHORT[id]}</span>
-                              <span className="bp-mono">
-                                od {formatPrice(PACKAGES[id].basePrice)} zł · {PACKAGES[id].deliveryLabel.replace("od ", "")}
-                              </span>
+                        {SERVICES.map((service) => (
+                          <li key={service.slug}>
+                            <Link href={`/oferta/${service.slug}`} onClick={closeAll}>
+                              <span>{service.name}</span>
+                              <span className="bp-mono">{priceLabel(service)}</span>
                             </Link>
                           </li>
                         ))}
@@ -115,14 +112,14 @@ export function Navbar() {
                         ))}
                       </ul>
                     </div>
-                    <Link href="/kalkulator" className="bp-mega-card" onClick={closeAll}>
-                      <span className="bp-mega-card-head">
-                        Policz koszt w kalkulatorze <Arrow />
-                      </span>
-                      <span className="bp-mega-card-shot">
-                        <Image src="/proces/kalkulator.png" alt="" width={1200} height={900} sizes="560px" />
-                      </span>
-                    </Link>
+                    <div className="bp-mega-card">
+                      <p>Nie wiesz, od czego zacząć? Odpowiadamy w 24 godziny w dni robocze, a rozmowa trwa około 30 minut.</p>
+                      <div className="bp-rows-act">
+                        <Link className="bp-row-act bp-row-act--primary" href="/kontakt" onClick={closeAll}>
+                          Umów rozmowę <Arrow />
+                        </Link>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -134,8 +131,8 @@ export function Navbar() {
           )}
         </nav>
         <div className="bp-act">
-          <Link className="bp-btn-sq" href="/kalkulator" onClick={closeAll}>
-            Sprawdź koszt <Arrow />
+          <Link className="bp-btn-sq" href="/kontakt" onClick={closeAll}>
+            Umów rozmowę <Arrow />
           </Link>
         </div>
         <button

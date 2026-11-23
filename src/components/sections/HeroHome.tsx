@@ -14,11 +14,11 @@ export function HeroHome() {
             1–2&nbsp;tygodnie po akceptacji projektu, a datę startu znasz przed rozpoczęciem prac.
           </p>
           <div className="bp-rows-act">
-            <Link className="bp-row-act bp-row-act--primary" href="/kalkulator">
-              Wyceń stronę <span className="bp-mono">60 s</span>
+            <Link className="bp-row-act bp-row-act--primary" href="/kontakt">
+              Umów rozmowę <Arrow />
             </Link>
-            <Link className="bp-row-act" href="/kontakt">
-              Umów konsultację <Arrow />
+            <Link className="bp-row-act" href="/oferta">
+              Zobacz ofertę <Arrow />
             </Link>
           </div>
         </div>
