@@ -17,7 +17,8 @@ test("pages use the Kobalt / Grafit / Sygnał tokens and Kafel fonts", async ({ 
   });
 
   expect(styles.background).toBe("rgb(10, 15, 23)");
-  expect(styles.bodyFont).toMatch(/Schibsted/);
+  // next/font/local names the family after the variable ("schibstedGrotesk")
+  expect(styles.bodyFont).toMatch(/schibsted\s?grotesk/i);
   // Next.js's CSS pipeline (Lightning CSS) lowercases hex color literals when
   // serving the stylesheet, even though the source in src/styles/kafel.css
   // uses the brand kit's uppercase #FF5A1F. Compare case-insensitively.
