@@ -45,11 +45,11 @@ export const martianMono = Martian_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL("https://blueport.studio"),
   title: {
-    default: "Strony internetowe Szczecin, od 2500 zł | Blueport Studio",
+    default: "Strony internetowe Szczecin dla firm | Blueport Studio",
     template: "%s | Blueport Studio",
   },
   description:
-    "Strony internetowe dla małych firm od 2500 zł. Studio ze Szczecina: WordPress, sklepy WooCommerce i Next.js. Wycena w kalkulatorze w 60 sekund, odpowiedź w 24 h.",
+    "Strony internetowe i sklepy WooCommerce dla małych firm ze Szczecina i całej Polski. Publikacja 1–2 tygodnie po akceptacji projektu, odpowiedź w 24 h.",
   keywords: [
     "strony internetowe Szczecin",
     "studio webowe Szczecin",
@@ -59,7 +59,6 @@ export const metadata: Metadata = {
     "Next.js Szczecin",
     "WordPress Szczecin",
     "strony internetowe dla małych firm",
-    "ile kosztuje strona internetowa",
     "strona WordPress dla firmy",
     "sklep WooCommerce",
     "web development Polska",
@@ -74,7 +73,7 @@ export const metadata: Metadata = {
     siteName: "Blueport Studio",
     title: "Blueport Studio — Strony internetowe Szczecin",
     description:
-      "Strony internetowe dla małych firm od 2500 zł. Studio ze Szczecina, wycena online w 60 sekund.",
+      "Strony WordPress i sklepy WooCommerce dla małych firm. Studio ze Szczecina, publikacja 1–2 tygodnie po akceptacji projektu.",
     images: [
       {
         url: "/og/og-default.png",
@@ -87,7 +86,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Blueport Studio — Strony internetowe Szczecin",
-    description: "Strony WordPress i sklepy WooCommerce dla małych firm, od 2500 zł. Studio ze Szczecina.",
+    description: "Strony WordPress i sklepy WooCommerce dla małych firm. Studio ze Szczecina.",
     images: ["/og/og-default.png"],
   },
   robots: {

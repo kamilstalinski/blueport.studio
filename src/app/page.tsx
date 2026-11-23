@@ -29,7 +29,7 @@ export default function HomePage() {
       <HomePricing />
       <ProcessSection />
       <QuotesSection />
-      <FaqTeaser id="home-faq-h" title="Najczęstsze pytania" keys={["time", "contract", "revisions", "hosting"]} />
+      <FaqTeaser id="home-faq-h" title="Najczęstsze pytania o stronę dla firmy" keys={["time", "contract", "revisions", "hosting"]} />
       <CtaBand />
     </div>
   );

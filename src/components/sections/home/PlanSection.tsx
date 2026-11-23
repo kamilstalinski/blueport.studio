@@ -12,10 +12,10 @@ export function PlanSection() {
     <section className="bp-sec bp-plan" id="plan" aria-labelledby="plan-h">
       <div className="bp-shell bp-grid">
         <div className="bp-plan-copy">
-          <h2 id="plan-h">Większość stron dla małych firm powstaje bez planu. Potem nie sprzedaje.</h2>
+          <h2 id="plan-h">Planujemy stronę, zanim ją zaprojektujemy</h2>
           <p className="bp-lead">
-            Wygląda dobrze na prezentacji i nic nie robi przez kolejne trzy lata. Zaczynamy od pytania, kto ma na tę stronę
-            trafić i co ma na niej zrobić.
+            Większość stron dla małych firm powstaje bez planu: dobrze wygląda na prezentacji, a przez trzy lata nie
+            przynosi zapytań. Zaczynamy od pytania, kto ma trafić na stronę z Google i co ma na niej zrobić.
           </p>
           <ul className="bp-fixes">
             {FIXES.map((fix) => (

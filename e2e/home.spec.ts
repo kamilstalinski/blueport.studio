@@ -20,7 +20,7 @@ const section = (page: import("@playwright/test").Page, heading: string) =>
 
 test("the work list swaps the browser window to the chosen site", async ({ page }) => {
   await page.goto("/");
-  const works = section(page, "Trzy ostatnie realizacje");
+  const works = section(page, "Ostatnie realizacje stron internetowych");
   await works.scrollIntoViewIfNeeded();
 
   const items = works.locator(".bp-work-item");
@@ -37,7 +37,7 @@ test("the work list swaps the browser window to the chosen site", async ({ page 
 
 test("the plan section argues with a traced page plan", async ({ page }) => {
   await page.goto("/");
-  const plan = section(page, "Większość stron dla małych firm powstaje bez planu. Potem nie sprzedaje.");
+  const plan = section(page, "Planujemy stronę, zanim ją zaprojektujemy");
   await plan.scrollIntoViewIfNeeded();
 
   await expect(plan.locator(".bp-fixes s")).toHaveText(["Nie widać Cię w Google", "Strona ładuje się wieki", "Nikt się nie kontaktuje"]);
@@ -67,7 +67,7 @@ test("pricing shows three packages from the price list and the dedicated project
 
 test("the process lists five steps with their days", async ({ page }) => {
   await page.goto("/");
-  const process = section(page, "Od zapytania do startu");
+  const process = section(page, "Od zapytania do publikacji w pięciu krokach");
   await expect(process.locator(".bp-steps h3")).toHaveText([
     "Wypełniasz kalkulator",
     "Doprecyzowujemy",
@@ -89,21 +89,21 @@ test("testimonials quote three named clients over the three facts", async ({ pag
 test("the close repeats the calculator and consultation links", async ({ page }) => {
   await page.goto("/");
   const close = page.locator("section.bp-close");
-  await expect(close.getByRole("heading", { level: 2 })).toHaveText("Sprawdź, ile kosztuje Twoja strona.");
-  await expect(close.getByRole("link", { name: "Sprawdź koszt" })).toHaveAttribute("href", "/kalkulator");
+  await expect(close.getByRole("heading", { level: 2 })).toHaveText("Policz zakres swojej strony w 60 sekund.");
+  await expect(close.getByRole("link", { name: "Wyceń stronę" })).toHaveAttribute("href", "/kalkulator");
   await expect(close.getByRole("link", { name: "Umów konsultację" })).toHaveAttribute("href", "/kontakt");
 });
 
 test("the home page follows the section order and nothing else", async ({ page }) => {
   await page.goto("/");
   await expect(page.locator("main h2")).toHaveText([
-    "Trzy ostatnie realizacje",
-    "Większość stron dla małych firm powstaje bez planu. Potem nie sprzedaje.",
+    "Ostatnie realizacje stron internetowych",
+    "Planujemy stronę, zanim ją zaprojektujemy",
     "Trzy pakiety. Cena znana przed startem.",
-    "Od zapytania do startu",
+    "Od zapytania do publikacji w pięciu krokach",
     "Opinie klientów",
-    "Najczęstsze pytania",
-    "Sprawdź, ile kosztuje Twoja strona.",
+    "Najczęstsze pytania o stronę dla firmy",
+    "Policz zakres swojej strony w 60 sekund.",
   ]);
 });
 

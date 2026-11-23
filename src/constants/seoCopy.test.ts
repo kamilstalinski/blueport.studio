@@ -13,7 +13,6 @@ const SCOPED_FILES = [
   "src/app/kontakt/page.tsx",
   "src/app/faq/page.tsx",
   "src/components/sections/HeroHome.tsx",
-  "src/components/sections/HeroCopy.tsx",
   "src/components/sections/home/CtaBand.tsx",
   "src/components/sections/home/ProcessSection.tsx",
   "src/components/sections/home/PlanSection.tsx",

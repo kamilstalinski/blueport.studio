@@ -4,13 +4,13 @@ import { expect, test } from "@playwright/test";
 import { HERO_WIRES } from "../src/constants/heroWires";
 import { HERO_WORK } from "../src/constants/work";
 
-test("home hero carries the offer, the price and the two actions", async ({ page }) => {
+test("home hero carries the offer, the timeline and the two actions", async ({ page }) => {
   await page.goto("/");
   const hero = page.locator("section#hero");
 
-  await expect(hero.getByRole("heading", { level: 1 })).toHaveText(/^Strona Twojej firmy w\ssieci w\s1–2 tygodnie od akceptacji projektu$/);
-  await expect(hero.getByText("Cenę i datę publikacji znasz przed startem", { exact: false })).toBeVisible();
-  await expect(hero.getByRole("link", { name: /Sprawdź koszt/ })).toHaveAttribute("href", "/kalkulator");
+  await expect(hero.getByRole("heading", { level: 1 })).toHaveText(/^Strony internetowe .*Szczecina/);
+  await expect(hero.getByText("1–2 tygodnie po akceptacji projektu", { exact: false })).toBeVisible();
+  await expect(hero.getByRole("link", { name: /Wyceń stronę/ })).toHaveAttribute("href", "/kalkulator");
   await expect(hero.getByRole("link", { name: "Umów konsultację" })).toHaveAttribute("href", "/kontakt");
 });
 
