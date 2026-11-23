@@ -6,7 +6,6 @@ import { AddonPicker } from "@/components/pages/AddonPicker";
 import { PriceTable } from "@/components/pages/PriceTable";
 import { CtaBand } from "@/components/sections/home/CtaBand";
 import { HomePricing } from "@/components/sections/home/HomePricing";
-import { Arrow } from "@/components/ui/Arrow";
 import { InView } from "@/components/ui/InView";
 
 export const metadata: Metadata = {

@@ -9,7 +9,7 @@ type UseScrollAnimationOptions = {
 
 const DEFAULT_MARGIN = "0px 0px -80px 0px" as const;
 
-export type UseScrollAnimationReturn = {
+type UseScrollAnimationReturn = {
   ref: React.RefObject<HTMLDivElement | null>;
   isInView: boolean;
   animate: "visible" | "hidden";

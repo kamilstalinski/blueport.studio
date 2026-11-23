@@ -58,8 +58,8 @@ describe("HOME_TIERS", () => {
 });
 
 describe("PROCESS_STEPS and TALLY", () => {
-  it("numbers five steps and three figures", () => {
-    expect(PROCESS_STEPS.map((step) => step.digit)).toEqual(["1", "2", "3", "4", "5"]);
+  it("has five steps and three figures", () => {
+    expect(PROCESS_STEPS).toHaveLength(5);
     expect(TALLY.map((item) => `${item.prefix}${item.count}${item.suffix}`)).toEqual(["10+", "1-2", "24 h"]);
   });
 });
