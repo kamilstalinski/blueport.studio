@@ -59,13 +59,10 @@
 .bp-mega-col a span:first-child { background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat; transition: background-size .3s var(--ease); justify-self: start; }
 .bp-mega-col a:hover span:first-child { background-size: 100% 1px; }
 .bp-mega-col a:hover .bp-mono { color: var(--kobalt-ink); }
-.bp-mega-card { grid-column: 3 / 5; display: grid; gap: 14px; padding-left: 24px; border-left: 1px solid var(--line); color: var(--papier); font-weight: 500; }
-.bp-mega-card-head { display: flex; align-items: center; justify-content: space-between; }
-.bp-mega-card-shot { display: block; aspect-ratio: 16 / 7; overflow: hidden; border: 1px solid var(--line-2); transition: border-color .3s; }
-.bp-mega-card-shot img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: left top; transition: transform .6s var(--ease); }
-.bp-mega-card:hover .bp-mega-card-shot { border-color: var(--kobalt); }
-.bp-mega-card:hover img { transform: scale(1.03); }
-@media (prefers-reduced-motion: reduce) { .bp-mega, .bp-mega[data-open], .bp-mega-card img { transition: none; transform: none; } }
+.bp-mega-card { grid-column: 3 / 5; display: grid; align-content: start; gap: 24px; padding-left: 24px; border-left: 1px solid var(--line); }
+.bp-mega-card p { max-width: 44ch; color: var(--papier); font-size: 18px; line-height: 1.45; text-wrap: pretty; }
+.bp-mega-card .bp-rows-act { max-width: 400px; }
+@media (prefers-reduced-motion: reduce) { .bp-mega, .bp-mega[data-open] { transition: none; transform: none; } }
 .bp-top .bp-act { justify-self: stretch; height: 100%; display: flex; }
 .bp-btn-sq { flex: 1; display: flex; align-items: center; justify-content: space-between; padding: 0 24px; background: var(--sygnal); color: var(--tusz); font-weight: 500; font-size: 15px; transition: background .2s; }
 .bp-btn-sq:hover { background: var(--sygnal-2); }

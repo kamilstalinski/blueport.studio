@@ -1,5 +1,14 @@
 import { describe, expect, it } from "vitest";
-import { calculatePrice, getFeaturesForPackage, type FeatureId, type PackageId, type TimelineId } from "@/constants/pricing";
+import { calculatePrice, getFeaturesForPackage, packageTopic, type FeatureId, type PackageId, type TimelineId } from "@/constants/pricing";
+
+describe("packageTopic", () => {
+  it("maps each package to its contact topic", () => {
+    expect(packageTopic("strona-start")).toBe("strona");
+    expect(packageTopic("strona-pro")).toBe("strona");
+    expect(packageTopic("sklep-online")).toBe("sklep");
+    expect(packageTopic("projekt-dedykowany")).toBe("dedykowany");
+  });
+});
 
 describe("getFeaturesForPackage", () => {
   it("offers only the universal add-ons to strona-start", () => {

@@ -7,14 +7,14 @@ export function CtaBand() {
   return (
     <section className="bp-close bp-scope" aria-labelledby="cta-title">
       <div className="bp-shell bp-grid">
-        <h2 id="cta-title">Policz zakres swojej strony w 60 sekund.</h2>
-        <p className="bp-lead">Wybierasz typ strony i funkcje, a kalkulator od razu pokazuje wstępną wycenę. E-mail podajesz dopiero, jeśli chcesz ją dostać.</p>
+        <h2 id="cta-title">Opowiedz, czego potrzebuje Twoja firma.</h2>
+        <p className="bp-lead">Odpowiadamy w 24 godziny w dni robocze. Rozmowa trwa około 30 minut, a umowę podpisujemy przed startem prac.</p>
         <div className="bp-rows-act">
-          <Link className="bp-row-act bp-row-act--primary" href="/kalkulator">
-            Wyceń stronę <Arrow />
+          <Link className="bp-row-act bp-row-act--primary" href="/kontakt">
+            Umów rozmowę <Arrow />
           </Link>
-          <Link className="bp-row-act" href="/kontakt">
-            Umów konsultację <Arrow />
+          <Link className="bp-row-act" href="/oferta">
+            Zobacz ofertę <Arrow />
           </Link>
         </div>
       </div>

@@ -24,15 +24,15 @@ export default function CennikPage() {
         title="Ceny, które widzisz przed podpisaniem umowy."
         lede={
           <>
-            Poniżej ceny bazowe i to, co dokładnie w nich jest. Dopłaty za dodatkowe funkcje policzysz w{" "}
-            <Link href="/kalkulator" className="bp-link">
-              kalkulatorze
+            Poniżej ceny bazowe i to, co dokładnie w nich jest. Reklamy i wdrożenia AI opisujemy w{" "}
+            <Link href="/oferta" className="bp-link">
+              ofercie
             </Link>
             .
           </>
         }
       />
-      <HomePricing />
+      <HomePricing onPricePage />
       <section className="bp-sec" aria-labelledby="price-table-title">
         <div className="bp-shell bp-grid">
           <div className="bp-sec-head">

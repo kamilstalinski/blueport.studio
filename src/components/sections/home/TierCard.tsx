@@ -1,6 +1,6 @@
 import { PixelIcon } from "@/components/brand/PixelIcon";
 import { ButtonLink } from "@/components/ui/ButtonLink";
-import { PACKAGES, type HomeTier } from "@/constants/pricing";
+import { PACKAGES, packageTopic, type HomeTier } from "@/constants/pricing";
 import { formatPrice } from "@/lib/formatPrice";
 import { cn } from "@/lib/utils";
 
@@ -28,8 +28,8 @@ export function TierCard({ tier }: TierCardProps) {
           </li>
         ))}
       </ul>
-      <ButtonLink href="/kalkulator" variant={tier.featured ? "oncobalt" : "secondary"} withArrow>
-        Sprawdź koszt
+      <ButtonLink href={`/kontakt?temat=${packageTopic(tier.packageId)}`} variant={tier.featured ? "oncobalt" : "secondary"} withArrow>
+        Umów rozmowę
       </ButtonLink>
     </article>
   );

@@ -109,3 +109,15 @@
   .bp-offer-col { transition: none; }
   .bp-offer-col:hover { transform: none; }
 }
+
+/* ═══ Home: the services as tall rows, name over the problem it solves ═══ */
+.bp-home-offer .bp-sec-head .bp-rows-act { margin: 36px -24px 0 0; }
+.bp-home-offer .bp-sec-body .bp-row-act { height: auto; min-height: 96px; padding-block: 22px; }
+.bp-home-offer-row { display: grid; gap: 6px; }
+.bp-home-offer-row b { font-size: 20px; font-weight: 500; }
+.bp-home-offer-row span { max-width: 60ch; color: var(--muted); font-weight: 400; font-size: 16px; text-wrap: pretty; }
+.bp-row-act:hover .bp-home-offer-row span { color: var(--papier); }
+@media (max-width: 1023px) {
+  .bp-home-offer .bp-sec-head .bp-rows-act { margin-inline: 0; }
+  .bp-home-offer .bp-sec-body { margin-top: 32px; }
+}

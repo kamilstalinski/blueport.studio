@@ -1,3 +1,5 @@
+import type { ContactTopic } from "@/constants/contact";
+
 /**
  * Single source of truth for package and feature pricing.
  * Used by: OfertaPakiety (main page packages), Calculator (Step1Type, useCalculator, CalculatorRight).
@@ -273,6 +275,13 @@ export const TIMELINE_MULTIPLIERS = {
 } as const;
 
 export type PackageId = keyof typeof PACKAGES;
+
+/** The /kontakt?temat= topic a package hands over to. */
+export function packageTopic(id: PackageId): ContactTopic {
+  if (id === "sklep-online") return "sklep";
+  if (id === "projekt-dedykowany") return "dedykowany";
+  return "strona";
+}
 
 /** Add-on groups in the order the cennik lists them. */
 export const FEATURE_GROUPS = [

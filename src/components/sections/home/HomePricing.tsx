@@ -2,7 +2,7 @@ import Link from "next/link";
 
 import { Arrow } from "@/components/ui/Arrow";
 import { InView } from "@/components/ui/InView";
-import { HOME_TIERS, PACKAGES } from "@/constants/pricing";
+import { HOME_TIERS, PACKAGES, packageTopic } from "@/constants/pricing";
 import { formatPrice } from "@/lib/formatPrice";
 import { cn } from "@/lib/utils";
 
@@ -10,17 +10,23 @@ const DEDICATED = PACKAGES["projekt-dedykowany"];
 /* start when the columns pass ~75% of the screen height, so the entrance plays where it is seen */
 const STAGGER_MARGIN = "0px 0px -25% 0px";
 
-export function HomePricing() {
+/** `onPricePage`: on /cennik itself the "Pełny cennik" row would link to the page it sits on, so it is left out. */
+export function HomePricing({ onPricePage = false }: { onPricePage?: boolean }) {
   return (
     <section className="bp-sec bp-pricing" id="cennik" aria-labelledby="cennik-h">
       <div className="bp-shell bp-grid">
         <div className="bp-sec-head">
           <h2 id="cennik-h">Trzy pakiety. Cena znana przed startem.</h2>
-          <p>Poniżej ceny bazowe. Dokładną kwotę pod Twój zakres policzysz w kalkulatorze.</p>
+          <p>Poniżej ceny bazowe. Zakres i cenę ustalamy na rozmowie i wpisujemy do umowy.</p>
           <div className="bp-rows-act">
-            <Link className="bp-row-act bp-row-act--primary" href="/kalkulator">
-              Otwórz kalkulator <span className="bp-mono">60 s</span>
+            <Link className="bp-row-act bp-row-act--primary" href="/kontakt">
+              Umów rozmowę <Arrow />
             </Link>
+            {!onPricePage && (
+              <Link className="bp-row-act" href="/cennik">
+                Pełny cennik <Arrow />
+              </Link>
+            )}
           </div>
           <div className="bp-custom">
             <p>
@@ -28,8 +34,8 @@ export function HomePricing() {
               <br />
               {`${DEDICATED.tech}, dla integracji API i skalowania. Od ${formatPrice(DEDICATED.basePrice)} zł, ${DEDICATED.deliveryLabel}.`}
             </p>
-            <Link href="/kontakt">
-              Umów konsultację <Arrow />
+            <Link href={`/kontakt?temat=${packageTopic("projekt-dedykowany")}`}>
+              Umów rozmowę <Arrow />
             </Link>
           </div>
         </div>
@@ -52,8 +58,8 @@ export function HomePricing() {
                       <li key={feature}>{feature}</li>
                     ))}
                   </ul>
-                  <Link className="bp-row-act" href="/kalkulator">
-                    Wyceń: {tier.name} <Arrow />
+                  <Link className="bp-row-act" href={`/kontakt?temat=${packageTopic(tier.packageId)}`}>
+                    Umów rozmowę <Arrow />
                   </Link>
                 </article>
               );

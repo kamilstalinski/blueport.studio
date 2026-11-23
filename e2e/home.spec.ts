@@ -62,14 +62,29 @@ test("pricing shows three packages from the price list and the dedicated project
   await expect(plans.locator(".bp-days")).toHaveText(["od 7 dni roboczych", "od 14 dni roboczych", "od 21 dni roboczych"]);
   await expect(pricing.locator(".bp-is-top .bp-pick")).toHaveText("Najczęściej wybierany");
   await expect(pricing.locator(".bp-custom")).toContainText("Projekt dedykowany");
-  await expect(pricing.getByRole("link", { name: /Otwórz kalkulator/ })).toHaveAttribute("href", "/kalkulator");
+  await expect(pricing.locator(".bp-sec-head").getByRole("link", { name: "Umów rozmowę" }).first()).toHaveAttribute("href", "/kontakt");
+  await expect(pricing.getByRole("link", { name: "Pełny cennik" })).toHaveAttribute("href", "/cennik");
+  await expect(plans.getByRole("link", { name: "Umów rozmowę" })).toHaveCount(3);
+  await expect(plans.nth(2).getByRole("link", { name: "Umów rozmowę" })).toHaveAttribute("href", "/kontakt?temat=sklep");
+  await expect(pricing.locator(".bp-custom").getByRole("link", { name: "Umów rozmowę" })).toHaveAttribute("href", "/kontakt?temat=dedykowany");
+});
+
+test("the offer section links the four services and the hub", async ({ page }) => {
+  await page.goto("/");
+  const offer = section(page, "Strony, sklepy, reklamy i AI dla małych firm");
+  await expect(offer.locator('a[href^="/oferta/"]')).toHaveCount(4);
+  for (const slug of ["strony-www", "sklepy-internetowe", "reklamy-meta-google", "wdrozenia-ai"]) {
+    await expect(offer.locator(`a[href="/oferta/${slug}"]`)).toHaveCount(1);
+  }
+  await expect(offer.getByRole("link", { name: "Cała oferta" })).toHaveAttribute("href", "/oferta");
+  await expect(offer).not.toContainText("zł");
 });
 
 test("the process lists five steps with their days", async ({ page }) => {
   await page.goto("/");
   const process = section(page, "Od zapytania do publikacji w pięciu krokach");
   await expect(process.locator(".bp-steps h3")).toHaveText([
-    "Wypełniasz kalkulator",
+    "Piszesz albo dzwonisz",
     "Doprecyzowujemy",
     "Projekt i wdrożenie",
     "Testy i poprawki",
@@ -86,12 +101,12 @@ test("testimonials quote three named clients over the three facts", async ({ pag
   await expect(quotes.locator(".bp-facts b")).toHaveText(["10+", "1–2", "24 h"]);
 });
 
-test("the close repeats the calculator and consultation links", async ({ page }) => {
+test("the close asks for a call and points to the offer", async ({ page }) => {
   await page.goto("/");
   const close = page.locator("section.bp-close");
-  await expect(close.getByRole("heading", { level: 2 })).toHaveText("Policz zakres swojej strony w 60 sekund.");
-  await expect(close.getByRole("link", { name: "Wyceń stronę" })).toHaveAttribute("href", "/kalkulator");
-  await expect(close.getByRole("link", { name: "Umów konsultację" })).toHaveAttribute("href", "/kontakt");
+  await expect(close.getByRole("heading", { level: 2 })).toHaveText("Opowiedz, czego potrzebuje Twoja firma.");
+  await expect(close.getByRole("link", { name: "Umów rozmowę" })).toHaveAttribute("href", "/kontakt");
+  await expect(close.getByRole("link", { name: "Zobacz ofertę" })).toHaveAttribute("href", "/oferta");
 });
 
 test("the home page follows the section order and nothing else", async ({ page }) => {
@@ -99,11 +114,12 @@ test("the home page follows the section order and nothing else", async ({ page }
   await expect(page.locator("main h2")).toHaveText([
     "Ostatnie realizacje stron internetowych",
     "Planujemy stronę, zanim ją zaprojektujemy",
+    "Strony, sklepy, reklamy i AI dla małych firm",
     "Trzy pakiety. Cena znana przed startem.",
     "Od zapytania do publikacji w pięciu krokach",
     "Opinie klientów",
     "Najczęstsze pytania o stronę dla firmy",
-    "Policz zakres swojej strony w 60 sekund.",
+    "Opowiedz, czego potrzebuje Twoja firma.",
   ]);
 });
 

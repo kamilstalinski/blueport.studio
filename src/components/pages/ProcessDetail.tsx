@@ -10,15 +10,15 @@ import { PROCESS_CHAPTERS, type ProcessChapter } from "@/constants/process";
 function ChapterVisual({ kind, decorative = false }: { kind: ProcessChapter["visual"]; decorative?: boolean }) {
   const alt = (text: string) => (decorative ? "" : text);
   switch (kind) {
-    case "calculator":
+    case "work":
       return (
         <Image
           className="bp-pc-shot"
-          src="/proces/kalkulator.png"
+          src="/work/vilmart.webp"
           width={1200}
-          height={900}
+          height={1059}
           sizes="(max-width: 1023px) 100vw, 620px"
-          alt={alt("Kalkulator wyceny z wybranym pakietem Strona Pro")}
+          alt={alt("Strona Vilmart Water Service, jedna z naszych realizacji")}
         />
       );
     case "contract":

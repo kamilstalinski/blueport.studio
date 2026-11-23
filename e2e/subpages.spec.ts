@@ -125,7 +125,7 @@ test("cennik shows the tiers, the comparison table from the price list and the C
   await page.goto("/cennik");
 
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("Ceny, które widzisz przed podpisaniem umowy.");
-  await expect(page.locator(".page-head .lede").getByRole("link", { name: "kalkulatorze" })).toHaveAttribute("href", "/kalkulator");
+  await expect(page.locator(".page-head .lede").getByRole("link", { name: "ofercie" })).toHaveAttribute("href", "/oferta");
   await expect(page.locator("main article.bp-plan-col")).toHaveCount(3);
 
   const table = page.getByRole("table");
@@ -141,7 +141,7 @@ test("cennik shows the tiers, the comparison table from the price list and the C
   await expectNoAxeViolations(page);
 });
 
-test("cennik picker adds up a scope and hands it to the calculator", async ({ page }) => {
+test("cennik picker adds up a scope and hands the package to the contact form", async ({ page }) => {
   await page.goto("/cennik");
 
   const total = page.locator(".bp-pick-total");
@@ -158,9 +158,8 @@ test("cennik picker adds up a scope and hands it to the calculator", async ({ pa
   await page.getByRole("button", { name: /^Sklep/ }).click();
   await expect(page.getByRole("button", { name: /Porzucone koszyki/ })).toBeVisible();
 
-  await page.getByRole("link", { name: "Dokończ wycenę" }).click();
-  await expect(page).toHaveURL(/\/kalkulator\?pakiet=sklep-online&dodatki=seo-advanced,copywriting$/);
-  await expect(page.locator(".calc-summary")).toContainText(/6\s400\szł|6400 zł/);
+  await page.locator(".bp-picker").getByRole("link", { name: "Umów rozmowę" }).click();
+  await expect(page).toHaveURL(/\/kontakt\?temat=sklep$/);
 });
 
 test("faq is a keyboard-friendly accordion with JSON-LD", async ({ page }) => {
@@ -189,9 +188,9 @@ test("faq is a keyboard-friendly accordion with JSON-LD", async ({ page }) => {
 test("proces walks four chapters beside one frame that shows each one", async ({ page, isMobile }) => {
   await page.goto("/proces");
 
-  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Jak powstaje strona internetowa");
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Od rozmowy do publikacji");
   const steps = page.locator("ol.process-detail > li");
-  await expect(steps.getByRole("heading", { level: 3 })).toHaveText(["Wypełniasz kalkulator", "Ustalamy zakres i datę publikacji", "Projektujemy i budujemy stronę", "Testujemy i publikujemy"]);
+  await expect(steps.getByRole("heading", { level: 3 })).toHaveText(["Piszesz albo dzwonisz", "Ustalamy zakres i datę publikacji", "Projektujemy i budujemy stronę", "Testujemy i publikujemy"]);
   await expect(page.getByText("Od akceptacji projektu do publikacji mija zwykle 1–2 tygodnie.")).toBeVisible();
   // the first sentence (what snippets quote) gives the total time, not only the span after design approval
   await expect(page.locator(".bp-pc-lead")).toHaveText(/^Od 7 dni roboczych/);
@@ -206,7 +205,7 @@ test("proces walks four chapters beside one frame that shows each one", async ({
   // live at 1440x900: the first chapter is open and its visual is the one shown; scrolling through the section moves both on
   const section = page.locator("section.bp-pc");
   await expect(steps.nth(0)).toHaveAttribute("data-on", "");
-  await expect(section.locator(".bp-pc-slide[data-on] img")).toHaveAttribute("src", /kalkulator/);
+  await expect(section.locator(".bp-pc-slide[data-on] img")).toHaveAttribute("src", /work/);
   await section.evaluate((el) => scrollTo(0, el.getBoundingClientRect().top + scrollY + ((el as HTMLElement).offsetHeight - innerHeight) * 0.9));
   await expect(steps.nth(3)).toHaveAttribute("data-on", "");
   await expect(section.locator(".bp-pc-slide[data-on] .bp-pc-phone")).toBeVisible();
