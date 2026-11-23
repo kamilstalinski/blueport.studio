@@ -2,55 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ═══════════════════════════════════════════════════════════════════════════
-   SPACING TOKENS — 8pt grid
-   ═══════════════════════════════════════════════════════════════════════════ */
 :root {
-  /* Spacing tokens — 8pt grid */
-  --space-1: 8px;
-  --space-2: 16px;
-  --space-3: 24px;
-  --space-4: 32px;
-  --space-5: 40px;
-  --space-6: 48px;
-  --space-8: 64px;
-  --space-10: 80px;
-  --space-12: 96px;
-  --space-16: 128px;
-
-  /* Semantic spacing */
-  --section-padding-y: var(--space-10); /* 80px — section padding top/bottom */
-  --section-padding-x: var(--space-6);   /* 48px — section padding left/right */
-  --card-padding: var(--space-4);         /* 32px — padding inside cards */
-  --card-padding-sm: var(--space-3);     /* 24px — cards on mobile */
-  --card-gap: var(--space-2);            /* 16px — gap between elements in a card */
-  --grid-gap: var(--space-3);           /* 24px — gap between cards in a grid */
-  --element-gap: var(--space-2);        /* 16px — gap between heading and content */
-  --inline-gap: var(--space-1);         /* 8px — gap inside an element (icon + text) */
-
-  /* Card hover transition — glass cards, benefit cards, process steps */
-  --transition-card: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease, background 0.2s ease, border-color 0.2s ease;
-  /* Buttons — consistent hover transition */
-  --btn-transition: color 0.2s ease-out, background-color 0.2s ease-out, border-color 0.2s ease-out, box-shadow 0.2s ease-out, transform 0.2s ease-out;
-  --btn-min-height: 48px;
-  /* Minimum font size on desktop (readability) — 12px */
-  --min-font-size-desktop: 0.75rem;
-}
-
-@media (max-width: 768px) {
-  :root {
-    --section-padding-x: 20px;
-  }
-}
-
-/* Desktop: enforce minimum font size 12px */
-@media (min-width: 769px) {
-  .option-more-chevron,
-  .option-dropdown-title,
-  .option-tag,
-  .field-label {
-    font-size: var(--min-font-size-desktop);
-  }
+  /* section padding top/bottom (Tailwind `py-section`) */
+  --section-padding-y: 80px;
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
@@ -102,14 +56,7 @@ section {
   --color-primary-subtle: rgba(59, 130, 246, 0.12);
   --color-on-primary: #000000;
   --color-accent: #3b82f6;
-  --color-accent-hover: #60a5fa;
-  --color-accent-active: #2563eb;
-  --color-accent-subtle: rgba(59, 130, 246, 0.12);
-  --color-accent-border: rgba(59, 130, 246, 0.2);
   --color-accent-2: #00b8d9;
-  --color-accent-2-subtle: rgba(0, 184, 217, 0.1);
-  --glow-left: rgba(59, 130, 246, 0.13);
-  --glow-right: rgba(0, 184, 217, 0.11);
 
   /* Zachowanie starych nazw dla klas Tailwind (text-accent-orange itd.) */
   --color-accent-orange: #3b82f6;
@@ -123,10 +70,6 @@ section {
   --section-tone-lighter: #080d28;
   --section-tone-deepest: #00020f;
 
-  --glass-bg-dark: rgba(5, 10, 30, 0.58);
-  --glass-bg-dark-scrolled: rgba(8, 13, 40, 0.68);
-  --glass-bg-dark-hover: rgba(5, 10, 30, 0.78);
-  --glass-border-dark: rgba(255, 255, 255, 0.2);
 
   /* Unified glass tokens (palette-driven) — higher contrast vs background */
   --glass-bg: rgba(59, 130, 246, 0.10);
@@ -137,63 +80,32 @@ section {
   --glass-border-hover: rgba(59, 130, 246, 0.28);
   --glass-border-top-hover: rgba(59, 130, 246, 0.40);
 
-  --navbar-height: 5rem;
 
   /* Navbar glass — same color and intensity as cards (no extra glow) */
-  --glass-nav-bg: rgba(59, 130, 246, 0.10);
-  --glass-nav-bg-hover: rgba(59, 130, 246, 0.16);
-  --glass-nav-border: rgba(59, 130, 246, 0.22);
-  --glass-nav-border-hover: rgba(59, 130, 246, 0.28);
-  --glass-nav-shadow: 0 4px 24px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(59, 130, 246, 0.12);
 
   /* Single source of glass blur — update here; components use useGlassBlurStyle (inline) */
   --glass-blur: 28px;
   --glass-blur-sm: 22px;
-  --glass-blur-lg: 32px;
-  --glass-blur-nav: 12px;
 
-  --glass-card-bg: rgba(255, 255, 255, 0.22);
-  --glass-card-border: rgba(255, 255, 255, 0.28);
-  --glass-card-shadow: 0 8px 32px rgba(0, 0, 0, 0.25), inset 0 0 0 0.5px rgba(255, 255, 255, 0.2);
-  --glass-card-highlight: inset 0 1px 0 0 rgba(255, 255, 255, 0.28);
-  --glass-card-hover-glow: 0 0 48px rgba(255, 255, 255, 0.06);
 
   /* Gradient mesh — left blob is darker than right; both are clearly visible */
-  --color-gradient-mesh-1: #4a3880;
-  --color-gradient-mesh-2: #00010a;
 
   /* Spotlight card (radial highlight) */
-  --color-spotlight: rgba(255, 255, 255, 0.06);
 
   /* Hero / section bottom fade */
-  --color-hero-fade: #00020f;
-  --color-hero-badge-bg: rgba(255, 255, 255, 0.08);
 
   /* Footer gradient */
-  --color-footer-from: #00020f;
-  --color-footer-via: #050a1e;
-  --color-footer-to: #00020f;
 
   /* Timeline line gradient (Proces) */
-  --color-timeline-line-start: rgba(255, 255, 255, 0.2);
-  --color-timeline-line-end: rgba(255, 255, 255, 0.12);
 
   /* CTA timer ring track */
-  --color-ring-track: rgba(255, 255, 255, 0.06);
   /* CTA timer ring progress glow */
-  --color-cta-ring-glow: rgba(59, 130, 246, 0.6);
-  --color-cta-ring-glow-urgent: rgba(0, 184, 217, 0.7);
 
   /* Status dots (Hero – live indicator) */
-  --color-status-red: #ff5c5c;
-  --color-status-amber: #f5a623;
 
   /* Accent glow for timeline circle hover */
-  --color-accent-glow: rgba(59, 130, 246, 0.15);
 
   /* Button primary glow (shadow) */
-  --color-primary-glow: rgba(59, 130, 246, 0.25);
-  --color-primary-glow-hover: rgba(59, 130, 246, 0.35);
 }
 
 /* Layout root — overflow: visible so glow/shadows in sections (e.g., the featured card) aren't clipped */
