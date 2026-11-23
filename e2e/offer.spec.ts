@@ -15,10 +15,12 @@ for (const [slug, topic] of [["strony-www", "strona"], ["sklepy-internetowe", "s
 
 test("unknown service is a 404", async ({ request }) => expect((await request.get("/oferta/xyz")).status()).toBe(404));
 
-test("service without a price never prints a number", async ({ page }) => {
-  await page.goto("/oferta/wdrozenia-ai");
-  await expect(page.locator("main").getByText("Wycena po rozmowie").first()).toBeVisible();
-  await expect(page.locator("main")).not.toContainText(/od (null|0) zł/);
+test("ads and AI show their from-prices with the unit", async ({ page }) => {
+  for (const [slug, price] of [["reklamy-meta-google", /od 900\s?zł \/ mies\./], ["wdrozenia-ai", /od 2\s?500\s?zł za proces/]] as const) {
+    await page.goto(`/oferta/${slug}`);
+    await expect(page.locator("main")).toContainText(price);
+    await expect(page.locator("main")).not.toContainText(/od (null|0) zł|Wycena po rozmowie/);
+  }
 });
 
 test("www page lists the dedicated project", async ({ page }) => {

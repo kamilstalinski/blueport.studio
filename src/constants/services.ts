@@ -151,7 +151,7 @@ export const SERVICES: readonly Service[] = [
       "Reklama prowadzi na stronę albo do konkretnego produktu",
       "Budżet reklamowy płacisz bezpośrednio Meta lub Google",
     ],
-    priceFrom: null, // FAKT: kwota „od” za obsługę miesięczną
+    priceFrom: 900,
     priceUnit: "/ mies.",
     time: null, // FAKT: ile trwa start kampanii od podpisania umowy
     packages: [],
@@ -206,7 +206,7 @@ export const SERVICES: readonly Service[] = [
       "Wdrożenie AI w tym procesie, na Twoich skrzynkach i arkuszach",
       "Szkolenie i poprawki, zanim przejdziemy do kolejnego procesu",
     ],
-    priceFrom: null, // FAKT: kwota „od” za jeden proces
+    priceFrom: 2500,
     priceUnit: "za proces",
     time: null, // FAKT: ile trwa wdrożenie jednego procesu
     packages: [],

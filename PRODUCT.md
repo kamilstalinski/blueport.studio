@@ -24,7 +24,7 @@ The visitor arrives from Google or a referral, compares packages and examples, a
 
 ## Capabilities and Constraints
 
-- Services (src/constants/services.ts, pages /oferta/strony-www, /oferta/sklepy-internetowe, /oferta/reklamy-meta-google, /oferta/wdrozenia-ai): websites, online shops, Meta and Google ads, AI implementations. Ads and AI have no "from" price or timeline yet; their pages say the quote comes after the conversation.
+- Services (src/constants/services.ts, pages /oferta/strony-www, /oferta/sklepy-internetowe, /oferta/reklamy-meta-google, /oferta/wdrozenia-ai): websites, online shops, Meta and Google ads, AI implementations. Meta and Google ads from 900 zł per month (ad budget paid directly to Meta/Google), AI implementations from 2 500 zł per process; no timeline for either yet.
 - Packages behind websites and shops: Strona start (WordPress, from 2 500 zł, from 7 working days), Strona Pro (WordPress, from 3 900 zł, from 14 working days), Sklep online (WooCommerce, from 4 900 zł, from 21 working days), Projekt dedykowany (Next.js / React, from 6 500 zł, from 30 working days).
 - Replies within 24 h on working days. Works in Szczecin and remotely.
 - The site itself is Next.js (App Router), Polish language.
@@ -41,7 +41,7 @@ The visitor arrives from Google or a referral, compares packages and examples, a
 - Real client work with screenshots in public/work/: Dobre Precle, SPAVALNIA, Vilmart Water Services, Dowytrenowania, ABC Mosty, After the Sin (each with a case study page).
 - Three client testimonials with names (Kamil Głogowski / Vilmart, Igor Romanowski / SPAVALNIA, Andrzej Szymko / After The Sin) as on the current site.
 - Stats used on the current site: 10+ deployments, 1–2 weeks to publication, 24 h reply time.
-- Ads and AI implementations: no prices, tools or case studies yet. Their pages show what is planned and say so; nothing about them may be presented as a past project.
+- Ads and AI implementations: "from" prices given by the owner (900 zł / month, 2 500 zł per process); no tools or case studies yet. Their pages show what is planned and say so; nothing about them may be presented as a past project.
 - No team photographs, no client logos files, no press. Do not invent customers, figures or quotes.
 
 ## Product Principles
