@@ -319,7 +319,7 @@ for (const [route, title, sections] of [
     await expect(page.getByRole("heading", { level: 1 })).toHaveText(title);
     await expect(page.locator("article.legal > section")).toHaveCount(sections);
     await expect(page.locator("article.legal [class]")).toHaveCount(0);
-    expect(await page.locator("article.legal h2").first().evaluate((el) => getComputedStyle(el).fontFamily)).toMatch(/Host Grotesk/);
+    expect(await page.locator("article.legal h2").first().evaluate((el) => getComputedStyle(el).fontFamily)).toMatch(/host\s?grotesk/i);
     await expect(page.locator("main section.bp-close")).toHaveCount(0);
 
     await expectNoAxeViolations(page);
