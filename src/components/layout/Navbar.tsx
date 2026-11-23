@@ -1,62 +1,140 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState, type FocusEvent } from "react";
 
 import { BrandLogo } from "@/components/brand/BrandLogo";
 import { Arrow } from "@/components/ui/Arrow";
+import { PACKAGES, PACKAGE_SHORT, type PackageId } from "@/constants/pricing";
+import { formatPrice } from "@/lib/formatPrice";
 import { isNavActive } from "@/lib/navigation";
 
 const NAV_LINKS = [
-  { href: "/realizacje", label: "Realizacje" },
   { href: "/cennik", label: "Cennik" },
+  { href: "/realizacje", label: "Realizacje" },
   { href: "/proces", label: "Proces" },
+  { href: "/o-nas", label: "O nas" },
   { href: "/kontakt", label: "Kontakt" },
 ] as const;
 
+const SHEET_LINKS = [...NAV_LINKS, { href: "/faq", label: "FAQ" }] as const;
+
+const PRICE_LINKS = [
+  { href: "/cennik#price-table-title", label: "Porównanie pakietów" },
+  { href: "/cennik#addons-title", label: "Dodatki i ich ceny" },
+  { href: "/faq", label: "Pytania o cenę i umowę" },
+] as const;
+
+/* the panel opens after the pointer has rested on its word this long (taste-skill nav-mega) */
+const OPEN_DELAY_MS = 150;
+
+/** One fixed, opaque bar on the page grid. "Cennik" opens a full-width flat panel: the packages (each straight into
+ *  the calculator), the price pages and one picture card of the calculator. Below 1024px a full-screen sheet. */
 export function Navbar() {
   const pathname = usePathname() ?? "";
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isPanelOpen, setIsPanelOpen] = useState(false);
   const burgerRef = useRef<HTMLButtonElement>(null);
+  const openTimer = useRef<number>(0);
+
+  const closeAll = useCallback(() => {
+    window.clearTimeout(openTimer.current);
+    setIsMenuOpen(false);
+    setIsPanelOpen(false);
+  }, []);
 
   useEffect(() => {
-    if (!isMenuOpen) return;
+    if (!isMenuOpen && !isPanelOpen) return;
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key !== "Escape") return;
-      setIsMenuOpen(false);
-      /* the links are about to be hidden: hand focus back to the control that opened them */
-      burgerRef.current?.focus();
+      if (isMenuOpen) burgerRef.current?.focus(); /* the links are about to be hidden: hand focus back to the control that opened them */
+      closeAll();
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [isMenuOpen]);
+  }, [isMenuOpen, isPanelOpen, closeAll]);
 
-  const closeMenu = useCallback(() => setIsMenuOpen(false), []);
+  useEffect(() => closeAll, [pathname, closeAll]);
+
   const toggleMenu = useCallback(() => setIsMenuOpen((open) => !open), []);
+  const openPanelSoon = () => {
+    window.clearTimeout(openTimer.current);
+    openTimer.current = window.setTimeout(() => setIsPanelOpen(true), OPEN_DELAY_MS);
+  };
+  const closePanel = () => {
+    window.clearTimeout(openTimer.current);
+    setIsPanelOpen(false);
+  };
+  const leaveItem = (event: FocusEvent<HTMLDivElement>) => {
+    if (!event.currentTarget.contains(event.relatedTarget as Node | null)) closePanel();
+  };
 
-  const links = NAV_LINKS.map((link) => (
-    <Link
-      key={link.href}
-      href={link.href}
-      aria-current={isNavActive(pathname, link.href) ? "page" : undefined}
-      onClick={closeMenu}
-    >
-      {link.label}
-    </Link>
-  ));
+  const current = (href: string) => (isNavActive(pathname, href) ? "page" : undefined);
 
   return (
-    <header className="bp-top bp-scope">
+    <header className="bp-top bp-scope" onMouseLeave={closePanel}>
       <div className="bp-shell">
-        <Link href="/" className="bp-brand" aria-label="blueport.studio, strona główna" translate="no" onClick={closeMenu}>
+        <Link href="/" className="bp-brand" aria-label="blueport.studio, strona główna" translate="no" onClick={closeAll}>
           <BrandLogo size="footer" />
         </Link>
         <nav className="bp-nav" aria-label="Główna nawigacja">
-          {links}
+          {NAV_LINKS.map((link) =>
+            link.href === "/cennik" ? (
+              <div key={link.href} className="bp-nav-item" onMouseEnter={openPanelSoon} onFocus={() => setIsPanelOpen(true)} onBlur={leaveItem}>
+                <Link href={link.href} aria-current={current(link.href)} data-open={isPanelOpen ? "" : undefined} onClick={closeAll}>
+                  {link.label}
+                </Link>
+                <div className="bp-mega" data-open={isPanelOpen ? "" : undefined}>
+                  <div className="bp-shell bp-mega-grid">
+                    <div className="bp-mega-col">
+                      <p className="bp-mono">Pakiety</p>
+                      <ul>
+                        {(Object.keys(PACKAGES) as PackageId[]).map((id) => (
+                          <li key={id}>
+                            <Link href={`/kalkulator?pakiet=${id}`} onClick={closeAll}>
+                              <span>{PACKAGE_SHORT[id]}</span>
+                              <span className="bp-mono">
+                                od {formatPrice(PACKAGES[id].basePrice)} zł · {PACKAGES[id].deliveryLabel.replace("od ", "")}
+                              </span>
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                    <div className="bp-mega-col">
+                      <p className="bp-mono">Ceny</p>
+                      <ul>
+                        {PRICE_LINKS.map((item) => (
+                          <li key={item.href}>
+                            <Link href={item.href} onClick={closeAll}>
+                              <span>{item.label}</span>
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                    <Link href="/kalkulator" className="bp-mega-card" onClick={closeAll}>
+                      <span className="bp-mega-card-head">
+                        Policz koszt w kalkulatorze <Arrow />
+                      </span>
+                      <span className="bp-mega-card-shot">
+                        <Image src="/proces/kalkulator.png" alt="" width={1200} height={900} sizes="560px" />
+                      </span>
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <Link key={link.href} href={link.href} aria-current={current(link.href)} onMouseEnter={closePanel} onClick={closeAll}>
+                {link.label}
+              </Link>
+            ),
+          )}
         </nav>
         <div className="bp-act">
-          <Link className="bp-btn-sq" href="/kalkulator" onClick={closeMenu}>
+          <Link className="bp-btn-sq" href="/kalkulator" onClick={closeAll}>
             Sprawdź koszt <Arrow />
           </Link>
         </div>
@@ -75,7 +153,12 @@ export function Navbar() {
         </button>
       </div>
       <nav id="bp-sheet" className="bp-sheet" aria-label="Menu" hidden={!isMenuOpen}>
-        {links}
+        {SHEET_LINKS.map((link) => (
+          <Link key={link.href} href={link.href} aria-current={current(link.href)} onClick={closeAll}>
+            {link.label}
+            <Arrow />
+          </Link>
+        ))}
       </nav>
     </header>
   );

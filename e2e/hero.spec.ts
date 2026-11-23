@@ -48,7 +48,7 @@ test("the mobile menu opens, lists the pages and closes on Escape", async ({ pag
   await button.click();
   const sheet = page.locator("#bp-sheet");
   await expect(sheet).toBeVisible();
-  await expect(sheet.getByRole("link")).toHaveText(["Realizacje", "Cennik", "Proces", "Kontakt"]);
+  await expect(sheet.getByRole("link")).toHaveText(["Cennik", "Realizacje", "Proces", "O nas", "Kontakt", "FAQ"]);
   await page.keyboard.press("Escape");
   await expect(sheet).toBeHidden();
   await expect(page.getByRole("button", { name: "Otwórz menu" })).toBeFocused();
