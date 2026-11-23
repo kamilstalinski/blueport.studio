@@ -1,40 +1,32 @@
-import { FEATURES } from "@/constants/pricing";
-import { formatPrice } from "@/lib/formatPrice";
-
 export const FAQ_ITEMS = {
-  price: {
-    q: "Ile kosztuje strona internetowa?",
-    a: "Strona start od 2 500 zł, Strona Pro od 3 900 zł, sklep WooCommerce od 4 900 zł (ceny netto). Widełki dla swojego zakresu sprawdzisz w kalkulatorze w 60 sekund.",
-  },
   time: {
-    q: "Ile trwa realizacja?",
-    a: "Strona start od 7 dni roboczych, Strona Pro od 14, sklep od 21. Od akceptacji projektu graficznego do publikacji mija zwykle 1–2 tygodnie. Dokładną datę wpisujemy do umowy.",
+    q: "Ile trwa stworzenie strony internetowej?",
+    a: "Zwykle 1–2 tygodnie od akceptacji projektu graficznego do publikacji. Prosta strona firmowa powstaje od 7 dni roboczych, rozbudowana od 14, sklep internetowy od 21. Dokładną datę publikacji wpisujemy do umowy.",
   },
   contract: {
     q: "Czy podpisujemy umowę?",
-    a: "Tak. Przed startem prac podpisujemy umowę z zakresem, ceną i datą publikacji.",
+    a: "Tak. Przed startem prac podpisujemy umowę, w której są zakres strony, cena i data publikacji.",
   },
   hosting: {
-    q: "Czy pomagasz z hostingiem?",
-    a: "Tak. Doradzamy hosting, konfigurujemy serwer i podpinamy Twoją domenę. Za hosting i domenę płacisz bezpośrednio dostawcy, bez naszej marży.",
+    q: "Kto płaci za hosting i domenę?",
+    a: "Ty, bezpośrednio u dostawcy, bez naszej marży. My doradzamy hosting, konfigurujemy serwer i podpinamy Twoją domenę.",
   },
   cms: {
-    q: "Czy mogę sam edytować stronę?",
-    a: "Tak. Strony na WordPressie mają panel, w którym zmieniasz teksty, zdjęcia i ceny bez znajomości kodu. Przy publikacji pokazujemy, jak z niego korzystać.",
+    q: "Czy mogę sam edytować stronę na WordPressie?",
+    a: "Tak. W panelu WordPressa zmieniasz teksty, zdjęcia i ceny bez znajomości kodu. Przy publikacji pokazujemy, jak z niego korzystać.",
   },
   revisions: {
-    q: "Ile poprawek jest w cenie?",
-    a: "W cenie są dwie rundy poprawek.",
+    q: "Ile rund poprawek obejmuje projekt?",
+    a: "Projekt obejmuje dwie rundy poprawek.",
   },
   materials: {
     q: "Co muszę przygotować?",
-    a: `Logotyp i zdjęcia, a jeśli masz już gotowy projekt graficzny, także jego. Teksty możemy napisać za Ciebie w dodatku „Profesjonalne teksty” za ${formatPrice(FEATURES.copywriting.price)} zł.`,
+    a: "Logotyp i zdjęcia, a jeśli masz już gotowy projekt graficzny, także jego. Teksty możemy napisać za Ciebie w dodatku „Profesjonalne teksty”.",
   },
   support: {
-    q: "Czy pomagasz po wdrożeniu?",
-    a: "Tak. Szkolenie z obsługi jest w każdym pakiecie, a wsparcie po starcie trwa 14 dni w pakiecie Start i 30 dni w Pro i Sklepie.",
+    q: "Czy pomagasz po publikacji strony?",
+    a: "Tak. Szkolenie z obsługi panelu jest w każdym pakiecie, a wsparcie po starcie trwa 14 dni w pakiecie Start i 30 dni w Pro i Sklepie.",
   },
 } as const;
 
 export type FAQKey = keyof typeof FAQ_ITEMS;
-

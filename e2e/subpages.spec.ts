@@ -166,19 +166,21 @@ test("cennik picker adds up a scope and hands it to the calculator", async ({ pa
 test("faq is a keyboard-friendly accordion with JSON-LD", async ({ page }) => {
   await page.goto("/faq");
 
-  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Najczęściej zadawane pytania");
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Pytania o stronę internetową dla firmy");
   const rows = page.locator("details.faq-row");
-  await expect(rows).toHaveCount(8);
-  await expect(rows.first().locator("summary")).toHaveText("Ile kosztuje strona internetowa?");
+  await expect(rows).toHaveCount(7);
+  await expect(rows.first().locator("summary")).toHaveText("Ile trwa stworzenie strony internetowej?");
+  await expect(page.locator("summary", { hasText: /kosztuje/ })).toHaveCount(0);
   await expect(rows.first()).not.toHaveAttribute("open", "");
 
   await rows.first().locator("summary").focus();
   await page.keyboard.press("Enter");
   await expect(rows.first()).toHaveAttribute("open", "");
-  await expect(rows.first().getByText("Strona start od 2 500 zł", { exact: false })).toBeVisible();
+  await expect(rows.first().getByText("Zwykle 1–2 tygodnie od akceptacji projektu", { exact: false })).toBeVisible();
 
   const jsonLd = await page.locator('script[type="application/ld+json"]').allTextContents();
-  expect(jsonLd.some((text) => text.includes('"FAQPage"'))).toBe(true);
+  const faqLd = jsonLd.map((text) => JSON.parse(text)).find((item) => item["@type"] === "FAQPage");
+  expect(faqLd.mainEntity).toHaveLength(7);
   await expect(page.locator("main section.bp-close")).toHaveCount(1);
 
   await expectNoAxeViolations(page);
@@ -229,11 +231,11 @@ test.describe("kontakt form", () => {
   test("shows the spec layout and direct contact details", async ({ page }) => {
     await page.goto("/kontakt");
 
-    await expect(page.getByRole("heading", { level: 1 })).toHaveText("Napisz, co chcesz zbudować.");
+    await expect(page.getByRole("heading", { level: 1 })).toHaveText("Napisz, jakiej strony internetowej potrzebujesz.");
     await expect(page.getByLabel("Czego potrzebujesz?").locator("option")).toHaveText(["Strona firmowa", "Sklep internetowy", "Projekt dedykowany", "Jeszcze nie wiem"]);
     await expect(page.locator("main").getByRole("link", { name: "kontakt@blueport.studio" })).toHaveAttribute("href", "mailto:kontakt@blueport.studio");
     await expect(page.locator("main").getByRole("link", { name: "+48 534 287 233" })).toHaveAttribute("href", "tel:+48534287233");
-    await expect(page.locator(".contact-aside").getByRole("link", { name: "Sprawdź koszt" })).toHaveAttribute("href", "/kalkulator");
+    await expect(page.locator(".contact-aside").getByRole("link", { name: "Wyceń stronę" })).toHaveAttribute("href", "/kalkulator");
     await expect(page.locator("main section.bp-close")).toHaveCount(0);
 
     await expectNoAxeViolations(page);
