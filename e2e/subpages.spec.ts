@@ -461,3 +461,24 @@ test("every subpage has exactly one h1", async ({ page }) => {
     await expect(page.locator("h1"), route).toHaveCount(1);
   }
 });
+
+test.describe("SEO meta", () => {
+  const ROUTES = ["/", "/o-nas", "/realizacje", "/realizacje/vilmart", "/proces", "/faq", "/kontakt"];
+
+  test("every content page has a short unique title, a 140-160 char description, one h1 and no price wording", async ({ page }) => {
+    const titles: string[] = [];
+    for (const route of ROUTES) {
+      await page.goto(route);
+      const title = await page.title();
+      const description = (await page.locator('meta[name="description"]').getAttribute("content")) ?? "";
+      expect(title.length, `${route} title "${title}"`).toBeLessThanOrEqual(60);
+      expect(title.match(/Blueport Studio/g) ?? [], `${route} brand once in "${title}"`).toHaveLength(1);
+      expect(description.length, `${route} description "${description}"`).toBeGreaterThanOrEqual(140);
+      expect(description.length, `${route} description "${description}"`).toBeLessThanOrEqual(160);
+      expect(`${title} ${description}`, route).not.toMatch(/zł|cennik|koszt/i);
+      await expect(page.locator("h1"), route).toHaveCount(1);
+      titles.push(title);
+    }
+    expect(new Set(titles).size).toBe(titles.length);
+  });
+});
